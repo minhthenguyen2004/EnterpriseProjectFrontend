@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Đảm bảo toàn bộ form inputs, buttons, select, headings đồng bộ chung 1 font Inter chuẩn */
+input, button, select, textarea, optgroup, option {
+  font-family: inherit;
+}
+
+/* Ẩn nút xem mật khẩu mặc định của trình duyệt (Edge/IE) để tránh bị trùng lặp 2 nút con mắt khi gõ mật khẩu */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}

@@ -1,0 +1,123 @@
+# ==========================================
+# 1. Environment Variables & Secrets (Bảo mật / Nhạy cảm)
+# ==========================================
+.env
+.env.*
+*.env
+*.env.*
+!.env.example
+!.env.template
+
+# Certificates, Keys & Credentials
+*.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.jks
+id_rsa*
+id_ed25519*
+credentials.json
+client_secret*.json
+service-account*.json
+secrets.*
+secret.*
+
+# Database dumps & local database files
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+*.sql
+
+# ==========================================
+# 2. Dependencies
+# ==========================================
+node_modules/
+/.pnp
+.pnp.js
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnpm-store/
+
+# ==========================================
+# 3. Production Build & Temporary Files
+# ==========================================
+dist/
+dist-ssr/
+build/
+out/
+.cache/
+.vite/
+.parcel-cache/
+.temp/
+.tmp/
+*.tmp
+*.temp
+*.bak
+
+# ==========================================
+# 4. Logs
+# ==========================================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================================
+# 5. Testing & Coverage
+# ==========================================
+coverage/
+*.lcov
+.nyc_output/
+
+# ==========================================
+# 6. IDEs & Code Editors
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swo
+*.swp
+*.sublime-workspace
+*.sublime-project
+
+# ==========================================
+# 7. Operating System
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# 8. Backend / Java / Spring Boot Artifacts
+# ==========================================
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/wrapper/maven-wrapper.jar
+application-local.properties
+application-local.yml
+application-local.yaml
+application-secret.properties
+application-secret.yml
+application-secret.yaml
