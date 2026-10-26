@@ -4,18 +4,28 @@ import { ThemeContext } from './ThemeContext.js';
 export default function ThemeProvider({ children }) {
   
   const [brand, setBrand] = useState(() => {
-    return localStorage.getItem('app_brand') || 'foxconn';
+    const saved = localStorage.getItem('app_brand') || 'foxconn';
+    if (saved === 'nvidia') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    return saved;
   });
 
-  
   const [language, setLanguage] = useState(() => {
     return localStorage.getItem('app_lang') || 'vi';
   });
 
-  // When changing brand (foxconn / nvidia) -> save to localStorage and attach data-brand to html tag
+  // When changing brand (foxconn / nvidia) -> save to localStorage, attach data-brand and dark class to html tag
   useEffect(() => {
     localStorage.setItem('app_brand', brand);
     document.documentElement.setAttribute('data-brand', brand);
+    if (brand === 'nvidia') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
   }, [brand]);
 
 

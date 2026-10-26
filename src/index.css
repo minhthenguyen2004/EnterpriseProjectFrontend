@@ -25,3 +25,13 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
+/* Hiệu ứng chữ tự động cuộn (Auto-scroll text / Marquee) khi tiêu đề trạm máy dài quá khổ */
+@keyframes marqueeScroll {
+  0%, 25% {
+    transform: translateX(0);
+  }
+  75%, 100% {
+    transform: translateX(var(--marquee-dist, -60px));
+  }
+}

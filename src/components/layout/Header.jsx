@@ -107,7 +107,7 @@ export default function Header({ onToggleSidebar }) {
               isFoxconn ? 'text-white' : 'text-slate-950'
             }`}
           >
-            STATION MANAGEMENT
+            SALAMANDRA MANAGEMENT SYSTEM
           </h1>
         </div>
 
