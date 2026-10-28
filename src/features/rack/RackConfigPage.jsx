@@ -92,8 +92,8 @@ export default function RackConfigPage() {
               placeholder="Tìm kiếm mã Rack..."
               className={`px-3 py-1.5 text-xs rounded-xl border w-full sm:w-64 focus:outline-hidden ${
                 isFoxconn
-                  ? 'bg-slate-50 border-slate-300 focus:border-blue-600'
-                  : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  ? 'bg-slate-50 border-slate-300'
+                  : 'bg-zinc-950 border-zinc-700 text-zinc-100'
               }`}
             />
           </div>

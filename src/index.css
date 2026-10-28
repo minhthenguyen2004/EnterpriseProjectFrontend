@@ -26,12 +26,18 @@ input::-ms-clear {
   display: none;
 }
 
-/* Hiệu ứng chữ tự động cuộn (Auto-scroll text / Marquee) khi tiêu đề trạm máy dài quá khổ */
-@keyframes marqueeScroll {
-  0%, 25% {
+/* Hiệu ứng chữ tự động cuộn 1 chiều từ trái sang phải (Unidirectional continuous marquee) - không cuộn ngược lại */
+@keyframes marqueeOneWay {
+  0%, 18% {
     transform: translateX(0);
   }
-  75%, 100% {
-    transform: translateX(var(--marquee-dist, -60px));
+  100% {
+    transform: translateX(var(--marquee-shift, -100%));
   }
+}
+
+/* Tiện ích bẻ từ / xuống dòng tự động cho tên máy, model, thông số kỹ thuật */
+.wrap-break-word {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }

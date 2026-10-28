@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Navigate } from 'react-router-dom';
-import AutomationLineManagement from '../features/automation_line_management/AutomationLineManagement';
-import MachineStatusManagement from '../features/machine_status_management/MachineStatusManagement';
+import AutomationLineManagement from '../features/management/automation_line_management/AutomationLineManagement';
+import MachineStatusManagement from '../features/management/machine_status_management/MachineStatusManagement';
 
 const Login = lazy(() => import('../features/auth/login/Login'));
 
@@ -9,10 +9,10 @@ const Login = lazy(() => import('../features/auth/login/Login'));
 // CONFIG routes
 const RackConfigPage = lazy(() => import('../features/rack/RackConfigPage'));
 const RackOverviewConfigPage = lazy(() => import('../features/rack/RackOverviewConfigPage'));
-const CarrierConfigPage = lazy(() => import('../features/carrier/CarrierConfigPage'));
-const MachineConfigPage = lazy(() => import('../features/machine/MachineConfigPage'));
-const AutomationLineControlPage = lazy(() => import('../features/automation_line_control/AutomationLineControlPage'));
-const StationLayoutControlPage = lazy(() => import('../features/station-layout/StationLayoutControlPage'));
+const CarrierConfigPage = lazy(() => import('../features/config/carrier/CarrierConfigPage'));
+const MachineConfigPage = lazy(() => import('../features/config/machine/MachineConfigPage'));
+const AutomationLineControlPage = lazy(() => import('../features/config/automation_line_control/AutomationLineControlPage'));
+const StationLayoutControlPage = lazy(() => import('../features/config/station-layout/StationLayoutControlPage'));
 
 /**
  * Danh sách Route công khai

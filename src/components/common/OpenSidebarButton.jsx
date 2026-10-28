@@ -5,8 +5,8 @@ function OpenSidebarButton({ handleToggle, isSidebarOpen, isFoxconn }) {
     <button
       type="button"
       onClick={handleToggle}
-      aria-label={isSidebarOpen}
-      title={isSidebarOpen}
+      aria-label={isSidebarOpen ? 'Đóng thanh bên' : 'Mở thanh bên'}
+      title={isSidebarOpen ? 'Đóng thanh bên' : 'Mở thanh bên'}
       className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center p-1.5 transition-all duration-200 cursor-pointer shadow-sm active:scale-95 bg-white border ${
         isFoxconn
           ? isSidebarOpen

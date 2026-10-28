@@ -37,8 +37,8 @@ graph TD
 
 | STT | Tên hiển thị (Tiếng Việt) | English / Chinese | Route Path | Vị trí Component | Mô tả chức năng |
 | :-- | :--- | :--- | :--- | :--- | :--- |
-| **1.1** | **Chuyền Tự Động** | `AUTOLINE MANAGEMENT`<br>`自动化产线管理` | `/autoline-management` | `src/features/automation_line_management/AutomationLineManagement.jsx` | Quản lý danh sách các dây chuyền tự động hóa, thông số ca sản xuất, chỉ số OEE và vận hành. |
-| **1.2** | **Trạng Thái** | `MACHINE STATUS`<br>`机台状态` | `/machine-status` | `src/features/machine_status_management/MachineStatusManagement.jsx` | Giám sát trạng thái hoạt động trực tiếp của các máy (Online, Offline, Warning, Error), tín hiệu sensor và telemetry. |
+| **1.1** | **Chuyền Tự Động** | `AUTOLINE MANAGEMENT`<br>`自动化产线管理` | `/autoline-management` | `src/features/management/automation_line_management/AutomationLineManagement.jsx` | Quản lý danh sách các dây chuyền tự động hóa, thông số ca sản xuất, chỉ số OEE và vận hành. |
+| **1.2** | **Trạng Thái** | `MACHINE STATUS`<br>`机台状态` | `/machine-status` | `src/features/management/machine_status_management/MachineStatusManagement.jsx` | Giám sát trạng thái hoạt động trực tiếp của các máy (Online, Offline, Warning, Error), tín hiệu sensor và telemetry. |
 
 ---
 
@@ -49,10 +49,10 @@ graph TD
 | **2.1** | **RACK** | *Accordion Parent* | `/config/rack/*` | *(Sub-menu)* | Quản lý hệ thống tủ Rack |
 | 2.1.1 | └─ **RACK CONFIG** | Child | `/config/rack` | `src/features/rack/RackConfigPage.jsx` | Cấu hình chi tiết tủ rack vật lý, kích thước slot, vị trí tầng. |
 | 2.1.2 | └─ **RACK OVERVIEW CONFIG** | Child | `/config/rack-overview` | `src/features/rack/RackOverviewConfigPage.jsx` | Sơ đồ mặt phẳng 2D/3D bố trí rack, heatmap nhiệt độ và dung lượng. |
-| **2.2** | **CARRIER CONFIG** | Single Item | `/config/carrier` | `src/features/carrier/CarrierConfigPage.jsx` | Cấu hình khay chứa, pallet, khay trung chuyển AGV và mã RFID. |
-| **2.3** | **MACHINE CONFIG** | Single Item | `/config/machine` | `src/features/machine/MachineConfigPage.jsx` | Thiết lập tham số máy, địa chỉ IP kết nối (SECS/GEM, OPC-UA, MQTT). |
-| **2.4** | **AUTOMATION LINE CONTROL** | Single Item | `/config/automation-line` | `src/features/automation_line_control/AutomationLineControlPage.jsx` | Bảng điều khiển dây chuyền tự động: RUN, PAUSE, E-STOP, nhịp Takt Time. |
-| **2.5** | **STATION LAYOUT CONTROL** | Single Item | `/config/station-layout` | `src/features/station-layout/StationLayoutControlPage.jsx` | Bố cục sơ đồ trạm thao tác (Station Blueprint Editor). |
+| **2.2** | **CARRIER CONFIG** | Single Item | `/config/carrier` | `src/features/config/carrier/CarrierConfigPage.jsx` | Cấu hình khay chứa, pallet, khay trung chuyển AGV và mã RFID. |
+| **2.3** | **MACHINE CONFIG** | Single Item | `/config/machine` | `src/features/config/machine/MachineConfigPage.jsx` | Thiết lập tham số máy, địa chỉ IP kết nối (SECS/GEM, OPC-UA, MQTT). |
+| **2.4** | **AUTOMATION LINE CONTROL** | Single Item | `/config/automation-line` | `src/features/config/automation_line_control/AutomationLineControlPage.jsx` | Bảng điều khiển dây chuyền tự động: RUN, PAUSE, E-STOP, nhịp Takt Time. |
+| **2.5** | **STATION LAYOUT CONTROL** | Single Item | `/config/station-layout` | `src/features/config/station-layout/StationLayoutControlPage.jsx` | Bố cục sơ đồ trạm thao tác (Station Blueprint Editor). |
 
 ---
 
@@ -62,21 +62,23 @@ Hệ thống được tổ chức chuẩn module hóa trực quan theo từng t�
 ```text
 src/features/
 ├── auth/                               # Đăng nhập & Xác thực
-├── automation_line_management/          # [MỚI] Quản lý Chuyền Tự Động
-│   └── AutomationLineManagement.jsx
-├── machine_status_management/           # [MỚI] Giám sát Trạng Thái Máy
-│   └── MachineStatusManagement.jsx
+├── management/                         # Nhóm Quản lý Tự động hóa
+│   ├── automation_line_management/     # Quản lý Chuyền Tự Động
+│   │   └── AutomationLineManagement.jsx
+│   └── machine_status_management/      # Giám sát Trạng Thái Máy
+│       └── MachineStatusManagement.jsx
+├── config/                             # Nhóm Cấu hình Hệ thống
+│   ├── carrier/                        # Cấu hình Carrier
+│   │   └── CarrierConfigPage.jsx
+│   ├── machine/                        # Cấu hình Máy
+│   │   └── MachineConfigPage.jsx
+│   ├── automation_line_control/        # Điều khiển Line Tự Động
+│   │   └── AutomationLineControlPage.jsx
+│   └── station-layout/                 # Thiết kế bố cục Trạm
+│       └── StationLayoutControlPage.jsx
 ├── rack/                               # Quản lý Cấu hình Rack
 │   ├── RackConfigPage.jsx
 │   └── RackOverviewConfigPage.jsx
-├── carrier/                            # Cấu hình Carrier
-│   └── CarrierConfigPage.jsx
-├── machine/                            # Cấu hình Máy
-│   └── MachineConfigPage.jsx
-├── automation_line_control/             # Điều khiển Line Tự Động
-│   └── AutomationLineControlPage.jsx
-├── station-layout/                     # Thiết kế bố cục Trạm
-│   └── StationLayoutControlPage.jsx
 └── misc/                               # Trang 404, Loading phụ trợ
 ```
 
