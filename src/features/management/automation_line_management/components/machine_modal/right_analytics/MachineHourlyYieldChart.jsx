@@ -16,10 +16,10 @@ export default function MachineHourlyYieldChart({ data = [] }) {
               : 'bg-zinc-950/95 border-zinc-700 text-white'
           }`}
         >
-          <div className="font-bold text-xs pb-1 mb-1.5 border-b border-slate-200 dark:border-zinc-800 text-slate-500 dark:text-zinc-400">
-            Khung giờ: <span className={isFoxconn ? 'text-slate-900 font-black' : 'text-white font-black'}>{d.hour}</span>
+          <div className={`font-bold text-xs pb-1 mb-1.5 border-b border-slate-200 dark:border-zinc-800 ${isFoxconn ? 'text-slate-800' : 'text-zinc-400'}`}>
+            Khung giờ: <span className="text-white font-black">{d.hour}</span>
           </div>
-          <div className="space-y-1 font-mono">
+          <div className="space-y-1 font-bold">
             <div className="flex justify-between gap-4">
               <span className="text-emerald-500 font-semibold">Pass Qty:</span>
               <span className="font-black text-emerald-500">{d.passQty} pcs</span>

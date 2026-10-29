@@ -1,52 +1,54 @@
 import useTheme from '../../../hooks/useTheme';
+import PageHeaderBar from '../../../components/common/PageHeaderBar';
 
 export default function AutomationLineControlPage() {
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
+  const controlActions = (
+    <div className="flex items-center gap-2.5">
+      <button
+        type="button"
+        className="px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md bg-rose-600 hover:bg-rose-700 text-white flex items-center gap-1.5 cursor-pointer shadow-rose-900/20 active:scale-95"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+        </svg>
+        <span>Dừng Khẩn Cấp (E-STOP)</span>
+      </button>
+
+      <button
+        type="button"
+        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer active:scale-95 ${
+          isFoxconn
+            ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20'
+            : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
+        }`}
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>Khởi Động Dây Chuyền</span>
+      </button>
+    </div>
+  );
+
   return (
     <div className={`p-6 lg:p-8 space-y-6 min-h-full ${isFoxconn ? 'bg-slate-50 text-slate-800' : 'bg-zinc-950 text-zinc-100'}`}>
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b pb-5 border-slate-200 dark:border-zinc-800">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-400 dark:text-zinc-500 mb-1">
-            <span>CONFIG</span>
-            <span>/</span>
-            <span className={isFoxconn ? 'text-blue-700 font-semibold' : 'text-[#76B900] font-semibold'}>AUTOMATION LINE CONTROL</span>
-          </div>
-          <h1 className="text-2xl font-black tracking-tight">AUTOMATION LINE CONTROL</h1>
-          <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
-            Bảng điều khiển tập trung cho dây chuyền tự động hóa: Khởi động (Start), Dừng (Stop), Pause, điều tiết tốc độ nhịp chuyền (Takt Time).
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          <button
-            type="button"
-            className="px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md bg-rose-600 hover:bg-rose-700 text-white flex items-center gap-1.5 cursor-pointer shadow-rose-900/20"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-            </svg>
-            <span>Dừng Khẩn Cấp (E-STOP)</span>
-          </button>
-
-          <button
-            type="button"
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer ${
-              isFoxconn
-                ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20'
-                : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
-            }`}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>Bắt Đầu Line (RUN)</span>
-          </button>
-        </div>
-      </div>
+      {/* Unified Page Header Bar */}
+      <PageHeaderBar
+        breadcrumbs={[
+          { label: 'CONFIG', isCurrent: false },
+          { label: 'AUTOMATION LINE CONTROL', isCurrent: true }
+        ]}
+        title="AUTOMATION LINE CONTROL"
+        badge="LINE CONTROL"
+        badgeType="brand"
+        description="Bảng điều khiển tập trung cho dây chuyền tự động hóa: Khởi động (Start), Dừng (Stop), Pause, điều tiết tốc độ nhịp chuyền (Takt Time)."
+        actions={controlActions}
+        showFullscreen={true}
+      />
 
       {/* Control Panels */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

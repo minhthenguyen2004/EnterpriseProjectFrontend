@@ -298,6 +298,12 @@ graph TD
   - Nhiệt độ buồng máy, áp suất khí nén (bar), điện áp nguồn (V).
   - Tên kỹ sư vận hành máy trong ca (Operator).
   - Nút thao tác điều khiển: `Ping Máy`, `Xem Nhật Ký Lỗi`, `Mở Giao Diện Autoline`.
+- **Đặc tả mục AOI Data (Kiểm tra quang học tự động - Optical Inspection):**
+  - **Bố cục chia làm 2 phần trực quan (Split Layout - Không dùng cửa sổ nổi):**
+    - **Phần bên trái (~60% chiều ngang):** Bảng danh sách chi tiết các điểm quang học tự động kiểm tra gồm 6 trường (#, Type, Step, Camera, POV, Result), tích hợp bộ lọc theo Step & Sequence và Xem tất cả. Dòng đang chọn được viền phát quang nổi bật.
+    - **Phần bên phải (~40% chiều ngang):** Khung hiển thị trực tiếp ảnh chụp quang học độ nét cao (Embedded Optical Inspection Viewer).
+  - **Cơ chế tương tác:** Khi ấn vào 1 dòng bất kỳ, hình ảnh quang học và thông số chẩn đoán lỗi tương ứng xuất hiện ngay lập tức ở khung bên phải, **không cần phải tạo cửa sổ nổi (popup modal) nữa**, giúp thao tác liền mạch và không bị che khuất giao diện.
+  - **Hành động:** Nút "Tải ảnh này" và "Tải tất cả ảnh" tích hợp trực tiếp.
 
 ---
 
@@ -390,7 +396,7 @@ src/features/machine_status_management/
 ├── MachineStatusManagement.jsx           # [Container Chính] Tích hợp layout tổng thể
 ├── components/
 │   ├── header/
-│   │   └── MachineStatusHeaderBar.jsx   # Header bar: Tiêu đề, Breadcrumb, Live Refresh toggle, Nút mở bộ lọc
+│   │   └── MachineStatusHeaderBar.jsx   # Header bar tích hợp PageHeaderBar chung: Tiêu đề, Breadcrumb, Live Refresh toggle, Nút mở bộ lọc
 │   ├── top_kpi/
 │   │   ├── MachineStatusTopKpiRow.jsx   # Hàng ngang 3 ô KPI (Tổng máy, Đang chạy, Dừng máy)
 │   │   └── MachineStatusKpiCard.jsx     # Component thẻ KPI tái sử dụng

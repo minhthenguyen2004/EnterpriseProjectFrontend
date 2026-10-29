@@ -414,9 +414,9 @@ Khu vực chuyển đổi linh hoạt qua 3 Tab chuyên sâu cho sản phẩm/tr
 
 ###### 2. Tab `AOI Data` (`AoiDataTab.jsx`):
 - **Ý nghĩa:** Dữ liệu kiểm tra quang học tự động từ hệ thống Camera AI Vision của trạm máy.
-- **Thanh công cụ điều khiển trên đầu bảng:**
-  - Nút 1: **"Lọc theo Step & Sequence"** — Bật menu lọc nhóm nhanh theo bước kiểm tra hoặc sequence.
-  - Nút 2: **"Xem tất cả"** — Đưa bảng về trạng thái hiển thị toàn bộ điểm chụp quang học.
+- **Bố cục 2 phần Trái - Phải trực quan (Split Layout - Không dùng cửa sổ nổi):**
+  - **Phần bên trái (~60% chiều ngang):** Bảng danh sách chi tiết các điểm quang học tự động kiểm tra gồm 6 trường chuẩn (#, Type, Step, Camera, POV, Result), tích hợp bộ lọc theo Step & Sequence và nút Xem tất cả. Dòng đang chọn được highlight viền phát quang nổi bật (`border-l-4`).
+  - **Phần bên phải (~40% chiều ngang):** Khung hiển thị trực tiếp ảnh chụp quang học độ nét cao (Embedded AI Vision Inspection Canvas). Khi người dùng nhấp vào bất kỳ dòng nào bên trái, hình ảnh mạch PCB vi tính, vùng quét Bounding Box (xanh lá PASS / đỏ tươi FAIL), thông số zoom và chẩn đoán lỗi AI sẽ xuất hiện ngay lập tức ở khung bên phải mà không cần phải mở cửa sổ nổi (popup modal).
 - **Bảng dữ liệu gồm đúng 6 trường thông tin:**
   1. `#`: Số thứ tự (`1, 2, 3...`).
   2. `Type`: Loại kiểm tra quang học (ví dụ: `Solder Joint`, `Component Presence`, `Polarity Check`, `Offset/Coplanarity`, `Foreign Object`).
@@ -424,10 +424,11 @@ Khu vực chuyển đổi linh hoạt qua 3 Tab chuyên sâu cho sản phẩm/tr
   4. `Camera`: ID camera chụp (ví dụ: `CAM-01 (Top-Down)`, `CAM-02 (45° Oblique)`, `CAM-03 (Side-Profile)`).
   5. `POV`: Point of View / Góc nhìn kiểm tra (ví dụ: `Top View 0°`, `Side View 45° NW`, `Macro Pin Grid 10x`).
   6. `Result`: Kết quả kiểm định (`PASS` huy hiệu xanh lá, `NG` huy hiệu đỏ tươi).
-- **Tương tác khi ấn vào 1 dòng (Image Inspection Viewer):**
-  - **Khi nhấp vào bất kỳ dòng nào trên bảng**, hệ thống sẽ mở hộp thoại xem ảnh chụp tương ứng (`AoiImagePreviewModal.jsx`) phóng to chất lượng cao, có khung viền Bounding Box màu xanh/đỏ khoanh vùng chính xác mối hàn hoặc linh kiện được kiểm tra kèm thông số lỗi thực tế.
-- **Nút hành động ở góc dưới:**
-  - Nút **"Download all images"** đặt ở góc dưới cùng, hỗ trợ kỹ sư tải về toàn bộ bộ ảnh chụp quang học của bo mạch để lưu trữ báo cáo hoặc phân tích ngoại tuyến.
+- **Hệ thống điều khiển & tương tác tức thời (Instant Visual Inspection):**
+  - Nút **"Lọc theo Step & Sequence"**: Cho phép chọn bước kiểm tra cụ thể để thu hẹp dữ liệu.
+  - Nút **"Xem tất cả"**: Hiển thị toàn bộ các điểm chụp trong chu trình chế tạo.
+  - **Click chọn dòng:** Ngay lập tức đổi ảnh và chi tiết kiểm định ở panel bên phải theo thời gian thực (real-time instant preview), dòng được chọn tự động gắn nhãn icon camera `📷`.
+  - **Nút "Tải ảnh này" & "Tải tất cả ({count} ảnh)":** Tải xuống ảnh đang xem hoặc trọn gói toàn bộ ảnh quang học. Loại bỏ hoàn toàn cửa sổ nổi (`AoiImagePreviewModal.jsx`), tối ưu hóa thao tác tra cứu nhanh của kỹ sư.
 
 ###### 3. Tab `Screw Data` (`ScrewDataTab.jsx`):
 - **Ý nghĩa:** Dữ liệu siết ốc tự động (Torque & Angle Telemetry) từ các tuốc-nơ-vít điện tử servo trên máy.
@@ -475,6 +476,8 @@ Màn hình được thiết kế chuẩn Enterprise, tự động thích ứng v
 ---
 
 ## 4.1. QUY CHUẨN ĐỒNG BỘ PHÔNG CHỮ & TYPOGRAPHY HỆ THỐNG (UNIFIED TYPOGRAPHY SPECIFICATION)
+
+> **Lưu ý kiến trúc chung (Common Component):** Toàn bộ cấu trúc phần Header (Breadcrumb, H1 Title, Live Badge, Subtext, Nhóm điều khiển thời gian thực và Nút Toàn màn hình) đã được trích xuất thành component dùng chung **`src/components/common/PageHeaderBar.jsx`**, được áp dụng đồng bộ trên tất cả các trang quản lý và cấu hình của hệ thống (`/autoline-management`, `/machine-status`, `/config/machine`, `/config/carrier`, `/config/rack`,...).
 
 Để đảm bảo tính nhất quán tuyệt đối giữa 2 tính năng **Quản Lý Chuyền Tự Động (`/autoline-management`)** và **Giám Sát Trạng Thái Máy (`/machine-status-management`)**, hệ thống thiết lập bảng quy chuẩn Typography chuẩn mực công nghiệp cho từng chi tiết giao diện:
 

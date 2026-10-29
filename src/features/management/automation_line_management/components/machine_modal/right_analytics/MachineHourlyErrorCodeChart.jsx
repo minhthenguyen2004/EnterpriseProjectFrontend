@@ -22,11 +22,11 @@ export default function MachineHourlyErrorCodeChart({ data = [] }) {
 
           <div className="flex justify-between items-center mb-1.5 font-bold">
             <span className="text-rose-500">Tổng số lỗi:</span>
-            <span className="text-rose-500 font-mono font-black text-sm">{d.totalErrors} lỗi</span>
+            <span className="text-rose-500 font-bold text-sm">{d.totalErrors} lỗi</span>
           </div>
 
           {d.errors && d.errors.length > 0 ? (
-            <div className="space-y-1 pt-1.5 border-t border-slate-100 dark:border-zinc-800 font-mono text-[11px]">
+            <div className="space-y-1 pt-1.5 border-t border-slate-100 dark:border-zinc-800 font-bold text-[11px]">
               {d.errors.map((err, i) => (
                 <div key={i} className="flex justify-between items-center gap-2">
                   <span className="text-slate-500 dark:text-zinc-400 truncate">

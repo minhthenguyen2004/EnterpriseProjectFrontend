@@ -1,55 +1,57 @@
 import useTheme from '../../../hooks/useTheme';
+import PageHeaderBar from '../../../components/common/PageHeaderBar';
 
 export default function StationLayoutControlPage() {
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
+  const layoutActions = (
+    <div className="flex items-center gap-2.5">
+      <button
+        type="button"
+        className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer ${
+          isFoxconn
+            ? 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
+            : 'bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700'
+        }`}
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+        <span>Nhập File CAD / JSON</span>
+      </button>
+
+      <button
+        type="button"
+        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer ${
+          isFoxconn
+            ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20'
+            : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
+        }`}
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+        </svg>
+        <span>Lưu Cấu Trúc Trạm</span>
+      </button>
+    </div>
+  );
+
   return (
     <div className={`p-6 lg:p-8 space-y-6 min-h-full ${isFoxconn ? 'bg-slate-50 text-slate-800' : 'bg-zinc-950 text-zinc-100'}`}>
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b pb-5 border-slate-200 dark:border-zinc-800">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-medium text-slate-400 dark:text-zinc-500 mb-1">
-            <span>CONFIG</span>
-            <span>/</span>
-            <span className={isFoxconn ? 'text-blue-700 font-semibold' : 'text-[#76B900] font-semibold'}>STATION LAYOUT CONTROL</span>
-          </div>
-          <h1 className="text-2xl font-black tracking-tight">STATION LAYOUT CONTROL</h1>
-          <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
-            Bộ công cụ trực quan thiết lập bố cục layout trạm thao tác (Station Blueprint), gán nhân sự/robot và luồng di chuyển linh kiện.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          <button
-            type="button"
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center gap-2 cursor-pointer ${
-              isFoxconn
-                ? 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
-                : 'bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700'
-            }`}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-            </svg>
-            <span>Nhập File CAD / JSON</span>
-          </button>
-
-          <button
-            type="button"
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer ${
-              isFoxconn
-                ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20'
-                : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
-            }`}
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-            </svg>
-            <span>Lưu Cấu Trúc Trạm</span>
-          </button>
-        </div>
-      </div>
+      {/* Unified Page Header Bar */}
+      <PageHeaderBar
+        breadcrumbs={[
+          { label: 'CONFIG', isCurrent: false },
+          { label: 'STATION LAYOUT CONTROL', isCurrent: true }
+        ]}
+        title="STATION LAYOUT CONTROL"
+        badge="LAYOUT BLUEPRINT"
+        badgeType="brand"
+        description="Bộ công cụ trực quan thiết lập bố cục layout trạm thao tác (Station Blueprint), gán nhân sự/robot và luồng di chuyển linh kiện."
+        actions={layoutActions}
+        showFullscreen={true}
+      />
 
       {/* Blueprint Visual Workspace */}
       <div

@@ -7,7 +7,6 @@ import SerialNumberTable from './left_column/SerialNumberTable';
 import MachineHourlyYieldChart from './right_analytics/MachineHourlyYieldChart';
 import MachineHourlyErrorCodeChart from './right_analytics/MachineHourlyErrorCodeChart';
 import MachineDetailTabsContainer from './right_tabs/MachineDetailTabsContainer';
-import AoiImagePreviewModal from './right_tabs/AoiImagePreviewModal';
 import MachineStatusBadge from '../machine_flow/MachineStatusBadge';
 
 export default function MachineDetailModal({ machine, onClose }) {
@@ -16,7 +15,6 @@ export default function MachineDetailModal({ machine, onClose }) {
 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [selectedSerial, setSelectedSerial] = useState(null);
-  const [selectedAoiItem, setSelectedAoiItem] = useState(null);
 
   // Lấy dữ liệu chi tiết cho máy
   const modalData = useMemo(() => {
@@ -35,16 +33,12 @@ export default function MachineDetailModal({ machine, onClose }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        if (selectedAoiItem) {
-          setSelectedAoiItem(null);
-        } else {
-          onClose();
-        }
+        onClose();
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose, selectedAoiItem]);
+  }, [onClose]);
 
   // Ngăn chặn cuộn trang body khi modal đang mở
   useEffect(() => {
@@ -177,20 +171,11 @@ export default function MachineDetailModal({ machine, onClose }) {
                 keyParts={modalData.keyParts}
                 aoiData={modalData.aoiData}
                 screwData={modalData.screwData}
-                onSelectAoiItem={(item) => setSelectedAoiItem(item)}
               />
             </div>
           </div>
         </div>
       </div>
-
-      {/* 3. MODAL XEM ẢNH QUANG HỌC KHI CLICK DÒNG TRONG TAB AOI */}
-      {selectedAoiItem && (
-        <AoiImagePreviewModal
-          item={selectedAoiItem}
-          onClose={() => setSelectedAoiItem(null)}
-        />
-      )}
     </div>
   );
 }
