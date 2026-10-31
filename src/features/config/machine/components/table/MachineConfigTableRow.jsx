@@ -76,7 +76,7 @@ export default function MachineConfigTableRow({
       </td>
 
       {/* 5. Product Type */}
-      <td className={`px-3.5 py-3 whitespace-nowrap text-xs ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
+      <td className={`px-3.5 py-3 whitespace-nowrap text-xs ${isFoxconn ? 'text-slate-600' : 'text-zinc-300'}`}>
         <span className="truncate max-w-40 inline-block" title={machine.productType}>
           {machine.productType}
         </span>
@@ -94,7 +94,7 @@ export default function MachineConfigTableRow({
 
       {/* 7. Step */}
       <td className="px-3.5 py-3 whitespace-nowrap text-xs">
-        <span className={`truncate max-w-42.5 inline-block ${isFoxconn ? 'text-slate-600' : 'text-white'} font-medium`} title={machine.step}>
+        <span className={`truncate max-w-42.5 inline-block ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'} font-medium`} title={machine.step}>
           {machine.step}
         </span>
       </td>
@@ -111,7 +111,7 @@ export default function MachineConfigTableRow({
       </td>
 
       {/* 9. Group Name */}
-      <td className={`px-3.5 py-3 whitespace-nowrap text-xs ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
+      <td className={`px-3.5 py-3 whitespace-nowrap text-xs ${isFoxconn ? 'text-slate-600' : 'text-zinc-300'}`}>
         <span className="truncate max-w-42.5 inline-block" title={machine.groupName}>
           {machine.groupName}
         </span>
@@ -143,7 +143,7 @@ export default function MachineConfigTableRow({
       </td>
 
       {/* 12. Host Name */}
-      <td className={`px-3.5 py-3 whitespace-nowrap font-bold text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
+      <td className={`px-3.5 py-3 whitespace-nowrap font-bold text-[11px] ${isFoxconn ? 'text-slate-600' : 'text-zinc-300'}`}>
         <span className="truncate max-w-42.5 inline-block" title={machine.hostName}>
           {machine.hostName}
         </span>

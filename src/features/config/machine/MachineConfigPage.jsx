@@ -135,6 +135,12 @@ export default function MachineConfigPage() {
       <MachineConfigFormModal
         isOpen={isFormModalOpen}
         mode={formModalMode}
+        title={
+          formModalMode === 'create'
+            ? 'TẠO MỚI CẤU HÌNH TRẠM MÁY (CREATE MACHINE CONFIGURATION)'
+            : `CHỈNH SỬA CẤU HÌNH MÁY: ${formInitialData?.machineName || ''}`
+        }
+        submitButtonText={formModalMode === 'create' ? 'Create Machine' : 'Update Machine'}
         initialData={formInitialData}
         onClose={() => setIsFormModalOpen(false)}
         onSubmit={formModalMode === 'create' ? handleCreateMachine : handleUpdateMachine}

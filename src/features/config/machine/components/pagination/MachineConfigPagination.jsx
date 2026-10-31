@@ -64,19 +64,19 @@ export default function MachineConfigPagination({
     }`}>
       {/* Left: Records summary & Page size selector */}
       <div className="flex items-center gap-4 flex-wrap">
-        <div className={`text-xs font-semibold ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
+        <div className={`text-xs font-semibold ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
           {totalItems === 0 ? (
             <span>Không có bản ghi nào</span>
           ) : (
-            <span className={`${isFoxconn ? 'text-slate-800' : 'text-zinc-400'}`}>
-              Hiển thị <strong className={`text-slate-800 dark:text-zinc-100 font-bold ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>{startIndex}</strong> - <strong className={`text-slate-800 dark:text-zinc-100 font-bold ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>{endIndex}</strong> trong tổng số <strong className={`text-slate-800 dark:text-zinc-100 font-bold ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>{totalItems}</strong> bản ghi
+            <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-400'}>
+              Hiển thị <strong className={`font-bold ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>{startIndex}</strong> - <strong className={`font-bold ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>{endIndex}</strong> trong tổng số <strong className={`font-bold ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>{totalItems}</strong> bản ghi
             </span>
           )}
         </div>
 
         {/* Page size dropdown */}
         <div className="flex items-center gap-2">
-          <label className="text-xs text-slate-400 dark:text-zinc-500 font-medium">
+          <label className={`text-xs font-medium ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
             Số dòng/trang:
           </label>
           <select
@@ -84,8 +84,8 @@ export default function MachineConfigPagination({
             onChange={(e) => onPageSizeChange(e.target.value)}
             className={`px-2.5 py-1.5 rounded-xl text-xs font-bold outline-none border transition-all cursor-pointer ${
               isFoxconn
-                ? 'bg-slate-50 text-slate-800 focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-800 text-zinc-200'
+                ? 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
+                : 'bg-zinc-950 border-zinc-800 text-zinc-200 hover:bg-zinc-900'
             }`}
           >
             {PAGE_SIZE_OPTIONS.map(size => (
