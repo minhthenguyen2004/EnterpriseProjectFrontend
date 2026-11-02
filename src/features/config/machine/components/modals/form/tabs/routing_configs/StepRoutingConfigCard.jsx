@@ -17,13 +17,13 @@ export default function StepRoutingConfigCard({
 
   return (
     <div
-      className={`p-4 rounded-2xl border transition-all ${
+      className={`p-3.5 rounded-2xl border transition-all ${
         isFoxconn
           ? 'bg-white border-slate-200 shadow-xs'
           : 'bg-zinc-950/80 border-zinc-800 shadow-inner'
       }`}
     >
-      <div className="flex items-center justify-between mb-3.5">
+      <div className="flex items-center justify-between mb-2.5">
         <div className="flex items-center gap-2">
           <span className="text-base">⚙️</span>
           <span
@@ -65,7 +65,7 @@ export default function StepRoutingConfigCard({
               value={stepRoutingState.mainKey}
               onChange={(e) => onFieldChange('mainKey', e.target.value.toUpperCase())}
               placeholder="VD: BARCODE_MAIN"
-              className={`w-full px-3 py-2 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
+              className={`w-full px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
                 errors.mainKey
                   ? 'border-rose-400 bg-rose-50 text-rose-800'
                   : isFoxconn
@@ -100,7 +100,7 @@ export default function StepRoutingConfigCard({
             id={`${formUid}-mode`}
             value={stepRoutingState.mode}
             onChange={(e) => onFieldChange('mode', Number(e.target.value))}
-            className={`w-full px-3 py-2 rounded-xl text-xs font-bold border outline-none transition-all cursor-pointer ${
+            className={`w-full px-3 py-1.5 rounded-xl text-xs font-bold border outline-none transition-all cursor-pointer ${
               isFoxconn
                 ? 'border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100/80'
                 : 'border-zinc-800 bg-zinc-900/90 text-zinc-100 hover:bg-zinc-900'
@@ -119,15 +119,15 @@ export default function StepRoutingConfigCard({
           <button
             type="button"
             onClick={onSave}
-            className={`w-full md:w-auto px-4 py-2 rounded-xl text-xs font-black shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-1.5 whitespace-nowrap ${
+            className={`w-full md:w-auto px-3.5 py-1.5 rounded-xl text-xs font-black shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-1.5 whitespace-nowrap ${
               isFoxconn
                 ? 'bg-[#002766] hover:bg-blue-900 text-white'
-                : 'bg-[#76B900] hover:bg-[#86D400] text-black shadow-[0_0_15px_rgba(118,185,0,0.3)]'
+                : 'bg-[#76B900] hover:bg-[#86D400] text-black shadow-[0_0_12px_rgba(118,185,0,0.3)]'
             }`}
             title="Lưu cấu hình Main Key và Mode cho công đoạn này"
           >
             <span>💾</span>
-            <span>Save Step Config</span>
+            <span>Lưu Step Config</span>
           </button>
         </div>
       </div>

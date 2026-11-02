@@ -31,6 +31,7 @@ export default function MachineStatusManagement() {
     kpiMetrics,
   } = useMachineStatusData();
 
+
   return (
     <div
       className={`min-h-[calc(100vh-4rem)] p-5 lg:p-7 space-y-6 transition-colors duration-300 relative ${

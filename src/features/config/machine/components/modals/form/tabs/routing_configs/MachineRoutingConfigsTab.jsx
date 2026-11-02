@@ -187,7 +187,7 @@ export default function MachineRoutingConfigsTab({
   };
 
   return (
-    <div className="flex-1 flex flex-col overflow-y-auto custom-scrollbar my-3 space-y-4 pr-1 max-h-[calc(92vh-230px)]">
+    <div className="flex-1 min-h-0 flex flex-col overflow-y-auto custom-scrollbar my-2 space-y-3 pr-1 pb-10">
       {/* Toast thông báo phản hồi nhanh */}
       {feedbackToast && (
         <div

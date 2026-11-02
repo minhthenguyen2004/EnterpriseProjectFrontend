@@ -36,7 +36,7 @@ export default function AutomationLineManagement() {
 
   return (
     <div
-      className={`relative min-h-screen p-5 lg:p-7 space-y-6 transition-colors duration-300 ${
+      className={`relative min-h-[calc(100vh-4rem)] p-5 lg:p-7 space-y-6 transition-colors duration-300 ${
         isFoxconn ? 'bg-slate-50 text-slate-800' : 'bg-zinc-950 text-white'
       }`}
     >
@@ -56,14 +56,10 @@ export default function AutomationLineManagement() {
         onResetFilter={resetFilter}
       />
 
-      {/* 3. MODAL CHI TIẾT CẢM BIẾN TRẠM MÁY (KHI CLICK VÀO MÁY) */}
-      <MachineDetailModal
-        machine={selectedMachine}
-        onClose={() => setSelectedMachine(null)}
-      />
-
-      {/* 4. HEADER BAR: TIÊU ĐỀ & ĐIỀU KHIỂN VẬN HÀNH */}
+      {/* 3. HEADER BAR: TIÊU ĐỀ & ĐIỀU KHIỂN VẬN HÀNH */}
       <AutolineHeaderBar
+        onOpenDrawer={() => setIsFilterDrawerOpen(true)}
+        activeCount={activeFilterCount}
         lastUpdated={lastUpdated}
         isRefreshing={isRefreshing}
         onRefresh={refreshData}

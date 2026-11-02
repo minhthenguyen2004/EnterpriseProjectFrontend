@@ -4,7 +4,7 @@
 > **Áp dụng cho route:** `/machine-status` (thuộc nhóm menu **QUẢN LÝ TỰ ĐỘNG HÓA / AUTOMATION MANAGEMENT**).  
 > **Component đích:** `src/features/machine_status_management/MachineStatusManagement.jsx`.  
 > **Đặc tả kiến trúc:** Thiết kế theo mô hình **Module Hóa Tối Đa (Component-Driven Architecture)** — Tách từng thẻ máy thành file JSX độc lập (`MachineStatusRectCard.jsx`), module hóa khối Top KPI (`MachineStatusTopKpiRow.jsx`), Drawer bộ lọc mép trái (`MachineStatusFilterDrawer.jsx`), LED trạng thái (`MachineStatusLedBadge.jsx`), custom hook quản lý dữ liệu (`useMachineStatusData.js`).  
-> **Ngày khởi tạo:** 26/10/2026.  
+> **Ngày khởi tạo:** 26/10/2026. **Ngày cập nhật gần nhất:** 02/11/2026.  
 > **Vị trí tài liệu:** `md/MACHINE_STATUS_PLAN.md` (đồng bộ tại `src/md/MACHINE_STATUS_PLAN.md`).
 
 ---
@@ -586,5 +586,59 @@ Khi người dùng thao tác phóng to (Zoom In: 110%, 125%, 150%, 175%, 200%) h
    - **Giao diện NVIDIA:** Toàn bộ tên máy, địa chỉ IP, tên chương trình, khu vực và vị trí được chuyển sang **chữ màu trắng tinh (`text-white`)**, tuyệt đối không bị chìm trên nền tối, chữ sắc nét từ mọi góc nhìn.
    - **Giao diện Foxconn:** Chữ màu xanh đen đậm (`text-slate-900` / `text-slate-800`) trên nền sáng, mang phong cách doanh nghiệp nhã nhặn, độ tương phản cao đạt chuẩn WCAG.
 
+---
 
+## 9. BUGFIX & CẢI TIẾN UX (02/11/2026)
 
+### 9.1. [BUG] Nút Đóng Drawer Bộ Lọc Bị Chìm / Không Ấn Được
+
+**Nguyên nhân:**
+- Wrapper ngoài cùng của `MachineStatusFilterDrawer.jsx` (`fixed inset-0 z-50`) và panel Drawer bên trong cũng cùng `z-50` tạo ra conflict stacking context.
+- Nút tab mép trái `LeftMachineFilterTabHandle.jsx` khi mở được đặt `z-50` nhưng bị Drawer đè lên do được render trước Drawer trong DOM.
+- Nút `✕` đóng trong header Drawer có style mờ nhạt (`p-1.5 text-slate-400`), không có nền/viền rõ ràng, quá nhỏ và khó click chính xác.
+
+**Các thay đổi đã áp dụng:**
+
+- **[`MachineStatusFilterDrawer.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/components/filter/MachineStatusFilterDrawer.jsx):**
+  - Hạ z-index wrapper ngoài cùng: `z-50` → `z-40`.
+  - Redesign nút đóng `✕` header Drawer:
+    - Kích thước tăng: `p-1.5` → `p-2`.
+    - Thêm nền có border rõ ràng: `bg-zinc-800/90 border-zinc-700`.
+    - Hover hiệu ứng màu rose cảnh báo: `hover:bg-rose-950/60 hover:text-rose-400 hover:border-rose-500/50`.
+    - Foxconn: `bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200`.
+
+- **[`LeftMachineFilterTabHandle.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/components/filter/LeftMachineFilterTabHandle.jsx):**
+  - Tích hợp `useSidebar()` để tự động né Sidebar khi mở.
+  - Logic vị trí động 3 trạng thái:
+    - Drawer mở → `left-[min(100vw,24rem)] sm:left-[28rem] z-[60]` (trên Drawer `z-40`, trên mọi thứ).
+    - Sidebar mở → `left-0 lg:left-72 z-40` (né Sidebar Desktop).
+    - Bình thường → `left-0 z-40`.
+  - Hitbox mở rộng: `w-9 sm:w-10 py-5` + vùng đệm invisible `<span absolute -right-4 w-8 pointer-events-auto />`.
+  - Icon chuyển thành `✕` + chữ `ĐÓNG` khi Drawer đang mở.
+  - Thêm mũi tên chỉ hướng phân biệt trạng thái.
+
+- **[`MachineStatusManagement.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/MachineStatusManagement.jsx):**
+  - Đổi thứ tự render trong JSX:
+    ```jsx
+    {/* 1. Drawer (z-40) render trước */}
+    <MachineStatusFilterDrawer ... />
+    {/* 2. Tab handle (z-[60] khi open) render sau → luôn nằm trên cùng DOM */}
+    <LeftMachineFilterTabHandle ... />
+    ```
+
+### 9.2. [IMPROVE] Đồng Bộ Style Nút "Bộ Lọc" Trên Header Bar
+
+- **[`MachineStatusHeaderBar.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/components/header/MachineStatusHeaderBar.jsx):**
+  - Cải thiện style `filterActionButton`: `px-3.5 text-xs font-black hover:scale-102 active:scale-98 select-none` — nhất quán với Autoline Management.
+  - Foxconn: thêm border `border border-blue-900/40` + `shadow-blue-950/20`.
+  - NVIDIA: tăng shadow glow `shadow-[0_0_12px_rgba(118,185,0,0.35)]`.
+
+### 9.3. [IMPROVE] Bổ Sung Nút "Bộ Lọc" Trên Header Autoline Management
+
+> Xem chi tiết tại **Section 8.2** của `AUTOLINE_MANAGEMENT_PLAN.md`.
+
+**Tóm tắt tác động cross-page:**
+- Cả 2 trang `/autoline-management` và `/machine-status` đều đã có:
+  1. Nút `[⑂ Bộ Lọc]` rõ ràng trên thanh Header (dễ bấm, badge đếm filter).
+  2. Nút tab mép trái `BỘ LỌC` thông minh (né Sidebar, hitbox lớn, chuyển sang `✕ ĐÓNG` khi Drawer mở).
+  3. Nút đóng `✕` trong Drawer có nền, viền và hover màu rose rõ ràng.

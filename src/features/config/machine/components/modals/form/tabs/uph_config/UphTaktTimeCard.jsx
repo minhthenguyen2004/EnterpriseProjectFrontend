@@ -161,7 +161,7 @@ export default function UphTaktTimeCard({
           </h3>
         </div>
         <div
-          className={`px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold border ${
+          className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border ${
             isFoxconn
               ? 'bg-blue-50 text-blue-700 border-blue-200'
               : 'bg-zinc-900 text-[#76B900] border-[#76B900]/40'
@@ -192,7 +192,7 @@ export default function UphTaktTimeCard({
               placeholder="VD: 120"
               value={formState.targetUph}
               onChange={handleUphChange}
-              className={`w-full px-3.5 py-2.5 text-sm font-mono font-black rounded-xl border transition-all outline-none ${
+              className={`w-full px-3.5 py-2.5 text-sm font-bold rounded-xl border transition-all outline-none ${
                 errors.targetUph
                   ? 'border-rose-500 bg-rose-50/40 text-rose-700'
                   : isFoxconn
@@ -201,7 +201,7 @@ export default function UphTaktTimeCard({
               }`}
             />
             <span
-              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-mono font-bold pointer-events-none select-none ${
+              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold pointer-events-none select-none ${
                 isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
@@ -240,7 +240,7 @@ export default function UphTaktTimeCard({
               placeholder="VD: 30.00"
               value={formState.targetCycleTime}
               onChange={handleCycleTimeChange}
-              className={`w-full px-3.5 py-2.5 text-sm font-mono font-bold rounded-xl border transition-all outline-none ${
+              className={`w-full px-3.5 py-2.5 text-sm font-bold rounded-xl border transition-all outline-none ${
                 errors.targetCycleTime
                   ? 'border-rose-500 bg-rose-50/40 text-rose-700'
                   : isFoxconn
@@ -249,7 +249,7 @@ export default function UphTaktTimeCard({
               }`}
             />
             <span
-              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-mono font-bold pointer-events-none select-none ${
+              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold pointer-events-none select-none ${
                 isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
@@ -289,7 +289,7 @@ export default function UphTaktTimeCard({
               placeholder="VD: 5.0"
               value={formState.warningTolerance}
               onChange={handleToleranceChange}
-              className={`w-full px-3.5 py-2.5 text-sm font-mono font-bold rounded-xl border transition-all outline-none ${
+              className={`w-full px-3.5 py-2.5 text-sm font-bold rounded-xl border transition-all outline-none ${
                 errors.warningTolerance
                   ? 'border-rose-500 bg-rose-50/40 text-rose-700'
                   : isFoxconn
@@ -298,7 +298,7 @@ export default function UphTaktTimeCard({
               }`}
             />
             <span
-              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-mono font-bold pointer-events-none select-none ${
+              className={`absolute right-3 top-1/2 -translate-y-1/2 text-[11px] font-bold pointer-events-none select-none ${
                 isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
@@ -343,7 +343,7 @@ export default function UphTaktTimeCard({
                 : 'bg-slate-400 dark:bg-zinc-600'
             }`}
           />
-          <span className="font-mono text-[11px] opacity-80">
+          <span className="font-semibold text-[11px] opacity-80">
             {isEnabled ? '[ (●) Enabled ]' : '[ (○) Disabled ]'}
           </span>
           <span>Enable UPH Monitoring</span>

@@ -3,6 +3,7 @@ import useTheme from '../../../../../hooks/useTheme';
 import MachineFormLeftInputs from './form/left_panel/MachineFormLeftInputs';
 import MachineFormTopTabs from './form/navigation/MachineFormTopTabs';
 import MachineFormContentSwitcher from './form/MachineFormContentSwitcher';
+import { DEFAULT_MACHINE_SCREW_CONFIGS, DEFAULT_MACHINE_PRESSFIT_CONFIGS, DEFAULT_MACHINE_AUDIT_LOGS } from './form/constants/formModalConstants';
 
 export default function MachineConfigFormModal({
   isOpen,
@@ -125,7 +126,13 @@ export default function MachineConfigFormModal({
       targetCycleTime: 30.0,
       warningTolerance: 5.0,
       enableUphMonitoring: true
-    }
+    },
+    // Screw Config (Tab 5)
+    screwConfigs: DEFAULT_MACHINE_SCREW_CONFIGS,
+    // Pressfit Config (Tab 6)
+    pressfitConfigs: DEFAULT_MACHINE_PRESSFIT_CONFIGS,
+    // History & Restore (Tab 7)
+    auditLogs: DEFAULT_MACHINE_AUDIT_LOGS
   };
 
   const [formData, setFormData] = useState(defaultState);
@@ -151,7 +158,16 @@ export default function MachineConfigFormModal({
           targetCycleTime: initialData.targetCycleTime ?? defaultState.targetCycleTime,
           warningTolerance: initialData.warningTolerance ?? 5.0,
           enableUphMonitoring: initialData.enableUphMonitoring ?? true
-        }
+        },
+        screwConfigs: Array.isArray(initialData.screwConfigs) && initialData.screwConfigs.length > 0
+          ? initialData.screwConfigs
+          : DEFAULT_MACHINE_SCREW_CONFIGS,
+        pressfitConfigs: Array.isArray(initialData.pressfitConfigs) && initialData.pressfitConfigs.length > 0
+          ? initialData.pressfitConfigs
+          : DEFAULT_MACHINE_PRESSFIT_CONFIGS,
+        auditLogs: Array.isArray(initialData.auditLogs) && initialData.auditLogs.length > 0
+          ? initialData.auditLogs
+          : DEFAULT_MACHINE_AUDIT_LOGS
       });
     } else {
       setFormData(defaultState);
@@ -312,7 +328,7 @@ export default function MachineConfigFormModal({
           </div>
 
           {/* 2/3 Còn Lại: 7 Tab ở phía Top & Vùng Placeholder bên dưới */}
-          <div className="w-full lg:w-[65%] xl:w-[68%] flex flex-col flex-1 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-zinc-800 pt-4 lg:pt-0 lg:pl-5 min-w-0">
+          <div className="w-full lg:w-[65%] xl:w-[68%] flex flex-col flex-1 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-zinc-800 pt-4 lg:pt-0 lg:pl-5 min-w-0 min-h-0">
             {/* Top Navigation Bar: 7 Tabs */}
             <MachineFormTopTabs
               activeTab={activeTab}

@@ -45,7 +45,7 @@ export default function MachineStatusFilterDrawer({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div className="fixed inset-0 z-40 overflow-hidden">
       {/* Backdrop mờ phía sau */}
       <div
         className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity animate-fade-in"
@@ -101,14 +101,14 @@ export default function MachineStatusFilterDrawer({
             <button
               type="button"
               onClick={onClose}
-              className={`p-1.5 rounded-xl transition-all cursor-pointer ${
+              className={`p-2 rounded-xl transition-all cursor-pointer border flex items-center justify-center shadow-xs ${
                 isFoxconn
-                  ? 'hover:bg-slate-200 text-slate-500 hover:text-slate-800'
-                  : 'hover:bg-zinc-800 text-zinc-400 hover:text-white'
+                  ? 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200 hover:border-rose-200'
+                  : 'bg-zinc-800/90 hover:bg-rose-950/60 text-zinc-300 hover:text-rose-400 border-zinc-700 hover:border-rose-500/50'
               }`}
-              title="Đóng bảng lọc"
+              title="Đóng bảng lọc (ESC)"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

@@ -1,72 +1,221 @@
+import { useState } from 'react';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
+import useCarrierData from './hooks/useCarrierData';
+import CarrierTabsNav from './components/tabs/CarrierTabsNav';
+import CarrierRealtimeTab from './components/tabs/realtime/CarrierRealtimeTab';
+import CarrierLifecycleTab from './components/tabs/lifecycle/CarrierLifecycleTab';
+import CarrierInspectionModal from './components/modals/CarrierInspectionModal';
+import CarrierLockActionModal from './components/modals/CarrierLockActionModal';
 
+/**
+ * Trang Quản Lý & Giám Sát Cấu Hình Khay Chứa (Carrier Configuration - /config/carrier)
+ * Bố cục chuẩn mực bao gồm:
+ * - PageHeaderBar với nút Refresh trên đầu trang
+ * - 2 Tabs: Giám sát thời gian thực & Cấu hình vòng đời
+ * - Tab 1: 5 Thẻ KPI, Thanh công cụ lọc 5 trường, Bảng dữ liệu 9 cột, Phân trang
+ * - Tab 2: Cấu hình định mức loại khay, Chính sách cưỡng chế khóa tự động
+ * - Modals: Chi tiết khay, Nghiệm thu kiểm định dung sai, Khóa/Mở khóa khay
+ */
 export default function CarrierConfigPage() {
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
-  const registerCarrierButton = (
-    <button
-      type="button"
-      className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2 cursor-pointer ${
-        isFoxconn
-          ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20'
-          : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
-      }`}
-    >
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
-      </svg>
-      <span>Đăng Ký Carrier Mới</span>
-    </button>
-  );
+  // Active Tab state: 'realtime' | 'lifecycle'
+  const [activeTab, setActiveTab] = useState('realtime');
+
+  // Modal states
+  const [detailModalCarrier, setDetailModalCarrier] = useState(null);
+  const [inspectModalCarrier, setInspectModalCarrier] = useState(null);
+  const [lockModalCarrier, setLockModalCarrier] = useState(null);
+
+  // Toast notification state
+  const [toastMessage, setToastMessage] = useState(null);
+
+  // Custom hook chứa toàn bộ logic dữ liệu, lọc, phân trang và thao tác
+  const {
+    carriers,
+    filteredCarriers,
+    paginatedCarriers,
+    carrierTypeLimits,
+    autoLockPolicy,
+    kpiStats,
+
+    // Bộ lọc
+    searchCarrierCode,
+    setSearchCarrierCode,
+    searchLineName,
+    setSearchLineName,
+    searchProductName,
+    setSearchProductName,
+    selectedStatus,
+    setSelectedStatus,
+    resetFilters,
+
+    // Phân trang
+    pageSize,
+    setPageSize,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    totalFiltered,
+
+    // Làm mới
+    isRefreshing,
+    lastUpdated,
+    refreshData,
+
+    // Thao tác
+    lockCarrier,
+    unlockCarrier,
+    inspectCarrier,
+    updateCarrierTypeLimits,
+    updateAutoLockPolicy,
+
+    // Lifecycle Configs CRUD
+    lifecycleConfigs,
+    addLifecycleConfig,
+    updateLifecycleConfig,
+    deleteLifecycleConfig,
+    toggleLifecycleConfigActive,
+    refreshLifecycleConfigs,
+  } = useCarrierData();
+
+  const showToast = (message) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3200);
+  };
+
+  // Làm mới dữ liệu kèm thông báo toast
+  const handleRefresh = () => {
+    refreshData();
+    showToast('Dữ liệu trạng thái khay chứa đã được làm mới tức thời');
+  };
+
+  // Thao tác Khóa
+  const handleConfirmLock = (carrierId, reason) => {
+    lockCarrier(carrierId, reason);
+    showToast(`Đã cưỡng bức khóa khay [${carrierId}] và cách ly khỏi chuyền`);
+  };
+
+  // Thao tác Mở khóa
+  const handleConfirmUnlock = (carrierId) => {
+    unlockCarrier(carrierId);
+    showToast(`Đã mở khóa khay [${carrierId}] thành công. Khay sẵn sàng hoạt động`);
+  };
+
+  // Thao tác Kiểm định
+  const handleConfirmInspect = (carrierId, inspectionData) => {
+    inspectCarrier(carrierId, inspectionData);
+    showToast(`Đã ghi nhận kiểm định thành công cho khay [${carrierId}]`);
+  };
 
   return (
-    <div className={`p-6 lg:p-8 space-y-6 min-h-full ${isFoxconn ? 'bg-slate-50 text-slate-800' : 'bg-zinc-950 text-zinc-100'}`}>
-      {/* Unified Page Header Bar */}
+    <div
+      className={`p-6 lg:p-8 space-y-6 min-h-full transition-colors duration-200 ${
+        isFoxconn ? 'bg-slate-50 text-slate-800' : 'bg-zinc-950 text-zinc-100'
+      }`}
+    >
+      {/* Toast Notification Alert */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 animate-bounce">
+          <div
+            className={`px-4 py-3 rounded-2xl border shadow-xl flex items-center gap-2.5 text-xs font-bold ${
+              isFoxconn
+                ? 'bg-[#002766] text-white border-blue-800 shadow-blue-900/30'
+                : 'bg-zinc-900 text-white border-[#76B900] shadow-[#76B900]/20'
+            }`}
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>{toastMessage}</span>
+          </div>
+        </div>
+      )}
+
+      {/* Header Bar Chuẩn Mực của Hệ Thống - Tích hợp Nút Refresh trên đầu trang */}
       <PageHeaderBar
         breadcrumbs={[
           { label: 'CONFIG', isCurrent: false },
-          { label: 'CARRIER CONFIG', isCurrent: true }
+          { label: 'CARRIER CONFIG', isCurrent: true },
         ]}
         title="CARRIER CONFIGURATION"
         badge="MASTER CARRIER"
         badgeType="brand"
-        description="Thiết lập danh mục khay chứa (Tray), giá đỡ linh kiện (Carrier/Pallet), RFID Tag và định mức tải trọng cho hệ thống AGV & Băng chuyền."
-        actions={registerCarrierButton}
+        description="Giám sát thời gian thực tuổi thọ, hao mòn cơ học, hạn kiểm định và cấu hình định mức cho toàn bộ khay chứa hệ thống AutoLine Foxconn / NVIDIA."
+        lastUpdated={lastUpdated}
+        isRefreshing={isRefreshing}
+        onRefresh={handleRefresh}
         showFullscreen={true}
       />
 
-      {/* Grid of Carrier types */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {[
-          { type: 'Standard PCB Tray', code: 'TRAY-STD-01', total: '240 chiếc', active: '198 đang luân chuyển', size: '350 x 250 x 40 mm' },
-          { type: 'Heavy Component Carrier', code: 'CRR-HVY-X2', total: '85 chiếc', active: '62 đang luân chuyển', size: '600 x 450 x 120 mm' },
-          { type: 'High-Density IC Pallet', code: 'PLT-IC-HD', total: '150 chiếc', active: '144 đang luân chuyển', size: '200 x 200 x 15 mm' },
-        ].map((item, idx) => (
-          <div
-            key={idx}
-            className={`p-5 rounded-2xl border transition-all ${
-              isFoxconn ? 'bg-white border-slate-200 shadow-sm' : 'bg-zinc-900/50 border-zinc-800'
-            }`}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                isFoxconn ? 'bg-blue-100 text-blue-800' : 'bg-[#76B900]/20 text-[#76B900]'
-              }`}>
-                {item.code}
-              </span>
-              <span className="text-xs text-emerald-500 font-semibold">Sẵn sàng</span>
-            </div>
-            <div className="font-bold text-base">{item.type}</div>
-            <div className="text-xs text-slate-500 dark:text-zinc-400 mt-2 space-y-1">
-              <div>Kích thước: <span className="font-semibold text-slate-700 dark:text-zinc-200">{item.size}</span></div>
-              <div>Tổng số lượng: <span className="font-semibold text-slate-700 dark:text-zinc-200">{item.total}</span></div>
-              <div>Hiện trạng: <span className="font-semibold text-slate-700 dark:text-zinc-200">{item.active}</span></div>
-            </div>
-          </div>
-        ))}
-      </div>
+      {/* Thanh 2 Tabs Điều Hướng: Giám Sát Thời Gian Thực & Cấu Hình Vòng Đời */}
+      <CarrierTabsNav
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        kpiStats={kpiStats}
+      />
+
+      {/* Tab 1: Giám Sát Thời Gian Thực (Active theo mặc định) */}
+      {activeTab === 'realtime' && (
+        <CarrierRealtimeTab
+          carriers={carriers}
+          paginatedCarriers={paginatedCarriers}
+          kpiStats={kpiStats}
+          searchCarrierCode={searchCarrierCode}
+          onCarrierCodeChange={setSearchCarrierCode}
+          searchLineName={searchLineName}
+          onLineNameChange={setSearchLineName}
+          searchProductName={searchProductName}
+          onProductNameChange={setSearchProductName}
+          selectedStatus={selectedStatus}
+          onStatusChange={setSelectedStatus}
+          pageSize={pageSize}
+          onPageSizeChange={setPageSize}
+          onResetFilters={resetFilters}
+          totalFiltered={totalFiltered}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+          onViewDetail={(carrier) => setDetailModalCarrier(carrier)}
+          onOpenInspect={(carrier) => setInspectModalCarrier(carrier)}
+          onToggleLock={(carrier) => setLockModalCarrier(carrier)}
+        />
+      )}
+
+      {/* Tab 2: Cấu Hình Vòng Đời */}
+      {activeTab === 'lifecycle' && (
+        <CarrierLifecycleTab
+          carrierTypeLimits={carrierTypeLimits}
+          onUpdateCarrierTypeLimits={updateCarrierTypeLimits}
+          autoLockPolicy={autoLockPolicy}
+          onUpdateAutoLockPolicy={updateAutoLockPolicy}
+          lifecycleConfigs={lifecycleConfigs}
+          onAddLifecycleConfig={addLifecycleConfig}
+          onUpdateLifecycleConfig={updateLifecycleConfig}
+          onDeleteLifecycleConfig={deleteLifecycleConfig}
+          onRefreshLifecycleConfigs={refreshLifecycleConfigs}
+          onNotify={showToast}
+        />
+      )}
+
+      {/* Modal 2: Nghiệm thu kiểm định dung sai & Reset chu kỳ */}
+      <CarrierInspectionModal
+        carrier={inspectModalCarrier}
+        isOpen={Boolean(inspectModalCarrier)}
+        onClose={() => setInspectModalCarrier(null)}
+        onConfirm={handleConfirmInspect}
+      />
+
+      {/* Modal 3: Xác nhận Khóa / Mở khóa khay */}
+      <CarrierLockActionModal
+        carrier={lockModalCarrier}
+        isOpen={Boolean(lockModalCarrier)}
+        onClose={() => setLockModalCarrier(null)}
+        onConfirmLock={handleConfirmLock}
+        onConfirmUnlock={handleConfirmUnlock}
+      />
     </div>
   );
 }

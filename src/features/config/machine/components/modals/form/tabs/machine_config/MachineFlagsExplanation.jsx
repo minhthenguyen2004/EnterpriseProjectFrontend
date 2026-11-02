@@ -37,7 +37,7 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
             </strong>{' '}
             Đánh dấu máy thuộc dây chuyền tự động. Kích hoạt liên kết Group, Step và quản lý quy
             trình kiểm tra 3 pha nội bộ (
-            <code className="font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800">
+            <code className={isFoxconn ? 'font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800' : 'font-mono px-1 rounded bg-zinc-800 dark:bg-slate-200'}>
               PreCheck → Link → Undo
             </code>
             ).
@@ -71,11 +71,11 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
               Is SFC Station (Trạm gửi kết quả SFC):
             </strong>{' '}
             Đánh dấu trạm gửi kết quả (
-            <code className="font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800">
+            <code className={isFoxconn ? 'font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800' : 'font-mono px-1 rounded bg-zinc-800 dark:bg-slate-200'}>
               Insert Result
             </code>
             ) lên hệ thống SFC (MES). Tự động gom các dữ liệu SFC KeyPart (cờ{' '}
-            <code className="font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800">
+            <code className={isFoxconn ? 'font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800' : 'font-mono px-1 rounded bg-zinc-800 dark:bg-slate-200'}>
               IsSFC = 1
             </code>
             ) để đẩy sang SFC.

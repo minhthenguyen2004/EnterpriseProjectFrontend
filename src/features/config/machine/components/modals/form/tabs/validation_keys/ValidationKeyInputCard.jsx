@@ -16,7 +16,7 @@ export default function ValidationKeyInputCard({
 
   return (
     <div
-      className={`p-4 rounded-2xl border transition-all ${
+      className={`p-3.5 rounded-2xl border transition-all ${
         isFoxconn
           ? 'bg-white border-slate-200 shadow-xs'
           : 'bg-zinc-950/80 border-zinc-800 shadow-inner'

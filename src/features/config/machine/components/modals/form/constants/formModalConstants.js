@@ -189,3 +189,187 @@ export const DEFAULT_UPH_CONFIG = {
   warningTolerance: 5.0,
   enableUphMonitoring: true
 };
+
+// Đơn vị đo lường cho 4 thông số vít (Tab 5: Screw Config)
+export const SCREW_UNITS = {
+  torque: ['kgf.cm', 'N.m', 'N.cm', 'lbf.in'],
+  angle: ['deg', 'rad', 'rot'],
+  volume: ['mm³', 'µL', 'mL'],
+  height: ['mm', 'µm', 'mil']
+};
+
+// Dữ liệu mẫu ban đầu cho Cấu hình Vị Trí Vít (Tab 5: Screw Config)
+export const DEFAULT_MACHINE_SCREW_CONFIGS = [
+  {
+    id: 1,
+    position: 'SCR-POS-01',
+    isRequired: true,
+    isActive: true,
+    torque: { standard: 1.20, limit: 0.15, unit: 'kgf.cm' },
+    angle: { standard: 720.0, limit: 45.0, unit: 'deg' },
+    volume: { standard: 2.50, limit: 0.20, unit: 'mm³' },
+    height: { standard: 5.00, limit: 0.30, unit: 'mm' }
+  },
+  {
+    id: 2,
+    position: 'SCR-POS-02',
+    isRequired: true,
+    isActive: true,
+    torque: { standard: 1.20, limit: 0.15, unit: 'kgf.cm' },
+    angle: { standard: 720.0, limit: 45.0, unit: 'deg' },
+    volume: { standard: 2.50, limit: 0.20, unit: 'mm³' },
+    height: { standard: 5.00, limit: 0.30, unit: 'mm' }
+  },
+  {
+    id: 3,
+    position: 'SCR-POS-03',
+    isRequired: false,
+    isActive: false, // Bypass kiểm tra dung sai
+    torque: { standard: 0.80, limit: 0.10, unit: 'kgf.cm' },
+    angle: { standard: 540.0, limit: 30.0, unit: 'deg' },
+    volume: { standard: 1.80, limit: 0.15, unit: 'mm³' },
+    height: { standard: 4.20, limit: 0.25, unit: 'mm' }
+  }
+];
+
+// Đơn vị đo lường cho 3 thông số lực nhấn (Tab 6: Pressfit Config)
+export const PRESSFIT_UNITS = {
+  force: ['N', 'kN', 'kgf', 'lbf'],
+  time: ['s', 'ms'],
+  distance: ['mm', 'µm', 'mil']
+};
+
+// Dữ liệu mẫu ban đầu cho Cấu hình Vị Trí Ép Lực Nhấn (Tab 6: Pressfit Config)
+export const DEFAULT_MACHINE_PRESSFIT_CONFIGS = [
+  {
+    id: 1,
+    position: 'PRESS-POS-01',
+    isRequired: true,
+    isActive: true,
+    force: { standard: 1500.0, limit: 50.0, unit: 'N' },
+    time: { standard: 3.0, limit: 0.2, unit: 's' },
+    distance: { standard: 12.5, limit: 0.15, unit: 'mm' }
+  },
+  {
+    id: 2,
+    position: 'PRESS-POS-02',
+    isRequired: true,
+    isActive: true,
+    force: { standard: 2200.0, limit: 80.0, unit: 'N' },
+    time: { standard: 2.5, limit: 0.15, unit: 's' },
+    distance: { standard: 8.0, limit: 0.1, unit: 'mm' }
+  },
+  {
+    id: 3,
+    position: 'PRESS-POS-03',
+    isRequired: false,
+    isActive: false, // Bypass kiểm tra dung sai
+    force: { standard: 850.0, limit: 30.0, unit: 'N' },
+    time: { standard: 1.8, limit: 0.1, unit: 's' },
+    distance: { standard: 5.2, limit: 0.08, unit: 'mm' }
+  }
+];
+
+// Dữ liệu mẫu Nhật Ký Kiểm Toán (Tab 7: History & Restore)
+export const DEFAULT_MACHINE_AUDIT_LOGS = [
+  {
+    id: 14,
+    timestamp: '2026-11-02 10:15:30',
+    operatorId: 'NV8892',
+    operatorName: 'Nguyễn Văn Minh',
+    action: 'UPDATE',
+    targetTable: 'screw_config',
+    description: 'Cập nhật dải dung sai vị trí vít SCR-POS-01: Torque 1.20 -> 1.25 kgf.cm, Limit 0.15 -> 0.12',
+    diff: {
+      before: {
+        position: 'SCR-POS-01',
+        torque: { standard: 1.20, limit: 0.15, unit: 'kgf.cm' },
+        angle: { standard: 720.0, limit: 45.0, unit: 'deg' }
+      },
+      after: {
+        position: 'SCR-POS-01',
+        torque: { standard: 1.25, limit: 0.12, unit: 'kgf.cm' },
+        angle: { standard: 720.0, limit: 45.0, unit: 'deg' }
+      }
+    }
+  },
+  {
+    id: 13,
+    timestamp: '2026-11-02 09:30:15',
+    operatorId: 'V09281',
+    operatorName: 'Trần Anh Tuấn',
+    action: 'CREATE',
+    targetTable: 'pressfit_config',
+    description: 'Thêm vị trí ép mới PRESS-POS-02: Lực tiêu chuẩn 2200N, Hành trình 8.0mm',
+    diff: {
+      before: null,
+      after: {
+        position: 'PRESS-POS-02',
+        force: { standard: 2200.0, limit: 80.0, unit: 'N' },
+        time: { standard: 2.5, limit: 0.15, unit: 's' },
+        distance: { standard: 8.0, limit: 0.1, unit: 'mm' }
+      }
+    }
+  },
+  {
+    id: 12,
+    timestamp: '2026-11-01 16:40:12',
+    operatorId: 'NV5421',
+    operatorName: 'Lê Hoàng Nam',
+    action: 'CREATE',
+    targetTable: 'routing_configs',
+    description: 'Thêm định tuyến Twin Step 12 trạm song song Line 01 High-Speed SMT',
+    diff: {
+      before: null,
+      after: {
+        product: 'NVIDIA HGX B200',
+        line: 'Line 01 - High-Speed SMT',
+        step: 'ST01',
+        twinStep: 12,
+        mode: 0,
+        allowCarrierSwap: false,
+        isPicker: false
+      }
+    }
+  },
+  {
+    id: 11,
+    timestamp: '2026-11-01 14:10:00',
+    operatorId: 'NV8892',
+    operatorName: 'Nguyễn Văn Minh',
+    action: 'UPDATE',
+    targetTable: 'uph_config',
+    description: 'Tăng mục tiêu UPH từ 110 lên 120 (Takt Time chuẩn giảm từ 32.7s xuống 30.0s)',
+    diff: {
+      before: { targetUph: 110, targetCycleTime: 32.73, warningTolerance: 5.0 },
+      after: { targetUph: 120, targetCycleTime: 30.0, warningTolerance: 5.0 }
+    }
+  },
+  {
+    id: 10,
+    timestamp: '2026-10-30 09:20:05',
+    operatorId: 'V09281',
+    operatorName: 'Trần Anh Tuấn',
+    action: 'ROLLBACK',
+    targetTable: 'machine_config',
+    description: 'Khôi phục cờ vận hành Allow Fail Pass-Through về BẬT theo phiên bản #8',
+    diff: {
+      before: { allowFailPassThrough: false },
+      after: { allowFailPassThrough: true }
+    }
+  },
+  {
+    id: 9,
+    timestamp: '2026-10-29 11:05:42',
+    operatorId: 'NV3319',
+    operatorName: 'Đặng Quốc Huy',
+    action: 'UPDATE',
+    targetTable: 'validation_keys',
+    description: 'Bật cờ Is SFC KeyPart cho khóa xác thực BARCODE_MAIN để gửi lên MES SFC',
+    diff: {
+      before: { keyName: 'BARCODE_MAIN', isSfcKeyPart: false },
+      after: { keyName: 'BARCODE_MAIN', isSfcKeyPart: true }
+    }
+  }
+];
+

@@ -7,7 +7,7 @@ export default function MachineConfigTab({
   isFoxconn
 }) {
   return (
-    <div className="flex-1 overflow-y-auto custom-scrollbar my-4 space-y-4 pr-1 max-h-[calc(92vh-280px)]">
+    <div className="flex-1 min-h-0 overflow-y-auto custom-scrollbar my-4 space-y-4 pr-1">
       {/* Cụm 5 nút tick chọn (Machine Flags Checkboxes) */}
       <MachineFlagsList
         formData={formData}

@@ -50,17 +50,17 @@ export default function TwinStepInputCard({
         </span>
       </div>
 
-      {/* Hàng ngang gồm 3 mục: Twin Step (nhập số), Allow Swap, Picker (Resolve SN) */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+      {/* Hàng ngang gồm: Twin Step (nhập số), Allow Swap, Picker (Resolve SN), và Nút Cancel/Save */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
         {/* 1. Twin Step (nhập số) */}
-        <div className="md:col-span-5">
+        <div className="md:col-span-3">
           <label
             htmlFor={`${formUid}-twinStep`}
             className={`block text-[11px] font-bold mb-1 ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Twin Step (Trạm song song) <span className="text-rose-500 font-black">*</span>
+            Twin Step (Trạm) <span className="text-rose-500 font-black">*</span>
           </label>
           <input
             id={`${formUid}-twinStep`}
@@ -69,8 +69,8 @@ export default function TwinStepInputCard({
             step="1"
             value={twinStepForm.twinStep}
             onChange={(e) => onFieldChange('twinStep', e.target.value)}
-            placeholder="VD: 10, 11, 12..."
-            className={`w-full px-3 py-2 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
+            placeholder="VD: 11"
+            className={`w-full px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
               errors.twinStep
                 ? 'border-rose-400 bg-rose-50 text-rose-800'
                 : isFoxconn
@@ -84,15 +84,15 @@ export default function TwinStepInputCard({
         </div>
 
         {/* 2 & 3: 2 ô tick (Allow Swap & Picker Resolve SN) */}
-        <div className="md:col-span-7 flex flex-wrap items-center gap-4 pt-1 sm:pt-4">
+        <div className="md:col-span-5 flex flex-wrap items-center gap-2">
           {/* Ô tick Allow Swap */}
           <label
             htmlFor={`${formUid}-allowSwap`}
-            className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl border cursor-pointer select-none transition-all text-xs font-bold ${
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border cursor-pointer select-none transition-all text-xs font-bold ${
               twinStepForm.allowCarrierSwap
                 ? isFoxconn
-                  ? 'bg-blue-50 text-[#002766] border-blue-300 shadow-xs'
-                  : 'bg-zinc-900 text-[#76B900] border-[#76B900]/50 shadow-[0_0_10px_rgba(118,185,0,0.2)]'
+                  ? 'bg-blue-50 text-[#002766] border-blue-300 shadow-2xs'
+                  : 'bg-zinc-900 text-[#76B900] border-[#76B900]/50 shadow-[0_0_8px_rgba(118,185,0,0.2)]'
                 : isFoxconn
                 ? 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100/80'
                 : 'bg-zinc-900/70 text-zinc-400 border-zinc-800 hover:bg-zinc-900'
@@ -103,19 +103,19 @@ export default function TwinStepInputCard({
               type="checkbox"
               checked={!!twinStepForm.allowCarrierSwap}
               onChange={(e) => onFieldChange('allowCarrierSwap', e.target.checked)}
-              className="w-4 h-4 rounded text-blue-600 accent-blue-600 dark:accent-[#76B900] cursor-pointer"
+              className="w-3.5 h-3.5 rounded text-blue-600 accent-blue-600 dark:accent-[#76B900] cursor-pointer"
             />
-            <span>Allow Swap (Chuyển đổi khay)</span>
+            <span>Allow Swap</span>
           </label>
 
           {/* Ô tick Picker (Resolve SN) */}
           <label
             htmlFor={`${formUid}-picker`}
-            className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl border cursor-pointer select-none transition-all text-xs font-bold ${
+            className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border cursor-pointer select-none transition-all text-xs font-bold ${
               twinStepForm.isPicker
                 ? isFoxconn
-                  ? 'bg-purple-50 text-purple-900 border-purple-300 shadow-xs'
-                  : 'bg-zinc-900 text-purple-300 border-purple-500/50 shadow-[0_0_10px_rgba(168,85,247,0.2)]'
+                  ? 'bg-purple-50 text-purple-900 border-purple-300 shadow-2xs'
+                  : 'bg-zinc-900 text-purple-300 border-purple-500/50 shadow-[0_0_8px_rgba(168,85,247,0.2)]'
                 : isFoxconn
                 ? 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100/80'
                 : 'bg-zinc-900/70 text-zinc-400 border-zinc-800 hover:bg-zinc-900'
@@ -126,39 +126,41 @@ export default function TwinStepInputCard({
               type="checkbox"
               checked={!!twinStepForm.isPicker}
               onChange={(e) => onFieldChange('isPicker', e.target.checked)}
-              className="w-4 h-4 rounded text-purple-600 accent-purple-600 dark:accent-[#76B900] cursor-pointer"
+              className="w-3.5 h-3.5 rounded text-purple-600 accent-purple-600 dark:accent-[#76B900] cursor-pointer"
             />
             <span>Picker (Resolve SN)</span>
           </label>
         </div>
-      </div>
 
-      {/* Bên dưới sẽ có hai nút Cancel và Save */}
-      <div className="flex items-center justify-end gap-2.5 pt-3.5 mt-3.5 border-t border-slate-200/80 dark:border-zinc-800/80">
-        <button
-          type="button"
-          onClick={onCancel}
-          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-            isFoxconn
-              ? 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-              : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
-          }`}
-        >
-          ✕ Cancel
-        </button>
+        {/* 4. Cụm nút Thao tác (Cancel / Save) */}
+        <div className="md:col-span-4 flex items-center justify-end gap-2">
+          {editingId && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                isFoxconn
+                  ? 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
+              }`}
+            >
+              ✕ Hủy
+            </button>
+          )}
 
-        <button
-          type="button"
-          onClick={onSave}
-          className={`px-4 py-2 rounded-xl text-xs font-black shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center gap-1.5 ${
-            isFoxconn
-              ? 'bg-[#002766] hover:bg-blue-900 text-white'
-              : 'bg-[#76B900] hover:bg-[#86D400] text-black shadow-[0_0_15px_rgba(118,185,0,0.3)]'
-          }`}
-        >
-          <span>💾</span>
-          <span>{editingId ? 'Update Twin Step' : 'Save'}</span>
-        </button>
+          <button
+            type="button"
+            onClick={onSave}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-black shadow-md transition-all active:scale-[0.98] cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
+              isFoxconn
+                ? 'bg-[#002766] hover:bg-blue-900 text-white'
+                : 'bg-[#76B900] hover:bg-[#86D400] text-black shadow-[0_0_12px_rgba(118,185,0,0.3)]'
+            }`}
+          >
+            <span>💾</span>
+            <span>{editingId ? 'Cập Nhật' : 'Lưu Twin Step'}</span>
+          </button>
+        </div>
       </div>
     </div>
   );

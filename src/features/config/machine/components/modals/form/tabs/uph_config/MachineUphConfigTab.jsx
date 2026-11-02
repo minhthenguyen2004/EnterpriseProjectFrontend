@@ -55,7 +55,7 @@ export default function MachineUphConfigTab({
   };
 
   return (
-    <div className="flex-1 flex flex-col gap-4 overflow-y-auto pr-1">
+    <div className="flex-1 min-h-0 flex flex-col overflow-y-auto custom-scrollbar my-3 space-y-4 pr-1">
       {/* Toast thông báo phản hồi thao tác */}
       {feedbackToast && (
         <div

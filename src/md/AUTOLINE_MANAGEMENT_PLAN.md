@@ -4,7 +4,7 @@
 > **Áp dụng cho route:** `/autoline-management` (thuộc nhóm menu **QUẢN LÝ TỰ ĐỘNG HÓA**).  
 > **Component đích:** `src/features/management/automation_line_management/AutomationLineManagement.jsx`.  
 > **Đặc tả kiến trúc:** Thiết kế theo mô hình **Module Hóa Tối Đa (Component-Driven Architecture)** — Tách từng máy thành file JSX độc lập (`MachineCard.jsx`), module hóa thẻ KPI, từng widget đồ thị, drawer bộ lọc và custom hook dữ liệu riêng biệt.  
-> **Ngày cập nhật:** 26/10/2026.  
+> **Ngày cập nhật:** 02/11/2026.  
 > **Vị trí tài liệu:** `md/AUTOLINE_MANAGEMENT_PLAN.md` (đồng bộ tại `src/md/AUTOLINE_MANAGEMENT_PLAN.md`).
 
 ---
@@ -697,3 +697,90 @@ src/features/management/automation_line_management/
        - Tab AOI Data: Bảng 6 trường (#, Type, Step, Camera, POV, Result), 2 nút lọc "Lọc theo Step & Sequence" và "Xem tất cả", click dòng hiển thị ảnh chụp tương ứng, nút "Download all images" ở góc dưới.
        - Tab Screw Data: Bảng đầy đủ 10 trường (#, Step, Position, Action, Torque, Angle, Time(s), Result, Error Code, Time).
    - Tối ưu giao diện NVIDIA: toàn bộ chữ và số liệu hiển thị màu trắng tinh (`text-white`) tương phản cao trên nền đen công nghiệp.
+
+---
+
+## 8. BUGFIX & CẢI TIẾN UX (02/11/2026)
+
+### 8.1. [BUG] Trang `/autoline-management` không scroll được
+
+**Nguyên nhân gốc rễ:**
+
+1. **`<MachineDetailModal>` được khai báo trùng lặp không điều kiện** trong `AutomationLineManagement.jsx`:
+   - Lần 1 (lỗi): Được render trực tiếp không có `{selectedMachine && ...}` bọc ngoài, khi `selectedMachine = null` component vẫn mount vào DOM.
+   - Lần 2 (đúng): Được render có điều kiện `{selectedMachine && <MachineDetailModal ... />}` ở cuối trang.
+   - **Hậu quả:** Instance đầu tiên của Modal kích hoạt `useEffect` với `document.body.style.overflow = 'hidden'` ngay khi component mount dù chưa có dữ liệu, sau đó render `null` nhưng không unmount khỏi cây Virtual DOM → cleanup không được gọi → `overflow: hidden` bị ghim vĩnh viễn trên `<body>`.
+
+2. **`useEffect` lock body scroll chạy trước guard `if (!machine || !modalData) return null`:**
+   - Dependency array `[]` khiến effect chạy ngay khi component mount bất kể state machine có hay không.
+
+**Các thay đổi đã áp dụng:**
+
+- **[`AutomationLineManagement.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/automation_line_management/AutomationLineManagement.jsx):**
+  - Xóa bỏ thẻ `<MachineDetailModal>` thừa được gọi không điều kiện.
+  - Chỉ giữ 1 modal duy nhất có guard: `{selectedMachine && <MachineDetailModal ... />}`.
+  - Đổi `min-h-screen` → `min-h-[calc(100vh-4rem)]` để trừ đúng chiều cao Header 64px.
+
+- **[`MachineDetailModal.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/automation_line_management/components/machine_modal/MachineDetailModal.jsx):**
+  - Thêm guard `if (!machine || !modalData) return;` vào cả 2 `useEffect` (ESC listener & body overflow).
+  - Khôi phục `overflow` về giá trị ban đầu an toàn: `const originalOverflow = document.body.style.overflow` rồi reset về `originalOverflow` thay vì `''`.
+
+---
+
+### 8.2. [IMPROVE] Nút Bộ Lọc Mép Trái Khó Ấn + Bổ Sung Nút "Bộ Lọc" Trên Header
+
+**Vấn đề:**
+- Nút tab mép trái (`LeftFilterTabHandle.jsx`) đặt cứng `fixed left-0 z-30` bị Sidebar (`z-40`) đè khuất hoàn toàn khi mở menu. Người dùng không nhìn thấy và không thể bấm được khi Sidebar đang mở.
+- Hitbox quá nhỏ (`w-8 = 32px`), dễ click hụt khi di chuột nhanh tới mép màn hình.
+- Khi Drawer mở (`z-40`), nút tab vẫn nằm ở `left-0 z-30` bị che phủ, không thể bấm lại để đóng.
+- Trang Autoline Management không có nút "Bộ Lọc" nổi bật trên thanh Header, người dùng phải tìm và bấm dải tab hẹp ở mép trái.
+
+**Các thay đổi đã áp dụng:**
+
+- **[`LeftFilterTabHandle.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/automation_line_management/components/filter/LeftFilterTabHandle.jsx):**
+  - Tích hợp `useSidebar()` để biết Sidebar đang mở/đóng.
+  - Logic vị trí linh hoạt 3 trạng thái:
+    - Drawer đang mở → `left-96 z-[60]` (trượt theo mép Drawer, nổi trên tất cả).
+    - Sidebar đang mở → `left-0 lg:left-72 z-40` (né Sidebar trên Desktop).
+    - Bình thường → `left-0 z-40`.
+  - Tăng hitbox: `w-9 sm:w-10`, thêm vùng đệm invisible `<span className="absolute -right-4 inset-y-0 w-8 pointer-events-auto" />`.
+  - Khi mở: chuyển icon sang `✕` và chữ `ĐÓNG`, màu chủ đạo khác biệt (rose/red) để dễ nhận biết.
+  - Thêm mũi tên chỉ hướng và transition mượt mà.
+
+- **[`AutolineHeaderBar.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/automation_line_management/components/header/AutolineHeaderBar.jsx):**
+  - Thêm props `onOpenDrawer` và `activeCount`.
+  - Render nút `[⑂ Bộ Lọc]` nổi bật trên thanh Header thông qua `actions` prop của `PageHeaderBar`, tương tự Machine Status.
+  - Badge hiển thị số lượng điều kiện đang lọc.
+
+- **[`AutomationLineManagement.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/automation_line_management/AutomationLineManagement.jsx):**
+  - Truyền `onOpenDrawer={() => setIsFilterDrawerOpen(true)}` và `activeCount={activeFilterCount}` vào `AutolineHeaderBar`.
+
+---
+
+### 8.3. [BUG] Nút Đóng Drawer Bộ Lọc (Machine Status) Bị Chìm / Không Click Được
+
+**Nguyên nhân:**
+- `MachineStatusFilterDrawer.jsx` đặt wrapper ngoài cùng là `z-50` (đồng mức với Drawer panel bên trong cũng là `z-50`).
+- Nút tab `LeftMachineFilterTabHandle.jsx` khi mở cũng đặt `z-50`, bị Drawer đè lên.
+- Nút đóng `✕` trong Header của Drawer có style quá nhỏ và mờ nhạt (`p-1.5 text-slate-400`), khó nhìn thấy và click nhầm.
+
+**Các thay đổi đã áp dụng:**
+
+- **[`MachineStatusFilterDrawer.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/components/filter/MachineStatusFilterDrawer.jsx):**
+  - Hạ wrapper ngoài cùng từ `z-50` xuống `z-40` để tránh xung đột với nút tab.
+  - Nút đóng `✕` được redesign: thêm nền `bg-zinc-800/90`, viền `border-zinc-700`, hover màu rose rõ ràng `hover:bg-rose-950/60 hover:text-rose-400 hover:border-rose-500/50`, kích thước `p-2` lớn hơn.
+
+- **[`LeftMachineFilterTabHandle.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/components/filter/LeftMachineFilterTabHandle.jsx):**
+  - Khi Drawer mở: `z-[60]` (cao hơn Drawer `z-40`) đảm bảo nút tab luôn clickable.
+  - Logic vị trí 3 trạng thái tương tự `LeftFilterTabHandle.jsx` của Autoline Management.
+  - Hitbox mở rộng, icon đổi thành `✕ ĐÓNG` khi drawer mở.
+
+- **[`MachineStatusManagement.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/MachineStatusManagement.jsx):**
+  - Đổi thứ tự render: `MachineStatusFilterDrawer` render trước → `LeftMachineFilterTabHandle` render sau → nút tab luôn nằm trên cùng trong DOM stacking context.
+
+- **[`MachineStatusHeaderBar.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/machine_status_management/components/header/MachineStatusHeaderBar.jsx):**
+  - Đồng bộ style nút `filterActionButton` với Autoline Management: `px-3.5 font-black hover:scale-102 active:scale-98`.
+
+- **[`AutolineFilterDrawer.jsx`](file:///d:/EnterpriseProjectFrontend/enterprise-project-frontend/src/features/management/automation_line_management/components/filter/AutolineFilterDrawer.jsx):**
+  - Đồng bộ nút đóng `✕` cùng style với `MachineStatusFilterDrawer.jsx`: nền rõ ràng, viền, hover rose.
+

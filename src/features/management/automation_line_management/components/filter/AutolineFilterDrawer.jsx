@@ -75,11 +75,15 @@ export default function AutolineFilterDrawer({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white transition-colors cursor-pointer"
-            title="Đóng bộ lọc"
+            className={`p-2 rounded-xl transition-all cursor-pointer border flex items-center justify-center shadow-xs ${
+              isFoxconn
+                ? 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200 hover:border-rose-200'
+                : 'bg-zinc-800/90 hover:bg-rose-950/60 text-zinc-300 hover:text-rose-400 border-zinc-700 hover:border-rose-500/50'
+            }`}
+            title="Đóng bộ lọc (ESC)"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>

@@ -31,6 +31,7 @@ export default function MachineDetailModal({ machine, onClose }) {
 
   // Lắng nghe phím ESC để đóng modal
   useEffect(() => {
+    if (!machine || !modalData) return;
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         onClose();
@@ -38,15 +39,17 @@ export default function MachineDetailModal({ machine, onClose }) {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [machine, modalData, onClose]);
 
   // Ngăn chặn cuộn trang body khi modal đang mở
   useEffect(() => {
+    if (!machine || !modalData) return;
+    const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = originalOverflow;
     };
-  }, []);
+  }, [machine, modalData]);
 
   if (!machine || !modalData) return null;
 

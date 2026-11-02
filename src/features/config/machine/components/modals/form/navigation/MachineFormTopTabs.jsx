@@ -6,7 +6,7 @@ export default function MachineFormTopTabs({
   isFoxconn
 }) {
   return (
-    <div className={`border-b ${isFoxconn ? 'border-slate-200' : 'border-zinc-800'} pb-2`}>
+    <div className={`border-b ${isFoxconn ? 'border-slate-200' : 'border-zinc-800'} pb-2 shrink-0`}>
       <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
         {FORM_TABS.map((tab) => {
           const isActive = activeTab === tab.id;

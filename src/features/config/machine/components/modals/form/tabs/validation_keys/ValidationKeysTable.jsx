@@ -14,29 +14,31 @@ export default function ValidationKeysTable({
 
   return (
     <div
-      className={`rounded-2xl border overflow-hidden transition-all ${
+      className={`rounded-2xl border transition-all shadow-md overflow-hidden shrink-0 ${
         isFoxconn
           ? 'bg-white border-slate-200 shadow-xs'
-          : 'bg-zinc-900/90 border-zinc-800 shadow-xl'
+          : 'bg-zinc-900/95 border-zinc-800 shadow-xl'
       }`}
     >
       <div
-        className={`px-4 py-2.5 border-b flex items-center justify-between ${
-          isFoxconn ? 'bg-slate-100/70 border-slate-200' : 'bg-zinc-950/70 border-zinc-800'
+        className={`px-3.5 sm:px-4 py-2.5 border-b flex items-center justify-between ${
+          isFoxconn ? 'bg-slate-100/80 border-slate-200' : 'bg-zinc-950/80 border-zinc-800'
         }`}
       >
         <div className="flex items-center gap-2">
-          <span className="text-sm">📋</span>
+          <span className="text-base">📋</span>
           <span
             className={`text-xs font-black uppercase tracking-wider ${
-              isFoxconn ? 'text-slate-800' : 'text-zinc-200'
+              isFoxconn ? 'text-slate-800' : 'text-zinc-100'
             }`}
           >
             Danh Sách Khóa Xác Thực (Validation Keys Table)
           </span>
           <span
-            className={`text-[10px] font-mono px-2 py-0.2 rounded-full font-bold ${
-              isFoxconn ? 'bg-blue-100 text-blue-700' : 'bg-zinc-800 text-[#76B900]'
+            className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
+              isFoxconn
+                ? 'bg-blue-50 text-blue-700 border-blue-200'
+                : 'bg-zinc-800 text-[#76B900] border-[#76B900]/40 shadow-[0_0_8px_rgba(118,185,0,0.2)]'
             }`}
           >
             {validationKeys.length} keys
@@ -50,15 +52,15 @@ export default function ValidationKeysTable({
         </span>
       </div>
 
-      {/* Nội dung bảng */}
-      <div className="overflow-x-auto">
+      {/* Nội dung bảng có khả năng cuộn dọc và ngang mượt mà */}
+      <div className="overflow-x-auto overflow-y-auto max-h-41.25 sm:max-h-50 custom-scrollbar w-full">
         <table className="w-full text-left text-xs border-collapse">
-          <thead>
+          <thead className="sticky top-0 z-10 shadow-2xs backdrop-blur-md">
             <tr
-              className={`border-b text-[11px] font-bold uppercase tracking-wider ${
+              className={`border-b text-[11px] font-black uppercase tracking-wider select-none ${
                 isFoxconn
-                  ? 'bg-slate-50 text-slate-600 border-slate-200'
-                  : 'bg-zinc-950 text-zinc-400 border-zinc-800'
+                  ? 'bg-slate-100/95 text-slate-700 border-slate-200'
+                  : 'bg-zinc-950/95 text-zinc-300 border-zinc-800'
               }`}
             >
               <th className="py-2.5 px-3">Step</th>

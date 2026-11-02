@@ -20,12 +20,12 @@ export default function MachineStatusHeaderBar({
     <button
       type="button"
       onClick={onOpenDrawer}
-      className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs ${
+      className={`px-3.5 py-1.5 rounded-xl text-xs font-black flex items-center gap-2 transition-all cursor-pointer shadow-xs hover:scale-102 active:scale-98 select-none ${
         isFoxconn
-          ? 'bg-[#002766] hover:bg-blue-900 text-white'
-          : 'bg-[#76B900] hover:bg-[#86d400] text-black font-black shadow-[0_0_12px_rgba(118,185,0,0.3)]'
+          ? 'bg-[#002766] hover:bg-[#003893] text-white border border-blue-900/40 shadow-blue-950/20'
+          : 'bg-[#76B900] hover:bg-[#86d400] text-black font-black shadow-[0_0_12px_rgba(118,185,0,0.35)]'
       }`}
-      title="Mở bảng lọc đa tiêu chí"
+      title="Mở bảng lọc đa tiêu chí máy móc"
     >
       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path

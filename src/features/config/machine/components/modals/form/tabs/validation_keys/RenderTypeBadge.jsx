@@ -1,5 +1,6 @@
 const RenderTypeBadge = (type) => {
-    switch (type) {
+    
+  switch (type) {
       case 'double':
         return (
           <span className="px-2 py-0.5 rounded-md text-[11px] font-mono font-bold bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-950/60 dark:text-purple-300 dark:border-purple-800">
