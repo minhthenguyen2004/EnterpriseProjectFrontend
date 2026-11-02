@@ -1,5 +1,3 @@
-import CarrierTypeLimitTable from './CarrierTypeLimitTable';
-import CarrierAutoLockPolicy from './CarrierAutoLockPolicy';
 import CarrierLifecycleConfigTable from './CarrierLifecycleConfigTable';
 import useTheme from '../../../../../../hooks/useTheme';
 
@@ -12,10 +10,6 @@ import useTheme from '../../../../../../hooks/useTheme';
  * - Footer: Nút Lưu Toàn Bộ Cấu Hình
  */
 export default function CarrierLifecycleTab({
-  carrierTypeLimits,
-  onUpdateCarrierTypeLimits,
-  autoLockPolicy,
-  onUpdateAutoLockPolicy,
   lifecycleConfigs,
   onAddLifecycleConfig,
   onUpdateLifecycleConfig,
@@ -25,12 +19,6 @@ export default function CarrierLifecycleTab({
 }) {
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
-
-  const handleSaveAll = () => {
-    if (onNotify) {
-      onNotify('Đã lưu toàn bộ cấu hình vòng đời và chính sách an toàn AutoLine thành công!');
-    }
-  };
 
   return (
     <div className="space-y-5">
@@ -44,37 +32,6 @@ export default function CarrierLifecycleTab({
         onNotify={onNotify}
       />
 
-      {/* 2. Bảng Định Mức Vòng Đời Theo Loại Khay */}
-      <CarrierTypeLimitTable
-        limits={carrierTypeLimits}
-        onUpdateLimits={onUpdateCarrierTypeLimits}
-        onNotify={onNotify}
-      />
-
-      {/* 3. Chính Sách Khóa Tự Động & Dung Sai */}
-      <CarrierAutoLockPolicy
-        policy={autoLockPolicy}
-        onUpdatePolicy={onUpdateAutoLockPolicy}
-        onNotify={onNotify}
-      />
-
-      {/* Thanh lưu cấu hình */}
-      <div className="flex items-center justify-end gap-3 pt-2">
-        <button
-          type="button"
-          onClick={handleSaveAll}
-          className={`px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center gap-2 ${
-            isFoxconn
-              ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20'
-              : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
-          }`}
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span>Lưu Toàn Bộ Cấu Hình Vòng Đời</span>
-        </button>
-      </div>
     </div>
   );
 }

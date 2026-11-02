@@ -116,19 +116,19 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
           <div>
             <h3 className={`font-bold text-base flex items-center gap-2 ${isFoxconn ? "text-slate-900" : "text-white"}`}>
               <span className="text-lg">&#9881;&#65039;</span>
-              <span>Cau Hinh Vong Doi (Lifecycle Configs)</span>
+              <span>Cấu hình vòng đời (Lifecycle Configs)</span>
               <span className={`ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${isFoxconn ? "bg-slate-100 text-slate-500 border-slate-200" : "bg-zinc-800 text-zinc-400 border-zinc-700"}`}>
-                {filtered.length} ban ghi
+                {filtered.length} bản ghi
               </span>
             </h3>
             <p className={`text-xs mt-0.5 ${isFoxconn ? "text-slate-500" : "text-zinc-500"}`}>
-              Thiet lap quy tac chu ky, canh bao va kiem dinh cho tung to hop Chuyen - San pham - Khay.
+              Thiết lập quy tắc chu kỳ, cảnh báo và kiểm định cho từng tổ hợp Chuyên - Sản phẩm - Khay.
             </p>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <button id="lifecycle-config-add-btn" type="button" onClick={handleOpenAdd}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer ${primaryBtn}`}>
-              + Them cau hinh
+              + Thêm cấu hình
             </button>
             <button id="lifecycle-config-refresh-btn" type="button" onClick={handleRefresh} disabled={isRefreshing}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${secondaryBtn}`}>
@@ -136,7 +136,7 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                   d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              Lam moi
+              Làm mới
             </button>
           </div>
         </div>
@@ -144,28 +144,28 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
         {/* Filter Toolbar */}
         <div className={`px-5 py-3 border-b flex flex-wrap gap-2 ${isFoxconn ? "border-slate-100 bg-slate-50/60" : "border-zinc-800 bg-zinc-950/40"}`}>
           <div className="relative flex-1 min-w-44">
-            <input id="lifecycle-filter-line" type="text" placeholder="Loc theo chuyen (Line)..."
+            <input id="lifecycle-filter-line" type="text" placeholder="Lọc theo chuyền (Line)..."
               value={filterLine} onChange={(e) => setFilterLine(e.target.value)}
               className={`w-full pl-3 pr-8 py-2 text-xs rounded-xl border transition-all outline-none ring-0 focus:ring-2 ${inputCls}`} />
             {filterLine && clearBtn(() => setFilterLine(""))}
           </div>
           <div className="relative flex-1 min-w-44">
-            <input id="lifecycle-filter-product" type="text" placeholder="Loc theo Model (Product)..."
+            <input id="lifecycle-filter-product" type="text" placeholder="Lọc theo Model (Product)..."
               value={filterProduct} onChange={(e) => setFilterProduct(e.target.value)}
               className={`w-full pl-3 pr-8 py-2 text-xs rounded-xl border transition-all outline-none ring-0 focus:ring-2 ${inputCls}`} />
             {filterProduct && clearBtn(() => setFilterProduct(""))}
           </div>
           <div className="relative flex-1 min-w-44">
-            <input id="lifecycle-filter-code" type="text" placeholder="Ma khay chi dinh..."
+            <input id="lifecycle-filter-code" type="text" placeholder="Mã khay chỉ định..."
               value={filterCode} onChange={(e) => setFilterCode(e.target.value)}
               className={`w-full pl-3 pr-8 py-2 text-xs rounded-xl border transition-all outline-none ring-0 focus:ring-2 ${inputCls}`} />
             {filterCode && clearBtn(() => setFilterCode(""))}
           </div>
           <select id="lifecycle-filter-status" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}
-            className={`flex-shrink-0 px-3 py-2 text-xs rounded-xl border transition-all outline-none cursor-pointer ${selectCls}`}>
-            <option value="ALL">Tat ca trang thai</option>
-            <option value="ACTIVE">Dang kich hoat</option>
-            <option value="DISABLED">Da vo hieu hoa</option>
+            className={`shrink-0 px-3 py-2 text-xs rounded-xl border transition-all outline-none cursor-pointer ${selectCls}`}>
+            <option value="ALL">Tất cả trạng thái</option>
+            <option value="ACTIVE">Đang kích hoạt</option>
+            <option value="DISABLED">Đã vô hiệu hóa</option>
           </select>
         </div>
 
@@ -175,25 +175,25 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
             <thead className={`text-[10px] font-bold uppercase tracking-wider border-b select-none ${thCls}`}>
               <tr>
                 <th className="py-3 px-3 w-10 text-center">#</th>
-                <th className="py-3 px-3 min-w-24">Chuyen</th>
-                <th className="py-3 px-3 min-w-32">San pham</th>
+                <th className="py-3 px-3 min-w-24">Chuyền</th>
+                <th className="py-3 px-3 min-w-32">Sản phẩm</th>
                 <th className="py-3 px-3 min-w-28">Product Type</th>
-                <th className="py-3 px-3 min-w-36">Loai khay</th>
-                <th className="py-3 px-3 min-w-44">Ma khay chi dinh</th>
+                <th className="py-3 px-3 min-w-36">Loại khay</th>
+                <th className="py-3 px-3 min-w-44">Mã khay chỉ định</th>
                 <th className="py-3 px-3 min-w-24">End Step</th>
-                <th className="py-3 px-3 text-right min-w-28">Chu ky toi da</th>
-                <th className="py-3 px-3 text-right min-w-28">Chu ky c.bao</th>
-                <th className="py-3 px-3 text-right min-w-28">Gio KT toi da</th>
-                <th className="py-3 px-3 text-right min-w-28">Gio KT c.dinh</th>
-                <th className="py-3 px-3 text-center min-w-28">Trang thai</th>
-                <th className="py-3 px-3 text-center min-w-24">Thao tac</th>
+                <th className="py-3 px-3 text-right min-w-28">Chu kỳ tối đa</th>
+                <th className="py-3 px-3 text-right min-w-28">Chu kỳ cảnh báo</th>
+                <th className="py-3 px-3 text-right min-w-28">Giờ KT tối đa</th>
+                <th className="py-3 px-3 text-right min-w-28">Giờ KT cố định</th>
+                <th className="py-3 px-3 text-center min-w-28">Trạng thái</th>
+                <th className="py-3 px-3 text-center min-w-24">Thao tác</th>
               </tr>
             </thead>
             <tbody className={`divide-y ${dividerCls}`}>
               {filtered.length === 0 ? (
                 <tr>
                   <td colSpan={13} className={`py-14 text-center text-xs ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>
-                    Khong tim thay cau hinh vong doi nao phu hop.
+                    Không tìm thấy cấu hình vòng đời nào phù hợp.
                   </td>
                 </tr>
               ) : filtered.map((cfg, idx) => (
@@ -206,7 +206,7 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
                   </td>
                   <td className={`py-3 px-3 font-semibold ${isFoxconn ? "text-slate-800" : "text-zinc-100"}`}>{cfg.productName}</td>
                   <td className={`py-3 px-3 ${tdCls}`}>
-                    <span className={`inline-block px-2 py-0.5 rounded-md text-[10px] border ${isFoxconn ? "bg-slate-100 text-slate-600 border-slate-200" : "bg-zinc-800 text-zinc-400 border-zinc-700"}`}>
+                    <span className={`inline-block px-2 py-0.5 rounded-md text-[10px] border ${isFoxconn ? "bg-slate-100 text-slate-600 border-slate-200" : "bg-zinc-800 text-white border-zinc-700"}`}>
                       {cfg.productType}
                     </span>
                   </td>
@@ -221,15 +221,15 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
                     </span>
                   </td>
                   <td className={`py-3 px-3 ${tdCls}`}>
-                    <span className={`font-mono text-[10px] px-1.5 py-0.5 rounded border ${isFoxconn ? "bg-slate-100 text-slate-600 border-slate-200" : "bg-zinc-800 text-zinc-400 border-zinc-700"}`}>
+                    <span className={`font-mono text-[10px] px-1.5 py-0.5 rounded border ${isFoxconn ? "bg-slate-100 text-slate-600 border-slate-200" : "bg-zinc-800 text-white border-zinc-700"}`}>
                       {cfg.endStep}
                     </span>
                   </td>
                   <td className={`py-3 px-3 text-right font-bold tabular-nums ${isFoxconn ? "text-slate-900" : "text-white"}`}>
-                    {cfg.maxCycles.toLocaleString("vi-VN")} <span className={`text-[10px] font-normal ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>luot</span>
+                    {cfg.maxCycles.toLocaleString("vi-VN")} <span className={`text-[10px] font-normal ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>lượt</span>
                   </td>
                   <td className="py-3 px-3 text-right font-semibold tabular-nums text-amber-600 dark:text-amber-400">
-                    {cfg.warningCycles.toLocaleString("vi-VN")} <span className={`text-[10px] font-normal ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>luot</span>
+                    {cfg.warningCycles.toLocaleString("vi-VN")} <span className={`text-[10px] font-normal ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>lượt</span>
                   </td>
                   <td className={`py-3 px-3 text-right font-bold tabular-nums ${isFoxconn ? "text-slate-700" : "text-zinc-300"}`}>
                     {cfg.maxInspectionHours}<span className={`ml-0.5 text-[10px] font-normal ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>h</span>
@@ -268,7 +268,7 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
         </div>
 
         <div className={`px-5 py-2.5 border-t text-xs ${isFoxconn ? "border-slate-100 text-slate-400" : "border-zinc-800 text-zinc-500"}`}>
-          Hien thi {filtered.length} / {(configs || []).length} cau hinh vong doi
+          Hiển thị {filtered.length} / {(configs || []).length} cấu hình vòng đời
         </div>
       </div>
 
@@ -349,11 +349,11 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
             <div className={`flex items-center justify-end gap-3 px-6 py-4 border-t ${isFoxconn ? "border-slate-200 bg-slate-50" : "border-zinc-800 bg-zinc-950"}`}>
               <button type="button" onClick={handleCancelModal}
                 className={`px-4 py-2 rounded-xl text-xs font-semibold border cursor-pointer transition-all ${secondaryBtn}`}>
-                Huy
+                Hủy
               </button>
               <button type="button" onClick={handleSave}
                 className={`px-5 py-2 rounded-xl text-xs font-bold cursor-pointer transition-all shadow-md ${primaryBtn}`}>
-                {modalMode === "add" ? "Them cau hinh" : "Luu thay doi"}
+                {modalMode === "add" ? "Thêm cấu hình" : "Lưu thay đổi"}
               </button>
             </div>
           </div>
@@ -370,18 +370,18 @@ export default function CarrierLifecycleConfigTable({ configs, onAdd, onUpdate, 
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
                 </svg>
               </div>
-              <h3 className={`font-bold text-sm ${isFoxconn ? "text-slate-900" : "text-white"}`}>Xac nhan xoa cau hinh</h3>
+              <h3 className={`font-bold text-sm ${isFoxconn ? "text-slate-900" : "text-white"}`}>Xác nhận xóa cấu hình</h3>
               <p className={`text-xs leading-relaxed ${isFoxconn ? "text-slate-500" : "text-zinc-400"}`}>
-                Ban co chac muon xoa cau hinh <span className="font-bold font-mono">[{deleteTargetId}]</span>? Hanh dong nay khong the hoan tac.
+                Bạn có chắc muốn xóa cấu hình <span className="font-bold font-mono">[{deleteTargetId}]</span>? Hành động này không thể hoàn tác.
               </p>
               <div className="flex gap-3 mt-1 w-full">
                 <button type="button" onClick={() => setDeleteTargetId(null)}
                   className={`flex-1 py-2 rounded-xl text-xs font-semibold border cursor-pointer transition-all ${secondaryBtn}`}>
-                  Huy
+                  Hủy
                 </button>
                 <button type="button" onClick={handleDeleteConfirm}
                   className="flex-1 py-2 rounded-xl text-xs font-bold cursor-pointer transition-all bg-rose-600 hover:bg-rose-700 text-white">
-                  Xoa cau hinh
+                  Xóa cấu hình
                 </button>
               </div>
             </div>
