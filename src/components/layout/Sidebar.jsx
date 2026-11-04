@@ -131,7 +131,7 @@ export default function Sidebar() {
 
               <div className="space-y-1.5">
                 {group.items.map((item) => {
-                  const itemKey = item.id || item.name.en || item.name.vi;
+                  const itemKey = item.id || item.path || item.name?.en || item.name?.vi;
                   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
 
                   // Render mục có sub-menu (như RACK)
@@ -201,11 +201,12 @@ export default function Sidebar() {
                           >
                             {item.children.map((child) => {
                               const isChildActive = location.pathname === child.path;
+                              const childKey = child.path || child.id || child.name?.en || child.name?.vi;
 
                               return (
                                 <NavLink
-                                  key={child.path}
-                                  to={child.path}
+                                  key={childKey}
+                                  to={child.path || '#'}
                                   onClick={handleLinkClick}
                                   className={({ isActive: linkActive }) => {
                                     const active = isChildActive || linkActive;
@@ -249,13 +250,13 @@ export default function Sidebar() {
 
                   // Render mục đơn bình thường
                   const isActive =
-                    location.pathname === item.path ||
-                    ((item.path === '/autoline-management' || item.path === '/models') && location.pathname === '/');
+                    Boolean(item.path && location.pathname === item.path) ||
+                    Boolean((item.path === '/autoline-management' || item.path === '/models') && location.pathname === '/');
 
                   return (
                     <NavLink
-                      key={item.path}
-                      to={item.path}
+                      key={itemKey || item.path}
+                      to={item.path || '#'}
                       onClick={handleLinkClick}
                       className={({ isActive: linkActive }) => {
                         const active = isActive || linkActive;

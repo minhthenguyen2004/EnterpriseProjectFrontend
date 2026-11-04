@@ -52,10 +52,10 @@ export default function CarrierPagination({
       }`}
     >
       {/* Thông tin số lượng bản ghi */}
-      <div className="text-slate-600 dark:text-zinc-400 font-medium">
-        Hiển thị <span className="font-bold text-slate-900 dark:text-white">{startRecord}</span> -{' '}
-        <span className="font-bold text-slate-900 dark:text-white">{endRecord}</span> trong tổng số{' '}
-        <span className="font-bold text-slate-900 dark:text-white">{totalFiltered.toLocaleString('vi-VN')}</span> khay
+      <div className={`${ isFoxconn ? "text-slate-600" : " text-white"} font-medium`}>
+        Hiển thị <span className={`font-bold ${ isFoxconn ? "text-slate-900" : "text-amber-500"}`}>{startRecord}</span> -{' '}
+        <span className={`font-bold ${ isFoxconn ? "text-slate-900" : "text-amber-500"}`}>{endRecord}</span> trong tổng số{' '}
+        <span className={`font-bold ${ isFoxconn ? "text-slate-900" : "text-amber-500"}`}>{totalFiltered.toLocaleString('vi-VN')}</span> khay
       </div>
 
       {/* Điều khiển chuyển trang */}

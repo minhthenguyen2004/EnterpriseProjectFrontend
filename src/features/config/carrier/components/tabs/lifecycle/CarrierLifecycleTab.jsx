@@ -1,4 +1,4 @@
-import CarrierLifecycleConfigTable from './CarrierLifecycleConfigTable';
+import CarrierLifecycleConfigTable from './CarrierLifecycleConfig';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**

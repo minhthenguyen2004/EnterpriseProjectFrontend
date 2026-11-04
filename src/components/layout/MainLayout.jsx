@@ -24,7 +24,7 @@ export default function MainLayout() {
             : 'bg-zinc-950 border-zinc-800 text-zinc-400'
         }`}
       >
-        Foxconn & NVIDIA Station Management System © 2026. All rights reserved.
+        Copyright © 2026. ANBG Label.
       </footer>
     </div>
   );
