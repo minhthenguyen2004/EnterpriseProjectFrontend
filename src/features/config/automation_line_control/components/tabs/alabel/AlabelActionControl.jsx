@@ -1,9 +1,9 @@
 import useTheme from '../../../../../../hooks/useTheme';
 import { ALABEL_SUB_TABS } from '../../../constants/alabelConstants';
 import UndoResetSubTab from './subtabs/undo_reset/UndoResetFunction';
-import TransferSubTab from './subtabs/TransferSubTab';
-import ClearUndoSubTab from './subtabs/ClearUndoSubTab';
-import CompensateSnDetailSubTab from './subtabs/CompensateSnDetailSubTab';
+import TransferSubTab from './subtabs/transfer/TransferSubTab';
+import ClearUndoSubTab from './subtabs/clear_undo/ClearUndoSubTab';
+import CompensateSnDetailSubTab from './subtabs/sn_compensation/CompensateSnDetailSubTab';
 import ChangeKeypartSubTab from './subtabs/ChangeKeypartSubTab';
 import SnDetailsSubTab from './subtabs/SnDetailsSubTab';
 import ErrorLogsSubTab from './subtabs/ErrorLogsSubTab';
@@ -19,6 +19,8 @@ export default function AlabelActionControl({
   setTransferForm,
   clearUndoForm,
   setClearUndoForm,
+  compensateForm,
+  setCompensateForm,
   compensateRows,
   setCompensateRows,
   changeKeypartForm,
@@ -121,8 +123,8 @@ export default function AlabelActionControl({
 
           {activeSubTab === 'compensate_detail' && (
             <CompensateSnDetailSubTab
-              rows={compensateRows}
-              setRows={setCompensateRows}
+              form={compensateForm}
+              setForm={setCompensateForm}
               isExecuting={isExecutingAction === 'compensate_detail'}
               onExecute={executeSubTabAction}
             />

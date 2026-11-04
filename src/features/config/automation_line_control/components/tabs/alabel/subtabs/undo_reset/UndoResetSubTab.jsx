@@ -1,5 +1,6 @@
 import { ROUTER_STEPS_LIST } from "../../../../../constants/alabelConstants";
 import Undo from "./tab/Undo";
+import Reset from "./tab/Reset"
 
 export default function UndoResetSubTab({isFoxconn, handleSubModeChange, subMode, handleResetForm, targetStep, isExecuting, onExecute, targetCode}) {
     return(

@@ -41,6 +41,8 @@ export default function AlabelHelperTab({ filters }) {
     setTransferForm,
     clearUndoForm,
     setClearUndoForm,
+    compensateForm,
+    setCompensateForm,
     compensateRows,
     setCompensateRows,
     changeKeypartForm,
@@ -93,6 +95,8 @@ export default function AlabelHelperTab({ filters }) {
           setTransferForm={setTransferForm}
           clearUndoForm={clearUndoForm}
           setClearUndoForm={setClearUndoForm}
+          compensateForm={compensateForm}
+          setCompensateForm={setCompensateForm}
           compensateRows={compensateRows}
           setCompensateRows={setCompensateRows}
           changeKeypartForm={changeKeypartForm}

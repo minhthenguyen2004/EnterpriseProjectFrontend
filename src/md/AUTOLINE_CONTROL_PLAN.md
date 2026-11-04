@@ -419,8 +419,8 @@ Nằm ở phía trên bên phải là bảng điều khiển tác vụ ALABEL. N
 | :---: | :------------- | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **1** | `undo/reset`   | **Hoàn tác & Reset chu kỳ** | Hỗ trợ 2 chế độ can thiệp: Rollback bước router về step mục tiêu chỉ định hoặc reset toàn bộ chu kỳ sản xuất của sản phẩm về Step 0.                            | • **Dòng 1:** Mã đối tượng (Tab chuyển đổi `[SN]` / `[Carrier]`).<br>• **Dòng 2:** Dropdown Dòng sản phẩm (Model) & Mã nhân viên (Tự truy xuất khi đăng nhập, `Read-only / Disabled`).<br>• **Chế độ nghiệp vụ (2 Tab con):**<br> - _Nếu chọn [Hoàn tác]:_ Dropdown chọn step mục tiêu + Nút `[↩️ Thực thi hoàn tác về Step {targetStep}]`.<br> - _Nếu chọn [Reset chu kỳ]:_ Nút `[⚡ Thực thi reset chu kỳ về Step 0]`. |
 | **2** | `transfer`     | **Điều chuyển khay Carrier**| Luân chuyển sản phẩm (SN) từ khay Pallet cũ sang khay mới hoặc điều chuyển công đoạn sang step router chỉ định.                                                  | • **Các trường text:** Mã Serial Number, Mã khay cũ, Mã khay mới.<br>• **Dòng sản phẩm (Model):** Dropdown menu (tự động giải mã).<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Step chuyển sang:** Dạng Dropdown menu.<br>• **Nút thực thi:** `[🔀 Thực thi chuyển khay]`. |
-| **3** | `clear undo`   | **Xóa cờ hoàn tác**         | Xóa cờ trạng thái undo hoặc làm sạch bộ đệm rollback của SN/Carrier trên server ALABEL, giải phóng khóa router cho sản phẩm đi tiếp.                            | • Input: Mã SN/Carrier, Quyền Supervisor / Lý do xóa cờ khóa, Tùy chọn Force Clear.<br>• Nút: `[🧹 Thực Thi Clear Undo]`.                                                                                                                                                                                                                                                                                                |
-| **4** | `bù sn_detail` | **Bổ sung bảng SN_Detail**  | Chèn bù các trường thông tin linh kiện/thuộc tính sản phẩm bị thiếu trong bảng `sn_detail` (ví dụ: MAC Address, UUID, Lot No, Firmware Rev) do sự cố ngắt mạng. | • Input: Mã SN, Bảng động Key-Value (`detail_key`, `detail_value`, `data_type`), nút thêm dòng.<br>• Nút: `[➕ Gửi Bù Dữ Liệu SN_Detail]`.                                                                                                                                                                                                                                                                               |
+| **3** | `clear undo`   | **Giải undo / rework**      | Giải phóng cờ khóa undo hoặc trạng thái rework router của SN/Carrier trên server ALABEL, cho phép sản phẩm tiếp tục đi tiếp trong luồng router dây chuyền.       | • **Mã đối tượng:** Text input kèm tab chuyển đổi `[SN]` / `[Carrier]`.<br>• **Dòng sản phẩm (Model):** Dropdown menu.<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Giải undo/rework đến step:** Dropdown menu (tùy chọn).<br>• **Nút thực thi:** `[🧹 Thực thi giải undo/rework]` (`shared_clearundorework`). |
+| **4** | `bù sn_detail` | **Nạp bù seri thủ công**    | Nạp bù dữ liệu chi tiết bản ghi SNDetails từ Step 1 đến TargetStep cho sản phẩm bị thiếu dữ liệu trên hệ thống qua Stored Procedure `[AutoLine].[Shared_ManualInsertSn]`. | • **Trường text:** Serial Number và Carrier Code nạp bù.<br>• **Dòng sản phẩm (Model):** Dropdown menu.<br>• **Dây chuyền:** Ô text nhập dây chuyền.<br>• **Target Step:** Ô text nhập router step mục tiêu.<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Lưu ý:** Nạp bù SNDetails từ Step 1 đến TargetStep qua SP `[AutoLine].[Shared_ManualInsertSn]`.<br>• **Nút thực thi:** `[📥 Thực thi nạp bù seri thủ công]` (`Shared_ManualInsertSN`). |
 | **5** | `đổi keypart`  | **Hoán đổi mã linh kiện**   | Hủy gán linh kiện cũ bị lỗi và liên kết mã barcode linh kiện mới thay thế vào cấu trúc sản phẩm của SN (Keypart Replacement).                                   | • Input: Mã SN cha, Loại linh kiện (Key Name dropdown), Mã Barcode cũ, Mã Barcode mới.<br>• Nút: `[🔄 Thực Thi Đổi Keypart]`.                                                                                                                                                                                                                                                                                            |
 | **6** | `sndetails`    | **Hồ sơ chi tiết SN**       | Truy vấn toàn diện và hiển thị dữ liệu bảng `sn_detail`, lịch sử quét, thuộc tính cấu hình và thông số kiểm tra của SN.                                         | • Input: Mã SN (tự động thừa hưởng từ kết quả tra cứu bên trái).<br>• Hiển thị: Bảng dữ liệu đa cột, bộ lọc thuộc tính, nút copy nhanh và export CSV/JSON.                                                                                                                                                                                                                                                               |
 | **7** | `error logs`   | **Nhật ký lỗi trạm**        | Xem danh sách bản ghi lỗi phát sinh tại các trạm dán nhãn ALABEL, phân loại theo mã lỗi, thời gian và mức độ nghiêm trọng.                                      | • Input: Bộ lọc theo Trạm, Mã lỗi (Error Code), Thời gian.<br>• Hiển thị: Danh sách lỗi kèm stack trace, nút tra cứu giải pháp xử lý SOP tương ứng.                                                                                                                                                                                                                                                                      |
@@ -510,6 +510,102 @@ Nghiệp vụ **Transfer (Điều chuyển khay Carrier)** phục vụ kỹ sư 
      + Operator: Mã nhân viên tự truy xuất từ tài khoản đăng nhập.
      + Message: `[TRANSFER_OK] Đã chuyển thành công SN {sn} từ khay cũ {oldCarrier} sang khay mới {newCarrier} tại Step {targetStep}. Model: {model}. Nhân viên: {operatorId}.`
      + Latency ms và phản hồi từ ALABEL Engine.
+
+#### 5.3.3. Đặc Tả Chi Tiết Sub-Tab 3: `clear undo` (Giải Phóng Cờ Khóa Undo & Rework Router)
+
+Nghiệp vụ **Clear Undo / Rework (`shared_clearundorework`)** là công cụ can thiệp vận hành trọng yếu, phục vụ kỹ sư khi cần giải phóng cờ trạng thái khóa undo hoặc cờ rework hold của đối tượng trên server ALABEL/SFC—giúp board mạch / sản phẩm sau khi đã xử lý lỗi hoặc xác minh xong có thể tiếp tục di chuyển qua các trạm kế tiếp theo luồng router sản xuất:
+
+1. **Trường Text Nhập Mã Đối Tượng & Tab Chuyển Đổi (SN / Carrier):**
+   - **Thanh tab chuyển đổi đối tượng:** Đặt ngay trên ô nhập liệu với 2 nút chuyển đổi tiện lợi:
+     - `[★ Serial Number (SN)]`: Dành cho đối tượng quản lý theo số Serial cố định của sản phẩm.
+     - `[ Carrier RFID / Pallet ]`: Dành cho khay chứa Pallet đồ gá hoặc thẻ RFID di chuyển trên băng tải.
+   - **Ô nhập liệu (Text Input):**
+     - Placeholder và nhãn thay đổi linh hoạt theo tab được chọn (ví dụ: `Nhập Serial Number (SN)...` hoặc `Nhập mã khay Carrier RFID...`).
+     - Kế thừa tự động: Tự động trích xuất và điền mã đối tượng nếu kỹ thuật viên đã tra cứu thành công ở khung *Tra cứu tiến trình* bên trái.
+     - Hỗ trợ quét nhanh từ máy đọc mã vạch (Barcode Scanner) hoặc đầu đọc thẻ RFID cố định tại trạm.
+
+2. **Dòng Sản Phẩm & Mã Nhân Viên (Lưới 2 Cột Đồng Bộ):**
+   - **Dòng sản phẩm (Model / Product Line):**
+     - Hiển thị dưới dạng **Dropdown menu** liệt kê danh mục dòng sản phẩm kích hoạt trong CSDL backend (`HGX B200 NVL`, `GB200 NVL72`, `HGX H100 SXM5`...).
+     - Tự động nhận diện và chọn sẵn nếu mã SN/Carrier đã có trong hệ thống, hoặc cho phép kỹ thuật viên chọn thủ công để điều phối đúng router model tương ứng.
+   - **Mã nhân viên (Operator ID):**
+     - **Cơ chế tự truy xuất sau khi đăng nhập thành công:** Hệ thống tự động trích xuất mã thẻ nhân viên (`cardId` hoặc `username`, ví dụ: `NV-2026-08819`) từ phiên đăng nhập tài khoản hiện tại (`state.auth`).
+     - **Quy tắc bảo mật nghiêm ngặt:** Trường này ở trạng thái **Chỉ đọc (Read-only / Disabled)** kèm biểu tượng ổ khóa bảo mật (`🔒`), kỹ thuật viên **hoàn toàn không thể tự ý chỉnh sửa**.
+     - **Ý nghĩa kiểm toán (Audit Trail):** Ghi nhận chính xác 100% trách nhiệm của kỹ thuật viên phát lệnh gỡ khóa undo/rework trên hệ thống dây chuyền tự động hóa Foxconn & NVIDIA.
+
+3. **Dropdown Menu Giải Undo/Rework Đến Step (Tùy Chọn - Optional):**
+   - Hiển thị danh mục các bước router công đoạn trên dây chuyền (ví dụ: `Step 010 - ST01-FEEDER`, `Step 020 - ST02-SMT-SURFACE`, `Step 030 - ST03-SMT-A`, `Step 040 - ST04-ICT-TEST`, `Step 050 - ST05-PRESSFIT`...).
+   - **Tính chất Tùy chọn (Optional):**
+     - Giá trị mặc định: `Toàn bộ chu kỳ / Giữ nguyên step hiện tại (Mặc định)`.
+     - Cho phép kỹ thuật viên lựa chọn một step router cụ thể nếu muốn sau khi gỡ cờ khóa, sản phẩm sẽ được chuyển hướng tiếp tục từ đúng công đoạn đó.
+
+4. **Nút Hành Động Thực Thi:**
+   - **Nhãn nút:** **`[🧹 Thực thi giải undo/rework]`**.
+   - **Backend Handler / Action Code:** `shared_clearundorework`.
+   - **Hiệu ứng & Kiểm tra hợp lệ:**
+     - Hiển thị loading spinner (`Đang giải undo/rework...`) trong suốt quá trình gửi lệnh tới ALABEL Service.
+     - Validation: Bắt buộc người dùng phải nhập mã đối tượng (SN hoặc Carrier) và xác nhận Model trước khi phát lệnh.
+
+5. **Tích Hợp Console Log Thời Gian Thực:**
+   - Khi bấm nút `[🧹 Thực thi giải undo/rework]`, hệ thống đóng gói payload gửi lên server và lập tức ghi nhận bản tin vào `ALABEL Execution Logs Console` ở tầng dưới cùng:
+     - Action: `CLEAR_UNDO_REWORK` (`shared_clearundorework`).
+     - Target: `{targetType.toUpperCase()}: {targetCode}`.
+     - Operator: Mã nhân viên đã tự động truy xuất từ tài khoản đăng nhập.
+     - Target Step: Mã step được chọn (hoặc `Mặc định`).
+     - Message: `[CLEAR_UNDO_OK] Đã giải phóng thành công cờ khóa undo/rework cho {targetType} '{targetCode}' (Model: {model}) tại Step: {clearStep || 'CURRENT'}. Nhân viên: {operatorId}.`
+     - Response status và Latency ms từ ALABEL Engine.
+
+#### 5.3.4. Đặc Tả Chi Tiết Sub-Tab 4: `bù sn_detail` (Nạp Bù Seri Thủ Công & Dữ Liệu SNDetails Qua Stored Procedure)
+
+Nghiệp vụ **Nạp Bù Seri Thủ Công (Manual Insert SN Details)** phục vụ kỹ sư khắc phục sự cố gián đoạn dữ liệu trên dây chuyền tự động hóa—ví dụ khi đường truyền mạng giữa PLC trạm và máy chủ SFC bị đứt, lỗi timeout hoặc bo mạch đi qua các trạm trước nhưng bảng `sn_detail` chưa được chèn đủ thuộc tính. Nghiệp vụ này kích hoạt Stored Procedure hệ thống `[AutoLine].[Shared_ManualInsertSn]` để khởi tạo và nạp bù dữ liệu chi tiết từ Step 1 đến TargetStep chỉ định:
+
+1. **Hai trường Text nhập mã Serial Number và Carrier Code nạp bù (Lưới 2 Cột):**
+   - **Mã Serial Number (SN):**
+     * Trường text input nhập mã serial định danh của sản phẩm cần nạp bù (ví dụ: `SN8839210492-NV`).
+     * Cơ chế kế thừa: Tự động trích xuất và điền sẵn nếu kỹ thuật viên đã tra cứu thành công ở khung *Tra cứu tiến trình* bên trái.
+     * Hỗ trợ quét nhanh từ đầu đọc barcode của trạm. Bắt buộc nhập (`*`).
+   - **Mã Carrier Code (Mã khay RFID / Pallet):**
+     * Trường text input nhập mã khay Pallet mang sản phẩm cần nạp bù (ví dụ: `CARRIER-RFID-8819`).
+     * Tự động đồng bộ từ kết quả tra cứu tiến trình của SN, hoặc cho phép quét mã RFID đồ gá trực tiếp. Bắt buộc nhập (`*`).
+
+2. **Dòng sản phẩm & Dây chuyền sản xuất (Lưới 2 Cột):**
+   - **Dòng sản phẩm (Model / Product Line):**
+     * Hiển thị dưới dạng **Dropdown menu** liệt kê danh mục dòng sản phẩm kích hoạt trong CSDL backend (`DB_ACTIVE_MODELS`, ví dụ: `HGX B200 NVL`, `GB200 NVL72`, `HGX H100 SXM5`...).
+     * Tự động nhận diện và chọn sẵn theo tiền tố của Serial Number/Carrier, hoặc cho phép kỹ thuật viên chọn thủ công từ dropdown.
+   - **Dây chuyền (Production Line):**
+     * Trường text input cho phép nhập tên/mã dây chuyền sản xuất đang vận hành (ví dụ: `LINE-01-SMT`, `LINE-02-NVL`, `LINE-B200-AUTO`).
+     * Xác định phạm vi dây chuyền để Stored Procedure nạp bù cấu hình trạm tương ứng.
+
+3. **Target Step & Mã nhân viên thực thi (Lưới 2 Cột):**
+   - **Target Step (Bước Router mục tiêu nạp bù tới):**
+     * Trường text input cho phép nhập mã bước router mục tiêu cần nạp bù dữ liệu tới (ví dụ: `030`, `040`, `ST03-SMT-A`).
+     * Xác định giới hạn đích của quá trình nạp bù: Stored Procedure sẽ chạy tuần tự từ công đoạn đầu tiên (Step 1) đến đúng TargetStep này.
+   - **Mã nhân viên thực thi (Operator ID):**
+     * **Cơ chế tự truy xuất sau khi đăng nhập thành công:** Tự động trích xuất mã thẻ nhân viên (`cardId` hoặc `username`, ví dụ: `NV-2026-08819`) từ phiên đăng nhập tài khoản hiện tại (`state.auth`).
+     * **Quy tắc bảo mật nghiêm ngặt:** Trường này ở trạng thái **Chỉ đọc (Read-only / Disabled)** kèm biểu tượng ổ khóa (`🔒`), kỹ thuật viên **hoàn toàn không thể tự ý sửa đổi**.
+     * **Ý nghĩa kiểm toán (Audit Trail):** Ghi nhận chính xác danh tính người phát lệnh can thiệp nạp bù dữ liệu CSDL của nhà máy Foxconn & NVIDIA.
+
+4. **Khung thông báo lưu ý kỹ thuật (Technical Callout Notice):**
+   - Đặt ngay bên dưới các trường nhập liệu với thiết kế khung viền cảnh báo trực quan:
+     > ⚠️ **Lưu ý:** Nạp bù dữ liệu SNDetails từ Step 1 đến TargetStep qua Stored Procedure `[AutoLine].[Shared_ManualInsertSn]`.
+   - Giúp kỹ sư nhận biết cơ chế hoạt động ngầm của hệ thống: Thủ tục lưu trữ (Stored Procedure) sẽ thẩm tra tính toàn vẹn của Serial Number, kiểm tra đồ gá Carrier và tự động nạp liên hoàn toàn bộ bản ghi dữ liệu công đoạn từ Step 1 cho đến TargetStep trên máy chủ SFC.
+
+5. **Cụm nút hành động thực thi & Làm sạch form:**
+   - **Nút hành động chính:** **`[📥 Thực thi nạp bù seri thủ công]`**.
+   - **Mã lệnh / Stored Procedure thực thi:** `Shared_ManualInsertSN` (`[AutoLine].[Shared_ManualInsertSn]`).
+   - **Nút phụ:** `[Làm Sạch Form]` (Xóa trắng các ô nhập liệu về trạng thái ban đầu).
+   - **Hiệu ứng & Kiểm tra hợp lệ (Validation):**
+     * Yêu cầu nhập đầy đủ: Serial Number, Carrier Code, Model, Dây chuyền và Target Step.
+     * Hiển thị trạng thái xoay loading spinner (`Đang nạp bù dữ liệu qua Stored Procedure...`) khi đang phát lệnh.
+
+6. **Tích hợp Console Log thời gian thực:**
+   - Khi bấm nút `[📥 Thực thi nạp bù seri thủ công]`, hệ thống ghi nhận ngay bản tin vào `ALABEL Execution Logs Console` ở tầng dưới cùng:
+     * Action: `MANUAL_INSERT_SN` (`Shared_ManualInsertSN`).
+     * Target: `{sn} | Carrier: {carrierCode}`.
+     * Line: `{line}` | TargetStep: `{targetStep}`.
+     * Operator: Mã nhân viên tự động truy xuất từ tài khoản đăng nhập.
+     * Message: `[MANUAL_INSERT_OK] Đã nạp bù dữ liệu SNDetails thành công từ Step 1 đến Step {targetStep} qua SP [AutoLine].[Shared_ManualInsertSn] cho SN {sn} (Khay: {carrierCode}, Chuyền: {line}, Model: {model}). Nhân viên: {operatorId}.`
+     * Response status, số lượng bản ghi đã chèn (rowsInserted) và độ trễ latency ms.
 
 ---
 
@@ -696,6 +792,41 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
+#### 6.5.3. Component `ClearUndoSubTab.jsx` (Sub-Tab 3 - Giải Undo / Rework)
+
+```javascript
+/**
+ * Props & Form State của ClearUndoSubTab:
+ * @param {Object} form - State form dữ liệu clear undo / rework
+ * @param {string} form.targetType - Loại đối tượng ('sn' | 'carrier')
+ * @param {string} form.targetCode - Mã SN hoặc Carrier RFID
+ * @param {string} form.model - Dòng sản phẩm (Dropdown menu chọn model từ CSDL)
+ * @param {string} form.operatorId - Mã nhân viên (Read-only 🔒, tự truy xuất khi đăng nhập)
+ * @param {string} [form.clearStep] - Bước router cần giải undo/rework tới (Dropdown menu tùy chọn)
+ * @param {Function} setForm - Hàm cập nhật state form
+ * @param {boolean} isExecuting - Trạng thái loading khi đang gửi lệnh
+ * @param {Function} onExecute - Handler gửi lệnh thực thi giải undo/rework ('shared_clearundorework')
+ */
+```
+
+#### 6.5.4. Component `CompensateSnDetailSubTab.jsx` (Sub-Tab 4 - Nạp Bù Seri Thủ Công & SNDetails)
+
+```javascript
+/**
+ * Props & Form State của CompensateSnDetailSubTab:
+ * @param {Object} form - State form dữ liệu nạp bù seri thủ công
+ * @param {string} form.sn - Mã Serial Number sản phẩm nạp bù
+ * @param {string} form.carrierCode - Mã Carrier Code (khay RFID/Pallet đồ gá)
+ * @param {string} form.model - Dòng sản phẩm (Dropdown menu chọn model từ CSDL)
+ * @param {string} form.line - Dây chuyền sản xuất (Text input)
+ * @param {string} form.targetStep - Bước router mục tiêu nạp bù tới (Text input)
+ * @param {string} form.operatorId - Mã nhân viên (Read-only 🔒, tự truy xuất khi đăng nhập)
+ * @param {Function} setForm - Hàm cập nhật state form
+ * @param {boolean} isExecuting - Trạng thái loading khi đang gửi lệnh
+ * @param {Function} onExecute - Handler gửi lệnh thực thi nạp bù ('compensate_detail' / Shared_ManualInsertSN)
+ */
+```
+
 ### 6.6. Component `AlabelExecutionLogs.jsx` (Khối Phía Dưới - Full Width)
 
 ```javascript
@@ -736,8 +867,8 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
 | **Danh Mục Model CSDL** | `GET`  | `/api/v1/alabel/models/active`               | _None_                                                                                                                                     | Danh sách các dòng sản phẩm đang kích hoạt trên dây chuyền                           |
 | **1. Undo / Reset**     | `POST` | `/api/v1/alabel/action/undo-reset`           | `{ targetType: "sn"\|"carrier", targetCode: string, model: string, operatorId: string, mode: "undo"\|"cycle_reset", targetStep?: string }` | `{ status: "SUCCESS", newStep: string, rollbackStation: string, latencyMs: number }` |
 | **2. Transfer**         | `POST` | `/api/v1/alabel/action/transfer-carrier`     | `{ sn: string, oldCarrier: string, newCarrier: string, model: string, operatorId: string, targetStep: string }`                            | `{ status: "SUCCESS", sn: string, newCarrier: string, targetStep: string, latencyMs: number }` |
-| **3. Clear Undo**       | `POST` | `/api/v1/alabel/action/clear-undo`           | `{ sn: string, carrierId?: string, forceUnlock: boolean }`                                                                                 | `{ status: "SUCCESS", unlocked: true, clearCount: number }`                          |
-| **4. Bù sn_detail**     | `POST` | `/api/v1/alabel/action/compensate-sn-detail` | `{ sn: string, details: Array<{ key: string, value: string, type: string }> }`                                                             | `{ status: "SUCCESS", rowsInserted: number }`                                        |
+| **3. Clear Undo**       | `POST` | `/api/v1/alabel/action/clear-undo-rework`    | `{ targetType: "sn"\|"carrier", targetCode: string, model: string, operatorId: string, clearStep?: string, action: "shared_clearundorework" }` | `{ status: "SUCCESS", unlocked: true, targetCode: string, action: "shared_clearundorework", latencyMs: number }` |
+| **4. Bù sn_detail**     | `POST` | `/api/v1/alabel/action/manual-insert-sn`     | `{ sn: string, carrierCode: string, model: string, line: string, targetStep: string, operatorId: string, spName: "[AutoLine].[Shared_ManualInsertSn]" }` | `{ status: "SUCCESS", sn: string, targetStep: string, sp: "Shared_ManualInsertSN", rowsInserted: number, latencyMs: number }` |
 | **5. Đổi Keypart**      | `POST` | `/api/v1/alabel/action/change-keypart`       | `{ sn: string, keyName: string, oldKeypart: string, newKeypart: string }`                                                                  | `{ status: "SUCCESS", unlinkedOld: true, linkedNew: true }`                          |
 | **6. SNDetails**        | `GET`  | `/api/v1/alabel/query/sn-details`            | Query param: `?sn={sn}&limit=100`                                                                                                          | Danh sách bản ghi thuộc tính chi tiết từ bảng `sn_detail`                            |
 | **7. Error Logs**       | `GET`  | `/api/v1/alabel/query/error-logs`            | Query param: `?station={station}&limit=50&level=ERROR`                                                                                     | Danh sách các lỗi trạm ALABEL ghi nhận trong ca                                      |
@@ -758,10 +889,14 @@ src/features/config/automation_line_control/
 │   │   │       ├── AlabelActionControl.jsx           # Phía Phải (50%): Thao tác điều khiển ALABEL (Quản lý 7 Sub-tabs)
 │   │   │       ├── AlabelExecutionLogs.jsx           # Phía Dưới: Console log thực thi thao tác ALABEL (Full width)
 │   │   │       └── subtabs/                          # Hệ thống 7 Sub-Tabs chuyên biệt
-│   │   │           ├── UndoResetSubTab.jsx           # Sub-tab 1: Undo / Reset trạm
-│   │   │           ├── TransferSubTab.jsx            # Sub-tab 2: Điều chuyển trạm
-│   │   │           ├── ClearUndoSubTab.jsx           # Sub-tab 3: Xóa cờ Undo
-│   │   │           ├── CompensateSnDetailSubTab.jsx  # Sub-tab 4: Bù trường sn_detail
+│   │   │           ├── undo_reset/                   # Sub-tab 1: Undo / Reset Router
+│   │   │           │   └── UndoResetFunction.jsx
+│   │   │           ├── transfer/                     # Sub-tab 2: Điều chuyển trạm & khay Carrier
+│   │   │           │   └── TransferSubTab.jsx
+│   │   │           ├── clear_undo/                   # Sub-tab 3: Giải undo/rework (shared_clearundorework)
+│   │   │           │   └── ClearUndoSubTab.jsx
+│   │   │           ├── sn_compensation/              # Sub-tab 4: Nạp bù seri thủ công & SNDetails
+│   │   │           │   └── CompensateSnDetailSubTab.jsx
 │   │   │           ├── ChangeKeypartSubTab.jsx       # Sub-tab 5: Đổi / hoán đổi Keypart
 │   │   │           ├── SnDetailsSubTab.jsx           # Sub-tab 6: Xem hồ sơ dữ liệu SN
 │   │   │           └── ErrorLogsSubTab.jsx           # Sub-tab 7: Nhật ký lỗi trạm ALABEL

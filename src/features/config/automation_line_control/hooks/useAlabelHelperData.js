@@ -46,9 +46,20 @@ export default function useAlabelHelperData() {
   });
 
   const [clearUndoForm, setClearUndoForm] = useState({
-    targetId: 'CARRIER-RFID-8819',
-    reason: 'Kỹ sư trưởng kiểm tra ngoại quan đạt chuẩn, giải phóng cờ khóa Undo',
-    forceUnlock: true,
+    targetType: 'sn', // 'sn' | 'carrier'
+    targetCode: 'SN8839210492-NV',
+    model: 'HGX_B200_NVL',
+    operatorId: 'NV-2026-08819',
+    clearStep: '', // '' = Mặc định / Giữ nguyên step hiện tại
+  });
+
+  const [compensateForm, setCompensateForm] = useState({
+    sn: 'SN8839210492-NV',
+    carrierCode: 'CARRIER-RFID-8819',
+    model: 'HGX_B200_NVL',
+    line: 'LINE-01-SMT',
+    targetStep: '030',
+    operatorId: 'NV-2026-08819',
   });
 
   const [compensateRows, setCompensateRows] = useState([
@@ -135,6 +146,19 @@ export default function useAlabelHelperData() {
     // Đồng bộ vào form các sub-tab
     setUndoResetForm((prev) => ({ ...prev, sn: searchQuery.trim() }));
     setTransferForm((prev) => ({ ...prev, sn: searchQuery.trim() }));
+    setClearUndoForm((prev) => ({
+      ...prev,
+      targetType: searchType === 'carrier' ? 'carrier' : 'sn',
+      targetCode: searchQuery.trim(),
+      model: modelName.includes('GB200') ? 'GB200_NVL72' : 'HGX_B200_NVL',
+    }));
+    setCompensateForm((prev) => ({
+      ...prev,
+      sn: searchQuery.trim(),
+      carrierCode: searchType === 'carrier' ? searchQuery.trim() : prev.carrierCode || 'CARRIER-RFID-8819',
+      model: modelName.includes('GB200') ? 'GB200_NVL72' : 'HGX_B200_NVL',
+      targetStep: newProcessResult.routerStep || '030',
+    }));
     setChangeKeypartForm((prev) => ({ ...prev, sn: searchQuery.trim() }));
 
     // Ghi nhận log tra cứu
@@ -235,41 +259,86 @@ export default function useAlabelHelperData() {
         break;
       }
       case 'clear_undo': {
+        const targetType = clearUndoForm.targetType || 'sn';
+        const targetDesc = targetType === 'carrier' ? 'Carrier RFID' : 'SN';
+        const targetVal = clearUndoForm.targetCode || 'SN8839210492-NV';
+        const modelVal = clearUndoForm.model || 'HGX_B200_NVL';
+        const operator = clearUndoForm.operatorId || 'NV-2026-08819';
+        const clearStep = clearUndoForm.clearStep || '';
+        const stepDesc = clearStep ? `Step ${clearStep}` : 'Giữ nguyên step hiện tại (Toàn bộ chu kỳ)';
+
         newLog = {
           id: `log-${Date.now()}`,
           timestamp: timeStr,
           level: 'SUCCESS',
-          action: 'CLEAR_UNDO',
-          target: clearUndoForm.targetId,
-          latencyMs: 22,
-          message: `[CLEAR_UNDO_OK] Đã giải phóng hoàn toàn cờ khóa Undo trên đối tượng ${clearUndoForm.targetId}.`,
-          payload: { ...clearUndoForm },
-          response: { status: 'SUCCESS', unlocked: true, clearCount: 1 },
+          action: 'CLEAR_UNDO_REWORK',
+          target: `[${targetType.toUpperCase()}] ${targetVal}`,
+          latencyMs: 26,
+          message: `[CLEAR_UNDO_OK] Đã thực thi giải undo/rework (shared_clearundorework) cho [${targetDesc}] ${targetVal} (Model: ${modelVal}) tại ${stepDesc}. Nhân viên: ${operator}.`,
+          payload: {
+            targetType,
+            targetCode: targetVal,
+            model: modelVal,
+            operatorId: operator,
+            clearStep: clearStep || 'CURRENT',
+            action: 'shared_clearundorework',
+          },
+          response: {
+            status: 'SUCCESS',
+            action: 'shared_clearundorework',
+            unlocked: true,
+            targetCode: targetVal,
+            step: clearStep || 'CURRENT',
+            latencyMs: 26,
+          },
         };
         break;
       }
       case 'compensate_detail': {
+        const snVal = compensateForm.sn || 'SN8839210492-NV';
+        const carrierVal = compensateForm.carrierCode || 'CARRIER-RFID-8819';
+        const modelVal = compensateForm.model || 'HGX_B200_NVL';
+        const lineVal = compensateForm.line || 'LINE-01-SMT';
+        const targetStepVal = compensateForm.targetStep || '030';
+        const operator = compensateForm.operatorId || 'NV-2026-08819';
+
         newLog = {
           id: `log-${Date.now()}`,
           timestamp: timeStr,
           level: 'SUCCESS',
-          action: 'COMPENSATE_DETAIL',
-          target: processResult.identifier,
-          latencyMs: 42,
-          message: `[COMPENSATE_OK] Đã cập nhật bù ${compensateRows.length} trường thuộc tính vào bảng sn_detail thành công.`,
-          payload: { sn: processResult.identifier, rows: compensateRows },
-          response: { status: 'SUCCESS', rowsUpdated: compensateRows.length },
+          action: 'MANUAL_INSERT_SN',
+          target: `${snVal} | Khay: ${carrierVal}`,
+          latencyMs: 38,
+          message: `[MANUAL_INSERT_OK] Đã nạp bù dữ liệu SNDetails thành công từ Step 1 đến Step ${targetStepVal} qua SP [AutoLine].[Shared_ManualInsertSn] cho SN ${snVal} (Khay: ${carrierVal}, Chuyền: ${lineVal}, Model: ${modelVal}). Nhân viên: ${operator}.`,
+          payload: {
+            sn: snVal,
+            carrierCode: carrierVal,
+            model: modelVal,
+            line: lineVal,
+            targetStep: targetStepVal,
+            operatorId: operator,
+            spName: '[AutoLine].[Shared_ManualInsertSn]',
+            action: 'Shared_ManualInsertSN',
+          },
+          response: {
+            status: 'SUCCESS',
+            sp: 'Shared_ManualInsertSN',
+            sn: snVal,
+            targetStep: targetStepVal,
+            rowsInserted: 8,
+            latencyMs: 38,
+          },
         };
-        // Cập nhật vào danh sách sndetails
+        // Cập nhật vào danh sách sndetails mẫu
         setSnDetailsList((prev) => [
-          ...compensateRows.map((r, i) => ({
-            id: Date.now() + i,
-            key: r.key,
-            value: r.value,
-            station: processResult.currentStation,
+          {
+            id: Date.now(),
+            key: 'manual_compensate_status',
+            value: `SP_INSERTED_STEP_1_TO_${targetStepVal}`,
+            station: targetStepVal,
             updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
             status: 'COMPENSATED',
-          })),
+          },
           ...prev,
         ]);
         break;
@@ -389,6 +458,8 @@ export default function useAlabelHelperData() {
     setTransferForm,
     clearUndoForm,
     setClearUndoForm,
+    compensateForm,
+    setCompensateForm,
     compensateRows,
     setCompensateRows,
     changeKeypartForm,
