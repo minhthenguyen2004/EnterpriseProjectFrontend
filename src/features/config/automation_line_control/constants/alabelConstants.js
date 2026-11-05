@@ -113,12 +113,107 @@ export const MOCK_SN_DETAILS = [
   { id: 8, key: 'carrier_rfid', value: 'CARRIER-RFID-8819', station: 'ST01-FEEDER', updatedAt: '2026-11-04 09:20:12', status: 'ACTIVE' },
 ];
 
+// Phân loại sản phẩm cho tác vụ Error Logs
+export const PRODUCT_TYPES = [
+  { id: 'GPU_MODULE', name: 'GPU Module Board' },
+  { id: 'BASEBOARD', name: 'Baseboard / Motherboard' },
+  { id: 'NVLINK_SWITCH', name: 'NVLink Switch Tray' },
+  { id: 'PSU_TRAY', name: 'Power Supply Unit Tray' },
+  { id: 'COMPUTE_BLADE', name: 'Compute Blade NVL' },
+];
+
+// Nguồn lỗi cho tác vụ Error Logs
+export const ERROR_SOURCES = [
+  { id: 'STATION_PLC', name: 'PLC Trạm (Station PLC)' },
+  { id: 'CAMERA_AI', name: 'Camera AI Scanner' },
+  { id: 'RFID_READER', name: 'Đầu Đọc RFID (RFID Reader)' },
+  { id: 'SFC_GATEWAY', name: 'Cổng Giao Tiếp SFC Gateway' },
+  { id: 'LASER_SENSOR', name: 'Cảm Biến Quang / Laser Sensor' },
+  { id: 'OPERATOR_ACTION', name: 'Người Thao Tác (Operator)' },
+];
+
+// Giai đoạn quy trình sản xuất
+export const PROCESS_STAGES = [
+  { id: 'STAGE_SMT', name: 'SMT Surface Mount' },
+  { id: 'STAGE_ASSEMBLY', name: 'Board Assembly & Keyparts' },
+  { id: 'STAGE_ICT', name: 'ICT Test In-Circuit' },
+  { id: 'STAGE_PRESSFIT', name: 'Pressfit Ép Khung' },
+  { id: 'STAGE_REWORK', name: 'Rework & Repair' },
+  { id: 'STAGE_QC', name: 'QC Kiểm Định Chất Lượng' },
+];
+
 // Dữ liệu mẫu bảng Error Logs cho Sub-tab 7
 export const MOCK_ERROR_LOGS = [
-  { id: 'ERR-1092', station: 'ST03-SMT-A', code: 'ERR_BARCODE_MISMATCH', level: 'ERROR', message: 'Mã linh kiện Heatsink HS-CU-BLK-00924 không khớp định dạng revision kiểm toán BOM.', time: '09:47:10', sopLink: 'SOP-SFC-MOD-042' },
-  { id: 'ERR-1088', station: 'ST02-SMT-SURFACE', code: 'WARN_RFID_SIGNAL_WEAK', level: 'WARNING', message: 'Tín hiệu đọc thẻ RFID Pallet CARRIER-RFID-8819 chỉ đạt 68% tại đầu đọc cổng trạm.', time: '09:35:30', sopLink: 'SOP-RFID-ANT-01' },
-  { id: 'ERR-1085', station: 'ST03-SMT-A', code: 'ERR_ROUTER_SEQUENCE_CONFLICT', level: 'ERROR', message: 'Sản phẩm chưa hoàn tất trạm kiểm tra ICT (ST04) trước khi chuyển vào trạm Ép khung.', time: '09:12:44', sopLink: 'SOP-ROUTER-WF-008' },
-  { id: 'ERR-1079', station: 'ST01-FEEDER', code: 'INFO_CARRIER_CLEARED', level: 'INFO', message: 'Đã giải phóng liên kết Carrier khay cũ sau chu kỳ hoàn thành đóng gói.', time: '08:50:02', sopLink: 'SOP-CARRIER-RECYC-01' },
+  {
+    id: 'ERR-1092',
+    station: 'ST03-SMT-A',
+    code: 'ERR_BARCODE_MISMATCH',
+    level: 'ERROR',
+    message: 'Mã linh kiện Heatsink HS-CU-BLK-00924 không khớp định dạng revision kiểm toán BOM.',
+    time: '09:47:10',
+    sopLink: 'SOP-SFC-MOD-042',
+    model: 'HGX_B200_NVL',
+    productType: 'GPU_MODULE',
+    line: 'LINE_02_B200',
+    source: 'CAMERA_AI',
+    stage: 'STAGE_ASSEMBLY',
+  },
+  {
+    id: 'ERR-1088',
+    station: 'ST02-SMT-SURFACE',
+    code: 'WARN_RFID_SIGNAL_WEAK',
+    level: 'WARNING',
+    message: 'Tín hiệu đọc thẻ RFID Pallet CARRIER-RFID-8819 chỉ đạt 68% tại đầu đọc cổng trạm.',
+    time: '09:35:30',
+    sopLink: 'SOP-RFID-ANT-01',
+    model: 'GB200_NVL72',
+    productType: 'BASEBOARD',
+    line: 'LINE_01_NVL72',
+    source: 'RFID_READER',
+    stage: 'STAGE_SMT',
+  },
+  {
+    id: 'ERR-1085',
+    station: 'ST03-SMT-A',
+    code: 'ERR_ROUTER_SEQUENCE_CONFLICT',
+    level: 'ERROR',
+    message: 'Sản phẩm chưa hoàn tất trạm kiểm tra ICT (ST04) trước khi chuyển vào trạm Ép khung.',
+    time: '09:12:44',
+    sopLink: 'SOP-ROUTER-WF-008',
+    model: 'HGX_B200_NVL',
+    productType: 'GPU_MODULE',
+    line: 'LINE_02_B200',
+    source: 'SFC_GATEWAY',
+    stage: 'STAGE_PRESSFIT',
+  },
+  {
+    id: 'ERR-1079',
+    station: 'ST01-FEEDER',
+    code: 'INFO_CARRIER_CLEARED',
+    level: 'INFO',
+    message: 'Đã giải phóng liên kết Carrier khay cũ sau chu kỳ hoàn thành đóng gói.',
+    time: '08:50:02',
+    sopLink: 'SOP-CARRIER-RECYC-01',
+    model: 'HGX_B200_NVL',
+    productType: 'BASEBOARD',
+    line: 'LINE_02_B200',
+    source: 'STATION_PLC',
+    stage: 'STAGE_SMT',
+  },
+  {
+    id: 'ERR-1075',
+    station: 'ST04-ICT-TEST',
+    code: 'ERR_VOLTAGE_SPIKE',
+    level: 'CRITICAL',
+    message: 'Điện áp đo trạm ICT vượt ngưỡng an toàn quy chuẩn (+12.8V so với limit +12.0V).',
+    time: '08:35:12',
+    sopLink: 'SOP-ICT-PWR-015',
+    model: 'GB200_NVL72',
+    productType: 'PSU_TRAY',
+    line: 'LINE_01_NVL72',
+    source: 'LASER_SENSOR',
+    stage: 'STAGE_ICT',
+  },
 ];
 
 // Danh sách Log khởi tạo cho khối Terminal Console phía dưới

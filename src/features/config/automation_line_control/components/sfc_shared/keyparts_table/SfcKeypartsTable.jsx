@@ -158,7 +158,7 @@ export default function SfcKeypartsTable({
 
                   {/* Cột 2: Key Name */}
                   <td className="py-2.5 px-3">
-                    <div className={`font-bold ${ isFoxconn ? "text-slate-800" : "dark:text-zinc-100"}`}>
+                    <div className={`font-bold ${ isFoxconn ? "text-slate-800" : "text-zinc-100"}`}>
                       {row.keyName}
                     </div>
                     {row.type && (
@@ -170,7 +170,7 @@ export default function SfcKeypartsTable({
 
                   {/* Cột 3: Key Value */}
                   <td className="py-2.5 px-3">
-                    <div className={`flex items-center gap-1.5 font-semibold ${ isFoxconn ? "text-slate-700" : "dark:text-zinc-200"}`}>
+                    <div className={`flex items-center gap-1.5 font-semibold ${ isFoxconn ? "text-slate-700" : "text-zinc-200"}`}>
                       <span>{row.keyValue}</span>
                       <button
                         type="button"

@@ -244,6 +244,36 @@ Phân hệ **ALABEL_Helper** được thiết kế để thay thế hoàn toàn 
 └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+### 3.4. Giao Diện Khi Chọn Tab 4: `Action Logs & Restore` (`activeTab === 'action_logs'`)
+
+```text
+┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ CONFIG > AUTOMATION LINE CONTROL                              [Dừng Khẩn Cấp E-STOP]  [Khởi Động Dây Chuyền]  [Full]  │
+│ Bảng điều khiển tập trung: SFC Helpers, Bắn lệnh SFC Switch/Adapter, ALABEL Helper và Kiểm toán nhật ký thao tác       │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│  [  SFC Switch Helpers  ]   [  SFC Adapter Helpers  ]   [  ALABEL Helper  ]   [★ Action Logs & Restore  ]              │
+├────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ ┌─ KHUNG BỘ LỌC KIỂM TOÁN HÀNH ĐỘNG (ACTION LOGS FILTER TOOLBAR) ─────────────────────────────────────────────────────┐ │
+│ │ ┌───────────────────┬───────────────────┬────────────────────┬────────────────────┬────────────────────────────────┐│ │
+│ │ │ 📅 Từ Ngày        │ 📅 Đến Ngày       │ ⚡ Hành Động ▼     │ 🏢 Phân Hệ ▼       │ 🔍 Tìm Kiếm Chi Tiết...        ││ │
+│ │ │ [2026-11-01 00:00]│ [2026-11-05 23:59]│ [-- Tất Cả H.Động] │ [-- Tất Cả Phân Hệ]│ [Mã thẻ, SN, Carrier, bảng...] ││ │
+│ │ └───────────────────┴───────────────────┴────────────────────┴────────────────────┴────────────────────────────────┘│ │
+│ │ [🔍 Thực Thi Lọc Dữ Liệu]   [🧹 Làm Sạch Bộ Lọc]                                   [📥 Xuất Báo Cáo Kiểm Toán (CSV)]│ │
+│ └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘ │
+│                                                                                                                         │
+│ ┌─ BẢNG NHẬT KÝ THAO TÁC & PHỤC HỒI TRẠNG THÁI (ACTION LOGS & STATE RESTORE TABLE) ───────────────────────────────────┐ │
+│ │ Hiển thị số dòng: [25 dòng ▼]                                                    Tổng số bản ghi: 128 bản ghi kiểm toán│ │
+│ ├─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤ │
+│ │ ID       | Thời Gian | Người Thực Hiện | Hành Động    | Bảng Đích      | Mục Tiêu   | Mô Tả Chi Tiết      | Trạng Thái | Thao Tác                │ │
+│ ├──────────┼───────────┼─────────────────┼──────────────┼────────────────┼────────────┼─────────────────────┼────────────┼─────────────────────────┤ │
+│ │ ACT-8801 │ 09:48:12  │ NV-2026-08819   │ [UNDO]       │ wip_router_st..│ SN883921049│ Hoàn tác về Step 020│ [SUCCESS]  │ [👁️ Xem] [⚖️ Diff] [⏪ Re]│ │
+│ │ ACT-8802 │ 09:35:20  │ NV-2026-08819   │ [TRANSFER]   │ carrier_track..│ SN883921049│ Chuyển khay RFID-992│ [SUCCESS]  │ [👁️ Xem] [⚖️ Diff] [⏪ Re]│ │
+│ │ ACT-8803 │ 09:20:05  │ NV-2026-04102   │ [KEYPART]    │ sndetaildatas  │ SN883921049│ Đổi GPU_01 sang rev2│ [SUCCESS]  │ [👁️ Xem] [⚖️ Diff] [⏪ Re]│ │
+│ │ ACT-8804 │ 08:55:40  │ NV-2026-08819   │ [RESTORE]    │ wip_router_st..│ SN883921049│ Phục hồi về snapshot│ [RESTORED] │ [👁️ Xem] [⚖️ Diff] [ - ] │ │
+│ └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘ │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+```
+
 ---
 
 ## 4. ĐẶC TẢ CHI TIẾT CÁC THÀNH PHẦN GIAO DIỆN CHUNG
@@ -421,9 +451,9 @@ Nằm ở phía trên bên phải là bảng điều khiển tác vụ ALABEL. N
 | **2** | `transfer`     | **Điều chuyển khay Carrier**| Luân chuyển sản phẩm (SN) từ khay Pallet cũ sang khay mới hoặc điều chuyển công đoạn sang step router chỉ định.                                                  | • **Các trường text:** Mã Serial Number, Mã khay cũ, Mã khay mới.<br>• **Dòng sản phẩm (Model):** Dropdown menu (tự động giải mã).<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Step chuyển sang:** Dạng Dropdown menu.<br>• **Nút thực thi:** `[🔀 Thực thi chuyển khay]`. |
 | **3** | `clear undo`   | **Giải undo / rework**      | Giải phóng cờ khóa undo hoặc trạng thái rework router của SN/Carrier trên server ALABEL, cho phép sản phẩm tiếp tục đi tiếp trong luồng router dây chuyền.       | • **Mã đối tượng:** Text input kèm tab chuyển đổi `[SN]` / `[Carrier]`.<br>• **Dòng sản phẩm (Model):** Dropdown menu.<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Giải undo/rework đến step:** Dropdown menu (tùy chọn).<br>• **Nút thực thi:** `[🧹 Thực thi giải undo/rework]` (`shared_clearundorework`). |
 | **4** | `bù sn_detail` | **Nạp bù seri thủ công**    | Nạp bù dữ liệu chi tiết bản ghi SNDetails từ Step 1 đến TargetStep cho sản phẩm bị thiếu dữ liệu trên hệ thống qua Stored Procedure `[AutoLine].[Shared_ManualInsertSn]`. | • **Trường text:** Serial Number và Carrier Code nạp bù.<br>• **Dòng sản phẩm (Model):** Dropdown menu.<br>• **Dây chuyền:** Ô text nhập dây chuyền.<br>• **Target Step:** Ô text nhập router step mục tiêu.<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Lưu ý:** Nạp bù SNDetails từ Step 1 đến TargetStep qua SP `[AutoLine].[Shared_ManualInsertSn]`.<br>• **Nút thực thi:** `[📥 Thực thi nạp bù seri thủ công]` (`Shared_ManualInsertSN`). |
-| **5** | `đổi keypart`  | **Hoán đổi mã linh kiện**   | Hủy gán linh kiện cũ bị lỗi và liên kết mã barcode linh kiện mới thay thế vào cấu trúc sản phẩm của SN (Keypart Replacement).                                   | • Input: Mã SN cha, Loại linh kiện (Key Name dropdown), Mã Barcode cũ, Mã Barcode mới.<br>• Nút: `[🔄 Thực Thi Đổi Keypart]`.                                                                                                                                                                                                                                                                                            |
-| **6** | `sndetails`    | **Hồ sơ chi tiết SN**       | Truy vấn toàn diện và hiển thị dữ liệu bảng `sn_detail`, lịch sử quét, thuộc tính cấu hình và thông số kiểm tra của SN.                                         | • Input: Mã SN (tự động thừa hưởng từ kết quả tra cứu bên trái).<br>• Hiển thị: Bảng dữ liệu đa cột, bộ lọc thuộc tính, nút copy nhanh và export CSV/JSON.                                                                                                                                                                                                                                                               |
-| **7** | `error logs`   | **Nhật ký lỗi trạm**        | Xem danh sách bản ghi lỗi phát sinh tại các trạm dán nhãn ALABEL, phân loại theo mã lỗi, thời gian và mức độ nghiêm trọng.                                      | • Input: Bộ lọc theo Trạm, Mã lỗi (Error Code), Thời gian.<br>• Hiển thị: Danh sách lỗi kèm stack trace, nút tra cứu giải pháp xử lý SOP tương ứng.                                                                                                                                                                                                                                                                      |
+| **5** | `đổi keypart`  | **Hoán đổi mã linh kiện**   | Hủy gán linh kiện cũ bị lỗi hoặc cập nhật giá trị linh kiện con mới hợp chuẩn vào bảng dữ liệu chi tiết `sndetaildatas` của SN/Carrier.                         | • **Mã đối tượng:** Ô text có thể nhập theo SN hoặc Carrier.<br>• **Dòng sản phẩm (Model):** Dropdown menu.<br>• **Mã nhân viên:** Tự truy xuất sau khi đăng nhập (`Read-only / Disabled 🔒`).<br>• **Chọn Keypart:** Dropdown menu.<br>• **Giá trị mới:** Ô text nhập barcode linh kiện mới.<br>• **Nút thực thi:** `[🔄 Xác nhận thay đổi giá trị keypart]` (`sndetaildatas`). |
+| **6** | `sndetails`    | **Hồ sơ chi tiết SN**       | Truy vấn toàn diện và hiển thị danh sách bản ghi dữ liệu chi tiết của sản phẩm từ bảng `sn_detail` / `sndetaildatas` theo SN hoặc Carrier.                         | • **Mã đối tượng:** Ô text có thể lựa chọn nhập theo SN hoặc Carrier.<br>• **Dòng sản phẩm (Model):** Dropdown menu (tùy chọn).<br>• **Giới hạn bản ghi:** Dropdown menu Top Limit (50, 100, 200, 500, 1000).<br>• **Nút thực thi:** `[🔍 Thực thi tra cứu bảng sndetails]`. |
+| **7** | `error logs`   | **Nhật ký lỗi trạm**        | Tra cứu, lọc và phân tích lịch sử bản ghi lỗi phát sinh trên hệ thống ALABEL theo đối tượng SN/Carrier, dòng sản phẩm, trạm và nguồn lỗi.                       | • **Mã đối tượng:** Ô text có thể chuyển đổi qua lại giữa SN và Carrier.<br>• **Bộ lọc Dropdown:** Dòng sản phẩm, Loại sản phẩm, Tên chuyền, Nguồn lỗi, Giai đoạn, Trạm, Giới hạn bản ghi.<br>• **Nút thực thi:** `[⚠️ Thực thi tra cứu bảng ErrorLogs]`. |
 
 #### 5.3.1. Đặc Tả Chi Tiết Sub-Tab 1: `undo/reset` (Hoàn Tác Router & Reset Chu Kỳ Dây Chuyền)
 
@@ -607,6 +637,166 @@ Nghiệp vụ **Nạp Bù Seri Thủ Công (Manual Insert SN Details)** phục v
      * Message: `[MANUAL_INSERT_OK] Đã nạp bù dữ liệu SNDetails thành công từ Step 1 đến Step {targetStep} qua SP [AutoLine].[Shared_ManualInsertSn] cho SN {sn} (Khay: {carrierCode}, Chuyền: {line}, Model: {model}). Nhân viên: {operatorId}.`
      * Response status, số lượng bản ghi đã chèn (rowsInserted) và độ trễ latency ms.
 
+#### 5.3.5. Đặc Tả Chi Tiết Sub-Tab 5: `đổi keypart` (Hoán Đổi & Cập Nhật Giá Trị Keypart - sndetaildatas)
+
+Nghiệp vụ **Đổi Keypart / Hoán Đổi Giá Trị Linh Kiện** phục vụ kỹ sư trong các tình huống can thiệp sửa chữa (Rework / Repair), thay thế linh kiện con bị lỗi (hỏng chip, chân tiếp xúc lỗi, barcode mờ, v.v.) bằng linh kiện mới đạt chuẩn mà không làm gián đoạn chu trình lắp ráp. Thao tác này kích hoạt cập nhật trực tiếp cấu trúc linh kiện và giá trị barcode mới vào bảng dữ liệu chi tiết `sndetaildatas` trên hệ thống máy chủ ALABEL / SFC:
+
+1. **Trường Text Nhập Mã Đối Tượng & Tab Chuyển Đổi (SN / Carrier):**
+   - **Thanh tab chuyển đổi đối tượng:** Đặt ngay trên ô nhập liệu với 2 nút chuyển đổi trực quan:
+     - `[★ Serial Number (SN)]`: Dành cho sản phẩm đã được bắn số SN cố định.
+     - `[ Carrier RFID / Pallet ]`: Dành cho khay chứa Pallet hoặc thẻ RFID mang sản phẩm di chuyển trên chuyền tự động.
+   - **Ô text nhập mã đối tượng (Text Input):**
+     - Placeholder và nhãn thay đổi linh hoạt theo tab được chọn (ví dụ: `Nhập Serial Number (SN)...` hoặc `Nhập mã khay Carrier RFID...`).
+     - Cơ chế kế thừa: Tự động trích xuất và điền sẵn mã đối tượng nếu kỹ thuật viên đã tra cứu thành công ở khung *Tra cứu tiến trình* bên trái.
+     - Hỗ trợ quét barcode/RFID trực tiếp từ máy quét cầm tay hoặc đầu đọc cố định tại trạm.
+
+2. **Dòng Sản Phẩm & Mã Nhân Viên (Lưới 2 Cột Đồng Bộ):**
+   - **Dòng sản phẩm (Model / Product Line):**
+     - Hiển thị dưới dạng **Dropdown menu** liệt kê danh mục dòng sản phẩm kích hoạt trong CSDL (`HGX B200 NVL`, `GB200 NVL72`, `HGX H100 SXM5`...).
+     - Tự động nhận diện và chọn sẵn nếu mã SN/Carrier đã có trong hệ thống, hoặc cho phép kỹ thuật viên chọn thủ công từ dropdown để đảm bảo đúng BOM cấu hình.
+   - **Mã nhân viên (Operator ID):**
+     - **Cơ chế tự truy xuất sau khi đăng nhập thành công:** Tự động lấy ra mã thẻ nhân viên (`cardId` hoặc `username`, ví dụ: `NV-2026-08819`) từ phiên đăng nhập tài khoản hiện tại (`state.auth`).
+     - **Quy tắc bảo mật nghiêm ngặt:** Trường text này ở trạng thái **Chỉ đọc (Read-only / Disabled)** kèm biểu tượng ổ khóa bảo mật (`🔒`), kỹ thuật viên **hoàn toàn không thể tự ý sửa đổi**.
+     - **Ý nghĩa kiểm toán (Audit Trail):** Ghi nhận trung thực 100% trách nhiệm của nhân sự phát lệnh can thiệp thay đổi linh kiện trên dây chuyền tự động hóa Foxconn & NVIDIA.
+
+3. **Dropdown Menu Chọn Keypart & Ô Text Nhập Giá Trị Mới (Lưới 2 Cột):**
+   - **Chọn Keypart (Keypart / Key Name Dropdown):**
+     - Hiển thị dưới dạng **Dropdown menu** danh mục các linh kiện con trong cấu trúc BOM của sản phẩm (ví dụ: `MOTHERBRD`, `GPU_01`, `GPU_02`, `HEATSINK`, `MAC_ADDR`, `CPU_SOCKET`, `RAM_SLOT_01`, `POWER_STAGE`...).
+     - Cho phép kỹ sư chọn nhanh loại linh kiện cần can thiệp hoán đổi mã.
+   - **Ô text nhập giá trị mới (New Keypart Barcode / Value):**
+     - Ô text cho phép nhập mã vạch / serial định danh mới của linh kiện con thay thế (ví dụ: `GPU-NV-01-REV2-9901`).
+     - Hỗ trợ quét barcode nhanh từ đầu đọc quang học của trạm sửa chữa. Bắt buộc nhập (`*`).
+
+4. **Nút Hành Động Thực Thi (Action Button) & Lưu Ý Nghiệp Vụ:**
+   - **Nút hành động chính:** **`[🔄 Xác nhận thay đổi giá trị keypart]`**.
+   - **Tác vụ / Bảng CSDL thao tác:** `sndetaildatas` (Cập nhật bản ghi linh kiện con trong bảng `[AutoLine].[SNDetailDatas]`).
+   - **Nút phụ:** `[Làm Sạch Form]` để xóa nhanh các trường nhập về trạng thái ban đầu.
+   - **Hiệu ứng & Kiểm tra hợp lệ (Validation):**
+     - Hiển thị loading spinner (`Đang cập nhật giá trị keypart trong sndetaildatas...`) trong suốt quá trình phát lệnh.
+     - Kiểm tra bắt buộc: Đã nhập mã đối tượng (SN/Carrier), đã xác định dòng sản phẩm, đã chọn keypart từ dropdown và đã nhập giá trị mới.
+
+5. **Tích Hợp Console Log Thời Gian Thực:**
+   - Khi bấm nút `[🔄 Xác nhận thay đổi giá trị keypart]`, hệ thống đóng gói đầy đủ payload gửi lên server và lập tức ghi nhận bản tin vào `ALABEL Execution Logs Console` ở tầng dưới cùng:
+     - Action: `CHANGE_KEYPART_VALUE` (`sndetaildatas`).
+     - Target: `{targetType.toUpperCase()}: {targetCode}` | Key: `{selectedKeypart}`.
+     - New Value: `{newKeypartValue}`.
+     - Operator: Mã nhân viên tự động truy xuất từ tài khoản đăng nhập.
+     - Message: `[CHANGE_KEYPART_OK] Đã xác nhận thay đổi giá trị keypart '{selectedKeypart}' thành '{newKeypartValue}' trong bảng sndetaildatas cho {targetType} '{targetCode}' (Model: {model}). Nhân viên: {operatorId}.`
+     - Response status, mã phản hồi SFC và độ trễ latency ms.
+
+#### 5.3.6. Đặc Tả Chi Tiết Sub-Tab 6: `sndetails` (Tra Cứu Bản Ghi Hồ Sơ Dữ Liệu Bảng sndetails)
+
+Nghiệp vụ **Tra Cứu Bảng SNDetails** phục vụ kỹ sư phân tích, kiểm định chất lượng (QA/QC), kiểm toán dữ liệu và truy vết toàn diện lịch sử các thuộc tính, thông số kỹ thuật, tem nhãn mã vạch, các khóa linh kiện liên kết (Keyparts) và trạng thái của sản phẩm được lưu trữ trong bảng CSDL `sn_detail` / `sndetaildatas` trên hệ thống máy chủ ALABEL / SFC:
+
+1. **Trường Text Nhập Mã Đối Tượng & Tab Chuyển Đổi (SN / Carrier):**
+   - **Thanh tab chuyển đổi đối tượng:** Đặt ngay trên ô nhập liệu với 2 nút chuyển đổi trực quan:
+     - `[★ Serial Number (SN)]`: Tra cứu dữ liệu chi tiết bảng `sndetails` theo số serial định danh chính của sản phẩm.
+     - `[ Carrier RFID / Pallet ]`: Tra cứu toàn bộ các bản ghi `sndetails` gắn liền với khay/Pallet đồ gá hoặc thẻ RFID đang lưu hành trên chuyền.
+   - **Ô text nhập mã đối tượng (Text Input):**
+     - Placeholder và nhãn thay đổi linh hoạt theo tab được chọn (ví dụ: `Nhập Serial Number tra cứu (ví dụ: SN8839210492-NV)...` hoặc `Nhập mã khay Carrier RFID (ví dụ: CARRIER-RFID-8819)...`).
+     - Cơ chế kế thừa tự động: Tự động trích xuất và điền sẵn mã đối tượng nếu kỹ thuật viên đã tra cứu thành công ở khung *Tra cứu tiến trình* bên trái.
+     - Hỗ trợ phím tắt `Enter`, nút xóa nhanh `✕` và quét barcode/RFID trực tiếp từ đầu đọc.
+
+2. **Dòng Sản Phẩm & Giới Hạn Bản Ghi (Lưới 2 Cột):**
+   - **Dòng sản phẩm (Model / Product Line - Tùy chọn):**
+     - Hiển thị dưới dạng **Dropdown menu** liệt kê danh mục dòng sản phẩm kích hoạt trong CSDL (`HGX B200 NVL`, `GB200 NVL72`, `HGX H100 SXM5`...).
+     - **Tính chất Tùy chọn (Optional):**
+       - Lựa chọn mặc định: `Tất Cả Dòng Sản Phẩm (Mặc định)`.
+       - Cho phép kỹ sư chọn một Model cụ thể để lọc hẹp phạm vi bản ghi hoặc để hệ thống tự động giải mã theo tiền tố của SN/Carrier.
+   - **Giới hạn bản ghi (Top Limit Dropdown Menu):**
+     - Dropdown menu cho phép chọn giới hạn số lượng bản ghi trả về từ CSDL:
+       - `50 bản ghi` (Truy vấn nhanh).
+       - `100 bản ghi` (Khuyến nghị mặc định).
+       - `200 bản ghi`.
+       - `500 bản ghi`.
+       - `1000 bản ghi` (Toàn bộ lịch sử chi tiết tối đa).
+     - **Mục đích kỹ thuật:** Tối ưu hóa hiệu năng truy vấn SQL Server, ngăn chặn nghẽn băng thông mạng công nghiệp và tránh giật lag trình duyệt khi sản phẩm trải qua nhiều vòng rework tích lũy lượng lớn dữ liệu.
+
+3. **Cụm Nút Hành Động Thực Thi & Thao Tác Bổ Trợ:**
+   - **Nút hành động chính:** **`[🔍 Thực thi tra cứu bảng sndetails]`**.
+   - **Nút phụ:**
+     - `[Làm Sạch Form]`: Xóa trắng ô tìm kiếm và đặt lại bộ lọc.
+     - `[Xuất CSV / JSON]`: Xuất danh sách bản ghi hiển thị thành file phục vụ báo cáo kỹ thuật.
+   - **Hiệu ứng & Trạng thái tải:**
+     - Hiển thị loading spinner (`Đang truy vấn bảng sndetails...`) trong khi gửi request đến server.
+     - Báo lỗi hoặc nhắc nhở nếu chưa nhập mã đối tượng tra cứu.
+
+4. **Bảng Hiển Thị Kết Quả Tra Cứu SNDetails Đa Cột (Data Table):**
+   - Hiển thị danh sách các thuộc tính chi tiết với thiết kế tối ưu hiển thị, gồm các cột:
+     - `STT / ID`: Số thứ tự bản ghi hoặc ID định danh.
+     - `Thuộc Tính (Key Name / Attribute)`: Tên khóa thuộc tính (ví dụ: `bios_uuid`, `mac_eth0`, `mac_eth1`, `vendor_pn`, `board_rev`, `carrier_rfid`...).
+     - `Giá Trị (Key Value)`: Dữ liệu thực tế được lưu trữ (kèm nút copy 1 chạm `📋` và hiển thị font monospaced).
+     - `Công Đoạn / Trạm (Station / Step)`: Mã trạm đã ghi nhận thuộc tính (ví dụ: `ST01-FEEDER`, `ST02-SMT-SURFACE`, `ST03-SMT-A`...).
+     - `Thời Gian Cập Nhật (Updated At)`: Tem thời gian bản ghi được tạo hoặc sửa đổi.
+     - `Trạng Thái (Status)`: Huy hiệu trạng thái bản ghi (`ACTIVE`, `COMPENSATED`, `UPDATED`, `HOLD`).
+   - Tích hợp thanh tìm kiếm nhanh trong bảng và bộ đếm tổng số bản ghi: `Hiển thị X / Y bản ghi`.
+
+5. **Tích Hợp Console Log Thời Gian Thực:**
+   - Khi bấm nút `[🔍 Thực thi tra cứu bảng sndetails]`, hệ thống ghi nhận ngay bản tin vào `ALABEL Execution Logs Console` ở tầng dưới cùng:
+     - Action: `SNDETAILS_FETCH`.
+     - Target: `{targetType.toUpperCase()}: {targetCode}` | Limit: `{topLimit}`.
+     - Message: `[SNDETAILS_OK] Truy vấn thành công bảng sndetails cho {targetType} '{targetCode}' (Model: {model || 'TẤT CẢ'}). Đã tải {recordCount} bản ghi (Top Limit: {topLimit}).`
+     - Độ trễ latency ms và trạng thái phản hồi từ server.
+
+#### 5.3.7. Đặc Tả Chi Tiết Sub-Tab 7: `error logs` (Tra Cứu Bản Ghi Lịch Sử Lỗi Bảng ErrorLogs)
+
+Nghiệp vụ **Tra Cứu Bản Ghi Lỗi ErrorLogs** phục vụ kỹ sư bảo trì dây chuyền, kỹ sư chất lượng (QA/QC) và chuyên viên tự động hóa theo dõi, phân tích nguyên nhân gốc rễ (Root Cause Analysis - RCA) các cảnh báo, lỗi quét mã, lỗi lệch Jig, tín hiệu RFID yếu hoặc từ chối điều kiện router SFC phát sinh tại các trạm dán nhãn và công đoạn tự động ALABEL:
+
+1. **Trường Text Nhập Mã Đối Tượng & Tab Chuyển Đổi (SN / Carrier):**
+   - **Thanh tab chuyển đổi đối tượng:** Đặt ngay trên ô nhập liệu với 2 nút chuyển đổi linh hoạt:
+     - `[★ Serial Number (SN)]`: Tra cứu toàn bộ lịch sử lỗi phát sinh liên quan đến sản phẩm theo số Serial.
+     - `[ Carrier RFID / Pallet ]`: Tra cứu các sự cố lỗi gắn với mã khay chứa đồ gá hoặc thẻ RFID lưu thông trên băng chuyền.
+   - **Ô text nhập mã đối tượng (Text Input):**
+     - Placeholder và nhãn thay đổi linh hoạt theo tab được chọn (ví dụ: `Nhập Serial Number tra cứu lỗi (ví dụ: SN8839210492-NV)...` hoặc `Nhập mã khay Carrier RFID (ví dụ: CARRIER-RFID-8819)...`).
+     - Cơ chế kế thừa tự động: Tự động trích xuất và điền sẵn mã đối tượng nếu kỹ thuật viên đã tra cứu thành công ở khung *Tra cứu tiến trình* bên trái.
+     - Cho phép để trống nếu kỹ sư muốn tra cứu toàn bộ lỗi của trạm hoặc dây chuyền chỉ định mà không giới hạn riêng theo một mã đối tượng.
+     - Tích hợp phím tắt `Enter`, nút xóa nhanh `✕` và quét barcode/RFID trực tiếp.
+
+2. **Hệ Thống Dropdown Menu Bộ Lọc Đa Chiều (Multi-Dropdown Filter System):**
+   Được bố trí khoa học dạng lưới đáp ứng (Responsive Grid đa cột) giúp kỹ sư thu hẹp phạm vi tìm kiếm sự cố chính xác:
+   - **Dropdown 1: Dòng sản phẩm (Model / Product Line):**
+     - Liệt kê danh mục dòng sản phẩm kích hoạt trong CSDL (`HGX B200 NVL`, `GB200 NVL72`, `HGX H100 SXM5`...).
+     - Lựa chọn mặc định: `-- Tất Cả Dòng Sản Phẩm --`.
+   - **Dropdown 2: Loại sản phẩm (Product Type):**
+     - Phân loại phần cứng cấu kiện công nghiệp: `Tất Cả Loại Sản Phẩm`, `GPU Module Board`, `Baseboard Motherboard`, `NVLink Switch Tray`, `Power Supply Unit Tray`, `Compute Blade`.
+   - **Dropdown 3: Tên chuyền (Production Line Name):**
+     - Danh sách các dây chuyền sản xuất tự động: `Tất Cả Dây Chuyền`, `LINE_01_NVL72`, `LINE_02_B200`, `LINE_03_REWORK`, `LINE_04_QC_HOLD`.
+   - **Dropdown 4: Nguồn lỗi (Error Source):**
+     - Phân loại nguồn gốc phát sinh lỗi: `Tất Cả Nguồn Lỗi`, `PLC Trạm (Station PLC)`, `Camera AI Scanner`, `Đầu Đọc RFID (RFID Reader)`, `Cổng Giao Tiếp SFC Gateway`, `Cảm Biến Laser / Quang Học (Sensors)`, `Người Thao Tác (Operator)`.
+   - **Dropdown 5: Giai đoạn (Process Stage / Phase):**
+     - Giai đoạn quy trình sản xuất: `Tất Cả Giai Đoạn`, `SMT Surface Mount`, `Board Assembly`, `ICT Test In-Circuit`, `Pressfit Cơ Khí`, `Rework & Repair`, `QC Kiểm Định`.
+   - **Dropdown 6: Trạm (Station / Station Group):**
+     - Danh mục các trạm công đoạn trên dây chuyền: `Tất Cả Các Trạm`, `ST01-FEEDER`, `ST02-SMT-SURFACE`, `ST03-SMT-A`, `ST04-ICT-TEST`, `ST05-PRESSFIT`, `ST06-REWORK-LINE`, `ST07-QC-HOLD`.
+   - **Dropdown 7: Giới hạn bản ghi (Top Limit):**
+     - Dropdown menu chọn số lượng bản ghi trả về tối đa: `50 bản ghi (Nhanh)`, `100 bản ghi (Khuyến nghị mặc định)`, `200 bản ghi`, `500 bản ghi`, `1000 bản ghi (Tối đa)`.
+
+3. **Cụm Nút Hành Động Thực Thi & Thao Tác Bổ Trợ:**
+   - **Nút hành động chính:** **`[⚠️ Thực thi tra cứu bảng ErrorLogs]`**.
+   - **Nút phụ:**
+     - `[Làm Sạch Bộ Lọc]`: Đặt lại các trường tìm kiếm và dropdown về giá trị mặc định ban đầu.
+     - `[Xuất Báo Cáo Lỗi CSV / JSON]`: Xuất danh sách sự cố phục vụ họp giao ban sản xuất và cải tiến quy trình.
+   - **Hiệu ứng & Kiểm tra hợp lệ:**
+     - Hiển thị loading spinner (`Đang truy vấn bảng ErrorLogs...`) trong suốt quá trình gửi truy vấn.
+
+4. **Bảng Hiển Thị Kết Quả ErrorLogs Đa Cột (Error Data Table):**
+   - Danh sách bản ghi sự cố được trình bày trực quan với các trường:
+     - `Mã Lỗi (Error Code)`: Tên định danh mã lỗi kỹ thuật (ví dụ: `ERR_BARCODE_MISMATCH`, `WARN_RFID_SIGNAL_WEAK`, `ERR_ROUTER_SEQUENCE_CONFLICT`).
+     - `Mức Độ (Severity / Level)`: Huy hiệu màu sắc trực quan (`CRITICAL` - Đỏ sẫm, `ERROR` - Đỏ tươi, `WARNING` - Vàng hổ phách, `INFO` - Xanh dương).
+     - `Nguồn Lỗi (Source)`: Chỉ báo thiết bị/hệ thống phát sinh lỗi.
+     - `Dây Chuyền & Trạm (Line / Station)`: Vị trí cụ thể phát sinh sự cố trên chuyền.
+     - `Giai Đoạn (Stage)`: Công đoạn dây chuyền xảy ra lỗi.
+     - `Thời Gian (Timestamp)`: Tem thời gian chính xác tới giây.
+     - `Mô Tả Chi Tiết (Message)`: Nội dung thông điệp lỗi và nguyên nhân kỹ thuật.
+     - `Tài Liệu Xử Lý SOP (SOP Guide)`: Nút liên kết mở tài liệu hướng dẫn xử lý chuẩn cho công nhân/kỹ sư trạm (ví dụ `SOP-SFC-MOD-042`).
+   - Tích hợp ô lọc nhanh theo từ khóa nội bộ và bộ đếm tổng số sự cố phát hiện.
+
+5. **Tích Hợp Console Log Thời Gian Thực:**
+   - Khi bấm nút `[⚠️ Thực thi tra cứu bảng ErrorLogs]`, hệ thống đóng gói đầy đủ payload gửi lên server và lập tức ghi nhận bản tin vào `ALABEL Execution Logs Console` ở tầng dưới cùng:
+     - Action: `ERROR_LOGS_QUERY`.
+     - Target: `{targetType.toUpperCase()}: {targetCode || 'TẤT CẢ'}` | Station: `{station || 'TẤT CẢ'}` | Source: `{errorSource || 'TẤT CẢ'}`.
+     - Message: `[ERROR_LOGS_OK] Truy vấn thành công bảng ErrorLogs cho {targetType} '{targetCode || 'TẤT CẢ'}' (Trạm: {station || 'ALL'}, Chuyền: {line || 'ALL'}, Nguồn: {errorSource || 'ALL'}). Đã tải {errorCount} bản ghi lỗi (Top Limit: {topLimit}).`
+     - Độ trễ latency ms và trạng thái phản hồi từ server.
+
 ---
 
 ### 5.4. Khối Phía Dưới: Mục Log Thực Thi Thao Tác ALABEL (ALABEL Execution Logs)
@@ -650,9 +840,135 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
 
 ---
 
-## 6. THIẾT KẾ CẤU TRÚC PROPS CỦA COMPONENT DÙNG CHUNG & ALABEL HELPER
+## 6. ĐẶC TẢ CHI TIẾT PHÂN HỆ ACTION LOGS & RESTORE (TAB 4 - NHẬT KÝ KIỂM TOÁN & PHỤC HỒI TRẠNG THÁI)
 
-### 6.1. Component `SfcSwitchAdapterSenderContainer.jsx` (Dùng Chung Switch & Adapter - Đặt tại `components/sfc_shared/`)
+Phân hệ **Action Logs & Restore** (`activeTab === 'action_logs'`) là trung tâm kiểm soát an toàn, ghi vết kiểm toán (audit trail) và hỗ trợ hoàn nguyên dữ liệu (state rollback / disaster recovery) cho toàn bộ dây chuyền tự động hóa. Mọi tác vụ can thiệp vào router, nạp bù linh kiện, chuyển khay hay cấu hình thiết bị đều được lưu vết chi tiết phục vụ điều tra lỗi và đối soát dữ liệu.
+
+### 6.1. Khung Chứa Các Trường Thông Tin Lọc (Action Logs Filter Toolbar)
+
+Khung bộ lọc được bố trí ngang phía trên màn hình, hỗ trợ kỹ sư và trưởng ca tra cứu nhanh lịch sử thao tác theo nhiều chiều nghiệp vụ:
+
+1. **Bộ chọn khoảng thời gian (Date-Time Range Picker):**
+   - **Từ ngày (From Date):** Trường chọn ngày giờ bắt đầu (`YYYY-MM-DD HH:mm:ss`), mặc định là 00:00 của ngày làm việc gần nhất.
+   - **Đến ngày (To Date):** Trường chọn ngày giờ kết thúc (`YYYY-MM-DD HH:mm:ss`), mặc định là thời điểm hiện tại (`now`).
+   - Có cơ chế kiểm tra tính hợp lệ: `From Date <= To Date`.
+
+2. **Bộ lọc Hành động (Action Type Filter Dropdown):**
+   - Dropdown đơn chọn với đầy đủ 9 nhóm nghiệp vụ can thiệp:
+     - `Tất cả hành động (ALL)` (Mặc định).
+     - `undo`: Hoàn tác bước router của sản phẩm về step trước.
+     - `reset`: Reset chu kỳ sản phẩm hoặc trạm về Step 0.
+     - `transfer`: Chuyển máy / điều chuyển trạm hoặc khay đồ gá Carrier RFID.
+     - `rework`: Đưa sản phẩm vào luồng sửa chữa / làm lại.
+     - `giải undo/rework`: Gỡ cờ khóa lỗi, giải phóng sản phẩm bị chặn undo/rework (`shared_clearundorework`).
+     - `sửa keypart`: Sửa đổi, hoán đổi mã vạch linh kiện trong bảng `sndetaildatas`.
+     - `bù dữ liệu thủ công`: Nạp bù thông tin SN và linh kiện qua Stored Procedure `[AutoLine].[Shared_ManualInsertSn]`.
+     - `restore`: Tác vụ hoàn nguyên snapshot dữ liệu về trạng thái trước đó.
+
+3. **Bộ lọc Phân hệ (Subsystem Filter Dropdown):**
+   - Phân loại rõ nguồn gốc phát sinh thao tác:
+     - `Tất cả phân hệ (ALL)` (Mặc định).
+     - `ALabel Helpers`: Can thiệp nghiệp vụ dán nhãn, RFID Carrier, Router và Keyparts.
+     - `Machine Config`: Can thiệp cấu hình máy, PLC Gateway, Station IP, Recipe.
+     - `General`: Tác vụ chung hệ thống, SFC Switch/Adapter và phân quyền tài khoản.
+
+4. **Trường Text Tìm Kiếm Nhanh (Search Keyword Input):**
+   - Placeholder hiển thị rõ ràng: `Mã thẻ, SN, Carrier, bảng đích...`.
+   - Cơ chế tìm kiếm đa mục tiêu: Tìm khớp theo mã thẻ nhân viên (`operatorId`), số serial sản phẩm (`sn`), mã pallet (`carrierCode`), tên bảng dữ liệu CSDL (`tableName`) hoặc từ khóa trong phần mô tả chi tiết.
+   - Hỗ trợ phím tắt `Enter` để kích hoạt tìm kiếm và nút `✕` xóa nhanh từ khóa.
+
+5. **Bộ Nút Hành Động Điều Khiển:**
+   - **Nút `[🔍 Thực Thi Lọc Dữ Liệu]`:** Gửi query truy vấn CSDL với các tham số đã chọn.
+   - **Nút `[🧹 Làm Sạch Bộ Lọc]`:** Reset toàn bộ bộ lọc về trạng thái mặc định (hôm nay, tất cả hành động, tất cả phân hệ).
+   - **Nút `[📥 Xuất Báo Cáo Kiểm Toán]`:** Xuất danh sách nhật ký kiểm toán đang xem ra file định dạng Excel / CSV.
+
+---
+
+### 6.2. Bảng Dữ Liệu Nhật Ký Tác Vụ & Điều Khiển Phân Trang (Action Logs Table & Row Limit)
+
+Bảng nhật ký kiểm toán hiển thị danh sách các bản ghi can thiệp hệ thống với đầy đủ thông số pháp lý và kỹ thuật:
+
+1. **Bộ Điều Khiển Phân Trang & Lọc Theo Số Dòng (Page Size / Rows Per Page):**
+   - Đặt ở phía trên góc trái bảng: Dropdown `Lọc theo số dòng` với các mức: `10 dòng / trang`, `25 dòng / trang` (Mặc định), `50 dòng / trang`, `100 dòng / trang`.
+   - Hiển thị tóm tắt: `Hiển thị 1 - 25 trong tổng số 128 bản ghi kiểm toán`.
+   - Điều hướng trang: `[⏮ Đầu] [◀ Trước] [Trang X / Y] [Sau ▶] [Cuối ⏭]`.
+
+2. **Cấu Trúc Các Cột Dữ Liệu Chuẩn Kiểm Toán (10 Cột):**
+   - **Cột 1: `ID` (Action ID):** Mã định danh duy nhất của lượt thao tác (ví dụ: `ACT-2026-008819`), font chữ monospaced, hỗ trợ nút sao chép nhanh.
+   - **Cột 2: `Thời Gian` (Timestamp):** Ngày giờ thực hiện chính xác đến giây (`YYYY-MM-DD HH:mm:ss`).
+   - **Cột 3: `Người Thực Hiện` (Operator / Performed By):** Mã nhân viên thực thi (ví dụ: `NV-2026-08819` kèm huy hiệu bảo mật 🔒 trích xuất từ phiên đăng nhập hợp lệ).
+   - **Cột 4: `Hành Động` (Action Type):** Badge màu sắc trực quan:
+     - `UNDO` / `RESET`: Màu Tím (Indigo/Purple).
+     - `TRANSFER`: Màu Xanh Ngọc (Cyan/Teal).
+     - `REWORK` / `GIẢI UNDO/REWORK`: Màu Hổ Phách (Amber).
+     - `SỬA KEYPART`: Màu Cam (Orange).
+     - `BÙ DỮ LIỆU`: Màu Xanh Lam (Blue).
+     - `RESTORE`: Màu Đỏ Hồng (Rose/Crimson).
+   - **Cột 5: `Bảng Đích` (Target Table):** Tên bảng CSDL bị can thiệp (ví dụ: `sndetails`, `sndetaildatas`, `wip_router_station`, `carrier_tracking`, `ErrorLogs`). Font monospace kèm tag biểu tượng database.
+   - **Cột 6: `Mục Tiêu` (Target Subject):** Mã đối tượng bị tác động (`SN` hoặc `Carrier RFID`), hiển thị tag nhận diện `[SN]` hoặc `[CARRIER]`.
+   - **Cột 7: `Mô Tả Chi Tiết` (Description):** Tóm tắt nội dung thay đổi (ví dụ: `Hoàn tác từ Step 030 về Step 020`, `Đổi Keypart GPU_01 từ GPU-NV-01 sang GPU-NV-02`...).
+   - **Cột 8: `Trạng Thái` (Status):** Badge kết quả:
+     - `SUCCESS` (Xanh lục / Emerald `#76B900`): Thực thi thành công.
+     - `FAILED` (Đỏ rực / Crimson `#EF4444`): Lỗi khi thực thi.
+     - `WARNING` (Hổ phách / Amber `#F59E0B`): Thành công có cảnh báo.
+     - `RESTORED` (Xám Slate / Tím): Đã được hoàn nguyên phục hồi về trạng thái cũ.
+   - **Cột 9: `Thao Tác` (Operations):** Nhóm 3 nút hành động chuyên sâu:
+     1. **`[👁️ Xem Chi Tiết]`:** Mở modal xem toàn bộ thông tin chi tiết: Client IP, Hostname, Session ID, Chi tiết Stored Procedure / SQL Query đã chạy, Input Payload và Response Data.
+     2. **`[⚖️ Đối Soát Diff Old/New]`:** Mở modal so sánh trực quan dữ liệu trước và sau khi thay đổi (Before vs After Visual Diff).
+     3. **`[⏪ Restore]`:** Nút phục hồi dữ liệu về trạng thái trước đó. Tự động vô hiệu hóa (`disabled`) nếu bản ghi đã bị phục hồi trước đó hoặc là bản ghi chỉ đọc.
+
+---
+
+### 6.3. Khung / Modal Đối Soát Diff Old/New Trực Quan (Visual Diff Inspector Modal)
+
+Modal hiển thị khi người dùng bấm vào nút `[⚖️ Đối Soát Diff Old/New]` trên bất kỳ dòng log nào:
+
+1. **Bố cục so sánh song song hai cột (Side-by-Side Diff Layout):**
+   - **Cột Trái (Dữ Liệu Trước Khi Thực Hiện - Old / Before State):**
+     - Nền đỏ nhạt (`bg-rose-500/10 border-rose-500/20`), tiêu đề `🔴 Trạng Thái Cũ (Trước Khi Tác Vụ)`.
+     - Hiển thị snapshot trạng thái của bản ghi trước khi bị thay đổi (ví dụ: `step_id: 030`, `carrier_id: RFID-8819`, `keypart_val: GPU-NV-01`).
+   - **Cột Phải (Dữ Liệu Sau Khi Thực Hiện - New / After State):**
+     - Nền xanh lục nhạt (`bg-emerald-500/10 border-emerald-500/20`), tiêu đề `🟢 Trạng Thái Mới (Sau Khi Tác Vụ)`.
+     - Hiển thị dữ liệu thực tế sau khi câu lệnh thực thi hoàn tất (ví dụ: `step_id: 020`, `carrier_id: RFID-9940`, `keypart_val: GPU-NV-02`).
+
+2. **Tính năng phân tích và làm nổi bật (Diff Highlighting):**
+   - Đánh dấu màu nền (highlight) riêng cho các trường giá trị có sự biến động (Field Changed Tag).
+   - Hỗ trợ chuyển đổi giữa 2 chế độ xem:
+     - `Dạng Bảng So Sánh Thuộc Tính (Key-Value Diff Table)`: Dễ đọc cho kỹ sư vận hành.
+     - `Dạng JSON Cấu Trúc (Raw JSON Diff)`: Phục vụ kỹ sư phần mềm / DBA truy vết chuyên sâu.
+   - Nút `Sao chép JSON Diff` và `Đóng hộp thoại`.
+
+---
+
+### 6.4. Quy Trình & Modal Xác Nhận Phục Hồi An Toàn (Safe Restore Workflow Modal)
+
+Modal hiển thị khi người dùng bấm vào nút `[⏪ Restore]`:
+
+1. **Cơ Chế Cảnh Báo An Toàn Cấp Độ Cao (High-Risk Operation Warning):**
+   - Hộp thoại cảnh báo màu vàng hổ phách / đỏ:
+     > ⚠️ **CẢNH BÁO BẢO VỆ DÂY CHUYỀN:** Thao tác Phục hồi (Restore) sẽ ghi đè lại trạng thái CSDL của đối tượng về thời điểm trước khi thực hiện hành động này. Thao tác này có thể ảnh hưởng đến thứ tự Router trạm hiện tại trên SFC.
+   - Hiển thị tóm tắt thông tin hoàn nguyên:
+     - **Mục tiêu hoàn nguyên:** `SN: SN8839210492` | `Carrier: CARRIER-RFID-8819`.
+     - **Bảng CSDL đích:** `sndetaildatas`.
+     - **Biến động dự kiến:** Hoàn trả `GPU-NV-02` trở lại thành `GPU-NV-01`.
+
+2. **Kiểm Soát Quyền Hạn & Nhập Lý Do Bắt Buộc:**
+   - **Mã nhân viên phục hồi (Operator ID):** Tự động điền từ phiên đăng nhập hiện tại (`state.auth.user.empNo`), khóa `read-only` 🔒 để bảo đảm tính pháp lý kiểm toán.
+   - **Lý do phục hồi (Restore Reason):** Ô văn bản bắt buộc nhập (tối thiểu 10 ký tự), ví dụ: `Sửa nhầm mã linh kiện GPU trong ca sáng`.
+   - **Hộp kiểm xác nhận trách nhiệm:** `☑ Tôi đã kiểm tra hiện trường và chịu trách nhiệm về việc hoàn nguyên trạng thái này.`
+
+3. **Thực Thi Phục Hồi & Ghi Nhận Nhật Ký Mới:**
+   - Khi bấm `[⚠️ Xác Nhận Phục Hồi Trạng Thái]`:
+     - Gửi yêu cầu tới `/api/v1/action-logs/restore/:id`.
+     - Tạo một bản ghi mới trong bảng Action Logs với Action Type là `RESTORE`, lưu vết mã hành động gốc (`sourceActionId`), người thực hiện và lý do.
+     - Cập nhật trạng thái của bản ghi gốc thành `RESTORED` và vô hiệu hóa nút Restore tiếp theo để tránh xung đột dữ liệu.
+     - Hiển thị thông báo Toast thành công và tự động tải lại bảng nhật ký.
+
+---
+
+## 7. THIẾT KẾ CẤU TRÚC PROPS CỦA COMPONENT DÙNG CHUNG, ALABEL HELPER & ACTION LOGS RESTORE
+
+### 7.1. Component `SfcSwitchAdapterSenderContainer.jsx` (Dùng Chung Switch & Adapter - Đặt tại `components/sfc_shared/`)
 
 ```javascript
 /**
@@ -682,7 +998,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-### 6.2. Component `SfcActionDispatcherColumn.jsx`
+### 7.2. Component `SfcActionDispatcherColumn.jsx`
 
 ```javascript
 /**
@@ -703,7 +1019,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-### 6.3. Component `AlabelHelperTab.jsx` (Điều Phối Tab ALABEL)
+### 7.3. Component `AlabelHelperTab.jsx` (Điều Phối Tab ALABEL)
 
 ```javascript
 /**
@@ -717,7 +1033,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-### 6.4. Component `AlabelProcessLookup.jsx` (Cột Trái 50% - Tra Cứu Tiến Trình)
+### 7.4. Component `AlabelProcessLookup.jsx` (Cột Trái 50% - Tra Cứu Tiến Trình)
 
 ```javascript
 /**
@@ -738,7 +1054,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-### 6.5. Component `AlabelActionControl.jsx` (Cột Phải 50% - 7 Sub-Tabs Điều Khiển)
+### 7.5. Component `AlabelActionControl.jsx` (Cột Phải 50% - 7 Sub-Tabs Điều Khiển)
 
 ```javascript
 /**
@@ -753,7 +1069,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-#### 6.5.1. Component `UndoResetSubTab.jsx` (Sub-Tab 1 - Hoàn Tác & Reset Chu Kỳ)
+#### 7.5.1. Component `UndoResetSubTab.jsx` (Sub-Tab 1 - Hoàn Tác & Reset Chu Kỳ)
 
 ```javascript
 /**
@@ -774,7 +1090,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-#### 6.5.2. Component `TransferSubTab.jsx` (Sub-Tab 2 - Điều Chuyển Khay Carrier)
+#### 7.5.2. Component `TransferSubTab.jsx` (Sub-Tab 2 - Điều Chuyển Khay Carrier)
 
 ```javascript
 /**
@@ -792,7 +1108,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-#### 6.5.3. Component `ClearUndoSubTab.jsx` (Sub-Tab 3 - Giải Undo / Rework)
+#### 7.5.3. Component `ClearUndoSubTab.jsx` (Sub-Tab 3 - Giải Undo / Rework)
 
 ```javascript
 /**
@@ -809,7 +1125,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-#### 6.5.4. Component `CompensateSnDetailSubTab.jsx` (Sub-Tab 4 - Nạp Bù Seri Thủ Công & SNDetails)
+#### 7.5.4. Component `CompensateSnDetailSubTab.jsx` (Sub-Tab 4 - Nạp Bù Seri Thủ Công & SNDetails)
 
 ```javascript
 /**
@@ -827,7 +1143,64 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
-### 6.6. Component `AlabelExecutionLogs.jsx` (Khối Phía Dưới - Full Width)
+#### 7.5.5. Component `ChangeKeypartSubTab.jsx` (Sub-Tab 5 - Đổi / Hoán Đổi Keypart)
+
+```javascript
+/**
+ * Props & Form State của ChangeKeypartSubTab:
+ * @param {Object} form - State form dữ liệu đổi keypart
+ * @param {'sn' | 'carrier'} form.targetType - Loại đối tượng ('sn' | 'carrier')
+ * @param {string} form.targetCode - Mã SN hoặc Carrier RFID
+ * @param {string} form.model - Dòng sản phẩm (Dropdown menu chọn từ CSDL)
+ * @param {string} form.operatorId - Mã nhân viên (Read-only 🔒, tự truy xuất khi đăng nhập)
+ * @param {string} form.selectedKeypart - Keypart cần thay đổi (Dropdown menu)
+ * @param {string} form.newKeypartValue - Giá trị keypart mới (Text input)
+ * @param {Function} setForm - Hàm cập nhật state form
+ * @param {boolean} isExecuting - Trạng thái loading khi đang gửi lệnh
+ * @param {Function} onExecute - Handler gửi lệnh thực thi đổi keypart ('change_keypart')
+ */
+```
+
+#### 7.5.6. Component `SnDetailsSubTab.jsx` (Sub-Tab 6 - Tra Cứu Bảng SNDetails)
+
+```javascript
+/**
+ * Props & Form State của SnDetailsSubTab:
+ * @param {Object} form - State form tra cứu sndetails
+ * @param {'sn' | 'carrier'} form.targetType - Loại đối tượng ('sn' | 'carrier')
+ * @param {string} form.targetCode - Mã SN hoặc Carrier RFID
+ * @param {string} form.model - Dòng sản phẩm (Dropdown menu tùy chọn)
+ * @param {number} form.topLimit - Giới hạn số bản ghi (50, 100, 200, 500)
+ * @param {Function} setForm - Hàm cập nhật state form
+ * @param {boolean} isExecuting - Trạng thái loading khi đang tra cứu
+ * @param {Array<Object>} queryResults - Danh sách kết quả tra cứu bảng sndetails
+ * @param {Function} onExecute - Handler thực thi tra cứu ('query_sndetails')
+ */
+```
+
+#### 7.5.7. Component `ErrorLogsSubTab.jsx` (Sub-Tab 7 - Tra Cứu Nhật Ký Lỗi ErrorLogs)
+
+```javascript
+/**
+ * Props & Form State của ErrorLogsSubTab:
+ * @param {Object} form - State form tra cứu ErrorLogs
+ * @param {'sn' | 'carrier'} form.targetType - Loại đối tượng ('sn' | 'carrier')
+ * @param {string} form.targetCode - Mã SN hoặc Carrier RFID
+ * @param {string} form.model - Dòng sản phẩm (Dropdown menu)
+ * @param {string} form.productType - Loại sản phẩm (Dropdown menu)
+ * @param {string} form.line - Tên dây chuyền (Dropdown menu)
+ * @param {string} form.errorSource - Nguồn lỗi (Dropdown menu)
+ * @param {string} form.stage - Giai đoạn sản xuất (Dropdown menu)
+ * @param {string} form.station - Trạm máy (Dropdown menu)
+ * @param {number} form.topLimit - Giới hạn bản ghi (Top limit)
+ * @param {Function} setForm - Hàm cập nhật state form
+ * @param {boolean} isExecuting - Trạng thái loading khi đang tra cứu
+ * @param {Array<Object>} queryResults - Danh sách kết quả lỗi tra cứu từ bảng ErrorLogs
+ * @param {Function} onExecute - Handler thực thi tra cứu ('query_error_logs')
+ */
+```
+
+### 7.6. Component `AlabelExecutionLogs.jsx` (Khối Phía Dưới - Full Width)
 
 ```javascript
 /**
@@ -844,11 +1217,76 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
  */
 ```
 
+### 7.7. Component `ActionLogsRestoreTab.jsx` và Các Sub-Components (Tab 4 - Đặt tại `components/tabs/action_logs/`)
+
+#### 7.7.1. Component `ActionLogsFilterBar.jsx` (Khung Lọc 5 Tiêu Chí)
+
+```javascript
+/**
+ * Props của ActionLogsFilterBar:
+ * @param {Object} filters - State bộ lọc kiểm toán
+ * @param {string} filters.fromDate - Từ ngày (YYYY-MM-DDTHH:mm)
+ * @param {string} filters.toDate - Đến ngày (YYYY-MM-DDTHH:mm)
+ * @param {string} filters.actionType - Mã hành động ('ALL' | 'undo' | 'reset' | 'transfer' | 'rework' | 'clear_undo_rework' | 'change_keypart' | 'manual_insert_sn' | 'restore')
+ * @param {string} filters.subsystem - Phân hệ ('ALL' | 'alabel' | 'machine' | 'general')
+ * @param {string} filters.keyword - Từ khóa tìm kiếm (Mã thẻ, SN, Carrier, bảng đích...)
+ * @param {Function} onFilterChange - Hàm cập nhật từng trường lọc
+ * @param {Function} onExecuteFilter - Kích hoạt lọc dữ liệu
+ * @param {Function} onResetFilter - Làm sạch bộ lọc về mặc định
+ * @param {Function} onExportReport - Xuất báo cáo kiểm toán (CSV / Excel)
+ * @param {boolean} isLoading - Trạng thái đang tải dữ liệu
+ */
+```
+
+#### 7.7.2. Component `ActionLogsTable.jsx` (Bảng Nhật Ký Kiểm Toán & Phân Trang)
+
+```javascript
+/**
+ * Props của ActionLogsTable:
+ * @param {Array<Object>} logs - Danh sách các bản ghi nhật ký kiểm toán
+ * @param {number} pageSize - Số dòng trên mỗi trang (10, 25, 50, 100)
+ * @param {Function} onPageSizeChange - Thay đổi số dòng trên trang
+ * @param {number} currentPage - Trang hiện tại
+ * @param {number} totalRecords - Tổng số bản ghi
+ * @param {Function} onPageChange - Chuyển trang
+ * @param {Function} onViewDetail - Handler mở modal xem chi tiết
+ * @param {Function} onViewDiff - Handler mở modal so sánh Diff Old/New
+ * @param {Function} onOpenRestore - Handler mở modal xác nhận phục hồi
+ * @param {boolean} isLoading - Trạng thái đang tải
+ */
+```
+
+#### 7.7.3. Component `ActionLogDiffModal.jsx` (Modal So Sánh Diff Old/New Trực Quan)
+
+```javascript
+/**
+ * Props của ActionLogDiffModal:
+ * @param {boolean} isOpen - Trạng thái mở modal
+ * @param {Function} onClose - Hàm đóng modal
+ * @param {Object|null} selectedLog - Bản ghi nhật ký đang chọn đối soát
+ * @param {Object|null} diffData - Dữ liệu chi tiết { beforeState: Object, afterState: Object, changedFields: Array<string> }
+ */
+```
+
+#### 7.7.4. Component `ActionLogRestoreModal.jsx` (Modal Xác Nhận Phục Hồi An Toàn)
+
+```javascript
+/**
+ * Props của ActionLogRestoreModal:
+ * @param {boolean} isOpen - Trạng thái mở modal
+ * @param {Function} onClose - Hàm đóng modal
+ * @param {Object|null} selectedLog - Bản ghi nhật ký cần phục hồi
+ * @param {string} operatorId - Mã nhân viên phục hồi (Read-only 🔒 từ tài khoản đăng nhập)
+ * @param {Function} onConfirmRestore - Hàm thực hiện phục hồi ({ logId, reason, operatorId })
+ * @param {boolean} isRestoring - Trạng thái đang gửi lệnh phục hồi
+ */
+```
+
 ---
 
-## 7. ĐẶC TẢ GIAO THỨC & API SPECIFICATION
+## 8. ĐẶC TẢ GIAO THỨC & API SPECIFICATION
 
-### 7.1. Bảng Đối Chiếu API Endpoints Giữa SFC Switch & SFC Adapter:
+### 8.1. Bảng Đối Chiếu API Endpoints Giữa SFC Switch & SFC Adapter:
 
 | Thao Tác                  | Method | SFC Switch Protocol (`mode='switch'`)                       | SFC Adapter Protocol (`mode='adapter'`)                                                    | Mục Đích Nghiệp Vụ                                          |
 | :------------------------ | :----: | :---------------------------------------------------------- | :----------------------------------------------------------------------------------------- | :---------------------------------------------------------- |
@@ -859,7 +1297,7 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
 | **4. Insert Test Result** | `POST` | `Switch_InsertTestResultSFC(result, ErrorCode)`             | `Adapter_InsertTestResultSFC(result, ErrorCode)`                                           | Ghi nhận kết quả kiểm thử PASS hoặc FAIL lên SFC            |
 | **5. Undo Link**          | `POST` | `SWITCH_UndoLinkSFC(SN, Group, Reason)`                     | `ADAPTER_UndoLinkSFC(SN, Group, Reason)`                                                   | Hủy gán toàn bộ liên kết Keyparts của SN                    |
 
-### 7.2. Danh Mục Endpoints & Giao Thức ALABEL Helper (7 Nghiệp Vụ Điều Khiển):
+### 8.2. Danh Mục Endpoints & Giao Thức ALABEL Helper (7 Nghiệp Vụ Điều Khiển):
 
 | Nghiệp Vụ ALABEL        | Method | Endpoint                                     | Request Payload Tối Thiểu                                                                                                                  | Kết Quả Phản Hồi Kỳ Vọng                                                             |
 | :---------------------- | :----: | :------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------- |
@@ -869,39 +1307,91 @@ Nằm ở phía dưới toàn bộ 2 khối trên (trải dài **Full Width 100%
 | **2. Transfer**         | `POST` | `/api/v1/alabel/action/transfer-carrier`     | `{ sn: string, oldCarrier: string, newCarrier: string, model: string, operatorId: string, targetStep: string }`                            | `{ status: "SUCCESS", sn: string, newCarrier: string, targetStep: string, latencyMs: number }` |
 | **3. Clear Undo**       | `POST` | `/api/v1/alabel/action/clear-undo-rework`    | `{ targetType: "sn"\|"carrier", targetCode: string, model: string, operatorId: string, clearStep?: string, action: "shared_clearundorework" }` | `{ status: "SUCCESS", unlocked: true, targetCode: string, action: "shared_clearundorework", latencyMs: number }` |
 | **4. Bù sn_detail**     | `POST` | `/api/v1/alabel/action/manual-insert-sn`     | `{ sn: string, carrierCode: string, model: string, line: string, targetStep: string, operatorId: string, spName: "[AutoLine].[Shared_ManualInsertSn]" }` | `{ status: "SUCCESS", sn: string, targetStep: string, sp: "Shared_ManualInsertSN", rowsInserted: number, latencyMs: number }` |
-| **5. Đổi Keypart**      | `POST` | `/api/v1/alabel/action/change-keypart`       | `{ sn: string, keyName: string, oldKeypart: string, newKeypart: string }`                                                                  | `{ status: "SUCCESS", unlinkedOld: true, linkedNew: true }`                          |
-| **6. SNDetails**        | `GET`  | `/api/v1/alabel/query/sn-details`            | Query param: `?sn={sn}&limit=100`                                                                                                          | Danh sách bản ghi thuộc tính chi tiết từ bảng `sn_detail`                            |
-| **7. Error Logs**       | `GET`  | `/api/v1/alabel/query/error-logs`            | Query param: `?station={station}&limit=50&level=ERROR`                                                                                     | Danh sách các lỗi trạm ALABEL ghi nhận trong ca                                      |
+| **5. Đổi Keypart**      | `POST` | `/api/v1/alabel/action/change-keypart`       | `{ targetType: "sn"\|"carrier", targetCode: string, model: string, operatorId: string, selectedKeypart: string, newKeypartValue: string, tableName: "sndetaildatas" }` | `{ status: "SUCCESS", table: "sndetaildatas", keypart: string, newValue: string, updatedRows: number }` |
+| **6. SNDetails**        | `GET`  | `/api/v1/alabel/query/sn-details`            | Query param: `?targetType={type}&targetCode={code}&model={model}&limit={topLimit}`                                                         | Danh sách bản ghi thuộc tính chi tiết từ bảng `sn_detail` / `sndetaildatas`           |
+| **7. Error Logs**       | `GET`  | `/api/v1/alabel/query/error-logs`            | Query param: `?targetType={type}&targetCode={code}&model={model}&productType={productType}&line={line}&errorSource={source}&stage={stage}&station={station}&limit={topLimit}` | Danh sách bản ghi lỗi chi tiết từ bảng `ErrorLogs` của hệ thống ALABEL               |
+
+### 8.3. Danh Mục Endpoints & Giao Thức Action Logs & Restore (Tab 4):
+
+| Nghiệp Vụ Kiểm Toán         | Method | Endpoint                              | Request Payload / Query Params                                                                                                      | Kết Quả Phản Hồi Kỳ Vọng                                                                             |
+| :-------------------------- | :----: | :------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------- |
+| **Tra Cứu Action Logs**     | `GET`  | `/api/v1/action-logs/query`           | `?fromDate={from}&toDate={to}&action={action}&subsystem={sys}&keyword={kw}&page={page}&pageSize={limit}`                             | `{ status: "SUCCESS", total: number, page: number, pageSize: number, logs: Array<ActionLogItem> }`   |
+| **Lấy Dữ Liệu So Sánh Diff** | `GET`  | `/api/v1/action-logs/diff/:id`        | Path param `:id` (Mã hành động kiểm toán duy nhất)                                                                                  | `{ status: "SUCCESS", logId: string, beforeState: Object, afterState: Object, changedFields: Array }` |
+| **Thực Thi Phục Hồi State** | `POST` | `/api/v1/action-logs/restore/:id`     | `{ sourceLogId: string, operatorId: string, restoreReason: string, confirmRisk: boolean }`                                          | `{ status: "SUCCESS", restoreActionId: string, targetCode: string, restoredTable: string, restoredAt: string }` |
+| **Xuất Báo Cáo Kiểm Toán**  | `POST` | `/api/v1/action-logs/export`          | `{ fromDate: string, toDate: string, action?: string, subsystem?: string, format: "csv"\|"xlsx" }`                                  | File Binary Stream (Tải xuống file báo cáo kiểm toán `.csv` / `.xlsx`)                               |
 
 ---
 
-## 8. CẤU TRÚC THƯ MỤC SOURCE CODE DỰ KIẾN SAU KHI TÍCH HỢP ALABEL & CHUẨN HÓA SFC SHARED
+## 9. CẤU TRÚC THƯ MỤC SOURCE CODE DỰ KIẾN SAU KHI TÍCH HỢP TOÀN DIỆN
 
 ```text
 src/features/config/automation_line_control/
 ├── AutomationLineControlPage.jsx                     # Điều phối 4 Tab (Tab 1 Switch, Tab 2 Adapter, Tab 3 ALABEL, Tab 4 Logs)
 ├── components/
-│   ├── tabs/
-│   │   ├── AutolineControlTabsNav.jsx                # Thanh chuyển đổi 4 Tab trên cùng
-│   │   ├── AlabelHelperTab.jsx                       # Tab 3: Phân hệ ALABEL Helper (THAY THẾ AIOT HELPERS)
-│   │   │   └── alabel/
-│   │   │       ├── AlabelProcessLookup.jsx           # Phía Trái (50%): Tra cứu tiến trình (SN/Carrier/Keypart, Model ẩn/tự nhận)
-│   │   │       ├── AlabelActionControl.jsx           # Phía Phải (50%): Thao tác điều khiển ALABEL (Quản lý 7 Sub-tabs)
-│   │   │       ├── AlabelExecutionLogs.jsx           # Phía Dưới: Console log thực thi thao tác ALABEL (Full width)
-│   │   │       └── subtabs/                          # Hệ thống 7 Sub-Tabs chuyên biệt
-│   │   │           ├── undo_reset/                   # Sub-tab 1: Undo / Reset Router
-│   │   │           │   └── UndoResetFunction.jsx
-│   │   │           ├── transfer/                     # Sub-tab 2: Điều chuyển trạm & khay Carrier
-│   │   │           │   └── TransferSubTab.jsx
-│   │   │           ├── clear_undo/                   # Sub-tab 3: Giải undo/rework (shared_clearundorework)
-│   │   │           │   └── ClearUndoSubTab.jsx
-│   │   │           ├── sn_compensation/              # Sub-tab 4: Nạp bù seri thủ công & SNDetails
-│   │   │           │   └── CompensateSnDetailSubTab.jsx
-│   │   │           ├── ChangeKeypartSubTab.jsx       # Sub-tab 5: Đổi / hoán đổi Keypart
-│   │   │           ├── SnDetailsSubTab.jsx           # Sub-tab 6: Xem hồ sơ dữ liệu SN
-│   │   │           └── ErrorLogsSubTab.jsx           # Sub-tab 7: Nhật ký lỗi trạm ALABEL
-│   │   │
-│   │   └── ActionLogsRestoreTab.jsx                  # Tab 4: Nhật ký hành động chung & Backup
+│   ├── AutolineControlTabsNav.jsx                    # Thanh chuyển đổi 4 Tab trên cùng
+│   │
+│   ├── alabel/                                       # Tab 3: Phân hệ ALABEL Helper (THAY THẾ AIOT HELPERS)
+│   │   ├── AlabelHelperTab.jsx                       # Container chính điều phối Tab ALABEL
+│   │   ├── AlabelProcessLookup.jsx                   # Phía Trái (50%): Tra cứu tiến trình (SN/Carrier/Keypart, Model ẩn/tự nhận)
+│   │   ├── AlabelActionControl.jsx                   # Phía Phải (50%): Thao tác điều khiển ALABEL (Quản lý 7 Sub-tabs)
+│   │   ├── AlabelExecutionLogs.jsx                   # Phía Dưới: Console log thực thi thao tác ALABEL (Full width)
+│   │   ├── CriteriaBasedSearchInput.jsx              # Ô nhập tìm kiếm theo tiêu chí
+│   │   ├── ProcedureResult.jsx                       # Thẻ tóm tắt kết quả tiến trình
+│   │   ├── ProductTypeDropdownMenu.jsx               # Dropdown chọn dòng sản phẩm từ CSDL
+│   │   ├── SearchCriteria.jsx                        # Bộ chọn 3 tiêu chí SN / Carrier / Keypart
+│   │   └── subtabs/                                  # Hệ thống 7 Sub-Tabs chuyên biệt
+│   │       ├── undo_reset/                           # Sub-tab 1: Undo / Reset Router
+│   │       │   ├── UndoResetFunction.jsx
+│   │       │   ├── UndoResetSubTab.jsx
+│   │       │   ├── SnCarrierBasedInput.jsx
+│   │       │   ├── ProductTypeEmployeeCodeInputs.jsx
+│   │       │   └── tab/ (Undo.jsx, Reset.jsx)
+│   │       ├── transfer/                             # Sub-tab 2: Điều chuyển trạm & khay Carrier
+│   │       │   ├── TransferSubTab.jsx
+│   │       │   ├── IdentifyingInput.jsx
+│   │       │   ├── ProductTypeEmpCode.jsx
+│   │       │   ├── StepChoice.jsx
+│   │       │   └── ImplementingButton.jsx
+│   │       ├── clear_undo/                           # Sub-tab 3: Giải undo/rework (shared_clearundorework)
+│   │       │   ├── ClearUndoSubTab.jsx
+│   │       │   ├── SnCarrierTextInput.jsx
+│   │       │   ├── ProductTypeEmpNo.jsx
+│   │       │   ├── UndoReworkDropdownMenu.jsx
+│   │       │   └── ImplementingButton.jsx
+│   │       ├── sn_compensation/                      # Sub-tab 4: Nạp bù seri thủ công & SNDetails
+│   │       │   ├── CompensateSnDetailSubTab.jsx
+│   │       │   ├── SnCarrierCodeInput.jsx
+│   │       │   ├── ProductTypeLineInput.jsx
+│   │       │   ├── TargetStepEmpNo.jsx
+│   │       │   ├── TechnicalNote.jsx
+│   │       │   └── ImplementingButton.jsx
+│   │       ├── change_keypart/                       # Sub-tab 5: Đổi / hoán đổi Keypart (sndetaildatas)
+│   │       │   ├── ChangeKeypartSubTab.jsx
+│   │       │   ├── SnCarrierTextInput.jsx
+│   │       │   ├── ProductTypeEmpNo.jsx
+│   │       │   ├── KeypartValueInput.jsx
+│   │       │   └── ImplementingButton.jsx
+│   │       ├── sndetails/                            # Sub-tab 6: Xem hồ sơ dữ liệu SN (sndetails table)
+│   │       │   ├── SnDetailsSubTab.jsx
+│   │       │   ├── SnCarrierTextInput.jsx
+│   │       │   ├── ModelTopLimitSelect.jsx
+│   │       │   ├── SnDetailsTable.jsx
+│   │       │   └── ImplementingButton.jsx
+│   │       └── error_logs/                           # Sub-tab 7: Nhật ký lỗi trạm ALABEL (ErrorLogs table)
+│   │           ├── ErrorLogsSubTab.jsx
+│   │           ├── SnCarrierTextInput.jsx
+│   │           ├── ErrorFilterDropdowns.jsx
+│   │           ├── ErrorLogsTable.jsx
+│   │           └── ImplementingButton.jsx
+│   │
+│   ├── action_logs/                                  # Tab 4: Phân hệ Action Logs & Phục hồi trạng thái
+│   │   ├── ActionLogsRestoreTab.jsx                  # Container chính điều phối Tab Action Logs
+│   │   ├── ActionLogsFilterBar.jsx                   # Khung 5 trường lọc (Từ ngày, Đến ngày, Action, Phân hệ, Keyword)
+│   │   ├── ActionLogsTable.jsx                       # Bảng nhật ký kiểm toán, lọc số dòng & phân trang
+│   │   ├── ActionLogDetailModal.jsx                  # Modal xem toàn bộ Metadata, SQL query & Payload
+│   │   ├── ActionLogDiffModal.jsx                    # Modal đối soát Diff Old/New song song trực quan
+│   │   ├── ActionLogRestoreModal.jsx                 # Modal xác nhận phục hồi an toàn 2 bước
+│   │   └── index.js                                  # Barrel exports
 │   │
 │   ├── sfc_shared/                                   # KHU VỰC GIAO DIỆN CHUNG CHO SWITCH & ADAPTER (ĐỔI TỪ sfc_switch)
 │   │   │                                             # Phân khu tập trung duy nhất đóng gói UI tương tác SFC
@@ -925,25 +1415,29 @@ src/features/config/automation_line_control/
 │
 ├── hooks/
 │   ├── useAutolineControlData.js                     # Hook quản lý state lọc, Keyparts và các action Switch/Adapter
-│   └── useAlabelHelperData.js                        # Hook chuyên trách tra cứu tiến trình, quản lý 7 sub-tabs và log ALABEL
+│   ├── useAlabelHelperData.js                        # Hook chuyên trách tra cứu tiến trình, quản lý 7 sub-tabs và log ALABEL
+│   └── useActionLogsRestoreData.js                   # Hook quản lý query nhật ký, bộ lọc 5 tiêu chí, xem Diff và Restore
 │
 ├── constants/
 │   ├── sfcControlConstants.js                        # Danh mục Model, Trạm, Mock Keyparts & Transaction responses
-│   └── alabelConstants.js                            # Mock dữ liệu Router, 7 sub-tabs config, lý do Undo & mã lỗi ALABEL
+│   ├── alabelConstants.js                            # Mock dữ liệu Router, 7 sub-tabs config, lý do Undo & mã lỗi ALABEL
+│   └── actionLogsConstants.js                        # Danh mục hành động (undo/reset/transfer/rework/clear/keypart/compensate/restore), mock logs & diff
 │
 └── utils/
     ├── sfcPayloadBuilder.js                          # Tiện ích đóng gói Payload theo chuẩn Switch / Adapter
-    └── alabelPayloadBuilder.js                       # Tiện ích đóng gói Payload cho 7 tác vụ điều khiển ALABEL
+    ├── alabelPayloadBuilder.js                       # Tiện ích đóng gói Payload cho 7 tác vụ điều khiển ALABEL
+    └── actionLogsPayloadBuilder.js                   # Tiện ích đóng gói Payload cho truy vấn log và yêu cầu rollback
 ```
 
 ---
 
-## 9. KẾ HOẠCH TRIỂN KHAI VÀ THỰC THI (ACTION ITEMS & VERIFICATION)
+## 10. KẾ HOẠCH TRIỂN KHAI VÀ THỰC THI (ACTION ITEMS & VERIFICATION)
 
 - [x] **Bước 1**: Cập nhật tài liệu đặc tả `src/md/AUTOLINE_CONTROL_PLAN.md` và `md/AUTOLINE_CONTROL_PLAN.md`:
   - Định nghĩa kiến trúc giao diện dùng chung giữa Tab Switch & Tab Adapter.
   - Chuẩn hóa cấu trúc thư mục giao diện chung thành `components/sfc_shared/` (thay vì `sfc_switch`), giải quyết triệt để việc nhầm lẫn và khó tìm kiếm.
   - Thiết kế hoàn chỉnh phân hệ **ALABEL_Helper** (thay thế AIOT Helpers): Bố cục chia đôi 1:1 (Tra cứu tiến trình vs Thao tác điều khiển ALABEL), hệ thống 7 sub-tabs, cơ chế Model tự nhận diện/Dropdown ẩn từ CSDL, và khung nhật ký thực thi phía dưới.
+  - Đặc tả toàn diện phân hệ **Action Logs & Restore** (Tab 4): Khung bộ lọc 5 tiêu chí, bảng nhật ký 10 cột, điều khiển phân trang & chọn số dòng (10, 25, 50, 100), modal xem chi tiết, modal so sánh Diff Old/New và quy trình Safe Restore an toàn.
 - [x] **Bước 2**: Tái cấu trúc thư mục giao diện chung SFC:
   - Đổi tên thư mục `src/features/config/automation_line_control/components/sfc_switch/` thành `src/features/config/automation_line_control/components/sfc_shared/`.
   - Cập nhật đường dẫn import trong `AutomationLineControlPage.jsx` (`import SfcSenderContainer from './components/sfc_shared/SfcSenderContainer';`).
@@ -964,3 +1458,9 @@ src/features/config/automation_line_control/
   - Kết nối `activeTab === 'a_label_helpers'` render component `AlabelHelperTab`.
   - Đồng bộ nhãn hiển thị và icon chuẩn cho ALABEL Helper.
 - [x] **Bước 7**: Kiểm thử đóng gói `npm run build` và kiểm tra tính nhất quán 2 Theme Foxconn & NVIDIA trên toàn bộ các tab.
+- [x] **Bước 8**: Triển khai phân hệ **Action Logs & Restore** (Tab 4):
+  - Xây dựng khung lọc 5 tiêu chí `ActionLogsFilterBar.jsx` (Từ ngày, Đến ngày, Hành động [undo, reset, transfer, rework, giải undo/rework, sửa keypart, bù dữ liệu thủ công, restore], Phân hệ [ALabel Helpers, Machine Config, General], ô tìm kiếm chi tiết).
+  - Xây dựng bảng nhật ký kiểm toán `ActionLogsTable.jsx` hỗ trợ chọn số dòng hiển thị (10, 25, 50, 100), phân trang và các badge trạng thái/hành động.
+  - Xây dựng modal đối soát `ActionLogDiffModal.jsx` hiển thị so sánh Old vs New state trực quan 2 cột và highlight trường thay đổi.
+  - Xây dựng modal phục hồi `ActionLogRestoreModal.jsx` xác nhận an toàn, khóa `operatorId` 🔒 theo phiên đăng nhập, bắt buộc nhập lý do rollback.
+  - Xây dựng custom hook `useActionLogsRestoreData.js` và hằng số `actionLogsConstants.js` mô phỏng đầy đủ dữ liệu kiểm toán và snapshot diff.

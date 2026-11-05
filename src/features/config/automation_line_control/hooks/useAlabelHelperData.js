@@ -68,6 +68,13 @@ export default function useAlabelHelperData() {
   ]);
 
   const [changeKeypartForm, setChangeKeypartForm] = useState({
+    targetType: 'sn', // 'sn' | 'carrier'
+    targetCode: 'SN8839210492-NV',
+    model: 'HGX_B200_NVL',
+    operatorId: 'NV-2026-08819',
+    selectedKeypart: 'GPU_MODULE_01',
+    newKeypartValue: 'NV-B200-GPU-88921-REV2',
+    // Giữ tương thích ngược:
     sn: 'SN8839210492-NV',
     keyCategory: 'GPU_MODULE_01',
     oldBarcode: 'NV-B200-GPU-88910',
@@ -75,7 +82,25 @@ export default function useAlabelHelperData() {
     reason: 'Thay thế linh kiện trạm Rework do lỗi hàn chân tiếp xúc',
   });
 
+  const [snDetailsForm, setSnDetailsForm] = useState({
+    targetType: 'sn', // 'sn' | 'carrier'
+    targetCode: 'SN8839210492-NV',
+    model: '', // '' = Tất cả dòng sản phẩm (Mặc định)
+    topLimit: 100, // 50, 100, 200, 500, 1000
+  });
+
   const [snDetailsList, setSnDetailsList] = useState(MOCK_SN_DETAILS);
+  const [errorLogsForm, setErrorLogsForm] = useState({
+    targetType: 'sn',
+    targetCode: '',
+    model: '',
+    productType: '',
+    line: '',
+    errorSource: '',
+    stage: '',
+    station: '',
+    topLimit: 100,
+  });
   const [errorLogsList] = useState(MOCK_ERROR_LOGS);
 
   // 3. State quản lý Execution Logs Console
@@ -159,7 +184,26 @@ export default function useAlabelHelperData() {
       model: modelName.includes('GB200') ? 'GB200_NVL72' : 'HGX_B200_NVL',
       targetStep: newProcessResult.routerStep || '030',
     }));
-    setChangeKeypartForm((prev) => ({ ...prev, sn: searchQuery.trim() }));
+    setChangeKeypartForm((prev) => ({
+      ...prev,
+      targetType: searchType === 'carrier' ? 'carrier' : 'sn',
+      targetCode: searchQuery.trim(),
+      sn: searchQuery.trim(),
+      model: modelName.includes('GB200') ? 'GB200_NVL72' : 'HGX_B200_NVL',
+    }));
+    setSnDetailsForm((prev) => ({
+      ...prev,
+      targetType: searchType === 'carrier' ? 'carrier' : 'sn',
+      targetCode: searchQuery.trim(),
+      model: modelName.includes('GB200') ? 'GB200_NVL72' : 'HGX_B200_NVL',
+    }));
+    setErrorLogsForm((prev) => ({
+      ...prev,
+      targetType: searchType === 'carrier' ? 'carrier' : 'sn',
+      targetCode: searchQuery.trim(),
+      model: modelName.includes('GB200') ? 'GB200_NVL72' : 'HGX_B200_NVL',
+      station: newProcessResult.currentStation || 'ST03-SMT-A',
+    }));
 
     // Ghi nhận log tra cứu
     const now = new Date();
@@ -344,44 +388,111 @@ export default function useAlabelHelperData() {
         break;
       }
       case 'change_keypart': {
+        const targetType = changeKeypartForm.targetType || 'sn';
+        const targetVal = changeKeypartForm.targetCode || changeKeypartForm.sn || 'SN8839210492-NV';
+        const modelVal = changeKeypartForm.model || 'HGX_B200_NVL';
+        const operator = changeKeypartForm.operatorId || 'NV-2026-08819';
+        const keypart = changeKeypartForm.selectedKeypart || changeKeypartForm.keyCategory || 'GPU_MODULE_01';
+        const newVal = changeKeypartForm.newKeypartValue || changeKeypartForm.newBarcode || 'NV-B200-GPU-88921-REV2';
+
         newLog = {
           id: `log-${Date.now()}`,
           timestamp: timeStr,
-          level: 'WARNING',
-          action: 'CHANGE_KEYPART',
-          target: changeKeypartForm.sn,
-          latencyMs: 39,
-          message: `[KEYPART_SWAP] Đã đổi linh kiện [${changeKeypartForm.keyCategory}]: ${changeKeypartForm.oldBarcode} -> ${changeKeypartForm.newBarcode}. Đang chờ SFC đối chiếu.`,
-          payload: { ...changeKeypartForm },
-          response: { status: 'SWAP_PENDING', auditId: `AUD-${Date.now().toString().slice(-6)}` },
+          level: 'SUCCESS',
+          action: 'CHANGE_KEYPART_VALUE',
+          target: `${targetType.toUpperCase()}: ${targetVal} | Key: ${keypart}`,
+          latencyMs: 32,
+          message: `[CHANGE_KEYPART_OK] Đã xác nhận thay đổi giá trị keypart '${keypart}' thành '${newVal}' trong bảng sndetaildatas cho ${targetType.toUpperCase()} '${targetVal}' (Model: ${modelVal}). Nhân viên: ${operator}.`,
+          payload: {
+            targetType,
+            targetCode: targetVal,
+            model: modelVal,
+            operatorId: operator,
+            selectedKeypart: keypart,
+            newKeypartValue: newVal,
+            tableName: 'sndetaildatas',
+            action: 'update_keypart_sndetaildatas',
+          },
+          response: {
+            status: 'SUCCESS',
+            table: 'sndetaildatas',
+            keypart,
+            newValue: newVal,
+            updatedRows: 1,
+            auditId: `AUD-${Date.now().toString().slice(-6)}`,
+            latencyMs: 32,
+          },
         };
+
+        // Cập nhật vào danh sách sndetails mẫu
+        setSnDetailsList((prev) => [
+          {
+            id: Date.now(),
+            key: `keypart_${keypart.toLowerCase()}`,
+            value: newVal,
+            station: 'ST03-SMT-A',
+            updatedAt: new Date().toISOString().replace('T', ' ').slice(0, 19),
+            status: 'UPDATED',
+          },
+          ...prev,
+        ]);
         break;
       }
       case 'sndetails': {
+        const targetType = snDetailsForm.targetType || 'sn';
+        const targetVal = snDetailsForm.targetCode || processResult.identifier || 'SN8839210492-NV';
+        const modelVal = snDetailsForm.model || 'TẤT CẢ DÒNG SẢN PHẨM';
+        const limitVal = snDetailsForm.topLimit || 100;
+
         newLog = {
           id: `log-${Date.now()}`,
           timestamp: timeStr,
           level: 'INFO',
           action: 'SNDETAILS_FETCH',
-          target: processResult.identifier,
-          latencyMs: 16,
-          message: `[SNDETAILS_REFRESH] Đã tải lại toàn bộ ${snDetailsList.length} bản ghi cấu hình của SN: ${processResult.identifier}.`,
-          payload: { sn: processResult.identifier },
-          response: { totalRows: snDetailsList.length, status: 'OK' },
+          target: `${targetType.toUpperCase()}: ${targetVal}`,
+          latencyMs: 22,
+          message: `[SNDETAILS_OK] Truy vấn thành công bảng sndetails cho ${targetType.toUpperCase()} '${targetVal}' (Model: ${modelVal}). Đã tải ${snDetailsList.length} bản ghi (Top Limit: ${limitVal}).`,
+          payload: {
+            targetType,
+            targetCode: targetVal,
+            model: modelVal,
+            topLimit: limitVal,
+            action: 'query_sndetails',
+          },
+          response: { totalRows: snDetailsList.length, status: 'OK', topLimit: limitVal },
         };
         break;
       }
       case 'error_logs': {
+        const targetType = errorLogsForm.targetType || 'sn';
+        const targetVal = errorLogsForm.targetCode || processResult.identifier || 'TẤT CẢ';
+        const modelVal = errorLogsForm.model || 'TẤT CẢ MODEL';
+        const lineVal = errorLogsForm.line || 'TẤT CẢ CHUYỀN';
+        const sourceVal = errorLogsForm.errorSource || 'TẤT CẢ NGUỒN';
+        const stationVal = errorLogsForm.station || processResult.currentStation || 'TẤT CẢ TRẠM';
+        const limitVal = errorLogsForm.topLimit || 100;
+
         newLog = {
           id: `log-${Date.now()}`,
           timestamp: timeStr,
-          level: 'INFO',
+          level: 'WARNING',
           action: 'ERROR_LOGS_QUERY',
-          target: processResult.currentStation,
-          latencyMs: 19,
-          message: `[ERROR_LOGS_REFRESH] Truy vấn danh sách cảnh báo trạm ${processResult.currentStation}: ${errorLogsList.length} bản ghi được ghi nhận.`,
-          payload: { station: processResult.currentStation },
-          response: { count: errorLogsList.length },
+          target: `${targetType.toUpperCase()}: ${targetVal} | Trạm: ${stationVal}`,
+          latencyMs: 26,
+          message: `[ERROR_LOGS_OK] Truy vấn thành công bảng ErrorLogs cho ${targetType.toUpperCase()} '${targetVal}' (Trạm: ${stationVal}, Chuyền: ${lineVal}, Nguồn: ${sourceVal}, Model: ${modelVal}). Đã tải ${errorLogsList.length} bản ghi lỗi (Top Limit: ${limitVal}).`,
+          payload: {
+            targetType,
+            targetCode: targetVal,
+            model: modelVal,
+            productType: errorLogsForm.productType || 'TẤT CẢ',
+            line: lineVal,
+            errorSource: sourceVal,
+            stage: errorLogsForm.stage || 'TẤT CẢ',
+            station: stationVal,
+            topLimit: limitVal,
+            action: 'query_error_logs',
+          },
+          response: { count: errorLogsList.length, status: 'OK', topLimit: limitVal },
         };
         break;
       }
@@ -464,7 +575,11 @@ export default function useAlabelHelperData() {
     setCompensateRows,
     changeKeypartForm,
     setChangeKeypartForm,
+    snDetailsForm,
+    setSnDetailsForm,
     snDetailsList,
+    errorLogsForm,
+    setErrorLogsForm,
     errorLogsList,
 
     // Execution Logs

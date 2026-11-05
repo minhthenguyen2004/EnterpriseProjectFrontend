@@ -1,10 +1,10 @@
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useAutolineControlData from './hooks/useAutolineControlData';
-import AutolineControlTabsNav from './components/tabs/AutolineControlTabsNav';
+import AutolineControlTabsNav from './components/AutolineControlTabsNav';
 import SfcSwitchAdapterSenderContainer from './components/sfc_shared/SfcSwitchAdapterSenderContainer';
-import AlabelHelperTab from './components/tabs/AlabelHelperTab';
-import ActionLogsRestoreTab from './components/tabs/ActionLogsRestoreTab';
+import AlabelHelperTab from './components/alabel/AlabelHelperTab';
+import ActionLogsRestoreTab from './components/action_logs/ActionLogsRestoreTab';
 
 /**
  * Trang Điều Khiển Chuyền Tự Động (Automation Line Control - /config/automation-line)

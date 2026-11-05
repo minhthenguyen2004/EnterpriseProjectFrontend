@@ -34,7 +34,7 @@ export default function SfcTestResultFrame({
       <div className="flex items-center justify-between mb-2.5">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-          <span className={`text-[11px] font-bold uppercase tracking-wider ${ isFoxconn ? "text-slate-600" : "dark:text-zinc-400"}`}>
+          <span className={`text-[11px] font-bold uppercase tracking-wider ${ isFoxconn ? "text-slate-700" : "text-zinc-300"}`}>
             Khung Kết Quả Kiểm Thử ({isAdapter ? 'ADAPTER' : 'SWITCH'})
           </span>
         </div>
