@@ -53,8 +53,8 @@ export default function ActionLogsTable({
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
               className={`px-2 py-1 rounded-lg border text-xs font-bold cursor-pointer transition-all ${
                 isFoxconn
-                  ? 'bg-white border-slate-300 text-slate-800 focus:border-blue-500'
-                  : 'bg-zinc-900 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  ? 'bg-white border-slate-300 text-slate-800'
+                  : 'bg-zinc-900 border-zinc-700 text-zinc-100'
               }`}
             >
               {PAGE_SIZE_OPTIONS.map((size) => (
@@ -101,7 +101,7 @@ export default function ActionLogsTable({
               <th className="py-2.5 px-3 whitespace-nowrap">Hành Động</th>
               <th className="py-2.5 px-3 whitespace-nowrap">Bảng Đích</th>
               <th className="py-2.5 px-3 whitespace-nowrap">Mục Tiêu</th>
-              <th className="py-2.5 px-3 min-w-[200px]">Mô Tả Chi Tiết</th>
+              <th className="py-2.5 px-3 min-w-50">Mô Tả Chi Tiết</th>
               <th className="py-2.5 px-3 whitespace-nowrap">Trạng Thái</th>
               <th className="py-2.5 px-3 text-center whitespace-nowrap">Thao Tác</th>
             </tr>
@@ -334,7 +334,7 @@ export default function ActionLogsTable({
               type="button"
               onClick={() => onPageChange(1)}
               disabled={currentPage === 1}
-              className={`px-2 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all ${
+              className={`px-2 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
                 isFoxconn
                   ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
                   : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
@@ -348,7 +348,7 @@ export default function ActionLogsTable({
               type="button"
               onClick={() => onPageChange(currentPage - 1)}
               disabled={currentPage === 1}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all ${
+              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
                 isFoxconn
                   ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
                   : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
@@ -400,7 +400,7 @@ export default function ActionLogsTable({
               type="button"
               onClick={() => onPageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all ${
+              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
                 isFoxconn
                   ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
                   : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
@@ -414,7 +414,7 @@ export default function ActionLogsTable({
               type="button"
               onClick={() => onPageChange(totalPages)}
               disabled={currentPage === totalPages}
-              className={`px-2 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition-all ${
+              className={`px-2 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
                 isFoxconn
                   ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
                   : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'

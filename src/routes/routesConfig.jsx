@@ -14,6 +14,9 @@ const MachineConfigPage = lazy(() => import('../features/config/machine/MachineC
 const AutomationLineControlPage = lazy(() => import('../features/config/automation_line_control/AutomationLineControlPage'));
 const StationLayoutControlPage = lazy(() => import('../features/config/station-layout/StationLayoutControlPage'));
 
+// API MANAGEMENT routes
+const ApiRequestHistoryPage = lazy(() => import('../features/api_management/api_request_history/ApiRequestHistoryPage'));
+
 /**
  * Danh sách Route công khai
  * `restricted: true` nghĩa là nếu user đã login thì sẽ bị chuyển hướng về trang chính.
@@ -74,5 +77,15 @@ export const protectedRoutes = [
   {
     path: '/config/station-layout',
     element: <StationLayoutControlPage />,
+  },
+
+  // Nhóm API MANAGEMENT routes
+  {
+    path: '/api/request-log',
+    element: <ApiRequestHistoryPage />,
+  },
+  {
+    path: '/api/request-history',
+    element: <Navigate to="/api/request-log" replace />,
   },
 ];
