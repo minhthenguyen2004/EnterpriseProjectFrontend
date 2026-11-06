@@ -78,12 +78,12 @@ export default function ApiRequestLogsTable({
             >
               <th className="py-2.5 px-3 whitespace-nowrap">Client IP</th>
               <th className="py-2.5 px-3 whitespace-nowrap text-center">Method</th>
-              <th className="py-2.5 px-3 min-w-[180px]">Url</th>
+              <th className="py-2.5 px-3 min-w-45">Url</th>
               <th className="py-2.5 px-3 whitespace-nowrap text-center">Status Code</th>
               <th className="py-2.5 px-3 whitespace-nowrap">Request Time</th>
               <th className="py-2.5 px-3 whitespace-nowrap text-right">Processing Time</th>
-              <th className="py-2.5 px-3 min-w-[280px]">Request Body</th>
-              <th className="py-2.5 px-3 min-w-[280px]">esponse Body</th>
+              <th className="py-2.5 px-3 min-w-70">Request Body</th>
+              <th className="py-2.5 px-3 min-w-70">esponse Body</th>
             </tr>
           </thead>
           <tbody
@@ -165,7 +165,7 @@ export default function ApiRequestLogsTable({
 
                     {/* Cột 3: Url */}
                     <td className="py-2.5 px-3 align-top">
-                      <div className="flex items-center gap-1.5 group max-w-[200px]">
+                      <div className="flex items-center gap-1.5 group max-w-50">
                         <span
                           className="break-all font-semibold text-xs text-blue-600 dark:text-blue-400"
                           title={row.url}
@@ -222,7 +222,7 @@ export default function ApiRequestLogsTable({
                     </td>
 
                     {/* Cột 7: Request Body (Hiện Full Không Cuộn, Màu Cú Pháp IDE) */}
-                    <td className="py-2.5 px-3 align-top min-w-[280px]">
+                    <td className="py-2.5 px-3 align-top min-w-70">
                       <div className="relative group">
                         <JsonCodeViewer
                           data={row.requestBody}
@@ -248,7 +248,7 @@ export default function ApiRequestLogsTable({
                     </td>
 
                     {/* Cột 8: Response Body (Hiện Full Không Cuộn, Màu Cú Pháp IDE) */}
-                    <td className="py-2.5 px-3 align-top min-w-[280px]">
+                    <td className="py-2.5 px-3 align-top min-w-70">
                       <div className="relative group">
                         <JsonCodeViewer
                           data={row.responseBody}

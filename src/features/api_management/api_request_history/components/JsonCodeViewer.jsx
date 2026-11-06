@@ -84,7 +84,7 @@ export default function JsonCodeViewer({
   return (
     <pre
       dangerouslySetInnerHTML={{ __html: highlightedHtml }}
-      className={`p-2.5 rounded-lg font-mono text-[11px] leading-relaxed whitespace-pre-wrap break-words border transition-all select-text ${
+      className={`p-2.5 rounded-lg font-mono text-[11px] leading-relaxed whitespace-pre-wrap wrap-break-word border transition-all select-text ${
         isFoxconn
           ? 'bg-slate-50/90 border-slate-200 text-slate-800'
           : 'bg-[#18181b]/95 border-zinc-800 text-[#d4d4d4]'

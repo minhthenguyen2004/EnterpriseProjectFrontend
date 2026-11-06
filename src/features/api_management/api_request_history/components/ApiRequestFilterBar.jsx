@@ -134,8 +134,8 @@ export default function ApiRequestFilterBar({
             onChange={(e) => onFilterChange('dateTime', e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-mono font-medium transition-all ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                ? 'bg-slate-50 border-slate-300 text-slate-800'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-100'
             }`}
           />
         </div>
@@ -155,8 +155,8 @@ export default function ApiRequestFilterBar({
             onChange={(e) => onFilterChange('area', e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold cursor-pointer transition-all ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                ? 'bg-slate-50 border-slate-300 text-slate-800'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-100'
             }`}
           >
             {AREAS.map((a) => (
@@ -186,8 +186,8 @@ export default function ApiRequestFilterBar({
             onChange={(e) => onFilterChange('controller', e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold cursor-pointer transition-all ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                ? 'bg-slate-50 border-slate-300 text-slate-800'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-100'
             }`}
           >
             {CONTROLLERS.map((c) => (
@@ -217,8 +217,8 @@ export default function ApiRequestFilterBar({
             onChange={(e) => onFilterChange('action', e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold cursor-pointer transition-all ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                ? 'bg-slate-50 border-slate-300 text-slate-800'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-100'
             }`}
           >
             {ACTIONS.map((act) => (
@@ -248,8 +248,8 @@ export default function ApiRequestFilterBar({
             onChange={(e) => onFilterChange('clientIp', e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-mono font-semibold cursor-pointer transition-all ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                ? 'bg-slate-50 text-slate-800 focus:border-blue-500'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-100'
             }`}
           >
             {CLIENT_IPS.map((ip) => (
@@ -279,8 +279,8 @@ export default function ApiRequestFilterBar({
             onChange={(e) => onFilterChange('topLimit', Number(e.target.value))}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold cursor-pointer transition-all ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                ? 'bg-slate-50 border-slate-300 text-slate-800'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-100'
             }`}
           >
             {TOP_LIMIT_OPTIONS.map((opt) => (
@@ -304,7 +304,7 @@ export default function ApiRequestFilterBar({
             type="button"
             onClick={onExecuteQuery}
             disabled={isQuerying}
-            className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed ${
+            className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md active:scale-98 disabled:opacity-50 ${
               isFoxconn
                 ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/20'
                 : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/20'
