@@ -7,8 +7,8 @@ const Login = lazy(() => import('../features/auth/login/Login'));
 
 
 // CONFIG routes
-const RackConfigPage = lazy(() => import('../features/rack/RackConfigPage'));
-const RackOverviewConfigPage = lazy(() => import('../features/rack/RackOverviewConfigPage'));
+const RackConfigPage = lazy(() => import('../features/config/rack/RackConfigPage'));
+const RackOverviewConfigPage = lazy(() => import('../features/config/rack/RackOverviewConfigPage'));
 const CarrierConfigPage = lazy(() => import('../features/config/carrier/CarrierConfigPage'));
 const MachineConfigPage = lazy(() => import('../features/config/machine/MachineConfigPage'));
 const AutomationLineControlPage = lazy(() => import('../features/config/automation_line_control/AutomationLineControlPage'));
