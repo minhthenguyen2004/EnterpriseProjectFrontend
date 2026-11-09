@@ -13,6 +13,7 @@ const CarrierConfigPage = lazy(() => import('../features/config/carrier/CarrierC
 const MachineConfigPage = lazy(() => import('../features/config/machine/MachineConfigPage'));
 const AutomationLineControlPage = lazy(() => import('../features/config/automation_line_control/AutomationLineControlPage'));
 const StationLayoutControlPage = lazy(() => import('../features/config/station-layout/StationLayoutControlPage'));
+const UnlockCarrierPage = lazy(() => import('../features/config/carrier/components/unlock_carrier/UnlockCarrierPage'));
 
 // API MANAGEMENT routes
 const ApiRequestHistoryPage = lazy(() => import('../features/api_management/api_request_history/ApiRequestHistoryPage'));
@@ -77,6 +78,14 @@ export const protectedRoutes = [
   {
     path: '/config/station-layout',
     element: <StationLayoutControlPage />,
+  },
+  {
+    path: '/unlock-carrier',
+    element: <UnlockCarrierPage />,
+  },
+  {
+    path: '/config/unlock-carrier',
+    element: <UnlockCarrierPage />,
   },
 
   // Nhóm API MANAGEMENT routes

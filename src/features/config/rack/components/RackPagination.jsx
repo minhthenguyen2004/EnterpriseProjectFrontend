@@ -49,15 +49,15 @@ export default function RackPagination({
       <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
         <div>
           Hiển thị{' '}
-          <strong className="font-mono font-bold text-slate-900 dark:text-white">
+          <strong className={`font-mono font-bold ${ isFoxconn ? "text-black" : "text-emerald-500"}`}>
             {totalRecords > 0 ? startIndex + 1 : 0}
           </strong>{' '}
           -{' '}
-          <strong className="font-mono font-bold text-slate-900 dark:text-white">
+          <strong className={`font-mono font-bold ${ isFoxconn ? "text-black" : "text-emerald-500"}`}>
             {endIndex}
           </strong>{' '}
           trong tổng số{' '}
-          <strong className="font-mono font-bold text-slate-900 dark:text-white">
+          <strong className={`font-mono font-bold ${ isFoxconn ? "text-black" : "text-emerald-500"}`}>
             {totalRecords}
           </strong>{' '}
           bản ghi
@@ -71,8 +71,8 @@ export default function RackPagination({
             onChange={(e) => onPageSizeChange(Number(e.target.value))}
             className={`px-2.5 py-1 text-xs font-bold rounded-lg border outline-hidden cursor-pointer transition-colors ${
               isFoxconn
-                ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-[#002766]'
-                : 'bg-zinc-950 border-zinc-700 text-zinc-200 focus:border-[#76B900]'
+                ? 'bg-slate-50 border-slate-300 text-slate-800'
+                : 'bg-zinc-950 border-zinc-700 text-zinc-200'
             }`}
           >
             {PAGE_SIZE_OPTIONS.map((size) => (
@@ -91,7 +91,7 @@ export default function RackPagination({
           type="button"
           disabled={currentPage <= 1}
           onClick={() => onPageChange(1)}
-          className={`p-1.5 sm:px-2 rounded-lg text-xs font-bold border transition-all cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed ${
+          className={`p-1.5 sm:px-2 rounded-lg text-xs font-bold border transition-all cursor-pointer disabled:opacity-35 ${
             isFoxconn
               ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
               : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'
@@ -108,7 +108,7 @@ export default function RackPagination({
           type="button"
           disabled={currentPage <= 1}
           onClick={() => onPageChange(currentPage - 1)}
-          className={`p-1.5 sm:px-2.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-35 disabled:cursor-not-allowed ${
+          className={`p-1.5 sm:px-2.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-35 ${
             isFoxconn
               ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
               : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'
@@ -163,7 +163,7 @@ export default function RackPagination({
           type="button"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange(currentPage + 1)}
-          className={`p-1.5 sm:px-2.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-35 disabled:cursor-not-allowed ${
+          className={`p-1.5 sm:px-2.5 sm:py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-35 ${
             isFoxconn
               ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
               : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'
@@ -181,7 +181,7 @@ export default function RackPagination({
           type="button"
           disabled={currentPage >= totalPages}
           onClick={() => onPageChange(totalPages)}
-          className={`p-1.5 sm:px-2 rounded-lg text-xs font-bold border transition-all cursor-pointer disabled:opacity-35 disabled:cursor-not-allowed ${
+          className={`p-1.5 sm:px-2 rounded-lg text-xs font-bold border transition-all cursor-pointer disabled:opacity-35 ${
             isFoxconn
               ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
               : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'

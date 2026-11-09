@@ -96,7 +96,7 @@ export default function MachineColumnFilterDropdown({
       {/* Popover Header */}
       <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100 dark:border-zinc-800">
         <div className="flex items-center gap-1.5">
-          <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-zinc-200">
+          <span className={`text-xs font-black uppercase tracking-wider ${ isFoxconn ? "text-black" : "text-white"}`}>
             Lọc: {column.label}
           </span>
           {tempSelected.length > 0 && (

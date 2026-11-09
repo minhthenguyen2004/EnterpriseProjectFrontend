@@ -269,14 +269,14 @@ export default function RackTable({
                           d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                         />
                       </svg>
-                      <span className="text-slate-800 dark:text-zinc-100 font-bold">{item.factory}</span>
+                      <span className={`${ isFoxconn ? "text-black" : "text-white"} font-bold`}>{item.factory}</span>
                     </span>
                   </td>
 
                   {/* Floor */}
                   <td className="py-3.5 px-3 text-center whitespace-nowrap">
                     <span
-                      className={`inline-block px-2 py-0.5 rounded-lg text-[11px] font-bold font-mono border ${
+                      className={`inline-block px-2 py-0.5 rounded-lg text-[11px] font-bold border ${
                         isFoxconn
                           ? 'bg-slate-100 border-slate-200 text-slate-700'
                           : 'bg-zinc-800 border-zinc-700 text-zinc-300'
@@ -288,7 +288,7 @@ export default function RackTable({
 
                   {/* Room */}
                   <td className="py-3.5 px-4 font-medium whitespace-nowrap">
-                    <span className="text-slate-700 dark:text-zinc-300">{item.room}</span>
+                    <span className={`${ isFoxconn ? "text-black" : "text-white"}`}>{item.room}</span>
                   </td>
 
                   {/* Product */}
@@ -307,13 +307,13 @@ export default function RackTable({
 
                   {/* Group */}
                   <td className="py-3.5 px-4 whitespace-nowrap">
-                    <span className="text-slate-600 dark:text-zinc-300 font-medium">{item.group}</span>
+                    <span className={`${ isFoxconn ? "text-black" : "text-white"} font-medium`}>{item.group}</span>
                   </td>
 
                   {/* Rack */}
                   <td className="py-3.5 px-4 whitespace-nowrap">
                     <span
-                      className={`inline-flex items-center gap-1 font-mono font-bold text-xs px-2 py-0.5 rounded-md border ${
+                      className={`inline-flex items-center gap-1 font-bold text-xs px-2 py-0.5 rounded-md border ${
                         isFoxconn
                           ? 'bg-slate-100/90 border-slate-300/80 text-slate-800'
                           : 'bg-zinc-800/90 border-zinc-700 text-zinc-200'
@@ -326,21 +326,21 @@ export default function RackTable({
 
                   {/* Slot Number */}
                   <td className="py-3.5 px-3 text-center whitespace-nowrap">
-                    <span className="font-mono font-extrabold text-xs px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    <span className="font-extrabold text-xs px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                       #{String(item.slot_number).padStart(2, '0')}
                     </span>
                   </td>
 
                   {/* Slot Name */}
-                  <td className="py-3.5 px-4 font-mono font-bold whitespace-nowrap">
-                    <span className="text-slate-800 dark:text-zinc-100">{item.slot_name}</span>
+                  <td className="py-3.5 px-4 font-bold whitespace-nowrap">
+                    <span className={`${ isFoxconn ? "text-black" : "text-white"}`}>{item.slot_name}</span>
                   </td>
 
                   {/* IP Address */}
                   <td className="py-3.5 px-4 whitespace-nowrap">
-                    <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-slate-700 dark:text-zinc-300">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-zinc-300">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
-                      <span>{item.ip_address}</span>
+                      <span className={`${ isFoxconn ? "text-black" : "text-white"}`}>{item.ip_address}</span>
                     </span>
                   </td>
 
