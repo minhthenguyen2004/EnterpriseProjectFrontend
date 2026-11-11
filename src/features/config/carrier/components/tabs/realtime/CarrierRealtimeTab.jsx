@@ -1,7 +1,7 @@
 import CarrierKpiCards from './CarrierKpiCards';
 import CarrierFilterToolbar from './CarrierFilterToolbar';
 import CarrierRealtimeTable from './CarrierRealtimeTable';
-import CarrierPagination from './CarrierPagination';
+import Pagination from '../../../../../../components/common/Pagination';
 
 /**
  * Container Nội Dung Tab 1: Giám Sát Thời Gian Thực (Real-time Monitoring)
@@ -64,7 +64,7 @@ export default function CarrierRealtimeTab({
       />
 
       {/* Dòng 4: Phân Trang */}
-      <CarrierPagination
+      <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={onPageChange}

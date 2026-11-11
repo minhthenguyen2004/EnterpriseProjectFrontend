@@ -1,9 +1,12 @@
 // src/features/config/carrier/mock/unlockCarrierMockData.js
 
+
 /**
  * Danh sách khay mẫu phục vụ tính năng Unlock Carrier
  * Bao gồm các khay đang ở trạng thái LOCKED, INSPECTION_REQUIRED, WARNING
  */
+
+
 export const INITIAL_LOCKED_CARRIERS = [
   {
     id: 'CRR-001',
@@ -191,4 +194,11 @@ export const QUICK_NOTE_TAGS = [
   'Kiểm định đầu ca đạt chuẩn',
   'Đã hiệu chuẩn cảm biến quang'
 ];
+
+
+
+
+
+
+
 

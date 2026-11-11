@@ -3,7 +3,7 @@ import useMachineConfigData from './hooks/useMachineConfigData';
 import MachineConfigHeaderBar from './components/header/MachineConfigHeaderBar';
 import MachineConfigToolbar from './components/toolbar/MachineConfigToolbar';
 import MachineConfigTable from './components/table/MachineConfigTable';
-import MachineConfigPagination from './components/pagination/MachineConfigPagination';
+import Pagination from '../../../components/common/Pagination';
 import MachineConfigFormModal from './components/modals/MachineConfigFormModal';
 import MachineConfigDetailModal from './components/modals/MachineConfigDetailModal';
 import MachineDeleteConfirmModal from './components/modals/MachineDeleteConfirmModal';
@@ -119,7 +119,7 @@ export default function MachineConfigPage() {
       />
 
       {/* 4. Footer Pagination with Record Range, Page Size Selector & Controls */}
-      <MachineConfigPagination
+      <Pagination
         currentPage={safeCurrentPage}
         totalPages={totalPages}
         pageSize={pageSize}

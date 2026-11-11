@@ -1,4 +1,5 @@
 import useTheme from '../../../../../hooks/useTheme';
+import Pagination from '../../../../../components/common/Pagination';
 import {
   PAGE_SIZE_OPTIONS,
   ACTION_BADGE_CONFIG,
@@ -25,10 +26,6 @@ export default function ActionLogsTable({
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
-  const startIndex = (currentPage - 1) * pageSize;
-  const displayStart = totalRecords === 0 ? 0 : startIndex + 1;
-  const displayEnd = Math.min(startIndex + pageSize, totalRecords);
-
   return (
     <div
       className={`rounded-2xl border transition-all overflow-hidden ${
@@ -37,7 +34,7 @@ export default function ActionLogsTable({
           : 'bg-zinc-900/80 border-zinc-800 text-zinc-100 shadow-lg'
       }`}
     >
-      {/* Thanh Header của Bảng: Chọn số dòng & Tóm tắt số lượng */}
+      {/* Thanh Header của Bảng: Tiêu đề & Thống kê tóm tắt */}
       <div
         className={`px-4 py-3 flex flex-wrap items-center justify-between gap-3 border-b ${
           isFoxconn
@@ -45,41 +42,16 @@ export default function ActionLogsTable({
             : 'bg-zinc-950/60 border-zinc-800 text-zinc-300'
         }`}
       >
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 text-xs font-semibold">
-            <span>Hiển thị:</span>
-            <select
-              value={pageSize}
-              onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className={`px-2 py-1 rounded-lg border text-xs font-bold cursor-pointer transition-all ${
-                isFoxconn
-                  ? 'bg-white border-slate-300 text-slate-800'
-                  : 'bg-zinc-900 border-zinc-700 text-zinc-100'
-              }`}
-            >
-              {PAGE_SIZE_OPTIONS.map((size) => (
-                <option
-                  key={size}
-                  value={size}
-                  className={isFoxconn ? 'bg-white text-slate-800' : 'bg-zinc-900 text-zinc-100'}
-                >
-                  {size} dòng / trang
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <span className={isFoxconn ? 'text-slate-300' : 'text-zinc-700'}>|</span>
-
-          <span className={`text-xs ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
-            Hiển thị <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{displayStart} - {displayEnd}</strong>{' '}
-            trong tổng số <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{totalRecords}</strong> bản ghi
+        <div className="flex items-center gap-2">
+          <span className="text-sm">📋</span>
+          <span className="text-xs font-bold uppercase tracking-wider">
+            Nhật Ký Tác Vụ Hệ Thống (Audit Logs)
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-xs">
           <span className={`text-[11px] font-semibold ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
-            Trang {currentPage} / {totalPages}
+            Trang <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{currentPage}</strong> / <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{totalPages}</strong>
           </span>
         </div>
       </div>
@@ -315,116 +287,19 @@ export default function ActionLogsTable({
         </table>
       </div>
 
-      {/* Phân Trang Chân Bảng */}
-      {totalPages > 1 && (
-        <div
-          className={`px-4 py-3 flex items-center justify-between border-t ${
-            isFoxconn
-              ? 'bg-slate-50/80 border-slate-200'
-              : 'bg-zinc-950/60 border-zinc-800'
-          }`}
-        >
-          <div className={`text-xs ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
-            Trang <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{currentPage}</strong> trên tổng số <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{totalPages}</strong>
-          </div>
-
-          <div className="flex items-center gap-1 text-xs">
-            {/* Nút Trang Đầu */}
-            <button
-              type="button"
-              onClick={() => onPageChange(1)}
-              disabled={currentPage === 1}
-              className={`px-2 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
-                isFoxconn
-                  ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
-                  : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
-              }`}
-            >
-              ⏮ Đầu
-            </button>
-
-            {/* Nút Trước */}
-            <button
-              type="button"
-              onClick={() => onPageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
-                isFoxconn
-                  ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
-                  : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
-              }`}
-            >
-              ◀ Trước
-            </button>
-
-            {/* Danh sách các nút số trang */}
-            {Array.from({ length: totalPages }, (_, i) => i + 1)
-              .filter(
-                (p) =>
-                  p === 1 ||
-                  p === totalPages ||
-                  Math.abs(p - currentPage) <= 1
-              )
-              .map((p, idx, arr) => {
-                const prev = arr[idx - 1];
-                const showEllipsis = prev && p - prev > 1;
-
-                return (
-                  <span key={p} className="flex items-center">
-                    {showEllipsis && (
-                      <span className={`px-1 font-bold ${isFoxconn ? 'text-slate-400' : 'text-zinc-500'}`}>
-                        ...
-                      </span>
-                    )}
-                    <button
-                      type="button"
-                      onClick={() => onPageChange(p)}
-                      className={`w-7 h-7 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                        p === currentPage
-                          ? isFoxconn
-                            ? 'bg-blue-600 text-white shadow-xs'
-                            : 'bg-[#76B900] text-black font-extrabold shadow-xs'
-                          : isFoxconn
-                            ? 'border border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
-                            : 'border border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
-                      }`}
-                    >
-                      {p}
-                    </button>
-                  </span>
-                );
-              })}
-
-            {/* Nút Sau */}
-            <button
-              type="button"
-              onClick={() => onPageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className={`px-2.5 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
-                isFoxconn
-                  ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
-                  : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
-              }`}
-            >
-              Sau ▶
-            </button>
-
-            {/* Nút Cuối */}
-            <button
-              type="button"
-              onClick={() => onPageChange(totalPages)}
-              disabled={currentPage === totalPages}
-              className={`px-2 py-1 rounded-lg border text-xs font-semibold disabled:opacity-40 disabled:cursor-not-allowed transition-all ${
-                isFoxconn
-                  ? 'border-slate-300 bg-white hover:bg-slate-100 text-slate-700'
-                  : 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300'
-              }`}
-            >
-              Cuối ⏭
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Phân Trang Chân Bảng Dùng Chung (Common Pagination) */}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        pageSize={pageSize}
+        totalRecords={totalRecords}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+        pageSizeOptions={PAGE_SIZE_OPTIONS}
+        showPageSize={true}
+        recordLabel="nhật ký"
+        className="rounded-t-none rounded-b-2xl border-t border-x-0 border-b-0 mt-0 shadow-none"
+      />
     </div>
   );
 }

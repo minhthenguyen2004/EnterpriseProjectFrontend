@@ -3,7 +3,7 @@ import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useRackConfigData from './hooks/useRackConfigData';
 import RackFilterToolbar from './components/RackFilterToolbar';
 import RackTable from './components/RackTable';
-import RackPagination from './components/RackPagination';
+import Pagination from '../../../components/common/Pagination';
 import RackFormModal from './components/modals/RackFormModal';
 import RackDeleteModal from './components/modals/RackDeleteModal';
 
@@ -110,7 +110,7 @@ export default function RackConfigPage() {
       />
 
       {/* 5. Pagination Footer */}
-      <RackPagination
+      <Pagination
         currentPage={safeCurrentPage}
         pageSize={pageSize}
         totalRecords={totalItems}
