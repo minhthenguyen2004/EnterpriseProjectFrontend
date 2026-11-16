@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
+import i18n from '../../../../locales/i18n';
 import { initialRackMockData } from '../mock/rackConfigMockData';
 
 export default function useRackConfigData() {
@@ -57,7 +58,7 @@ export default function useRackConfigData() {
     setColumnFilters({});
     setSortConfig({ field: null, direction: 'asc' });
     setCurrentPage(1);
-    showToast('Đã đặt lại toàn bộ bộ lọc và sắp xếp về mặc định', 'info');
+    showToast(i18n.t('rack:config.toast.resetFilter'), 'info');
   }, [showToast]);
 
   // Sort handler
@@ -244,7 +245,7 @@ export default function useRackConfigData() {
 
     setRackList((prev) => [createdItem, ...prev]);
     setIsFormModalOpen(false);
-    showToast(`Đã thêm mới cấu hình tủ rack ${createdItem.rack} (${createdItem.slot_name})!`, 'success');
+    showToast(i18n.t('rack:config.toast.createSuccess', { rack: `${createdItem.rack} (${createdItem.slot_name})` }), 'success');
   }, [showToast]);
 
   const handleUpdateRack = useCallback((updatedItem) => {
@@ -261,7 +262,7 @@ export default function useRackConfigData() {
       )
     );
     setIsFormModalOpen(false);
-    showToast(`Đã cập nhật cấu hình ${updatedItem.rack} (${updatedItem.slot_name}) thành công!`, 'success');
+    showToast(i18n.t('rack:config.toast.updateSuccess', { rack: `${updatedItem.rack} (${updatedItem.slot_name})` }), 'success');
   }, [showToast]);
 
   const handleDeleteRack = useCallback(() => {
@@ -269,7 +270,7 @@ export default function useRackConfigData() {
 
     setRackList((prev) => prev.filter((item) => item.id !== selectedDeleteRack.id));
     setIsDeleteModalOpen(false);
-    showToast(`Đã xóa cấu hình ${selectedDeleteRack.rack} - ${selectedDeleteRack.slot_name}!`, 'success');
+    showToast(i18n.t('rack:config.toast.deleteSuccess', { rack: `${selectedDeleteRack.rack} - ${selectedDeleteRack.slot_name}` }), 'success');
     setSelectedDeleteRack(null);
   }, [selectedDeleteRack, showToast]);
 

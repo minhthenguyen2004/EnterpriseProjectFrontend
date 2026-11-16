@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function AoiImagePreviewModal({ item, onClose }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -40,7 +42,9 @@ export default function AoiImagePreviewModal({ item, onClose }) {
               <span className="text-xs font-mono font-bold">{item.camera}</span>
               <span className="text-xs text-slate-400">({item.pov})</span>
             </div>
-            <h3 className="text-base font-black tracking-tight">{item.type} Inspection</h3>
+            <h3 className="text-base font-black tracking-tight">
+              {item.type} {t('management.machineModal.previewModal.inspection')}
+            </h3>
           </div>
 
           <button
@@ -48,7 +52,7 @@ export default function AoiImagePreviewModal({ item, onClose }) {
             onClick={onClose}
             className="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer text-sm font-bold"
           >
-            ✕
+            {t('management.machineModal.previewModal.close')}
           </button>
         </div>
 
@@ -134,7 +138,7 @@ export default function AoiImagePreviewModal({ item, onClose }) {
         <div className="mt-3.5 p-3 rounded-xl border border-slate-200 dark:border-zinc-800 bg-slate-50 dark:bg-zinc-900/60 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div>
             <div className="text-[10px] text-slate-400 dark:text-zinc-500 font-bold uppercase">
-              Chi tiết chẩn đoán thị giác AI:
+              {t('management.machineModal.previewModal.aiDiagnostic')}
             </div>
             <div className="font-semibold text-slate-800 dark:text-zinc-200 mt-0.5">
               {item.defectDetail || 'Mối hàn và bề mặt linh kiện hoàn hảo, đạt chuẩn IPC-A-610 Class 3.'}
@@ -149,7 +153,7 @@ export default function AoiImagePreviewModal({ item, onClose }) {
                 : 'bg-[#76B900] text-black font-extrabold hover:bg-[#86d400]'
             }`}
           >
-            Đóng Xem Ảnh
+            {t('management.machineModal.previewModal.closePreview')}
           </button>
         </div>
       </div>

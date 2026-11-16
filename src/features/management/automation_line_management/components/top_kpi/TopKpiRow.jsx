@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import KpiMetricCard from './KpiMetricCard';
 
 export default function TopKpiRow({ kpi }) {
+  const { t } = useTranslation('autoline');
   if (!kpi) return null;
 
   const { input, output, yieldRate, uph, cycleTime, performance } = kpi;
@@ -9,7 +11,7 @@ export default function TopKpiRow({ kpi }) {
     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 lg:gap-3.5">
       {/* 1. INPUT */}
       <KpiMetricCard
-        title="Input (Đầu Vào)"
+        title={t('management.topKpi.input')}
         value={input.value}
         unit={input.unit}
         status="neutral"
@@ -23,7 +25,7 @@ export default function TopKpiRow({ kpi }) {
 
       {/* 2. OUTPUT */}
       <KpiMetricCard
-        title="Output (Đạt Chuẩn)"
+        title={t('management.topKpi.output')}
         value={output.value}
         unit={output.unit}
         status={output.ngCount > 80 ? 'warning' : 'neutral'}
@@ -36,7 +38,7 @@ export default function TopKpiRow({ kpi }) {
 
       {/* 3. YIELD RATE */}
       <KpiMetricCard
-        title="Yield Rate (FPY)"
+        title={t('management.topKpi.yieldRate')}
         value={`${yieldRate.value}%`}
         status={yieldRate.value >= 98.5 ? 'success' : yieldRate.value >= 97.0 ? 'warning' : 'danger'}
         icon={
@@ -48,7 +50,7 @@ export default function TopKpiRow({ kpi }) {
 
       {/* 4. UPH */}
       <KpiMetricCard
-        title="UPH (Sản Lượng/Giờ)"
+        title={t('management.topKpi.uph')}
         value={uph.value}
         unit={uph.unit}
         diff={uph.diff}
@@ -62,7 +64,7 @@ export default function TopKpiRow({ kpi }) {
 
       {/* 5. CYCLE TIME */}
       <KpiMetricCard
-        title="Cycle Time (Nhịp Chuyền)"
+        title={t('management.topKpi.cycleTime')}
         value={`${cycleTime.value}s`}
         diff={cycleTime.diff}
         status={cycleTime.value <= cycleTime.standard ? 'success' : 'warning'}
@@ -75,7 +77,7 @@ export default function TopKpiRow({ kpi }) {
 
       {/* 6. PERFORMANCE */}
       <KpiMetricCard
-        title="Performance (OEE)"
+        title={t('management.topKpi.performance')}
         value={`${performance.value}%`}
         status={performance.value >= performance.target ? 'success' : 'warning'}
         icon={

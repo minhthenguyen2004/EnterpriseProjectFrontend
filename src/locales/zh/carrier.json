@@ -1,0 +1,51 @@
+{
+  "config": {
+    "headerTitle": "载具治具配置与监控 (CARRIER CONFIGURATION)",
+    "headerBadge": "MASTER CARRIER",
+    "headerDesc": "实时监控 Foxconn / NVIDIA AutoLine 产线载具的寿命磨损、检定周期与全生命周期阈值配置。",
+    "breadcrumbConfig": "系统配置",
+    "breadcrumbCarrierConfig": "载具配置",
+    "tabs": {
+      "realtime": "实时运行监控",
+      "lifecycle": "生命周期与型号配置"
+    },
+    "kpi": {
+      "total": "载具总数",
+      "running": "产线运行中",
+      "warning": "临期预警",
+      "locked": "已锁定/超期",
+      "maintenance": "维保检定中"
+    },
+    "toast": {
+      "refresh": "载具状态数据已即时刷新",
+      "lock": "已强制锁定载具 [{{id}}] 并从产线隔离",
+      "unlock": "载具 [{{id}}] 解锁成功，已恢复投产状态",
+      "inspect": "载具 [{{id}}] 精度检定数据录入成功"
+    }
+  },
+  "unlock": {
+    "headerTitle": "解锁载具治具 (UNLOCK CARRIER)",
+    "headerBadge": "JIG UNLOCK",
+    "headerDesc": "查询排查错误代码并对自动化产线上拦截锁定的载具进行安全解锁复位。",
+    "breadcrumbConfig": "系统配置",
+    "breadcrumbCarrier": "载具管理",
+    "breadcrumbUnlock": "解锁载具",
+    "tabs": {
+      "single": "单个载具扫码",
+      "wholeLine": "整线整批解锁",
+      "batch": "批量代码录入"
+    },
+    "general": {
+      "title": "核准授权信息与解锁原因",
+      "reasonLabel": "解锁原因",
+      "approverLabel": "审批人",
+      "resetCycleLabel": "重置已用次数 (Reset Cycle Count)"
+    },
+    "historyTitle": "最近解锁记录",
+    "toast": {
+      "unlockSuccess": "载具 [{{id}}] 解锁成功！",
+      "batchSuccess": "已成功解锁 {{count}} 个载具治具！"
+    }
+  }
+}
+

@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "CẤU HÌNH THIẾT BỊ MÁY MÓC (MACHINE CONFIGURATION)",
+    "badge": "MASTER CONFIG",
+    "description": "Quản trị danh mục trạm máy tự động hóa toàn nhà máy Foxconn & NVIDIA. Đồng bộ tham số IP, Hostname, liên kết chuyền sản xuất, mã công đoạn và quy trình kiểm soát chất lượng.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbMachineConfig": "MACHINE CONFIGURATION"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Tìm kiếm theo tên máy, IP, hostname, mã công đoạn, dòng sản phẩm...",
+    "btnImport": "Nhập dữ liệu Excel",
+    "btnExport": "Xuất tệp CSV",
+    "btnCreate": "Thêm mới máy"
+  },
+  "table": {
+    "cols": {
+      "no": "#",
+      "machineName": "TÊN MÁY (MACHINE NAME)",
+      "ip": "IP / HOSTNAME",
+      "product": "DÒNG SẢN PHẨM",
+      "line": "CHUYỀN SẢN XUẤT",
+      "station": "CÔNG ĐOẠN (STATION)",
+      "status": "TRẠNG THÁI",
+      "actions": "THAO TÁC"
+    },
+    "actions": {
+      "detail": "Chi tiết",
+      "edit": "Sửa",
+      "delete": "Xóa"
+    }
+  },
+  "toast": {
+    "createSuccess": "Đã thêm mới thiết bị máy [{{name}}] thành công!",
+    "updateSuccess": "Đã cập nhật thông tin thiết bị [{{name}}] thành công!",
+    "deleteSuccess": "Đã xóa máy [{{name}}] khỏi hệ thống!",
+    "importSuccess": "Đã nhập thành công {{count}} thiết bị từ tệp Excel!"
+  }
+}
+

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useApiRequestHistoryData from './hooks/useApiRequestHistoryData';
@@ -19,6 +20,7 @@ import {
  * 5. Tương thích 100% hai giao diện thương hiệu Foxconn (Light) và NVIDIA (Dark)
  */
 export default function ApiRequestHistoryPage() {
+  const { t } = useTranslation('api');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -47,13 +49,13 @@ export default function ApiRequestHistoryPage() {
       {/* 1. Header Trang Chuẩn Hóa Toàn Hệ Thống */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'API MANAGEMENT', isCurrent: false },
-          { label: 'API REQUEST HISTORY', isCurrent: true },
+          { label: t('header.breadcrumbApi'), isCurrent: false },
+          { label: t('header.breadcrumbHistory'), isCurrent: true },
         ]}
-        title="API REQUEST HISTORY"
-        badge="TRAFFIC AUDIT"
+        title={t('header.title')}
+        badge={t('header.badge')}
         badgeType="brand"
-        description="Bảng điều khiển giám sát & đối soát nhật ký yêu cầu API thời gian thực: Phương thức HTTP, mã trạng thái, độ trễ xử lý và toàn văn dữ liệu bản tin."
+        description={t('header.description')}
         showFullscreen={true}
       />
 

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function DateTimeFilterGroup({
@@ -6,6 +7,7 @@ export default function DateTimeFilterGroup({
   endDate,
   onChange,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -37,7 +39,7 @@ export default function DateTimeFilterGroup({
             }`}
           />
           <span className={`text-xs font-bold uppercase tracking-wider ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>
-            Lọc Theo Ngày & Giờ
+            {t('management.filterDrawer.dateTimeSection')}
           </span>
         </label>
         <span
@@ -51,7 +53,7 @@ export default function DateTimeFilterGroup({
                 : 'bg-zinc-800 text-white'
           }`}
         >
-          {enableDateTime ? 'Đang Bật' : 'Tắt'}
+          {enableDateTime ? t('management.filterDrawer.statusOn') : t('management.filterDrawer.statusOff')}
         </span>
       </div>
 
@@ -61,7 +63,7 @@ export default function DateTimeFilterGroup({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
             <div>
               <label className={`block text-[10px] font-bold uppercase mb-1 ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-                Từ Ngày & Giờ:
+                {t('management.filterDrawer.fromDateTime')}
               </label>
               <input
                 type="datetime-local"
@@ -77,7 +79,7 @@ export default function DateTimeFilterGroup({
 
             <div>
               <label className={`block text-[10px] font-bold uppercase mb-1 ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-                Đến Ngày & Giờ:
+                {t('management.filterDrawer.toDateTime')}
               </label>
               <input
                 type="datetime-local"

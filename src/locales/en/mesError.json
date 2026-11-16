@@ -1,0 +1,83 @@
+{
+  "header": {
+    "title": "MES ERROR CODE LIST",
+    "badge": "ERROR DICTIONARY",
+    "description": "MES error code master dictionary, department categorization, international bilingual notifications, and standard operating procedures (SOP)."
+  },
+  "search": {
+    "placeholder": "Search by error code (ERR_...), English or Vietnamese message...",
+    "btnSearch": "Search",
+    "btnAdd": "Add Error Code",
+    "addTooltipDisabled": "Feature is restricted to Administrator (Admin) or Department Head (Manager)"
+  },
+  "table": {
+    "headerTitle": "MES Error Code Catalog",
+    "hint": "💡 Tip: Click on Error Code to view details • Right-click on row to Edit / Delete",
+    "colNo": "#",
+    "colErrorCode": "ERROR CODE",
+    "colOwner": "OWNER",
+    "colMessageEn": "MESSAGE (EN)",
+    "emptyTitle": "No matching error codes found",
+    "emptyDesc": "Please try searching with different keywords or clear the filter.",
+    "btnClearFilter": "Clear search filter"
+  },
+  "contextMenu": {
+    "codeLabel": "Code: ",
+    "edit": "Edit Error Code",
+    "delete": "Delete Error Code",
+    "permissionWarning": "⚠️ Restricted to Admin / Manager only",
+    "editTooltipDisabled": "Requires Admin or Manager permissions to edit",
+    "deleteTooltipDisabled": "Requires Admin or Manager permissions to delete"
+  },
+  "detail": {
+    "title": "MES Error Code Details & Troubleshooting SOP",
+    "ownerLabel": "🏢 Department Owner",
+    "stationsLabel": "⚙️ Applicable Stations",
+    "msgEnLabel": "🌐 Message (EN)",
+    "msgViLabel": "🇻🇳 Message (VI)",
+    "sopLabel": "🛠️ Standard Troubleshooting SOP",
+    "lastUpdated": "Last updated:",
+    "updatedBy": "Updated by:",
+    "btnEditThis": "Edit this error code",
+    "btnClose": "Close"
+  },
+  "addEdit": {
+    "addTitle": "Add New MES Error Code",
+    "editTitle": "Edit MES Error Code",
+    "addSubtitle": "Register new error code into system catalog",
+    "editSubtitle": "Update details for code: {{code}}",
+    "errorCodeLabel": "Error Code",
+    "errorCodePlaceholder": "e.g., ERR_SFC_CARRIER_LOCKED",
+    "severityLabel": "Severity Level",
+    "ownerLabel": "Department Owner",
+    "stationsLabel": "Applicable Stations (comma separated)",
+    "stationsPlaceholder": "e.g., SMT_01, AOI_02, ALL_STATIONS",
+    "msgEnLabel": "Message (EN)",
+    "msgEnPlaceholder": "Enter standard English error message displayed on machines...",
+    "msgViLabel": "Message (VI)",
+    "msgViPlaceholder": "Enter Vietnamese translation for shopfloor engineers...",
+    "sopLabel": "Troubleshooting SOP",
+    "sopPlaceholder": "Enter remediation steps: 1. Check... 2. Replace... 3. Confirm...",
+    "btnCancel": "Cancel",
+    "btnSaveAdd": "Confirm Create",
+    "btnSaveEdit": "Save Changes"
+  },
+  "delete": {
+    "title": "Confirm Delete MES Error Code",
+    "warningDesc": "This action will delete the error code from the MES dictionary. SFC stations and automation machines will no longer be able to look up SOP guidance for this code.",
+    "codeLabel": "Error Code: ",
+    "ownerLabel": "Owner: ",
+    "confirmQuestion": "Are you sure you want to proceed with deletion?",
+    "btnCancel": "Cancel",
+    "btnConfirmDelete": "Confirm Delete"
+  },
+  "toast": {
+    "addSuccess": "Successfully added error code [{{code}}]!",
+    "editSuccess": "Updated information for error code [{{code}}]!",
+    "deleteSuccess": "Deleted error code [{{code}}] from system!",
+    "addDenied": "Only users with Admin or Manager permissions can add error codes!",
+    "editDenied": "Only users with Admin or Manager permissions can edit error codes!",
+    "deleteDenied": "Only users with Admin or Manager permissions can delete error codes!",
+    "resetSuccess": "Restored default list of 20 MES error codes!"
+  }
+}

@@ -1,8 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import MachineCard from './MachineCard';
 
 export default function MachineFlowRow({ machines = [], onSelectMachine }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const scrollRef = useRef(null);
@@ -72,10 +74,10 @@ export default function MachineFlowRow({ machines = [], onSelectMachine }) {
           </div>
           <div>
             <h2 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>
-              CHUỖI TRẠM MÁY NỐI TIẾP (CONVEYOR PIPELINE FLOW)
+              {t('management.machineFlow.title')}
             </h2>
             <p className={`text-[10px] ${isFoxconn ? 'text-slate-400' : 'text-white'}`}>
-              Quy trình gia công tuần tự từ trạm đầu vào đến đóng gói thành phẩm
+              {t('management.machineFlow.desc')}
             </p>
           </div>
         </div>
@@ -115,12 +117,12 @@ export default function MachineFlowRow({ machines = [], onSelectMachine }) {
                   ? 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
                   : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:bg-zinc-800'
             }`}
-            title="Chỉnh căn giữa hoặc căn trái chuỗi trạm máy"
+            title={t('management.machineFlow.centerAlignTitle')}
           >
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M7 12h10M4 18h16" />
             </svg>
-            <span>{alignCenter ? 'Đang Căn Giữa' : 'Căn Giữa'}</span>
+            <span>{alignCenter ? t('management.machineFlow.centerAlignOn') : t('management.machineFlow.centerAlign')}</span>
           </button>
 
           {/* Nút bật/tắt Auto Cuộn khi chuỗi máy dài */}
@@ -136,10 +138,10 @@ export default function MachineFlowRow({ machines = [], onSelectMachine }) {
                   ? 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
                   : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:bg-zinc-800'
             }`}
-            title="Tự động cuộn chuỗi máy khi chuỗi dài (dừng khi rê chuột vào)"
+            title={t('management.machineFlow.autoScrollTitle')}
           >
             <span className={`w-1.5 h-1.5 rounded-full ${isAutoScroll ? 'bg-black animate-ping' : 'bg-emerald-500'}`} />
-            <span>{isAutoScroll ? 'Auto Cuộn: BẬT' : 'Auto Cuộn'}</span>
+            <span>{isAutoScroll ? t('management.machineFlow.autoScrollOn') : t('management.machineFlow.autoScroll')}</span>
           </button>
 
           {/* Nút cuộn trái / phải thủ công */}
@@ -151,7 +153,7 @@ export default function MachineFlowRow({ machines = [], onSelectMachine }) {
                 ? 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700'
                 : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-700 text-white'
             }`}
-            title="Cuộn sang trái"
+            title={t('management.machineFlow.scrollLeftTitle')}
           >
             ←
           </button>
@@ -163,7 +165,7 @@ export default function MachineFlowRow({ machines = [], onSelectMachine }) {
                 ? 'bg-white hover:bg-slate-100 border-slate-200 text-slate-700'
                 : 'bg-zinc-900 hover:bg-zinc-800 border-zinc-700 text-white'
             }`}
-            title="Cuộn sang phải"
+            title={t('management.machineFlow.scrollRightTitle')}
           >
             →
           </button>

@@ -1,0 +1,103 @@
+{
+  "config": {
+    "headerTitle": "机柜配置管理 (RACK CONFIGURATION)",
+    "headerBadge": "MASTER RACK",
+    "headerDesc": "管理厂区、楼层、车间房号、产品系列、机组群、机柜标识、槽位与网络 IP 地址设置。",
+    "breadcrumbConfig": "系统配置",
+    "breadcrumbRack": "机柜管理",
+    "breadcrumbRackConfig": "机柜配置",
+    "searchPlaceholder": "按机柜、槽位、IP、厂区、房号、产品检索...",
+    "clearSearch": "清除搜索",
+    "btnResetFilter": "重置筛选",
+    "btnCreateRack": "创建机柜",
+    "filterTooltipHas": "重置全部生效的筛选与排序",
+    "filterTooltipNone": "当前无正在应用的过滤条件",
+    "cols": {
+      "id": "序号",
+      "factory": "厂区 (FACTORY)",
+      "floor": "楼层 (FLOOR)",
+      "room": "房号 (ROOM)",
+      "product": "产品系列 (PRODUCT)",
+      "group": "机组群 (GROUP)",
+      "rack": "机柜 (RACK)",
+      "slot": "槽位 (SLOT)",
+      "ip": "IP 地址",
+      "actions": "操作"
+    },
+    "actions": {
+      "edit": "编辑",
+      "delete": "删除",
+      "editTooltip": "编辑机柜配置",
+      "deleteTooltip": "删除机柜记录"
+    },
+    "empty": {
+      "title": "未找到匹配的机柜配置数据",
+      "desc": "请检查搜索关键词或点击“重置筛选”查看全部机柜列表。",
+      "btnReset": "重置筛选条件"
+    },
+    "modal": {
+      "createTitle": "新增机柜配置",
+      "editTitle": "编辑机柜配置",
+      "createSubtitle": "录入厂区机房、机柜及新槽位参数",
+      "editSubtitle": "更新机柜参数: {{rack}}",
+      "fieldFactory": "厂区代码 (Factory)",
+      "fieldFloor": "楼层 (Floor)",
+      "fieldRoom": "车间房号 (Room)",
+      "fieldProduct": "产品系列 (Product)",
+      "fieldGroup": "机组群 (Group)",
+      "fieldRack": "机柜代码 (Rack ID)",
+      "fieldSlot": "槽位编号 (Slot)",
+      "fieldIp": "IP 地址 (IP Address)",
+      "btnCancel": "取消",
+      "btnSubmitCreate": "创建机柜配置",
+      "btnSubmitEdit": "保存更改"
+    },
+    "deleteModal": {
+      "title": "确认删除机柜配置",
+      "subtitle": "此操作将从数据库中永久移除此机柜配置记录。",
+      "question": "您确定要删除下列机柜配置记录吗？",
+      "btnCancel": "取消",
+      "btnConfirm": "确认删除"
+    },
+    "toast": {
+      "createSuccess": "已成功新增机柜 [{{rack}}] 配置！",
+      "updateSuccess": "已成功更新机柜 [{{rack}}] 信息！",
+      "deleteSuccess": "已从系统中删除机柜 [{{rack}}]！",
+      "resetFilter": "已重置所有筛选过滤与排序！"
+    }
+  },
+  "overview": {
+    "headerTitle": "机柜全景布局配置 (RACK OVERVIEW)",
+    "headerBadge": "LAYOUT CONFIG",
+    "headerDesc": "可视化车间机柜平面拓扑布局，支持面 (Face)、群组 (Group)、机柜 (Rack) 与槽位 (Slot) 多层级管理。",
+    "breadcrumbOverview": "机柜布局总览",
+    "topBar": {
+      "locationLabel": "厂区/楼层:",
+      "productLineLabel": "产品系列:",
+      "groupLabel": "机柜组:",
+      "allGroups": "所有群组",
+      "btnStructure": "层级树状图 (Structure Tree)",
+      "btnSaveLayout": "保存布局 (Save Layout)",
+      "btnReloadDB": "重载数据库",
+      "btnAddFace": "新增 Face",
+      "btnAddGroup": "新增 Group",
+      "btnAddRack": "新增 Rack"
+    },
+    "kpi": {
+      "faces": "柜面 (Faces)",
+      "groups": "群组 (Groups)",
+      "racks": "机柜 (Racks)",
+      "slots": "槽位 (Slots)",
+      "approvedRate": "激活率"
+    },
+    "toast": {
+      "saveLayoutSuccess": "已成功保存机柜平面拓扑布局！",
+      "reloadSuccess": "已从数据库重新加载层级结构树！",
+      "addFaceSuccess": "已添加新柜面 (Face)！",
+      "addGroupSuccess": "已添加新群组 (Group)！",
+      "addRackSuccess": "已添加新机柜 (Rack)！",
+      "addSlotSuccess": "已添加新槽位 (Slot)！"
+    }
+  }
+}
+

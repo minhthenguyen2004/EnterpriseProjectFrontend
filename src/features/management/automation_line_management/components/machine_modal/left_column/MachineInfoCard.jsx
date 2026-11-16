@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function MachineInfoCard({ info }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [copiedKey, setCopiedKey] = useState(null);
@@ -15,13 +17,13 @@ export default function MachineInfoCard({ info }) {
   };
 
   const fields = [
-    { key: 'serialNumber', label: 'Serial Number', value: info.serialNumber, mono: true, canCopy: true },
-    { key: 'productName', label: 'Product Name', value: info.productName, mono: false, highlight: true },
-    { key: 'productType', label: 'Product Type', value: info.productType, mono: false },
-    { key: 'lineName', label: 'Line Name', value: info.lineName, mono: false },
-    { key: 'groupName', label: 'Group Name', value: info.groupName, mono: false },
-    { key: 'machineName', label: 'Machine Name', value: info.machineName, mono: false, strong: true },
-    { key: 'ipAddress', label: 'IP Address', value: info.ipAddress, mono: true, canCopy: true },
+    { key: 'serialNumber', label: t('management.machineModal.fields.serialNumber'), value: info.serialNumber, mono: true, canCopy: true },
+    { key: 'productName', label: t('management.machineModal.fields.productName'), value: info.productName, mono: false, highlight: true },
+    { key: 'productType', label: t('management.machineModal.fields.productType'), value: info.productType, mono: false },
+    { key: 'lineName', label: t('management.machineModal.fields.lineName'), value: info.lineName, mono: false },
+    { key: 'groupName', label: t('management.machineModal.fields.groupName'), value: info.groupName, mono: false },
+    { key: 'machineName', label: t('management.machineModal.fields.machineName'), value: info.machineName, mono: false, strong: true },
+    { key: 'ipAddress', label: t('management.machineModal.fields.ipAddress'), value: info.ipAddress, mono: true, canCopy: true },
   ];
 
   return (
@@ -44,7 +46,7 @@ export default function MachineInfoCard({ info }) {
               isFoxconn ? 'text-slate-700' : 'text-white'
             }`}
           >
-            Thông Tin Thiết Bị
+            {t('management.machineModal.infoCardTitle')}
           </h4>
         </div>
         <span
@@ -52,7 +54,7 @@ export default function MachineInfoCard({ info }) {
             isFoxconn ? 'bg-blue-50 text-blue-700' : 'bg-[#76B900]/15 text-[#76B900]'
           }`}
         >
-          Station Info
+          {t('management.machineModal.stationInfoBadge')}
         </span>
       </div>
 
@@ -102,7 +104,7 @@ export default function MachineInfoCard({ info }) {
                       ? 'text-emerald-500 font-bold'
                       : 'opacity-40 hover:opacity-100'
                   }`}
-                  title="Sao chép"
+                  title={copiedKey === f.key ? t('management.machineModal.copied') : t('management.machineModal.copyTooltip')}
                 >
                   {copiedKey === f.key ? '✓' : '📋'}
                 </button>

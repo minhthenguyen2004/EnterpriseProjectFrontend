@@ -1,0 +1,26 @@
+{
+  "header": {
+    "title": "API REQUEST HISTORY",
+    "badge": "TRAFFIC AUDIT",
+    "description": "Real-time API traffic audit dashboard: HTTP method, status codes, roundtrip latency, and full payload message inspection.",
+    "breadcrumbApi": "API MANAGEMENT",
+    "breadcrumbHistory": "API REQUEST HISTORY"
+  },
+  "filter": {
+    "dateFrom": "From Date",
+    "dateTo": "To Date",
+    "area": "Area",
+    "controller": "Controller",
+    "action": "Action",
+    "clientIp": "Client IP",
+    "selectTop": "Select Top Records",
+    "btnQuery": "Query Data",
+    "btnReset": "Reset Filters",
+    "btnExport": "Export CSV"
+  },
+  "toast": {
+    "querySuccess": "Successfully retrieved {{count}} API request log records!",
+    "resetSuccess": "Query filters reset to default!"
+  }
+}
+

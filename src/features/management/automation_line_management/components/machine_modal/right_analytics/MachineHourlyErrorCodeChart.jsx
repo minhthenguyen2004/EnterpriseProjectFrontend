@@ -1,7 +1,9 @@
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function MachineHourlyErrorCodeChart({ data = [] }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -17,12 +19,15 @@ export default function MachineHourlyErrorCodeChart({ data = [] }) {
           }`}
         >
           <div className="font-bold text-xs pb-1 mb-1.5 border-b border-slate-200 dark:border-zinc-800 text-slate-500 dark:text-zinc-400">
-            Khung giờ: <span className={isFoxconn ? 'text-slate-900 font-black' : 'text-white font-black'}>{d.hour}</span>
+            {t('management.analytics.tooltipHour')}{' '}
+            <span className={isFoxconn ? 'text-slate-900 font-black' : 'text-white font-black'}>{d.hour}</span>
           </div>
 
           <div className="flex justify-between items-center mb-1.5 font-bold">
-            <span className="text-rose-500">Tổng số lỗi:</span>
-            <span className="text-rose-500 font-bold text-sm">{d.totalErrors} lỗi</span>
+            <span className="text-rose-500">{t('management.machineModal.totalErrors')}</span>
+            <span className="text-rose-500 font-bold text-sm">
+              {t('management.machineModal.errorsUnit', { count: d.totalErrors })}
+            </span>
           </div>
 
           {d.errors && d.errors.length > 0 ? (
@@ -37,7 +42,7 @@ export default function MachineHourlyErrorCodeChart({ data = [] }) {
               ))}
             </div>
           ) : (
-            <div className="text-[10px] text-emerald-500 font-medium">Không phát sinh mã lỗi</div>
+            <div className="text-[10px] text-emerald-500 font-medium">{t('management.machineModal.noErrors')}</div>
           )}
         </div>
       );
@@ -65,7 +70,7 @@ export default function MachineHourlyErrorCodeChart({ data = [] }) {
               isFoxconn ? 'text-slate-700' : 'text-white'
             }`}
           >
-            Machine Error Code
+            {t('management.machineModal.hourlyErrorTitle')}
           </h4>
         </div>
         <span
@@ -73,7 +78,7 @@ export default function MachineHourlyErrorCodeChart({ data = [] }) {
             isFoxconn ? 'bg-rose-50 text-rose-700' : 'bg-rose-500/15 text-rose-400'
           }`}
         >
-          Lỗi Theo Giờ
+          {t('management.machineModal.errorsByHourBadge')}
         </span>
       </div>
 

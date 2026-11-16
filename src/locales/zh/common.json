@@ -1,0 +1,80 @@
+{
+  "actions": {
+    "add": "新增",
+    "edit": "编辑",
+    "delete": "删除",
+    "save": "保存",
+    "cancel": "取消",
+    "confirm": "确认",
+    "search": "查询",
+    "reset": "重置",
+    "export": "导出报表",
+    "import": "导入数据",
+    "close": "关闭",
+    "refresh": "刷新",
+    "fullscreen": "全屏",
+    "exitFullscreen": "退出全屏",
+    "back": "返回",
+    "filter": "筛选",
+    "clearFilter": "清除筛选",
+    "copy": "复制",
+    "copied": "已复制"
+  },
+  "pagination": {
+    "showing": "显示",
+    "to": "至",
+    "of": "共",
+    "records": "条记录",
+    "pageSize": "每页行数:",
+    "rowsPerPage": "行 / 页",
+    "first": "⏮ 首页",
+    "previous": "◀ 上一页",
+    "next": "下一页 ▶",
+    "last": "尾页 ⏭",
+    "page": "页"
+  },
+  "status": {
+    "all": "全部状态",
+    "active": "正常运行",
+    "inactive": "未激活",
+    "running": "运行中",
+    "stopped": "已停机",
+    "error": "异常故障",
+    "warning": "告警",
+    "pass": "合格 (PASS)",
+    "fail": "不良 (FAIL)",
+    "unknown": "未定义",
+    "locked": "已锁定",
+    "inspectionRequired": "待检验维保"
+  },
+  "table": {
+    "no": "序号",
+    "actions": "操作",
+    "empty": "未找到符合条件的数据",
+    "loading": "数据加载中...",
+    "filter": "筛选列",
+    "selectAll": "全选",
+    "selected": "已选择",
+    "operation": "操作"
+  },
+  "roles": {
+    "admin": "系统管理员 (Admin)",
+    "manager": "部门主管 (Manager)",
+    "operator": "产线作业员 (Operator)",
+    "fullAccess": "具备完整权限 (Full Access)",
+    "readOnly": "只读模式 (Read Only)",
+    "currentRole": "当前权限身份:",
+    "testRole": "模拟测试权限:",
+    "resetRole": "重置权限",
+    "permissionDenied": "该功能仅限系统管理员 (Admin) 或部门主管 (Manager) 操作"
+  },
+  "brand": {
+    "foxconn": "富士康 FII",
+    "nvidia": "NVIDIA 智算工厂",
+    "switchBrand": "切换主题风格"
+  },
+  "toast": {
+    "autoClose": "自动关闭"
+  }
+}
+

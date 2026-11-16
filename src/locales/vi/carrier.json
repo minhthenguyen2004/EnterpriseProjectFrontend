@@ -1,0 +1,51 @@
+{
+  "config": {
+    "headerTitle": "CẤU HÌNH & GIÁM SÁT KHAY CHỨA (CARRIER CONFIGURATION)",
+    "headerBadge": "MASTER CARRIER",
+    "headerDesc": "Giám sát thời gian thực tuổi thọ, hao mòn cơ học, hạn kiểm định và cấu hình định mức cho toàn bộ khay chứa hệ thống AutoLine Foxconn / NVIDIA.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbCarrierConfig": "CARRIER CONFIG",
+    "tabs": {
+      "realtime": "Giám Sát Thời Gian Thực",
+      "lifecycle": "Cấu Hình Vòng Đời & Loại Khay"
+    },
+    "kpi": {
+      "total": "Tổng Số Khay Chứa",
+      "running": "Đang Chạy Trên Chuyền",
+      "warning": "Cảnh Báo Sắp Quá Hạn",
+      "locked": "Bị Khóa / Quá Hạn",
+      "maintenance": "Đang Kiểm Định / Bảo Trì"
+    },
+    "toast": {
+      "refresh": "Dữ liệu trạng thái khay chứa đã được làm mới tức thời",
+      "lock": "Đã cưỡng bức khóa khay [{{id}}] và cách ly khỏi chuyền",
+      "unlock": "Đã mở khóa khay [{{id}}] thành công. Khay sẵn sàng hoạt động",
+      "inspect": "Đã ghi nhận kiểm định thành công cho khay [{{id}}]"
+    }
+  },
+  "unlock": {
+    "headerTitle": "MỞ KHÓA KHAY CHỨA (UNLOCK CARRIER)",
+    "headerBadge": "JIG UNLOCK",
+    "headerDesc": "Tra cứu, xác thực mã lỗi và mở khóa khay chứa / đồ gá bị interlock trên dây chuyền tự động AutoLine.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbCarrier": "CARRIER",
+    "breadcrumbUnlock": "UNLOCK CARRIER",
+    "tabs": {
+      "single": "Quét Khay Đơn Lẻ",
+      "wholeLine": "Mở Khóa Cả Chuyền",
+      "batch": "Nhập Mã Hàng Loạt"
+    },
+    "general": {
+      "title": "Thông Tin Phê Duyệt & Lý Do Mở Khóa",
+      "reasonLabel": "Lý do mở khóa",
+      "approverLabel": "Người phê duyệt",
+      "resetCycleLabel": "Đặt lại số lần sử dụng (Reset Cycle Count)"
+    },
+    "historyTitle": "Lịch Sử Mở Khóa Gần Đây",
+    "toast": {
+      "unlockSuccess": "Đã mở khóa thành công khay [{{id}}]!",
+      "batchSuccess": "Đã mở khóa thành công {{count}} khay chứa!"
+    }
+  }
+}
+

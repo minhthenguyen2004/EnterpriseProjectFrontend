@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../hooks/useTheme';
 
 /**
@@ -25,6 +26,7 @@ export default function Pagination({
 }) {
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
+  const { t } = useTranslation('common');
 
   // Normalize total records count from various supported alias prop names
   const total = useMemo(() => {
@@ -128,43 +130,43 @@ export default function Pagination({
       {/* Khối bên trái: Thống kê số lượng bản ghi & chọn số dòng/trang */}
       <div className="flex flex-wrap items-center gap-3 font-medium">
         <div>
-          Hiển thị{' '}
+          {t('pagination.showing', 'Hiển thị')}{' '}
           <strong
-            className={`font-mono font-bold ${
+            className={`font-bold ${
               isFoxconn ? 'text-slate-900' : 'text-zinc-100'
             }`}
           >
             {displayStart} - {displayEnd}
           </strong>{' '}
-          trong tổng số{' '}
+          {t('pagination.of', 'trong tổng số')}{' '}
           <strong
-            className={`font-mono font-bold ${
+            className={`font-bold ${
               isFoxconn ? 'text-blue-900' : 'text-[#76B900]'
             }`}
           >
             {total}
           </strong>{' '}
-          {recordLabel}
+          {recordLabel && recordLabel !== 'bản ghi' ? recordLabel : t('pagination.records', 'bản ghi')}
         </div>
 
         {/* Dropdown chọn Page Size (nếu bật và có callback) */}
         {showPageSize && onPageSizeChange && (
           <div className="flex items-center gap-1.5 pl-3 border-l border-slate-200 dark:border-zinc-700">
             <span className="text-[11px] text-slate-400 dark:text-zinc-500">
-              Số dòng:
+              {t('pagination.pageSize', 'Số dòng:')}
             </span>
             <select
               value={pageSize}
               onChange={handleSizeChange}
-              className={`px-2.5 py-1 text-xs font-semibold rounded-lg border outline-hidden cursor-pointer transition-colors ${
+              className={`px-2.5 py-1 text-xs font-bold rounded-lg border outline-hidden cursor-pointer transition-colors ${
                 isFoxconn
-                  ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  ? 'bg-slate-50 border-slate-300 text-slate-800'
+                  : 'bg-zinc-800 border-zinc-700 text-zinc-100'
               }`}
             >
               {pageSizeOptions.map((opt) => (
                 <option key={opt} value={opt}>
-                  {opt} / trang
+                  {opt} {t('pagination.rowsPerPage', '/ trang')}
                 </option>
               ))}
             </select>
@@ -180,8 +182,8 @@ export default function Pagination({
             type="button"
             disabled={currentPage <= 1}
             onClick={() => handlePageClick(1)}
-            title="Trang đầu tiên"
-            className={`p-1.5 px-2 rounded-lg font-bold border transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed ${
+            title={t('pagination.first', 'Trang đầu tiên')}
+            className={`p-1.5 px-2 rounded-lg font-bold border transition-all cursor-pointer disabled:opacity-30 ${
               isFoxconn
                 ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
                 : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'
@@ -208,8 +210,8 @@ export default function Pagination({
           type="button"
           disabled={currentPage <= 1}
           onClick={() => handlePageClick(currentPage - 1)}
-          title="Trang trước"
-          className={`px-2.5 py-1 rounded-lg font-semibold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-30 disabled:cursor-not-allowed ${
+          title={t('pagination.previous', 'Trang trước')}
+          className={`px-2.5 py-1 rounded-lg font-semibold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-30 ${
             isFoxconn
               ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
               : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'
@@ -228,7 +230,7 @@ export default function Pagination({
               d="M15 19l-7-7 7-7"
             />
           </svg>
-          <span className="hidden sm:inline">Trước</span>
+          <span className="hidden sm:inline">{t('pagination.previous', 'Trước').replace('◀ ', '')}</span>
         </button>
 
         {/* Danh sách các số trang kèm dấu ... thông minh */}
@@ -272,14 +274,14 @@ export default function Pagination({
           type="button"
           disabled={currentPage >= calculatedTotalPages}
           onClick={() => handlePageClick(currentPage + 1)}
-          title="Trang sau"
-          className={`px-2.5 py-1 rounded-lg font-semibold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-30 disabled:cursor-not-allowed ${
+          title={t('pagination.next', 'Trang sau')}
+          className={`px-2.5 py-1 rounded-lg font-semibold border transition-all cursor-pointer flex items-center gap-1 disabled:opacity-30 ${
             isFoxconn
               ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
               : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'
           }`}
         >
-          <span className="hidden sm:inline">Sau</span>
+          <span className="hidden sm:inline">{t('pagination.next', 'Sau').replace('Sau ▶', 'Sau')}</span>
           <svg
             className="w-3.5 h-3.5"
             fill="none"
@@ -301,8 +303,8 @@ export default function Pagination({
             type="button"
             disabled={currentPage >= calculatedTotalPages}
             onClick={() => handlePageClick(calculatedTotalPages)}
-            title="Trang cuối cùng"
-            className={`p-1.5 px-2 rounded-lg font-bold border transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed ${
+            title={t('pagination.last', 'Trang cuối cùng')}
+            className={`p-1.5 px-2 rounded-lg font-bold border transition-all cursor-pointer disabled:opacity-30 ${
               isFoxconn
                 ? 'hover:bg-slate-100 border-slate-200 text-slate-700'
                 : 'hover:bg-zinc-800 border-zinc-700 text-zinc-300'

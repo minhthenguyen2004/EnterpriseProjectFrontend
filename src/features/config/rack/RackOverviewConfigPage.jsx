@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useRackOverviewData from './overview/hooks/useRackOverviewData';
@@ -11,6 +12,7 @@ import RenameGroupModal from './overview/components/modals/RenameGroupModal';
 import StructureTreeModal from './overview/components/modals/StructureTreeModal';
 
 export default function RackOverviewConfigPage() {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -81,14 +83,14 @@ export default function RackOverviewConfigPage() {
       {/* 1. Page Header Bar */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'CONFIG', isCurrent: false },
-          { label: 'RACK', isCurrent: false },
-          { label: 'RACK OVERVIEW CONFIG', isCurrent: true }
+          { label: t('config.breadcrumbConfig'), isCurrent: false },
+          { label: t('config.breadcrumbRack'), isCurrent: false },
+          { label: t('overview.breadcrumbOverview'), isCurrent: true }
         ]}
-        title="RACK OVERVIEW CONFIGURATION"
-        badge="LAYOUT CONFIG"
+        title={t('overview.headerTitle')}
+        badge={t('overview.headerBadge')}
         badgeType="brand"
-        description="Trực quan hóa bố cục sơ đồ mặt bằng tủ Rack, thiết lập cấu trúc phân cấp Face, Group, Rack và Slot."
+        description={t('overview.headerDesc')}
         showFullscreen={true}
       />
 

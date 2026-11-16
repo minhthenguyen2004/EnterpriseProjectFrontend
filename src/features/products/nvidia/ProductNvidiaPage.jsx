@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import { useProductNvidiaData } from './hooks/useProductNvidiaData';
@@ -11,6 +12,7 @@ import SearchSerialNumberModal from './components/modals/SearchSerialNumberModal
 import DeleteProductConfirmModal from './components/modals/DeleteProductConfirmModal';
 
 export default function ProductNvidiaPage() {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -84,12 +86,12 @@ export default function ProductNvidiaPage() {
 
       {/* Header Bar */}
       <PageHeaderBar
-        title="PRODUCT / NVIDIA MODEL CONFIGURATION"
-        subtitle="Quản lý danh mục Model & Dòng sản phẩm NVIDIA, tra cứu theo Serial Number và import hàng loạt"
+        title={t('header.title')}
+        subtitle={t('header.subtitle')}
         breadcrumbs={[
-          { label: 'CẤU HÌNH HỆ THỐNG', path: '/config' },
-          { label: 'PRODUCT', path: '/config/product' },
-          { label: 'NVIDIA' },
+          { label: t('header.breadcrumbConfig'), path: '/config' },
+          { label: t('header.breadcrumbProduct'), path: '/config/product' },
+          { label: t('header.breadcrumbNvidia') },
         ]}
       />
 

@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function SerialNumberTable({
@@ -6,6 +7,7 @@ export default function SerialNumberTable({
   selectedSerial,
   onSelectSerial,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [searchTerm, setSearchTerm] = useState('');
@@ -43,7 +45,7 @@ export default function SerialNumberTable({
                 isFoxconn ? 'text-slate-700' : 'text-white'
               }`}
             >
-              Dữ Liệu Serial Number
+              {t('management.machineModal.snTableTitle')}
             </h4>
           </div>
           <span
@@ -61,7 +63,7 @@ export default function SerialNumberTable({
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Tìm kiếm serial number, sequence, mã lỗi..."
+            placeholder={t('management.machineModal.snSearchPlaceholder')}
             className={`w-full px-3 py-1.5 pl-8 text-xs rounded-xl border transition-all focus:outline-hidden ${
               isFoxconn
                 ? 'bg-white border-slate-300 text-slate-800'
@@ -105,19 +107,19 @@ export default function SerialNumberTable({
             }`}
           >
             <tr>
-              <th className="py-2 px-2 text-center w-8">#</th>
-              <th className="py-2 px-2">Serial Number</th>
-              <th className="py-2 px-1 text-center">Seq</th>
-              <th className="py-2 px-2">Date Time</th>
-              <th className="py-2 px-2 text-center">Result</th>
-              <th className="py-2 px-2 text-center">Error Code</th>
+              <th className="py-2 px-2 text-center w-8">{t('management.machineModal.tableHeaders.num')}</th>
+              <th className="py-2 px-2">{t('management.machineModal.tableHeaders.sn')}</th>
+              <th className="py-2 px-1 text-center">{t('management.machineModal.tableHeaders.seq')}</th>
+              <th className="py-2 px-2">{t('management.machineModal.tableHeaders.dateTime')}</th>
+              <th className="py-2 px-2 text-center">{t('management.machineModal.tableHeaders.result')}</th>
+              <th className="py-2 px-2 text-center">{t('management.machineModal.tableHeaders.errorCode')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/50 font-bold">
             {filteredList.length === 0 ? (
               <tr>
                 <td colSpan="6" className="py-6 text-center text-xs text-slate-400 dark:text-zinc-500">
-                  Không tìm thấy Serial Number phù hợp
+                  {t('management.machineModal.snNotFound')}
                 </td>
               </tr>
             ) : (

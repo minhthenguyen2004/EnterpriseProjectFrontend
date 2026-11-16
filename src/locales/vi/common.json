@@ -1,0 +1,80 @@
+{
+  "actions": {
+    "add": "Thêm mới",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "save": "Lưu lại",
+    "cancel": "Hủy bỏ",
+    "confirm": "Xác nhận",
+    "search": "Tìm kiếm",
+    "reset": "Đặt lại",
+    "export": "Xuất báo cáo",
+    "import": "Nhập dữ liệu",
+    "close": "Đóng",
+    "refresh": "Làm mới",
+    "fullscreen": "Toàn màn hình",
+    "exitFullscreen": "Thoát toàn màn hình",
+    "back": "Quay lại",
+    "filter": "Bộ lọc",
+    "clearFilter": "Xóa bộ lọc",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép"
+  },
+  "pagination": {
+    "showing": "Hiển thị",
+    "to": "-",
+    "of": "trong tổng số",
+    "records": "bản ghi",
+    "pageSize": "Số dòng:",
+    "rowsPerPage": "dòng / trang",
+    "first": "⏮ Đầu",
+    "previous": "◀ Trước",
+    "next": "Sau ▶",
+    "last": "Cuối ⏭",
+    "page": "Trang"
+  },
+  "status": {
+    "all": "Tất cả trạng thái",
+    "active": "Đang hoạt động",
+    "inactive": "Không hoạt động",
+    "running": "Đang chạy",
+    "stopped": "Đã dừng",
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "pass": "Đạt (PASS)",
+    "fail": "Hỏng (FAIL)",
+    "unknown": "Chưa xác định",
+    "locked": "Đã khóa",
+    "inspectionRequired": "Cần kiểm định"
+  },
+  "table": {
+    "no": "#",
+    "actions": "Thao tác",
+    "empty": "Không có dữ liệu phù hợp",
+    "loading": "Đang tải dữ liệu...",
+    "filter": "Lọc",
+    "selectAll": "Chọn tất cả",
+    "selected": "Đã chọn",
+    "operation": "Thao tác"
+  },
+  "roles": {
+    "admin": "Quản trị viên (Admin)",
+    "manager": "Trưởng bộ phận (Manager)",
+    "operator": "Vận hành (Operator)",
+    "fullAccess": "ĐỦ QUYỀN (Full Access)",
+    "readOnly": "CHỈ XEM (Read Only)",
+    "currentRole": "Phân quyền hiện tại:",
+    "testRole": "Giả lập quyền thử nghiệm:",
+    "resetRole": "Đặt lại quyền",
+    "permissionDenied": "Chức năng chỉ dành cho quản trị viên (Admin) hoặc Trưởng bộ phận (Manager)"
+  },
+  "brand": {
+    "foxconn": "Foxconn FII",
+    "nvidia": "NVIDIA AI Factory",
+    "switchBrand": "Đổi giao diện"
+  },
+  "toast": {
+    "autoClose": "Tự động ẩn"
+  }
+}
+

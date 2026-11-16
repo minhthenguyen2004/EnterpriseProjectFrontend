@@ -1,5 +1,6 @@
 import { useState, useMemo, useCallback } from 'react';
 import toast from 'react-hot-toast';
+import i18n from '../../../../locales/i18n';
 import { initialMachineConfigData } from '../data/machineConfigMockData';
 
 export default function useMachineConfigData() {
@@ -238,7 +239,7 @@ export default function useMachineConfigData() {
 
     setMachines(prev => [newMachine, ...prev]);
     setIsFormModalOpen(false);
-    toast.success(`Đã thêm máy mới: ${newMachine.machineName}`);
+    toast.success(i18n.t('machine:toast.createSuccess', { name: newMachine.machineName }));
   }, [machines]);
 
   const handleUpdateMachine = useCallback((formData) => {
@@ -258,7 +259,7 @@ export default function useMachineConfigData() {
     }));
 
     setIsFormModalOpen(false);
-    toast.success(`Đã cập nhật máy: ${formData.machineName}`);
+    toast.success(i18n.t('machine:toast.updateSuccess', { name: formData.machineName }));
   }, []);
 
   const handleDeleteMachine = useCallback(() => {
@@ -267,7 +268,7 @@ export default function useMachineConfigData() {
     setMachines(prev => prev.filter(m => m.id !== selectedDeleteMachine.id));
     setIsDeleteModalOpen(false);
     setSelectedDeleteMachine(null);
-    toast.success(`Đã xóa máy: ${deletedName}`);
+    toast.success(i18n.t('machine:toast.deleteSuccess', { name: deletedName }));
   }, [selectedDeleteMachine]);
 
   const handleBulkImport = useCallback((newItems) => {
@@ -292,7 +293,7 @@ export default function useMachineConfigData() {
 
     setMachines(prev => [...formatted, ...prev]);
     setIsExcelModalOpen(false);
-    toast.success(`Đã import thành công ${formatted.length} cấu hình máy`);
+    toast.success(i18n.t('machine:toast.importSuccess', { count: formatted.length }));
   }, [machines]);
 
   // Export to CSV

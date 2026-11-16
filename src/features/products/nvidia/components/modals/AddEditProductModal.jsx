@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function AddEditProductModal({
@@ -8,6 +9,7 @@ export default function AddEditProductModal({
   onClose,
   onSave,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -46,19 +48,19 @@ export default function AddEditProductModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.customer.trim()) {
-      setError('Vui lòng nhập thông tin Customer (Khách hàng)!');
+      setError(t('modal.errorCustomer'));
       return;
     }
     if (!formData.modelSerial.trim()) {
-      setError('Vui lòng nhập Model Serial!');
+      setError(t('modal.errorModelSerial'));
       return;
     }
     if (!formData.productName.trim()) {
-      setError('Vui lòng nhập Product Name (Tên dòng sản phẩm)!');
+      setError(t('modal.errorProductName'));
       return;
     }
     if (!formData.modelName.trim()) {
-      setError('Vui lòng nhập Model Name (Tên đầy đủ của Model)!');
+      setError(t('modal.errorModelName'));
       return;
     }
 
@@ -104,10 +106,10 @@ export default function AddEditProductModal({
             </div>
             <div>
               <h3 className="text-base font-bold">
-                {mode === 'create' ? 'Thêm mới Product Model' : 'Chỉnh sửa Product Model'}
+                {mode === 'create' ? t('modal.addTitle') : t('modal.editTitle')}
               </h3>
               <p className="text-xs text-slate-400">
-                Nhập đầy đủ thông tin định danh cho Model sản phẩm
+                {t('modal.modalSubtitle')}
               </p>
             </div>
           </div>
@@ -133,18 +135,18 @@ export default function AddEditProductModal({
           {/* Trường 1: Customer (text input) */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">
-              Customer (Khách hàng) <span className="text-red-500">*</span>
+              {t('modal.fieldCustomer')} <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               required
-              placeholder="Ví dụ: NVIDIA, FOXCONN, MICROSOFT..."
+              placeholder={t('modal.fieldCustomerPlaceholder')}
               value={formData.customer}
               onChange={(e) => setFormData({ ...formData, customer: e.target.value })}
               className={`w-full px-3.5 py-2 text-sm rounded-lg border transition-colors outline-hidden ${
                 isFoxconn
                   ? 'bg-slate-50 border-slate-300 text-slate-800'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  : 'bg-zinc-800 border-zinc-700 text-zinc-100'
               }`}
             />
           </div>
@@ -152,18 +154,18 @@ export default function AddEditProductModal({
           {/* Trường 2: Model Serial (text input) */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">
-              Model Serial (Mã Model) <span className="text-red-500">*</span>
+              {t('modal.fieldModelSerial')} <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               required
-              placeholder="Ví dụ: GB200-NVL72 hoặc B200-HGX-192GB..."
+              placeholder={t('modal.fieldModelSerialPlaceholder')}
               value={formData.modelSerial}
               onChange={(e) => setFormData({ ...formData, modelSerial: e.target.value })}
               className={`w-full px-3.5 py-2 text-sm rounded-lg border font-mono font-bold uppercase transition-colors outline-hidden ${
                 isFoxconn
-                  ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500 focus:bg-white'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  ? 'bg-slate-50 border-slate-300 text-slate-800'
+                  : 'bg-zinc-800 border-zinc-700 text-zinc-100'
               }`}
             />
           </div>
@@ -171,18 +173,18 @@ export default function AddEditProductModal({
           {/* Trường 3: Product Name (text input) */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">
-              Product Name (Tên dòng sản phẩm) <span className="text-red-500">*</span>
+              {t('modal.fieldProductName')} <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               required
-              placeholder="Ví dụ: Blackwell GB200, B200 GPU Server..."
+              placeholder={t('modal.fieldProductNamePlaceholder')}
               value={formData.productName}
               onChange={(e) => setFormData({ ...formData, productName: e.target.value })}
               className={`w-full px-3.5 py-2 text-sm rounded-lg border transition-colors outline-hidden ${
                 isFoxconn
-                  ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500 focus:bg-white'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  ? 'bg-slate-50 border-slate-300 text-slate-800'
+                  : 'bg-zinc-800 border-zinc-700 text-zinc-100'
               }`}
             />
           </div>
@@ -190,18 +192,18 @@ export default function AddEditProductModal({
           {/* Trường 4: Model Name (text input) */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">
-              Model Name (Tên đầy đủ của Model) <span className="text-red-500">*</span>
+              {t('modal.fieldModelName')} <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               required
-              placeholder="Ví dụ: NVIDIA GB200 NVL72 Liquid-Cooled AI Server Rack System..."
+              placeholder={t('modal.fieldModelNamePlaceholder')}
               value={formData.modelName}
               onChange={(e) => setFormData({ ...formData, modelName: e.target.value })}
               className={`w-full px-3.5 py-2 text-sm rounded-lg border transition-colors outline-hidden ${
                 isFoxconn
-                  ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500 focus:bg-white'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                  ? 'bg-slate-50 border-slate-300 text-slate-800'
+                  : 'bg-zinc-800 border-zinc-700 text-zinc-100'
               }`}
             />
           </div>
@@ -217,7 +219,7 @@ export default function AddEditProductModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
               }`}
             >
-              Hủy bỏ
+              {t('modal.btnCancel')}
             </button>
             <button
               type="submit"
@@ -227,7 +229,7 @@ export default function AddEditProductModal({
                   : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
               }`}
             >
-              {mode === 'create' ? 'Tạo mới Model' : 'Lưu cập nhật'}
+              {mode === 'create' ? t('modal.btnCreate') : t('modal.btnSave')}
             </button>
           </div>
         </form>

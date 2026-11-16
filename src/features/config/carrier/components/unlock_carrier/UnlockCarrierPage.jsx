@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import PageHeaderBar from '../../../../../components/common/PageHeaderBar';
 import useUnlockCarrier from '../../hooks/useUnlockCarrier';
@@ -10,6 +11,7 @@ import RecentUnlockHistoryTable from './RecentUnlockHistoryTable';
 import CameraScannerModal from './CameraScannerModal';
 
 export default function UnlockCarrierPage() {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -75,14 +77,14 @@ export default function UnlockCarrierPage() {
       {/* 1. Page Header Bar */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'CONFIG', isCurrent: false },
-          { label: 'CARRIER', isCurrent: false },
-          { label: 'UNLOCK CARRIER', isCurrent: true }
+          { label: t('unlock.breadcrumbConfig'), isCurrent: false },
+          { label: t('unlock.breadcrumbCarrier'), isCurrent: false },
+          { label: t('unlock.breadcrumbUnlock'), isCurrent: true }
         ]}
-        title="UNLOCK CARRIER"
-        badge="CARRIER AUDIT"
+        title={t('unlock.headerTitle')}
+        badge={t('unlock.headerBadge')}
         badgeType="brand"
-        description="Mở khóa và kiểm định trạng thái khay mang hàng (Carrier), cập nhật chu kỳ vòng đời và lưu trữ nhật ký kiểm tra."
+        description={t('unlock.headerDesc')}
         showFullscreen={true}
       />
 

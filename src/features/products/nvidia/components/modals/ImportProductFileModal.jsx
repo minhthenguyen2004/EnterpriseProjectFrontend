@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function ImportProductFileModal({
@@ -6,6 +7,7 @@ export default function ImportProductFileModal({
   onClose,
   onImportBatch,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -68,7 +70,7 @@ export default function ImportProductFileModal({
 
   const handleConfirm = () => {
     if (previewRows.length === 0) {
-      alert('Vui lòng chọn file mẫu hoặc file dữ liệu hợp lệ trước khi Import!');
+      alert(t('import.alertSelectFile'));
       return;
     }
     onImportBatch(previewRows);
@@ -107,10 +109,10 @@ export default function ImportProductFileModal({
             </div>
             <div>
               <h3 className="text-base font-bold">
-                Thêm / Cập Nhật Product Model Bằng File
+                {t('import.title')}
               </h3>
               <p className="text-xs text-slate-400">
-                Hỗ trợ tệp định dạng Excel (.xlsx, .xls) hoặc CSV
+                {t('import.desc')}
               </p>
             </div>
           </div>
@@ -165,7 +167,7 @@ export default function ImportProductFileModal({
               />
             </svg>
             <p className="text-sm font-semibold mb-1">
-              Kéo & thả file Excel / CSV vào đây hoặc
+              {t('import.dragDrop')}
             </p>
             <label className="inline-block">
               <span
@@ -175,7 +177,7 @@ export default function ImportProductFileModal({
                     : 'bg-zinc-800 text-zinc-200 border-zinc-600 hover:bg-zinc-700'
                 }`}
               >
-                Chọn tệp từ máy tính
+                {t('import.selectFile')}
               </span>
               <input
                 type="file"
@@ -186,14 +188,14 @@ export default function ImportProductFileModal({
             </label>
             {selectedFile && (
               <p className="text-xs font-mono font-bold mt-2 text-emerald-600 dark:text-[#76B900]">
-                ✓ Đã nạp file: {selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)
+                {t('import.loadedFile', { name: selectedFile.name, size: (selectedFile.size / 1024).toFixed(1) })}
               </p>
             )}
           </div>
 
           {/* Download Template Link */}
           <div className="flex items-center justify-between text-xs pt-1">
-            <span className="text-slate-400">Chưa có file mẫu chuẩn?</span>
+            <span className="text-slate-400">{t('import.noTemplate')}</span>
             <button
               type="button"
               onClick={handleDownloadTemplate}
@@ -204,7 +206,7 @@ export default function ImportProductFileModal({
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              Tải file mẫu template (.csv)
+              {t('import.downloadTemplate')}
             </button>
           </div>
 
@@ -212,7 +214,7 @@ export default function ImportProductFileModal({
           {previewRows.length > 0 && (
             <div className="border rounded-xl p-3 border-inherit text-xs">
               <div className="font-bold text-[11px] uppercase tracking-wider mb-2 opacity-80">
-                Xem trước dữ liệu bóc tách ({previewRows.length} dòng):
+                {t('import.previewTitle', { count: previewRows.length })}
               </div>
               <div className="overflow-x-auto max-h-36">
                 <table className="w-full text-left">
@@ -228,7 +230,7 @@ export default function ImportProductFileModal({
                       <tr key={i} className="hover:bg-slate-500/10">
                         <td className="py-1 px-2 font-mono font-bold">{r.model}</td>
                         <td className="py-1 px-2">{r.product}</td>
-                        <td className="py-1 px-2 truncate max-w-[200px]">{r.modelName}</td>
+                        <td className="py-1 px-2 truncate max-w-50">{r.modelName}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -249,7 +251,7 @@ export default function ImportProductFileModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('import.btnCancel')}
           </button>
           <button
             type="button"
@@ -260,11 +262,10 @@ export default function ImportProductFileModal({
                 : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
             }`}
           >
-            Xác nhận Import ({previewRows.length || 0} model)
+            {t('import.btnConfirm', { count: previewRows.length || 0 })}
           </button>
         </div>
       </div>
     </div>
   );
 }
-

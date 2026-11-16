@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function RackDeleteModal({
@@ -6,6 +7,7 @@ export default function RackDeleteModal({
   onClose,
   onConfirmDelete
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -35,23 +37,18 @@ export default function RackDeleteModal({
           </div>
 
           <h3 className="text-lg font-black tracking-tight mb-2">
-            Xác nhận xóa cấu hình Tủ Rack / Slot?
+            {t('config.deleteModal.title')}
           </h3>
 
           <p className="text-xs text-slate-500 dark:text-zinc-400 leading-relaxed mb-4">
-            Bạn có chắc chắn muốn xóa cấu hình Slot{' '}
+            {t('config.deleteModal.question')} (Slot{' '}
             <strong className="text-rose-600 dark:text-rose-400 font-bold">
               {rackItem.slot_name}
             </strong>{' '}
-            (Slot #{rackItem.slot_number}) thuộc tủ Rack{' '}
+            - Rack{' '}
             <strong className={`${ isFoxconn ? "text-slate-800" : "text-white"} font-bold`}>
               {rackItem.rack}
-            </strong>{' '}
-            tại nhà máy{' '}
-            <strong className={`${ isFoxconn ? "text-slate-800" : "text-white"} font-bold`}>
-              {rackItem.factory}
-            </strong>{' '}
-            không?
+            </strong>)
           </p>
 
           {/* Configuration Preview Card */}
@@ -100,7 +97,7 @@ export default function RackDeleteModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
               }`}
             >
-              Hủy bỏ
+              {t('config.deleteModal.btnCancel')}
             </button>
 
             <button
@@ -116,7 +113,7 @@ export default function RackDeleteModal({
                   d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                 />
               </svg>
-              <span>Xác nhận xóa</span>
+              <span>{t('config.deleteModal.btnConfirm')}</span>
             </button>
           </div>
         </div>

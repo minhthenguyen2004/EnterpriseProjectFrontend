@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import PageHeaderBar from '../../../../../components/common/PageHeaderBar';
 
@@ -12,6 +13,7 @@ export default function AutolineHeaderBar({
   refreshInterval,
   setRefreshInterval,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -25,7 +27,7 @@ export default function AutolineHeaderBar({
           ? 'bg-[#002766] hover:bg-[#003893] text-white border border-blue-900/40 shadow-blue-950/20'
           : 'bg-[#76B900] hover:bg-[#86d400] text-black font-black shadow-[0_0_12px_rgba(118,185,0,0.35)]'
       }`}
-      title="Mở bộ lọc chuyền thông minh"
+      title={t('management.filterBtnTitle')}
     >
       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path
@@ -35,7 +37,7 @@ export default function AutolineHeaderBar({
           d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
         />
       </svg>
-      <span>Bộ Lọc</span>
+      <span>{t('management.filterBtn')}</span>
       {activeCount > 0 && (
         <span
           className={`text-[9px] font-black rounded-full px-1.5 py-0.2 ${
@@ -51,13 +53,13 @@ export default function AutolineHeaderBar({
   return (
     <PageHeaderBar
       breadcrumbs={[
-        { label: 'QUẢN LÝ TỰ ĐỘNG HÓA', isCurrent: false },
-        { label: 'AUTOLINE MANAGEMENT', isCurrent: true }
+        { label: t('management.breadcrumbConfig'), isCurrent: false },
+        { label: t('management.breadcrumbManagement'), isCurrent: true }
       ]}
-      title="CHUYỀN SẢN XUẤT TỰ ĐỘNG HÓA"
-      badge="LIVE LINE"
+      title={t('management.headerTitle')}
+      badge={t('management.headerBadge')}
       badgeType="live"
-      description="Bảng điều hành thời gian thực: Giám sát 6 KPI dây chuyền, chuỗi trạm máy nối tiếp và phân tích lỗi, sản lượng."
+      description={t('management.headerDesc')}
       actions={filterActionButton}
       lastUpdated={lastUpdated}
       isRefreshing={isRefreshing}

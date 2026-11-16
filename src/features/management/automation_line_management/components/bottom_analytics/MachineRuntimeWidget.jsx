@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineRuntimeWidget({ runtimeOverview }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -20,22 +22,22 @@ export default function MachineRuntimeWidget({ runtimeOverview }) {
           <div className="flex items-center gap-2">
             <span className={`w-2.5 h-2.5 rounded-full ${isFoxconn ? 'bg-emerald-600' : 'bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.6)]'}`}></span>
             <h3 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>
-              3. MACHINE RUNTIME (TẤT CẢ MÁY)
+              {t('management.analytics.runtimeTitle')}
             </h3>
           </div>
           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
             isFoxconn ? 'bg-slate-100 text-slate-600' : 'bg-zinc-800 text-white'
           }`}>
-            Tổng: {runtimeOverview.totalHours}h ca
+            {t('management.analytics.totalShiftHours', { hours: runtimeOverview.totalHours })}
           </span>
         </div>
 
         {/* Thanh phân bổ thời gian tích lũy toàn line (Stacked Bar) */}
         <div className="mb-3.5">
           <div className={`flex items-center justify-between text-[11px] font-semibold mb-1.5 ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-            <span>Phân bổ toàn chuyền:</span>
+            <span>{t('management.analytics.distributionLine')}</span>
             <span className={`font-bold ${isFoxconn ? 'text-emerald-600' : 'text-[#76B900]'}`}>
-              {runPct}% Hoạt động hiệu quả
+              {t('management.analytics.effectiveOperating', { pct: runPct })}
             </span>
           </div>
 
@@ -90,7 +92,7 @@ export default function MachineRuntimeWidget({ runtimeOverview }) {
         {/* Danh sách runtime chi tiết từng máy */}
         <div>
           <div className={`text-[10px] font-black uppercase mb-1.5 ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-            Chi tiết từng máy trong line:
+            {t('management.analytics.lineDetails')}
           </div>
           <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
             {machineDetails?.map((m) => {
@@ -155,8 +157,12 @@ export default function MachineRuntimeWidget({ runtimeOverview }) {
       <div className={`mt-3 pt-2.5 border-t flex items-center justify-between text-[11px] ${
         isFoxconn ? 'border-slate-100 text-slate-500' : 'border-zinc-800 text-white'
       }`}>
-        <span className={isFoxconn ? 'text-slate-500' : 'text-white'}>OEE Availability mục tiêu: ≥ 90%</span>
-        <span className={`font-bold ${isFoxconn ? 'text-emerald-600' : 'text-[#76B900]'}`}>Đạt 93.5%</span>
+        <span className={isFoxconn ? 'text-slate-500' : 'text-white'}>
+          {t('management.analytics.oeeAvailabilityTarget')}
+        </span>
+        <span className={`font-bold ${isFoxconn ? 'text-emerald-600' : 'text-[#76B900]'}`}>
+          {t('management.analytics.achieved', { pct: '93.5' })}
+        </span>
       </div>
     </div>
   );

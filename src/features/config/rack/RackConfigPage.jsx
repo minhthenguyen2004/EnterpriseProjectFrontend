@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useRackConfigData from './hooks/useRackConfigData';
@@ -8,6 +9,7 @@ import RackFormModal from './components/modals/RackFormModal';
 import RackDeleteModal from './components/modals/RackDeleteModal';
 
 export default function RackConfigPage() {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -69,14 +71,14 @@ export default function RackConfigPage() {
       {/* 1. Page Header Bar */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'CONFIG', isCurrent: false },
-          { label: 'RACK', isCurrent: false },
-          { label: 'RACK CONFIG', isCurrent: true }
+          { label: t('config.breadcrumbConfig'), isCurrent: false },
+          { label: t('config.breadcrumbRack'), isCurrent: false },
+          { label: t('config.breadcrumbRackConfig'), isCurrent: true }
         ]}
-        title="RACK CONFIGURATION"
-        badge="MASTER RACK"
+        title={t('config.headerTitle')}
+        badge={t('config.headerBadge')}
         badgeType="brand"
-        description="Quản lý thiết lập vị trí nhà máy, tầng, phòng, sản phẩm, nhóm, tủ rack, khe cắm slot và địa chỉ IP mạng."
+        description={t('config.headerDesc')}
         showFullscreen={true}
       />
 

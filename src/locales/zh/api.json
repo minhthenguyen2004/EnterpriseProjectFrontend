@@ -1,0 +1,26 @@
+{
+  "header": {
+    "title": "API 请求审计日志 (API REQUEST HISTORY)",
+    "badge": "TRAFFIC AUDIT",
+    "description": "实时 API 流量审计监控看板：HTTP 请求方法、响应状态码、处理耗时延迟以及报文全文报表排查。",
+    "breadcrumbApi": "API 接口管理",
+    "breadcrumbHistory": "请求历史审计"
+  },
+  "filter": {
+    "dateFrom": "开始时间",
+    "dateTo": "结束时间",
+    "area": "厂区车间 (Area)",
+    "controller": "控制器 (Controller)",
+    "action": "方法接口 (Action)",
+    "clientIp": "客户端 IP",
+    "selectTop": "前 N 条记录 (Top)",
+    "btnQuery": "查询数据 (Query Data)",
+    "btnReset": "重置筛选",
+    "btnExport": "导出 CSV"
+  },
+  "toast": {
+    "querySuccess": "已成功检索出 {{count}} 条 API 请求日志！",
+    "resetSuccess": "已重置查询筛选条件为默认！"
+  }
+}
+

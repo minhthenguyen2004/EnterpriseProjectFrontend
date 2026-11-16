@@ -1,0 +1,83 @@
+{
+  "header": {
+    "title": "MES ERROR CODE LIST",
+    "badge": "TỪ ĐIỂN MÃ LỖI",
+    "description": "Quản lý từ điển mã lỗi MES, phân loại bộ phận kỹ thuật phụ trách, thông báo song ngữ quốc tế và quy trình hướng dẫn khắc phục sự cố tiêu chuẩn (SOP)."
+  },
+  "search": {
+    "placeholder": "Tìm kiếm theo mã lỗi (ERR_...), nội dung tiếng Anh hoặc tiếng Việt...",
+    "btnSearch": "Tìm kiếm",
+    "btnAdd": "Thêm mã lỗi",
+    "addTooltipDisabled": "Chức năng chỉ dành cho quản trị viên (Admin) hoặc Trưởng bộ phận (Manager)"
+  },
+  "table": {
+    "headerTitle": "Danh Mục Mã Lỗi Sản Xuất MES (MES Error Code Catalog)",
+    "hint": "💡 Mẹo: Click vào Mã lỗi để xem chi tiết • Chuột phải vào dòng để Sửa / Xóa",
+    "colNo": "#",
+    "colErrorCode": "MÃ LỖI (ERROR CODE)",
+    "colOwner": "BỘ PHẬN (OWNER)",
+    "colMessageEn": "THÔNG BÁO TIẾNG ANH (MESSAGE EN)",
+    "emptyTitle": "Không tìm thấy mã lỗi nào phù hợp",
+    "emptyDesc": "Vui lòng thử tìm kiếm với từ khóa khác hoặc xóa bộ lọc tìm kiếm.",
+    "btnClearFilter": "Xóa bộ lọc tìm kiếm"
+  },
+  "contextMenu": {
+    "codeLabel": "Mã: ",
+    "edit": "Sửa mã lỗi",
+    "delete": "Xóa mã lỗi",
+    "permissionWarning": "⚠️ Chỉ Admin / Manager mới thao tác được",
+    "editTooltipDisabled": "Yêu cầu quyền Admin hoặc Manager để sửa mã lỗi",
+    "deleteTooltipDisabled": "Yêu cầu quyền Admin hoặc Manager để xóa mã lỗi"
+  },
+  "detail": {
+    "title": "Chi tiết mã lỗi MES & Hướng dẫn khắc phục sự cố (Troubleshooting SOP)",
+    "ownerLabel": "🏢 Bộ phận phụ trách (Owner)",
+    "stationsLabel": "⚙️ Trạm áp dụng (Applicable Stations)",
+    "msgEnLabel": "🌐 Thông báo tiếng Anh (Message EN)",
+    "msgViLabel": "🇻🇳 Thông báo tiếng Việt (Message VI)",
+    "sopLabel": "🛠️ Hướng dẫn xử lý & Khắc phục chuẩn (Troubleshooting SOP)",
+    "lastUpdated": "Cập nhật lần cuối:",
+    "updatedBy": "Người cập nhật:",
+    "btnEditThis": "Chỉnh sửa mã lỗi này",
+    "btnClose": "Đóng"
+  },
+  "addEdit": {
+    "addTitle": "Thêm Mới Mã Lỗi MES",
+    "editTitle": "Chỉnh Sửa Mã Lỗi MES",
+    "addSubtitle": "Khai báo mã lỗi mới vào danh mục hệ thống",
+    "editSubtitle": "Cập nhật thông tin cho mã: {{code}}",
+    "errorCodeLabel": "Mã Lỗi (Error Code)",
+    "errorCodePlaceholder": "Ví dụ: ERR_SFC_CARRIER_LOCKED",
+    "severityLabel": "Mức độ nghiêm trọng",
+    "ownerLabel": "Bộ phận phụ trách (Owner)",
+    "stationsLabel": "Trạm áp dụng (Phân cách bằng dấu phẩy)",
+    "stationsPlaceholder": "Ví dụ: SMT_01, AOI_02, ALL_STATIONS",
+    "msgEnLabel": "Thông báo tiếng Anh (Message EN)",
+    "msgEnPlaceholder": "Nhập thông báo chuẩn tiếng Anh hiển thị trên máy và trạm...",
+    "msgViLabel": "Thông báo tiếng Việt (Message VI)",
+    "msgViPlaceholder": "Dịch nghĩa tiếng Việt cho kỹ sư và công nhân vận hành...",
+    "sopLabel": "Hướng dẫn xử lý sự cố (Troubleshooting Guide / SOP)",
+    "sopPlaceholder": "Nhập các bước xử lý cụ thể: 1. Kiểm tra... 2. Thay thế... 3. Xác nhận...",
+    "btnCancel": "Hủy bỏ",
+    "btnSaveAdd": "Xác nhận tạo mới",
+    "btnSaveEdit": "Lưu cập nhật"
+  },
+  "delete": {
+    "title": "Xác Nhận Xóa Mã Lỗi MES",
+    "warningDesc": "Thao tác này sẽ xóa bản ghi mã lỗi khỏi từ điển lỗi MES. Các trạm SFC và máy tự động sẽ không thể tra cứu hướng dẫn xử lý cho mã lỗi này.",
+    "codeLabel": "Mã lỗi: ",
+    "ownerLabel": "Bộ phận: ",
+    "confirmQuestion": "Bạn có chắc chắn muốn tiếp tục thực hiện xóa?",
+    "btnCancel": "Hủy bỏ",
+    "btnConfirmDelete": "Xác nhận xóa"
+  },
+  "toast": {
+    "addSuccess": "Đã thêm thành công mã lỗi [{{code}}]!",
+    "editSuccess": "Đã cập nhật thông tin mã lỗi [{{code}}]!",
+    "deleteSuccess": "Đã xóa mã lỗi [{{code}}] khỏi hệ thống!",
+    "addDenied": "Chỉ người dùng có quyền Admin hoặc Manager mới có thể thêm mã lỗi!",
+    "editDenied": "Chỉ người dùng có quyền Admin hoặc Manager mới có thể sửa mã lỗi!",
+    "deleteDenied": "Chỉ người dùng có quyền Admin hoặc Manager mới có thể xóa mã lỗi!",
+    "resetSuccess": "Đã khôi phục lại danh sách 20 mã lỗi MES mặc định!"
+  }
+}

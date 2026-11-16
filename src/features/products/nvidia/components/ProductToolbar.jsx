@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 export default function ProductToolbar({
@@ -13,6 +14,7 @@ export default function ProductToolbar({
   totalCount,
   rawTotalCount,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -63,7 +65,7 @@ export default function ProductToolbar({
                 d="M12 4v16m8-8H4"
               />
             </svg>
-            <span>Add product model</span>
+            <span>{t('toolbar.addModel')}</span>
           </button>
 
           {/* Nút 2: Add/update product model by file */}
@@ -89,14 +91,14 @@ export default function ProductToolbar({
                 d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               />
             </svg>
-            <span>Add/update product model by file</span>
+            <span>{t('toolbar.importFile')}</span>
           </button>
         </div>
 
         {/* Phía bên phải trên cùng: Ô text nhập Serial Number và Nút Tìm bằng serial number */}
         <div className="flex flex-wrap items-center gap-2.5 justify-end">
           {/* Ô text nhập hoặc quét Serial Number */}
-          <div className="relative flex items-center min-w-[240px] sm:min-w-[280px]">
+          <div className="relative flex items-center min-w-60 sm:min-w-70">
             <span className="absolute left-3 text-slate-400 pointer-events-none">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -112,11 +114,11 @@ export default function ProductToolbar({
               value={serialSearchInput}
               onChange={(e) => onSerialInputChange && onSerialInputChange(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Quét hoặc nhập Serial Number (SN)..."
+              placeholder={t('toolbar.serialPlaceholder')}
               className={`w-full pl-9 pr-8 py-2 text-xs md:text-sm rounded-lg border font-mono transition-colors outline-hidden ${
                 isFoxconn
-                  ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500 focus:bg-white placeholder:text-slate-400'
-                  : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900] placeholder:text-zinc-500'
+                  ? 'bg-slate-50 border-slate-300 text-slate-800'
+                  : 'bg-zinc-800 border-zinc-700 text-zinc-100'
               }`}
             />
             {serialSearchInput && (
@@ -124,7 +126,7 @@ export default function ProductToolbar({
                 type="button"
                 onClick={onClearSerialSearch}
                 className="absolute right-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 cursor-pointer p-0.5"
-                title="Xóa serial"
+                title={t('toolbar.clearSerialTitle')}
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -156,7 +158,7 @@ export default function ProductToolbar({
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-            <span>Tìm bằng serial number</span>
+            <span>{t('toolbar.searchBySN')}</span>
           </button>
         </div>
       </div>
@@ -169,7 +171,7 @@ export default function ProductToolbar({
           }`}
         >
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="font-medium">Đang áp dụng bộ lọc:</span>
+            <span className="font-medium">{t('toolbar.activeFiltersLabel')}</span>
             {columnFilters.model.length > 0 && (
               <span
                 className={`px-2 py-0.5 rounded font-mono text-[11px] font-semibold border ${
@@ -193,7 +195,7 @@ export default function ProductToolbar({
               </span>
             )}
             <span className="text-[11px] opacity-75">
-              (Hiển thị {totalCount}/{rawTotalCount} bản ghi)
+              {t('toolbar.recordsCount', { shown: totalCount, total: rawTotalCount })}
             </span>
           </div>
 
@@ -210,7 +212,7 @@ export default function ProductToolbar({
             <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
-            Xóa tất cả bộ lọc
+            {t('toolbar.clearAllFilters')}
           </button>
         </div>
       )}

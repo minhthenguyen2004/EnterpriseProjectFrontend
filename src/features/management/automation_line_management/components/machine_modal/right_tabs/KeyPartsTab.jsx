@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function KeyPartsTab({ keyParts = [] }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -18,16 +20,16 @@ export default function KeyPartsTab({ keyParts = [] }) {
           >
             <tr>
               <th className="py-2.5 px-3 text-center w-12">#</th>
-              <th className="py-2.5 px-3 w-56">Step</th>
-              <th className="py-2.5 px-3">Key Name</th>
-              <th className="py-2.5 px-3 font-bold">Value / Lot Barcode</th>
+              <th className="py-2.5 px-3 w-56">{t('management.machineModal.keypartsTab.step')}</th>
+              <th className="py-2.5 px-3">{t('management.machineModal.keypartsTab.keyName')}</th>
+              <th className="py-2.5 px-3 font-bold">{t('management.machineModal.keypartsTab.valueLot')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60 text-white text-[11px]">
             {keyParts.length === 0 ? (
               <tr>
                 <td colSpan="4" className="py-8 text-center text-slate-400 dark:text-zinc-500 font-sans">
-                  Không có dữ liệu linh kiện chính (Key Parts)
+                  {t('management.machineModal.keypartsTab.noData')}
                 </td>
               </tr>
             ) : (

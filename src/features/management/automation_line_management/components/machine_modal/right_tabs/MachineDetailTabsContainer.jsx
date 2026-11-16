@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import KeyPartsTab from './KeyPartsTab';
 import AoiDataTab from './AoiDataTab';
@@ -10,14 +11,15 @@ export default function MachineDetailTabsContainer({
   screwData = [],
   onSelectAoiItem,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [activeTab, setActiveTab] = useState('keyparts'); // 'keyparts' | 'aoi' | 'screw'
 
   const tabs = [
-    { id: 'keyparts', label: 'Key Parts', count: keyParts.length, icon: '🧩' },
-    { id: 'aoi', label: 'AOI Data', count: aoiData.length, icon: '📷' },
-    { id: 'screw', label: 'Screw Data', count: screwData.length, icon: '🔩' },
+    { id: 'keyparts', label: t('management.machineModal.tabs.keyparts'), count: keyParts.length, icon: '🧩' },
+    { id: 'aoi', label: t('management.machineModal.tabs.aoi'), count: aoiData.length, icon: '📷' },
+    { id: 'screw', label: t('management.machineModal.tabs.screw'), count: screwData.length, icon: '🔩' },
   ];
 
   return (

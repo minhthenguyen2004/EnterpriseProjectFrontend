@@ -1,0 +1,80 @@
+{
+  "actions": {
+    "add": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "search": "Search",
+    "reset": "Reset",
+    "export": "Export",
+    "import": "Import",
+    "close": "Close",
+    "refresh": "Refresh",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit Fullscreen",
+    "back": "Back",
+    "filter": "Filter",
+    "clearFilter": "Clear Filter",
+    "copy": "Copy",
+    "copied": "Copied"
+  },
+  "pagination": {
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "records": "records",
+    "pageSize": "Rows:",
+    "rowsPerPage": "rows / page",
+    "first": "⏮ First",
+    "previous": "◀ Prev",
+    "next": "Next ▶",
+    "last": "Last ⏭",
+    "page": "Page"
+  },
+  "status": {
+    "all": "All Statuses",
+    "active": "Active",
+    "inactive": "Inactive",
+    "running": "Running",
+    "stopped": "Stopped",
+    "error": "Error",
+    "warning": "Warning",
+    "pass": "PASS",
+    "fail": "FAIL",
+    "unknown": "Unknown",
+    "locked": "Locked",
+    "inspectionRequired": "Inspection Required"
+  },
+  "table": {
+    "no": "#",
+    "actions": "Actions",
+    "empty": "No matching data found",
+    "loading": "Loading data...",
+    "filter": "Filter",
+    "selectAll": "Select All",
+    "selected": "Selected",
+    "operation": "Operation"
+  },
+  "roles": {
+    "admin": "Admin",
+    "manager": "Manager",
+    "operator": "Operator",
+    "fullAccess": "FULL ACCESS",
+    "readOnly": "READ ONLY",
+    "currentRole": "Current Role:",
+    "testRole": "Simulate Test Role:",
+    "resetRole": "Reset Role",
+    "permissionDenied": "Feature is restricted to Administrator (Admin) or Department Head (Manager)"
+  },
+  "brand": {
+    "foxconn": "Foxconn FII",
+    "nvidia": "NVIDIA AI Factory",
+    "switchBrand": "Switch Theme"
+  },
+  "toast": {
+    "autoClose": "Auto dismiss"
+  }
+}
+

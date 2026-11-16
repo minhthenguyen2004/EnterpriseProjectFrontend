@@ -1,0 +1,103 @@
+{
+  "config": {
+    "headerTitle": "CẤU HÌNH TỦ RACK (RACK CONFIGURATION)",
+    "headerBadge": "MASTER RACK",
+    "headerDesc": "Quản lý thiết lập vị trí nhà máy, tầng, phòng, sản phẩm, nhóm, tủ rack, khe cắm slot và địa chỉ IP mạng.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbRack": "RACK",
+    "breadcrumbRackConfig": "RACK CONFIG",
+    "searchPlaceholder": "Tìm kiếm theo rack, slot, ip, factory, room, product...",
+    "clearSearch": "Xóa tìm kiếm",
+    "btnResetFilter": "Reset filter",
+    "btnCreateRack": "Create rack",
+    "filterTooltipHas": "Đặt lại toàn bộ bộ lọc và sắp xếp",
+    "filterTooltipNone": "Không có bộ lọc nào đang áp dụng",
+    "cols": {
+      "id": "#",
+      "factory": "FACTORY",
+      "floor": "FLOOR",
+      "room": "ROOM",
+      "product": "PRODUCT",
+      "group": "GROUP",
+      "rack": "RACK",
+      "slot": "SLOT",
+      "ip": "IP",
+      "actions": "THAO TÁC"
+    },
+    "actions": {
+      "edit": "Sửa",
+      "delete": "Xóa",
+      "editTooltip": "Chỉnh sửa cấu hình rack",
+      "deleteTooltip": "Xóa bản ghi rack"
+    },
+    "empty": {
+      "title": "Không tìm thấy dữ liệu cấu hình Rack phù hợp",
+      "desc": "Vui lòng kiểm tra lại từ khóa tìm kiếm hoặc bấm nút 'Reset filter' để xem toàn bộ danh sách.",
+      "btnReset": "Đặt lại bộ lọc"
+    },
+    "modal": {
+      "createTitle": "Thêm Mới Cấu Hình Rack",
+      "editTitle": "Chỉnh Sửa Cấu Hình Rack",
+      "createSubtitle": "Khai báo thông số vị trí nhà máy, tủ rack và khe cắm slot mới",
+      "editSubtitle": "Cập nhật thông số kỹ thuật cho tủ rack: {{rack}}",
+      "fieldFactory": "Nhà máy (Factory)",
+      "fieldFloor": "Tầng (Floor)",
+      "fieldRoom": "Phòng sản xuất (Room)",
+      "fieldProduct": "Dòng sản phẩm (Product)",
+      "fieldGroup": "Nhóm / Cụm tủ (Group)",
+      "fieldRack": "Tên tủ Rack (Rack ID)",
+      "fieldSlot": "Khe cắm (Slot)",
+      "fieldIp": "Địa chỉ IP (IP Address)",
+      "btnCancel": "Hủy bỏ",
+      "btnSubmitCreate": "Tạo mới cấu hình",
+      "btnSubmitEdit": "Lưu thay đổi"
+    },
+    "deleteModal": {
+      "title": "Xác Nhận Xóa Cấu Hình Rack",
+      "subtitle": "Hành động này sẽ gỡ bỏ bản ghi rack khỏi hệ thống cơ sở dữ liệu.",
+      "question": "Bạn có chắc chắn muốn xóa bản ghi cấu hình tủ rack sau?",
+      "btnCancel": "Hủy bỏ",
+      "btnConfirm": "Xác nhận xóa"
+    },
+    "toast": {
+      "createSuccess": "Đã tạo mới cấu hình tủ rack [{{rack}}] thành công!",
+      "updateSuccess": "Đã cập nhật thông tin tủ rack [{{rack}}] thành công!",
+      "deleteSuccess": "Đã xóa tủ rack [{{rack}}] khỏi hệ thống!",
+      "resetFilter": "Đã đặt lại toàn bộ bộ lọc và sắp xếp!"
+    }
+  },
+  "overview": {
+    "headerTitle": "TỔNG QUAN BỐ CỤC MẶT BẰNG RACK (RACK OVERVIEW)",
+    "headerBadge": "LAYOUT CONFIG",
+    "headerDesc": "Trực quan hóa bố cục sơ đồ mặt bằng tủ Rack, thiết lập cấu trúc phân cấp Face, Group, Rack và Slot.",
+    "breadcrumbOverview": "RACK OVERVIEW CONFIG",
+    "topBar": {
+      "locationLabel": "Vị trí / Tầng:",
+      "productLineLabel": "Dòng sản phẩm:",
+      "groupLabel": "Nhóm tủ:",
+      "allGroups": "Tất cả các nhóm",
+      "btnStructure": "Cấu trúc cây (Structure Tree)",
+      "btnSaveLayout": "Lưu bố cục (Save Layout)",
+      "btnReloadDB": "Tải lại CSDL",
+      "btnAddFace": "Thêm Face",
+      "btnAddGroup": "Thêm Group",
+      "btnAddRack": "Thêm Rack"
+    },
+    "kpi": {
+      "faces": "Mặt tủ (Faces)",
+      "groups": "Nhóm tủ (Groups)",
+      "racks": "Tủ rack (Racks)",
+      "slots": "Khe cắm (Slots)",
+      "approvedRate": "Tỷ lệ kích hoạt"
+    },
+    "toast": {
+      "saveLayoutSuccess": "Đã lưu bố cục mặt bằng tủ Rack thành công!",
+      "reloadSuccess": "Đã tải lại cấu trúc cây từ cơ sở dữ liệu!",
+      "addFaceSuccess": "Đã thêm mặt tủ (Face) mới!",
+      "addGroupSuccess": "Đã thêm nhóm tủ (Group) mới!",
+      "addRackSuccess": "Đã thêm tủ Rack mới!",
+      "addSlotSuccess": "Đã thêm khe cắm Slot mới!"
+    }
+  }
+}
+

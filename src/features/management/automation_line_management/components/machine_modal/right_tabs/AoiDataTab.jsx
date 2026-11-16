@@ -1,10 +1,12 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function AoiDataTab({
   aoiData = [],
   onSelectAoiItem,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -92,7 +94,7 @@ export default function AoiDataTab({
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
-              <span>Lọc theo Step & Sequence</span>
+              <span>{t('management.machineModal.aoiTab.filterByStep')}</span>
             </button>
 
             {filterMode === 'step' && uniqueSteps.length > 0 && (
@@ -131,7 +133,7 @@ export default function AoiDataTab({
                   : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:bg-zinc-800'
             }`}
           >
-            <span>Xem tất cả ({aoiData.length})</span>
+            <span>{t('management.machineModal.aoiTab.viewAll', { count: aoiData.length })}</span>
           </button>
         </div>
 
@@ -151,7 +153,11 @@ export default function AoiDataTab({
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
-            <span>{downloadSuccess ? '✓ Đã tải trọn bộ' : `Tải tất cả (${filteredData.length} ảnh)`}</span>
+            <span>
+              {downloadSuccess
+                ? t('management.machineModal.aoiTab.downloadedAll')
+                : t('management.machineModal.aoiTab.downloadAll', { count: filteredData.length })}
+            </span>
           </button>
         </div>
       </div>
@@ -174,18 +180,18 @@ export default function AoiDataTab({
               >
                 <tr>
                   <th className="py-2.5 px-2.5 text-center w-10">#</th>
-                  <th className="py-2.5 px-3">Type</th>
-                  <th className="py-2.5 px-3">Step</th>
-                  <th className="py-2.5 px-2.5 font-bold">Camera</th>
-                  <th className="py-2.5 px-2.5">POV</th>
-                  <th className="py-2.5 px-2.5 text-center">Result</th>
+                  <th className="py-2.5 px-3">{t('management.machineModal.aoiTab.type')}</th>
+                  <th className="py-2.5 px-3">{t('management.machineModal.aoiTab.step')}</th>
+                  <th className="py-2.5 px-2.5 font-bold">{t('management.machineModal.aoiTab.camera')}</th>
+                  <th className="py-2.5 px-2.5">{t('management.machineModal.aoiTab.pov')}</th>
+                  <th className="py-2.5 px-2.5 text-center">{t('management.machineModal.aoiTab.result')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60 text-[11px]">
                 {filteredData.length === 0 ? (
                   <tr>
                     <td colSpan="6" className="py-8 text-center text-slate-400 dark:text-zinc-500 font-sans">
-                      Không tìm thấy điểm kiểm tra AOI phù hợp
+                      {t('management.machineModal.aoiTab.noData')}
                     </td>
                   </tr>
                 ) : (
@@ -265,10 +271,13 @@ export default function AoiDataTab({
           {/* Dòng chú thích & trạng thái bên dưới bảng */}
           <div className="flex items-center justify-between pt-1.5 px-1 text-[11px] text-slate-400">
             <span>
-              💡 Nhấp vào bất kỳ dòng nào để đổi ảnh hiển thị bên phải
+              {t('management.machineModal.aoiTab.hintClickRow')}
             </span>
             <span>
-              Hiển thị: <strong className={isFoxconn ? 'text-slate-800' : 'text-white'}>{filteredData.length}</strong> / {aoiData.length} điểm
+              {t('management.machineModal.aoiTab.showingPoints', {
+                filtered: filteredData.length,
+                total: aoiData.length,
+              })}
             </span>
           </div>
         </div>
@@ -299,7 +308,7 @@ export default function AoiDataTab({
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <h4 className="text-xs font-black tracking-tight truncate">
-                        {selectedItem.type} Inspection
+                        {selectedItem.type} {t('management.machineModal.aoiTab.inspection')}
                       </h4>
                       <span
                         className={`px-1.5 py-0.2 rounded text-[9px] font-black ${
@@ -319,7 +328,9 @@ export default function AoiDataTab({
 
                 {/* Độ tin cậy AI */}
                 <div className="text-right shrink-0">
-                  <span className="text-[9px] font-bold text-slate-400 block uppercase">Độ tin cậy</span>
+                  <span className="text-[9px] font-bold text-slate-400 block uppercase">
+                    {t('management.machineModal.aoiTab.confidence')}
+                  </span>
                   <span className={`text-[11px] font-bold ${isSelectedFail ? 'text-rose-500' : 'text-emerald-500'}`}>
                     {selectedItem.confidence || '99.5%'}
                   </span>
@@ -421,7 +432,7 @@ export default function AoiDataTab({
               {/* Action buttons của ảnh: Tải ảnh hiện tại */}
               <div className="flex items-center justify-between pt-1">
                 <span className="text-[10px] text-slate-400 font-bold">
-                  Độ phân giải: 4096 x 2160 (4K UHD)
+                  {t('management.machineModal.aoiTab.resolution')}
                 </span>
 
                 <button
@@ -438,7 +449,11 @@ export default function AoiDataTab({
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
-                  <span>{downloadSingleSuccess ? '✓ Đã tải ảnh này' : 'Tải ảnh này'}</span>
+                  <span>
+                    {downloadSingleSuccess
+                      ? t('management.machineModal.aoiTab.downloadedSingle')
+                      : t('management.machineModal.aoiTab.downloadSingle')}
+                  </span>
                 </button>
               </div>
             </div>
@@ -446,9 +461,9 @@ export default function AoiDataTab({
             /* Khi không có mục nào được chọn hoặc dữ liệu trống */
             <div className="flex flex-col items-center justify-center h-full min-h-60 text-center p-6 space-y-2 text-slate-400 dark:text-zinc-500">
               <span className="text-3xl">📷</span>
-              <p className="text-xs font-semibold">Chưa có ảnh nào được chọn</p>
+              <p className="text-xs font-semibold">{t('management.machineModal.aoiTab.noImageSelected')}</p>
               <p className="text-[11px] max-w-xs">
-                Vui lòng nhấp vào một dòng kiểm tra AOI bên trái để xem hình ảnh quang học tương ứng tại đây.
+                {t('management.machineModal.aoiTab.selectImageDesc')}
               </p>
             </div>
           )}

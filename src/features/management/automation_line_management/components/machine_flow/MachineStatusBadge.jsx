@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { STATUS_CONFIG, MACHINE_STATUS } from '../../constants/autolineConstants';
 
 export default function MachineStatusBadge({ status = MACHINE_STATUS.STOP }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -23,7 +25,7 @@ export default function MachineStatusBadge({ status = MACHINE_STATUS.STOP }) {
         <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${themeStyle.dotBg}`}></span>
       </span>
 
-      <span>{config.label.vi}</span>
+      <span>{t(`management.status.${status}`, config.label?.vi)}</span>
     </span>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import ProductColumnFilterPopover from './ProductColumnFilterPopover';
 
@@ -14,6 +15,7 @@ export default function ProductTable({
   onEditItem,
   onDeleteItem,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -25,7 +27,7 @@ export default function ProductTable({
           : 'bg-zinc-900/60 border-zinc-800/80 backdrop-blur-md'
       }`}
     >
-      <div className="overflow-x-auto min-h-[380px]">
+      <div className="overflow-x-auto min-h-95">
         <table className="w-full text-left border-collapse">
           {/* Table Header */}
           <thead className="relative z-10">
@@ -37,12 +39,12 @@ export default function ProductTable({
               }`}
             >
               {/* Cột 1: ID */}
-              <th className="py-3 px-4 text-center w-20">ID</th>
+              <th className="py-3 px-4 text-center w-20">{t('table.colId')}</th>
 
               {/* Cột 2: MODEL (Có lọc & sort) */}
               <th className="py-2.5 px-4 w-60">
                 <ProductColumnFilterPopover
-                  title="MODEL"
+                  title={t('table.colModel')}
                   field="model"
                   options={filterOptions.model}
                   selectedValues={columnFilters.model}
@@ -57,7 +59,7 @@ export default function ProductTable({
               {/* Cột 3: PRODUCT (Có lọc & sort) */}
               <th className="py-2.5 px-4 w-60">
                 <ProductColumnFilterPopover
-                  title="PRODUCT"
+                  title={t('table.colProduct')}
                   field="product"
                   options={filterOptions.product}
                   selectedValues={columnFilters.product}
@@ -70,10 +72,10 @@ export default function ProductTable({
               </th>
 
               {/* Cột 4: MODEL NAME */}
-              <th className="py-3 px-4 min-w-[320px]">MODEL NAME</th>
+              <th className="py-3 px-4 min-w-[320px]">{t('table.colModelName')}</th>
 
               {/* Cột 5: THAO TÁC */}
-              <th className="py-3 px-4 text-center w-36">THAO TÁC</th>
+              <th className="py-3 px-4 text-center w-36">{t('table.colActions')}</th>
             </tr>
           </thead>
 
@@ -103,10 +105,10 @@ export default function ProductTable({
                       />
                     </svg>
                     <p className="text-sm font-semibold opacity-80">
-                      Không tìm thấy model sản phẩm nào phù hợp
+                      {t('table.emptyTitle')}
                     </p>
                     <p className="text-xs text-slate-400">
-                      Vui lòng thử điều chỉnh hoặc xóa bớt các tiêu chí lọc bên trên.
+                      {t('table.emptyDesc')}
                     </p>
                   </div>
                 </td>
@@ -181,7 +183,7 @@ export default function ProductTable({
                       <button
                         type="button"
                         onClick={() => onEditItem(item)}
-                        title="Chỉnh sửa model"
+                        title={t('table.editTooltip')}
                         className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold transition-all cursor-pointer border ${
                           isFoxconn
                             ? 'bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200'
@@ -201,14 +203,14 @@ export default function ProductTable({
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                           />
                         </svg>
-                        <span>Sửa</span>
+                        <span>{t('table.btnEdit')}</span>
                       </button>
 
                       {/* Nút Xóa */}
                       <button
                         type="button"
                         onClick={() => onDeleteItem(item)}
-                        title="Xóa model này"
+                        title={t('table.deleteTooltip')}
                         className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold transition-all cursor-pointer border ${
                           isFoxconn
                             ? 'bg-red-50 hover:bg-red-100 text-red-600 border-red-200'
@@ -228,7 +230,7 @@ export default function ProductTable({
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                           />
                         </svg>
-                        <span>Xóa</span>
+                        <span>{t('table.btnDelete')}</span>
                       </button>
                     </div>
                   </td>

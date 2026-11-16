@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function DeleteProductConfirmModal({
@@ -7,6 +8,7 @@ export default function DeleteProductConfirmModal({
   onClose,
   onConfirm,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -39,10 +41,10 @@ export default function DeleteProductConfirmModal({
           </div>
           <div>
             <h3 className="text-base font-bold text-red-600 dark:text-red-400">
-              Xác Nhận Xóa Model
+              {t('delete.title')}
             </h3>
             <p className="text-xs text-slate-400">
-              Hành động này không thể hoàn tác sau khi xác nhận.
+              {t('delete.desc')}
             </p>
           </div>
         </div>
@@ -50,7 +52,7 @@ export default function DeleteProductConfirmModal({
         {/* Body */}
         <div className="p-6 space-y-3 text-sm">
           <p>
-            Bạn có chắc chắn muốn xóa model sản phẩm này khỏi cơ sở dữ liệu?
+            {t('delete.question')}
           </p>
           <div
             className={`p-3 rounded-xl border text-xs font-mono ${
@@ -82,14 +84,14 @@ export default function DeleteProductConfirmModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Hủy bỏ
+            {t('delete.btnCancel')}
           </button>
           <button
             type="button"
             onClick={onConfirm}
             className="px-5 py-2 text-sm font-bold rounded-lg bg-red-600 hover:bg-red-700 text-white transition-all shadow-sm cursor-pointer"
           >
-            Xác nhận Xóa
+            {t('delete.btnConfirm')}
           </button>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import {
   FACTORY_OPTIONS,
@@ -16,6 +17,7 @@ export default function RackFormModal({
   onClose,
   onSubmit
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const isEdit = mode === 'edit';
@@ -112,12 +114,12 @@ export default function RackFormModal({
             </div>
             <div>
               <h3 className="text-base font-bold tracking-tight">
-                {isEdit ? 'Cập Nhật Cấu Hình Tủ Rack' : 'Thêm Mới Cấu Hình Tủ Rack'}
+                {isEdit ? t('config.modal.editTitle') : t('config.modal.createTitle')}
               </h3>
               <p className="text-xs text-slate-500 dark:text-zinc-400">
                 {isEdit
-                  ? `Chỉnh sửa thông số cho slot ${formData.slot_name || ''} - Tủ ${formData.rack || ''}`
-                  : 'Khai báo vị trí vật lý, sản phẩm, nhóm và cấu hình IP cho tủ Rack mới'}
+                  ? t('config.modal.editSubtitle', { rack: formData.rack || '' })
+                  : t('config.modal.createSubtitle')}
               </p>
             </div>
           </div>
@@ -345,7 +347,7 @@ export default function RackFormModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
               }`}
             >
-              Hủy bỏ
+              {t('config.modal.btnCancel')}
             </button>
 
             <button
@@ -359,7 +361,7 @@ export default function RackFormModal({
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
               </svg>
-              <span>{isEdit ? 'Lưu Thay Đổi' : 'Xác Nhận Tạo Rack'}</span>
+              <span>{isEdit ? t('config.modal.btnSubmitEdit') : t('config.modal.btnSubmitCreate')}</span>
             </button>
           </div>
         </form>

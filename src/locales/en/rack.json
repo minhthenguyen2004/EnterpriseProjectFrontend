@@ -1,0 +1,103 @@
+{
+  "config": {
+    "headerTitle": "RACK CONFIGURATION",
+    "headerBadge": "MASTER RACK",
+    "headerDesc": "Manage factory locations, floors, rooms, products, groups, racks, slots, and network IP addresses.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbRack": "RACK",
+    "breadcrumbRackConfig": "RACK CONFIG",
+    "searchPlaceholder": "Search by rack, slot, ip, factory, room, product...",
+    "clearSearch": "Clear search",
+    "btnResetFilter": "Reset filter",
+    "btnCreateRack": "Create rack",
+    "filterTooltipHas": "Reset all active filters and sorting",
+    "filterTooltipNone": "No active filters currently applied",
+    "cols": {
+      "id": "#",
+      "factory": "FACTORY",
+      "floor": "FLOOR",
+      "room": "ROOM",
+      "product": "PRODUCT",
+      "group": "GROUP",
+      "rack": "RACK",
+      "slot": "SLOT",
+      "ip": "IP",
+      "actions": "ACTIONS"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "editTooltip": "Edit rack configuration",
+      "deleteTooltip": "Delete rack record"
+    },
+    "empty": {
+      "title": "No matching rack configuration records found",
+      "desc": "Please verify your search keywords or click 'Reset filter' to display all records.",
+      "btnReset": "Reset Filter"
+    },
+    "modal": {
+      "createTitle": "Add New Rack Configuration",
+      "editTitle": "Edit Rack Configuration",
+      "createSubtitle": "Define parameters for factory location, rack and new slot",
+      "editSubtitle": "Update parameters for rack: {{rack}}",
+      "fieldFactory": "Factory",
+      "fieldFloor": "Floor",
+      "fieldRoom": "Clean Room",
+      "fieldProduct": "Product Line",
+      "fieldGroup": "Group",
+      "fieldRack": "Rack ID",
+      "fieldSlot": "Slot",
+      "fieldIp": "IP Address",
+      "btnCancel": "Cancel",
+      "btnSubmitCreate": "Create Configuration",
+      "btnSubmitEdit": "Save Changes"
+    },
+    "deleteModal": {
+      "title": "Confirm Delete Rack Configuration",
+      "subtitle": "This operation will remove the rack record from database.",
+      "question": "Are you sure you want to delete the following rack record?",
+      "btnCancel": "Cancel",
+      "btnConfirm": "Confirm Delete"
+    },
+    "toast": {
+      "createSuccess": "Successfully created configuration for rack [{{rack}}]!",
+      "updateSuccess": "Successfully updated information for rack [{{rack}}]!",
+      "deleteSuccess": "Deleted rack [{{rack}}] from system!",
+      "resetFilter": "Reset all active filters and sorting!"
+    }
+  },
+  "overview": {
+    "headerTitle": "RACK OVERVIEW CONFIGURATION",
+    "headerBadge": "LAYOUT CONFIG",
+    "headerDesc": "Visualize floorplan rack layout and manage hierarchical structure of Faces, Groups, Racks, and Slots.",
+    "breadcrumbOverview": "RACK OVERVIEW CONFIG",
+    "topBar": {
+      "locationLabel": "Location / Floor:",
+      "productLineLabel": "Product Line:",
+      "groupLabel": "Rack Group:",
+      "allGroups": "All Groups",
+      "btnStructure": "Structure Tree",
+      "btnSaveLayout": "Save Layout",
+      "btnReloadDB": "Reload DB",
+      "btnAddFace": "Add Face",
+      "btnAddGroup": "Add Group",
+      "btnAddRack": "Add Rack"
+    },
+    "kpi": {
+      "faces": "Faces",
+      "groups": "Groups",
+      "racks": "Racks",
+      "slots": "Slots",
+      "approvedRate": "Activation Rate"
+    },
+    "toast": {
+      "saveLayoutSuccess": "Successfully saved rack floorplan layout!",
+      "reloadSuccess": "Reloaded hierarchy tree from database!",
+      "addFaceSuccess": "Added new Face container!",
+      "addGroupSuccess": "Added new Group container!",
+      "addRackSuccess": "Added new Rack container!",
+      "addSlotSuccess": "Added new Slot item!"
+    }
+  }
+}
+

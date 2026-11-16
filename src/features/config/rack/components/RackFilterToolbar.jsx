@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 export default function RackFilterToolbar({
@@ -9,6 +10,7 @@ export default function RackFilterToolbar({
   totalAllRecords,
   activeFilterCount = 0
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -40,7 +42,7 @@ export default function RackFilterToolbar({
             type="text"
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Tìm kiếm theo rack, slot, ip, factory, room, product..."
+            placeholder={t('config.searchPlaceholder')}
             className={`w-full pl-10 pr-9 py-2.5 text-xs font-medium rounded-xl border transition-all outline-hidden ${
               isFoxconn
                 ? 'bg-slate-50/80 border-slate-300 text-slate-800 focus:ring-2 focus:ring-[#002766]/10'
@@ -54,7 +56,7 @@ export default function RackFilterToolbar({
               type="button"
               onClick={() => onSearchChange('')}
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300 cursor-pointer transition-colors"
-              title="Xóa tìm kiếm"
+              title={t('config.clearSearch')}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -80,7 +82,7 @@ export default function RackFilterToolbar({
                 ? 'bg-slate-100 text-slate-400 border-slate-200/80 opacity-60 cursor-not-allowed'
                 : 'bg-zinc-800/40 text-zinc-500 border-zinc-700/50 opacity-50 cursor-not-allowed'
             }`}
-            title={hasFilter ? 'Đặt lại toàn bộ bộ lọc và sắp xếp' : 'Không có bộ lọc nào đang áp dụng'}
+            title={hasFilter ? t('config.filterTooltipHas') : t('config.filterTooltipNone')}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -90,7 +92,7 @@ export default function RackFilterToolbar({
                 d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
               />
             </svg>
-            <span>Reset filter</span>
+            <span>{t('config.btnResetFilter')}</span>
             {activeFilterCount > 0 && (
               <span
                 className={`ml-0.5 px-1.5 py-0.5 rounded-full text-[10px] font-extrabold ${
@@ -117,7 +119,7 @@ export default function RackFilterToolbar({
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
             </svg>
-            <span>Create rack</span>
+            <span>{t('config.btnCreateRack')}</span>
           </button>
         </div>
       </div>

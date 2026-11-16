@@ -9,9 +9,11 @@ import {
   Tooltip,
   ReferenceLine,
 } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function YieldOutputTrendWidget({ data = [] }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -49,7 +51,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
               isFoxconn ? 'text-slate-900' : 'text-white'
             }`}
           >
-            2. XU HƯỚNG OUTPUT & YIELD RATE THEO GIỜ
+            {t('management.analytics.yieldTrendTitle')}
           </h3>
         </div>
 
@@ -61,7 +63,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
               style={{ backgroundColor: barColor, border: `1px solid ${barBorder}` }}
             />
             <span className={isFoxconn ? 'text-[#002766] font-bold' : 'text-white font-bold'}>
-              Output (Cột)
+              {t('management.analytics.legendOutput')}
             </span>
           </span>
           <span className="flex items-center gap-1.5">
@@ -70,7 +72,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
               style={{ backgroundColor: lineColor }}
             />
             <span className={isFoxconn ? 'text-emerald-700 font-black' : 'text-[#76B900] font-black'}>
-              Yield Rate % (Đường)
+              {t('management.analytics.legendYield')}
             </span>
           </span>
         </div>
@@ -152,7 +154,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
                             : 'border-zinc-800 text-white'
                         }`}
                       >
-                        Khung giờ:{' '}
+                        {t('management.analytics.tooltipHour')}{' '}
                         <span className={`font-mono font-bold ${isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}`}>
                           {label}
                         </span>
@@ -161,7 +163,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
                       {/* Thông số Output */}
                       <div className="flex items-center justify-between gap-6 py-0.5">
                         <span className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-                          Output:
+                          {t('management.analytics.tooltipOutput')}
                         </span>
                         <strong
                           className={`font-mono text-sm font-black ${
@@ -175,7 +177,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
                       {/* Thông số Yield Rate */}
                       <div className="flex items-center justify-between gap-6 py-0.5">
                         <span className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-                          Yield Rate:
+                          {t('management.analytics.tooltipYield')}
                         </span>
                         <strong
                           className={`font-mono text-sm font-black ${
@@ -200,7 +202,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
               strokeDasharray="4 4"
               strokeWidth={1.5}
               label={{
-                value: 'Target: 98.5%',
+                value: t('management.analytics.targetYieldLabel'),
                 position: 'insideTopLeft',
                 fill: isFoxconn ? '#991b1b' : '#ff85a0',
                 fontSize: 10,
@@ -251,7 +253,10 @@ export default function YieldOutputTrendWidget({ data = [] }) {
         }`}
       >
         <span className={isFoxconn ? 'text-slate-700 font-semibold' : 'text-zinc-200 font-medium'}>
-          Kế hoạch nhịp: <strong className={isFoxconn ? 'text-slate-900 font-bold' : 'text-white font-bold'}>450 pcs/h</strong>
+          {t('management.analytics.cyclePlanLabel')}{' '}
+          <strong className={isFoxconn ? 'text-slate-900 font-bold' : 'text-white font-bold'}>
+            450 pcs/h
+          </strong>
         </span>
         <span
           className={`font-black px-2 py-0.5 rounded-md ${
@@ -260,7 +265,7 @@ export default function YieldOutputTrendWidget({ data = [] }) {
               : 'bg-[#76B900]/15 text-[#76B900] border border-[#76B900]/30'
           }`}
         >
-          Đạt 96.2% mục tiêu ca
+          {t('management.analytics.targetAchievement')}
         </span>
       </div>
     </div>

@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import TextInput from "../../../components/common/TextInput";
 import toast from "react-hot-toast";
 import { authenticateSignInUser } from "../../../store/action";
 
 function NormalLogin({ dispatch, setLoader, navigate }) {
+    const { t } = useTranslation('auth');
 
     const {
         control: accountControl,
@@ -28,13 +30,13 @@ function NormalLogin({ dispatch, setLoader, navigate }) {
             <TextInput
               name="cardId"
               control={accountControl}
-              label="Card ID"
-              placeholder="Nhập mã thẻ nhân viên / Card ID"
+              label={t('login.cardIdLabel')}
+              placeholder={t('login.cardIdPlaceholder')}
               rules={{
-                required: 'Vui lòng nhập Card ID',
+                required: t('login.cardIdRequired'),
                 minLength: {
                   value: 3,
-                  message: 'Card ID tối thiểu 3 ký tự',
+                  message: t('login.cardIdMinLength'),
                 },
               }}
               leftIcon={
@@ -54,13 +56,13 @@ function NormalLogin({ dispatch, setLoader, navigate }) {
               name="password"
               control={accountControl}
               type="password"
-              label="Password"
-              placeholder="Nhập mật khẩu"
+              label={t('login.passwordLabel')}
+              placeholder={t('login.passwordPlaceholder')}
               rules={{
-                required: 'Vui lòng nhập mật khẩu',
+                required: t('login.passwordRequired'),
                 minLength: {
                   value: 8,
-                  message: 'Mật khẩu phải từ 8 ký tự trở lên',
+                  message: t('login.passwordMinLength'),
                 },
               }}
               leftIcon={
@@ -83,7 +85,7 @@ function NormalLogin({ dispatch, setLoader, navigate }) {
                   id="rememberMe"
                   className="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 accent-blue-600 cursor-pointer"
                 />
-                <span>Remember me</span>
+                <span>{t('login.rememberMe')}</span>
               </label>
 
               <a
@@ -91,7 +93,7 @@ function NormalLogin({ dispatch, setLoader, navigate }) {
                 onClick={(e) => e.preventDefault()}
                 className="text-blue-600 hover:text-blue-700 font-medium hover:underline transition-colors"
               >
-                Quên mật khẩu?
+                {t('login.forgotPassword')}
               </a>
             </div>
 
@@ -107,10 +109,10 @@ function NormalLogin({ dispatch, setLoader, navigate }) {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                   </svg>
-                  <span>Đang đăng nhập...</span>
+                  <span>{t('login.signingIn')}</span>
                 </>
               ) : (
-                <span>Sign In to Your Account</span>
+                <span>{t('login.signInBtn')}</span>
               )}
             </button>
           </form>

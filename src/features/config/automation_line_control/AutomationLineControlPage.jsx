@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useAutolineControlData from './hooks/useAutolineControlData';
@@ -17,6 +18,7 @@ import ActionLogsRestoreTab from './components/action_logs/ActionLogsRestoreTab'
  * - Tích hợp đầy đủ các nút an toàn dây chuyền (E-STOP, Khởi động chuyền) và bảng chỉ số vận hành trạm.
  */
 export default function AutomationLineControlPage() {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -55,13 +57,13 @@ export default function AutomationLineControlPage() {
       {/* Unified Page Header Bar */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'CONFIG', isCurrent: false },
-          { label: 'AUTOMATION LINE CONTROL', isCurrent: true },
+          { label: t('control.breadcrumbConfig'), isCurrent: false },
+          { label: t('control.breadcrumbControl'), isCurrent: true },
         ]}
-        title="AUTOMATION LINE CONTROL"
-        badge="SFC DISPATCHER"
+        title={t('control.headerTitle')}
+        badge={t('control.headerBadge')}
         badgeType="brand"
-        description="Bảng điều khiển tập trung cho dây chuyền tự động hóa: Gửi bản tin SFC Switch/Adapter, thẩm tra Keyparts, kiểm thử kết quả và giám sát giao thức."
+        description={t('control.headerDesc')}
         showFullscreen={true}
       />
 

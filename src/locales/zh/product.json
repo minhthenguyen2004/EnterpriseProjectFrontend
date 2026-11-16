@@ -1,0 +1,106 @@
+{
+  "header": {
+    "title": "NVIDIA 产品机型配置",
+    "subtitle": "管理 NVIDIA 机型与产品系列目录，支持按序列号反查与批量文件导入",
+    "breadcrumbConfig": "系统配置",
+    "breadcrumbProduct": "PRODUCT",
+    "breadcrumbNvidia": "NVIDIA"
+  },
+  "toolbar": {
+    "addModel": "新增产品机型",
+    "importFile": "文件批量导入/更新",
+    "serialPlaceholder": "扫描或输入序列号 (SN)...",
+    "clearSerialTitle": "清除序列号",
+    "searchBySN": "按序列号查找",
+    "activeFiltersLabel": "当前已生效过滤条件:",
+    "recordsCount": "(显示 {{shown}}/{{total}} 条记录)",
+    "clearAllFilters": "清除所有过滤"
+  },
+  "table": {
+    "colId": "序号",
+    "colModel": "机型代码 (MODEL)",
+    "colProduct": "产品系列 (PRODUCT)",
+    "colModelName": "机型全称 (MODEL NAME)",
+    "colActions": "操作",
+    "emptyTitle": "未找到匹配的产品机型",
+    "emptyDesc": "请尝试调整或清除上方的筛选过滤条件。",
+    "editTooltip": "编辑此机型",
+    "deleteTooltip": "删除此机型",
+    "btnEdit": "编辑",
+    "btnDelete": "删除"
+  },
+  "popover": {
+    "filterBy": "按 {{title}} 过滤",
+    "sortAsc": "A → Z",
+    "sortDesc": "Z → A",
+    "sortAscTitle": "升序排列 A-Z",
+    "sortDescTitle": "降序排列 Z-A",
+    "quickSearchPlaceholder": "快速检索 {{title}}...",
+    "selectAll": "全选 ({{count}})",
+    "deselectAll": "取消全选",
+    "noData": "未找到匹配数据",
+    "clearFilter": "清除过滤",
+    "close": "关闭"
+  },
+  "modal": {
+    "addTitle": "新增产品机型",
+    "editTitle": "编辑产品机型",
+    "modalSubtitle": "输入产品机型的完整标识信息",
+    "fieldCustomer": "客户代码 (Customer)",
+    "fieldCustomerPlaceholder": "例如: NVIDIA, FOXCONN, MICROSOFT...",
+    "fieldModelSerial": "机型代码 (Model Serial)",
+    "fieldModelSerialPlaceholder": "例如: GB200-NVL72 或 B200-HGX-192GB...",
+    "fieldProductName": "产品系列 (Product Name)",
+    "fieldProductNamePlaceholder": "例如: Blackwell GB200, B200 GPU Server...",
+    "fieldModelName": "机型全称 (Model Name)",
+    "fieldModelNamePlaceholder": "例如: NVIDIA GB200 NVL72 Liquid-Cooled AI Server Rack System...",
+    "errorCustomer": "请输入客户代码 (Customer)！",
+    "errorModelSerial": "请输入机型代码 (Model Serial)！",
+    "errorProductName": "请输入产品系列 (Product Name)！",
+    "errorModelName": "请输入完整机型名称 (Model Name)！",
+    "btnCancel": "取消",
+    "btnCreate": "创建机型",
+    "btnSave": "保存修改"
+  },
+  "delete": {
+    "title": "确认删除机型",
+    "desc": "确认后该操作不可撤销，请谨慎操作。",
+    "question": "您确定要从数据库中彻底删除此产品机型吗？",
+    "btnCancel": "取消",
+    "btnConfirm": "确认删除"
+  },
+  "import": {
+    "title": "通过文件批量新增 / 更新机型",
+    "desc": "支持 Excel (.xlsx, .xls) 或 CSV 文件格式",
+    "dragDrop": "拖放 Excel / CSV 文件到此处，或",
+    "selectFile": "从本地电脑选择文件",
+    "loadedFile": "✓ 已加载文件: {{name}} ({{size}} KB)",
+    "noTemplate": "尚未下载标准模版？",
+    "downloadTemplate": "下载模版文件 (.csv)",
+    "previewTitle": "解析数据预览 ({{count}} 行):",
+    "btnCancel": "关闭",
+    "btnConfirm": "确认导入 ({{count}} 个机型)",
+    "alertSelectFile": "导入前请先选择模版或有效的表格数据文件！"
+  },
+  "searchSN": {
+    "title": "按序列号反查",
+    "desc": "扫描条码或输入设备序列号反查机型信息",
+    "placeholder": "输入或扫描序列号 (SN)...",
+    "btnSearch": "查询",
+    "sampleTitle": "💡 快速测试示例序列号:",
+    "foundTitle": "匹配的机型结果:",
+    "notFound": "未找到匹配序列号 \"{{sn}}\" 的机型",
+    "applyFilter": "按此机型筛选表格",
+    "close": "关闭"
+  },
+  "toast": {
+    "addSuccess": "已成功新增机型 \"{{model}}\"！",
+    "editSuccess": "已成功更新机型 \"{{model}}\"！",
+    "deleteSuccess": "已从系统中删除机型 \"{{model}}\"！",
+    "importSuccess": "已成功导入 {{count}} 个机型到系统！",
+    "snFound": "从序列号 {{sn}} 找到机型: \"{{model}}\"",
+    "snNotFound": "未找到与序列号 \"{{sn}}\" 匹配的机型",
+    "filteringBy": "正在按机型筛选: {{model}}"
+  }
+}
+

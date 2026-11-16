@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 export default function ProductColumnFilterPopover({
@@ -13,6 +14,7 @@ export default function ProductColumnFilterPopover({
   sortConfig,
   onSort,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -203,12 +205,12 @@ export default function ProductColumnFilterPopover({
             {/* Header Popover with Quick Sort Buttons */}
             <div className="flex items-center justify-between pb-2 mb-2 border-b border-inherit">
               <span className="text-xs font-bold uppercase tracking-wider">
-                Lọc theo {title}
+                {t('popover.filterBy', { title })}
               </span>
               <div className="flex items-center gap-1">
                 <button
                   type="button"
-                  title="Sắp xếp tăng dần A-Z"
+                  title={t('popover.sortAscTitle')}
                   onClick={() => onSort(field, 'asc')}
                   className={`px-1.5 py-0.5 rounded text-[11px] font-semibold transition-all border cursor-pointer ${
                     isSorted && sortConfig.direction === 'asc'
@@ -220,11 +222,11 @@ export default function ProductColumnFilterPopover({
                       : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
                   }`}
                 >
-                  A → Z
+                  {t('popover.sortAsc')}
                 </button>
                 <button
                   type="button"
-                  title="Sắp xếp giảm dần Z-A"
+                  title={t('popover.sortDescTitle')}
                   onClick={() => onSort(field, 'desc')}
                   className={`px-1.5 py-0.5 rounded text-[11px] font-semibold transition-all border cursor-pointer ${
                     isSorted && sortConfig.direction === 'desc'
@@ -236,7 +238,7 @@ export default function ProductColumnFilterPopover({
                       : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
                   }`}
                 >
-                  Z → A
+                  {t('popover.sortDesc')}
                 </button>
               </div>
             </div>
@@ -247,11 +249,11 @@ export default function ProductColumnFilterPopover({
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder={`Tìm nhanh ${title.toLowerCase()}...`}
+                placeholder={t('popover.quickSearchPlaceholder', { title: title.toLowerCase() })}
                 className={`w-full pl-7 pr-2 py-1.5 text-xs rounded-lg border transition-colors outline-hidden ${
                   isFoxconn
-                    ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500 focus:bg-white'
-                    : 'bg-zinc-800/80 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                    ? 'bg-slate-50 border-slate-300 text-slate-800'
+                    : 'bg-zinc-800/80 border-zinc-700 text-zinc-100'
                 }`}
               />
               <svg
@@ -278,14 +280,14 @@ export default function ProductColumnFilterPopover({
                   isFoxconn ? 'text-blue-600' : 'text-[#76B900]'
                 }`}
               >
-                Chọn tất cả ({options.length})
+                {t('popover.selectAll', { count: options.length })}
               </button>
               <button
                 type="button"
                 onClick={() => onClearFilter(field)}
                 className="hover:underline cursor-pointer text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200"
               >
-                Bỏ chọn tất cả
+                {t('popover.deselectAll')}
               </button>
             </div>
 
@@ -293,13 +295,13 @@ export default function ProductColumnFilterPopover({
             <div
               className={`max-h-48 overflow-y-auto space-y-1 p-1 rounded-lg border text-xs ${
                 isFoxconn
-                  ? 'bg-slate-50/50 border-slate-200 divide-y divide-slate-100'
-                  : 'bg-zinc-950/40 border-zinc-800 divide-y divide-zinc-800/60'
+                  ? 'bg-slate-50/50 border-slate-200 divide-y'
+                  : 'bg-zinc-950/40 border-zinc-800 divide-y'
               }`}
             >
               {filteredOptions.length === 0 ? (
                 <div className="text-center py-4 text-xs opacity-60">
-                  Không tìm thấy dữ liệu
+                  {t('popover.noData')}
                 </div>
               ) : (
                 filteredOptions.map((opt) => {
@@ -358,7 +360,7 @@ export default function ProductColumnFilterPopover({
                     : 'text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 font-medium'
                 }`}
               >
-                Xóa lọc
+                {t('popover.clearFilter')}
               </button>
               <button
                 type="button"
@@ -369,7 +371,7 @@ export default function ProductColumnFilterPopover({
                     : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
                 }`}
               >
-                Đóng
+                {t('popover.close')}
               </button>
             </div>
           </div>,

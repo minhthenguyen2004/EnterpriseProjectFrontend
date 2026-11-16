@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineConfigToolbar({
@@ -8,6 +9,7 @@ export default function MachineConfigToolbar({
   onOpenExcelModal,
   onExportCsv
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -56,7 +58,7 @@ export default function MachineConfigToolbar({
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Tìm theo tên máy, IP, hostname, chuyền, sản phẩm..."
+            placeholder={t('toolbar.searchPlaceholder')}
             className={`w-full pl-10 pr-10 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all outline-none border ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-200 text-slate-800 focus:ring-2 focus:ring-blue-100'
@@ -168,7 +170,7 @@ export default function MachineConfigToolbar({
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
             </svg>
-            <span>Thêm Máy Mới</span>
+            <span>{t('toolbar.btnCreate')}</span>
             <kbd className={`hidden sm:inline-block px-1.5 py-0.5 text-[9px] rounded font-mono font-bold ${
               isFoxconn ? 'bg-white/20 text-white' : 'bg-black/20 text-black'
             }`}>

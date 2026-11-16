@@ -1,0 +1,26 @@
+{
+  "groups": {
+    "automation": "自动化管理",
+    "config": "系统配置",
+    "mes_error": "MES 错误代码",
+    "api_request": "API 接口管理"
+  },
+  "items": {
+    "autolineManagement": "自动化产线管理",
+    "machineStatus": "机台状态监控",
+    "rack": "机架管理",
+    "rackConfig": "机架基础配置",
+    "rackOverview": "机架概览监控",
+    "carrierConfig": "载具治具配置",
+    "machineConfig": "机台参数配置",
+    "automationLineControl": "产线自动化调度",
+    "stationLayoutControl": "工位布局控制",
+    "unlockCarrier": "载具解除锁定",
+    "autolineOperations": "自动化线作业",
+    "product": "产品型号配置",
+    "nvidia": "NVIDIA 产品库",
+    "mesErrorCodeList": "MES 错误代码列表",
+    "apiRequestLog": "API 请求调用日志"
+  }
+}
+

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { LINES, PRODUCT_TYPES } from '../../data/autolineMockData';
 import DateTimeFilterGroup from './DateTimeFilterGroup';
@@ -18,6 +19,7 @@ export default function AutolineFilterDrawer({
   onApplyFilter,
   onResetFilter,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -66,9 +68,9 @@ export default function AutolineFilterDrawer({
             </span>
             <div>
               <h2 className={`text-sm font-black uppercase tracking-wide ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>
-                BỘ LỌC CHUYỀN THÔNG MINH
+                {t('management.filterDrawer.title')}
               </h2>
-              <p className={`text-[10px] ${isFoxconn ? 'text-slate-400' : 'text-white'}`}>Cập nhật đồng bộ toàn bộ số liệu trang</p>
+              <p className={`text-[10px] ${isFoxconn ? 'text-slate-400' : 'text-white'}`}>{t('management.filterDrawer.subtitle')}</p>
             </div>
           </div>
 
@@ -80,7 +82,7 @@ export default function AutolineFilterDrawer({
                 ? 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200 hover:border-rose-200'
                 : 'bg-zinc-800/90 hover:bg-rose-950/60 text-zinc-300 hover:text-rose-400 border-zinc-700 hover:border-rose-500/50'
             }`}
-            title="Đóng bộ lọc (ESC)"
+            title={t('management.filterDrawer.closeTooltip')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
@@ -101,15 +103,15 @@ export default function AutolineFilterDrawer({
           {/* Tiêu chí 2: Tên Sản Phẩm (Nhập Text) */}
           <div className={`p-4 rounded-2xl border ${isFoxconn ? 'bg-slate-50 border-slate-200' : 'bg-zinc-900/60 border-zinc-800'}`}>
             <label className={`block text-xs font-bold uppercase tracking-wider mb-1.5 ${isFoxconn ? 'text-slate-700' : 'text-white'}`}>
-              1. Tên Sản Phẩm (Nhập Text)
+              {t('management.filterDrawer.productNameSection')}
             </label>
             <p className={`text-[11px] mb-2 ${isFoxconn ? 'text-slate-400' : 'text-white'}`}>
-              Nhập tên hoặc mã model linh kiện để lọc chuyền
+              {t('management.filterDrawer.productNameDesc')}
             </p>
             <div className="relative">
               <input
                 type="text"
-                placeholder="Nhập tên sản phẩm (vd: H100, B200, GB200, NVLink...)"
+                placeholder={t('management.filterDrawer.productNamePlaceholder')}
                 value={draftFilter.productName || ''}
                 onChange={(e) => handleUpdateDraft({ productName: e.target.value })}
                 className={`w-full text-xs font-semibold px-3 py-2.5 rounded-xl border focus:outline-none transition-all ${
@@ -123,7 +125,7 @@ export default function AutolineFilterDrawer({
                   type="button"
                   onClick={() => handleUpdateDraft({ productName: '' })}
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600 dark:text-zinc-400 dark:hover:text-white cursor-pointer"
-                  title="Xóa chữ"
+                  title={t('management.filterDrawer.clearTextTooltip')}
                 >
                   ✕
                 </button>
@@ -134,7 +136,7 @@ export default function AutolineFilterDrawer({
           {/* Tiêu chí 3: Tên Chuyền (Line Name) */}
           <div className={`p-4 rounded-2xl border ${isFoxconn ? 'bg-slate-50 border-slate-200' : 'bg-zinc-900/60 border-zinc-800'}`}>
             <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isFoxconn ? 'text-slate-700' : 'text-white'}`}>
-              2. Tên Chuyền Sản Xuất
+              {t('management.filterDrawer.lineNameSection')}
             </label>
             <select
               value={draftFilter.lineId}
@@ -156,7 +158,7 @@ export default function AutolineFilterDrawer({
           {/* Tiêu chí 4: Loại Sản Phẩm (Product Type) */}
           <div className={`p-4 rounded-2xl border ${isFoxconn ? 'bg-slate-50 border-slate-200' : 'bg-zinc-900/60 border-zinc-800'}`}>
             <label className={`block text-xs font-bold uppercase tracking-wider mb-2 ${isFoxconn ? 'text-slate-700' : 'text-white'}`}>
-              3. Loại Sản Phẩm
+              {t('management.filterDrawer.productTypeSection')}
             </label>
             <select
               value={draftFilter.productTypeId}
@@ -169,7 +171,7 @@ export default function AutolineFilterDrawer({
             >
               {PRODUCT_TYPES.map((type) => (
                 <option key={type.id} value={type.id} className="text-black">
-                  {type.name}
+                  {type.id === 'all' ? t('management.filterDrawer.allProductTypes') : type.name}
                 </option>
               ))}
             </select>
@@ -187,7 +189,7 @@ export default function AutolineFilterDrawer({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-white border-zinc-700'
             }`}
           >
-            Đặt Lại Mặc Định
+            {t('management.filterDrawer.btnReset')}
           </button>
 
           <button
@@ -199,7 +201,7 @@ export default function AutolineFilterDrawer({
                 : 'bg-[#76B900] hover:bg-[#86d400] text-black shadow-[#76B900]/25'
             }`}
           >
-            Áp Dụng Bộ Lọc
+            {t('management.filterDrawer.btnApply')}
           </button>
         </div>
       </div>

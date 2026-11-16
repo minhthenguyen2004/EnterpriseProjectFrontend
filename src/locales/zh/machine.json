@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "机台设备配置 (MACHINE CONFIGURATION)",
+    "badge": "MASTER CONFIG",
+    "description": "统一管控 Foxconn 与 NVIDIA 智能工厂各车间自动化设备。同步网络 IP、计算机名、产线映射、工位代码以及质量控制流程。",
+    "breadcrumbConfig": "系统配置",
+    "breadcrumbMachineConfig": "机台配置"
+  },
+  "toolbar": {
+    "searchPlaceholder": "按机台名称、IP、主机名、工位代码、产品系列检索...",
+    "btnImport": "导入 Excel 文件",
+    "btnExport": "导出 CSV 报表",
+    "btnCreate": "新增机台设备"
+  },
+  "table": {
+    "cols": {
+      "no": "序号",
+      "machineName": "机台名称 (MACHINE NAME)",
+      "ip": "IP / HOSTNAME",
+      "product": "产品系列 (PRODUCT)",
+      "line": "生产线 (LINE)",
+      "station": "所属工位 (STATION)",
+      "status": "运行状态",
+      "actions": "操作"
+    },
+    "actions": {
+      "detail": "详情",
+      "edit": "编辑",
+      "delete": "删除"
+    }
+  },
+  "toast": {
+    "createSuccess": "已成功新增设备 [{{name}}]！",
+    "updateSuccess": "已成功更新设备 [{{name}}] 配置！",
+    "deleteSuccess": "已从系统中删除机台 [{{name}}]！",
+    "importSuccess": "已成功从 Excel 文件导入 {{count}} 台设备！"
+  }
+}
+

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { getAutolineData, LINES, PRODUCT_TYPES } from '../data/autolineMockData';
 
 const DEFAULT_FILTER = {
@@ -11,6 +12,7 @@ const DEFAULT_FILTER = {
 };
 
 export function useAutolineData() {
+  const { t } = useTranslation('autoline');
   const [filter, setFilter] = useState(DEFAULT_FILTER);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
   const [isAutoRefresh, setIsAutoRefresh] = useState(true);
@@ -63,28 +65,40 @@ export function useAutolineData() {
     const chips = [];
     const currentLine = LINES.find((l) => l.id === filter.lineId);
     if (currentLine) {
-      chips.push({ key: 'lineId', label: `Chuyền: ${currentLine.name.split(' - ')[0]}` });
+      chips.push({
+        key: 'lineId',
+        label: `${t('management.activeChips.linePrefix')} ${currentLine.name.split(' - ')[0]}`,
+      });
     }
 
     if (filter.productTypeId !== 'all') {
       const currentType = PRODUCT_TYPES.find((t) => t.id === filter.productTypeId);
       if (currentType) {
-        chips.push({ key: 'productTypeId', label: `Loại: ${currentType.name}` });
+        chips.push({
+          key: 'productTypeId',
+          label: `${t('management.activeChips.typePrefix')} ${currentType.name}`,
+        });
       }
     }
 
     if (filter.productName && filter.productName.trim() !== '') {
-      chips.push({ key: 'productName', label: `SP: ${filter.productName.trim()}` });
+      chips.push({
+        key: 'productName',
+        label: `${t('management.activeChips.productPrefix')} ${filter.productName.trim()}`,
+      });
     }
 
     if (filter.enableDateTime) {
       const start = filter.startDate?.replace('T', ' ') || '';
       const end = filter.endDate?.replace('T', ' ') || '';
-      chips.push({ key: 'dateTime', label: `Thời gian: ${start} → ${end}` });
+      chips.push({
+        key: 'dateTime',
+        label: `${t('management.activeChips.timePrefix')} ${start} → ${end}`,
+      });
     }
 
     return chips;
-  }, [filter]);
+  }, [filter, t]);
 
   const removeFilterKey = useCallback((key) => {
     setFilter((prev) => {

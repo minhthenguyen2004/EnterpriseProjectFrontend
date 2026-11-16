@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { SAMPLE_SERIAL_NUMBERS, INITIAL_PRODUCT_MODELS } from '../../mock/productNvidiaMockData';
 
@@ -7,6 +8,7 @@ export default function SearchSerialNumberModal({
   onClose,
   onFilterByModel,
 }) {
+  const { t } = useTranslation('product');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -95,9 +97,9 @@ export default function SearchSerialNumberModal({
               </svg>
             </div>
             <div>
-              <h3 className="text-base font-bold">Tìm Bằng Serial Number</h3>
+              <h3 className="text-base font-bold">{t('searchSN.title')}</h3>
               <p className="text-xs text-slate-400">
-                Quét mã vạch hoặc nhập số Serial của thiết bị để tra cứu Model
+                {t('searchSN.desc')}
               </p>
             </div>
           </div>
@@ -117,7 +119,7 @@ export default function SearchSerialNumberModal({
           {/* Input Box */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider mb-1.5 opacity-80">
-              Nhập hoặc Quét Serial Number (SN)
+              {t('searchSN.placeholder')}
             </label>
             <div className="relative">
               <input
@@ -134,8 +136,8 @@ export default function SearchSerialNumberModal({
                 }}
                 className={`w-full pl-10 pr-24 py-2.5 text-sm rounded-xl border font-mono transition-colors outline-hidden ${
                   isFoxconn
-                    ? 'bg-slate-50 border-slate-300 text-slate-800 focus:border-blue-500 focus:bg-white'
-                    : 'bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+                    ? 'bg-slate-50 border-slate-300 text-slate-800'
+                    : 'bg-zinc-800 border-zinc-700 text-zinc-100'
                 }`}
               />
               <svg
@@ -160,7 +162,7 @@ export default function SearchSerialNumberModal({
                     : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
                 }`}
               >
-                Tra cứu
+                {t('searchSN.btnSearch')}
               </button>
             </div>
             <p className="text-[11px] text-slate-400 mt-1">
@@ -171,7 +173,7 @@ export default function SearchSerialNumberModal({
           {/* Quick Click Samples */}
           <div>
             <span className="text-[11px] font-semibold text-slate-400 block mb-1.5">
-              Mẫu Serial thử nghiệm nhanh:
+              {t('searchSN.sampleTitle')}
             </span>
             <div className="flex flex-wrap gap-1.5">
               {SAMPLE_SERIAL_NUMBERS.slice(0, 4).map((s) => (
@@ -205,7 +207,7 @@ export default function SearchSerialNumberModal({
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <div className="text-[11px] uppercase tracking-wider font-extrabold text-emerald-600 dark:text-[#76B900] mb-1">
-                        ✓ Đã xác định Model sản phẩm
+                        {t('searchSN.foundTitle')}
                       </div>
                       <div className="text-base font-bold font-mono">
                         Model: {searchResult.model}
@@ -226,7 +228,7 @@ export default function SearchSerialNumberModal({
                           : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
                       }`}
                     >
-                      Lọc trong bảng dữ liệu
+                      {t('searchSN.applyFilter')}
                     </button>
                   </div>
                 </div>
@@ -238,8 +240,7 @@ export default function SearchSerialNumberModal({
                       : 'bg-amber-950/30 border-amber-800/80 text-amber-200'
                   }`}
                 >
-                  Không tìm thấy Model nào tương ứng với số Serial: <strong>{serialInput}</strong>.
-                  Vui lòng kiểm tra lại mã hoặc tạo mới model.
+                  {t('searchSN.notFound', { sn: serialInput })}
                 </div>
               )}
             </div>
@@ -257,7 +258,7 @@ export default function SearchSerialNumberModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('searchSN.close')}
           </button>
         </div>
       </div>

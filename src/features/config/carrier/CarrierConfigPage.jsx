@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useCarrierData from './hooks/useCarrierData';
@@ -18,6 +19,7 @@ import CarrierLockActionModal from './components/modals/CarrierLockActionModal';
  * - Modals: Chi tiết khay, Nghiệm thu kiểm định dung sai, Khóa/Mở khóa khay
  */
 export default function CarrierConfigPage() {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -91,25 +93,25 @@ export default function CarrierConfigPage() {
   // Làm mới dữ liệu kèm thông báo toast
   const handleRefresh = () => {
     refreshData();
-    showToast('Dữ liệu trạng thái khay chứa đã được làm mới tức thời');
+    showToast(t('config.toast.refresh'));
   };
 
   // Thao tác Khóa
   const handleConfirmLock = (carrierId, reason) => {
     lockCarrier(carrierId, reason);
-    showToast(`Đã cưỡng bức khóa khay [${carrierId}] và cách ly khỏi chuyền`);
+    showToast(t('config.toast.lock', { id: carrierId }));
   };
 
   // Thao tác Mở khóa
   const handleConfirmUnlock = (carrierId) => {
     unlockCarrier(carrierId);
-    showToast(`Đã mở khóa khay [${carrierId}] thành công. Khay sẵn sàng hoạt động`);
+    showToast(t('config.toast.unlock', { id: carrierId }));
   };
 
   // Thao tác Kiểm định
   const handleConfirmInspect = (carrierId, inspectionData) => {
     inspectCarrier(carrierId, inspectionData);
-    showToast(`Đã ghi nhận kiểm định thành công cho khay [${carrierId}]`);
+    showToast(t('config.toast.inspect', { id: carrierId }));
   };
 
   return (
@@ -137,13 +139,13 @@ export default function CarrierConfigPage() {
       {/* Header Bar Chuẩn Mực của Hệ Thống - Tích hợp Nút Refresh trên đầu trang */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'CONFIG', isCurrent: false },
-          { label: 'CARRIER CONFIG', isCurrent: true },
+          { label: t('config.breadcrumbConfig'), isCurrent: false },
+          { label: t('config.breadcrumbCarrierConfig'), isCurrent: true },
         ]}
-        title="CARRIER CONFIGURATION"
-        badge="MASTER CARRIER"
+        title={t('config.headerTitle')}
+        badge={t('config.headerBadge')}
         badgeType="brand"
-        description="Giám sát thời gian thực tuổi thọ, hao mòn cơ học, hạn kiểm định và cấu hình định mức cho toàn bộ khay chứa hệ thống AutoLine Foxconn / NVIDIA."
+        description={t('config.headerDesc')}
         lastUpdated={lastUpdated}
         isRefreshing={isRefreshing}
         onRefresh={handleRefresh}

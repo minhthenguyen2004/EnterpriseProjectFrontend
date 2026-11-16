@@ -1,0 +1,39 @@
+{
+  "header": {
+    "title": "MACHINE CONFIGURATION",
+    "badge": "MASTER CONFIG",
+    "description": "Manage automation machines across Foxconn & NVIDIA smart factories. Synchronize IP, Hostname, production line mapping, station codes, and QA/QC inspection rules.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbMachineConfig": "MACHINE CONFIGURATION"
+  },
+  "toolbar": {
+    "searchPlaceholder": "Search by machine name, IP, hostname, station code, product line...",
+    "btnImport": "Import Excel",
+    "btnExport": "Export CSV",
+    "btnCreate": "Add New Machine"
+  },
+  "table": {
+    "cols": {
+      "no": "#",
+      "machineName": "MACHINE NAME",
+      "ip": "IP / HOSTNAME",
+      "product": "PRODUCT LINE",
+      "line": "PRODUCTION LINE",
+      "station": "STATION",
+      "status": "STATUS",
+      "actions": "ACTIONS"
+    },
+    "actions": {
+      "detail": "Detail",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "toast": {
+    "createSuccess": "Successfully added machine [{{name}}]!",
+    "updateSuccess": "Successfully updated machine [{{name}}]!",
+    "deleteSuccess": "Deleted machine [{{name}}] from system!",
+    "importSuccess": "Successfully imported {{count}} machines from Excel file!"
+  }
+}
+

@@ -1,0 +1,26 @@
+{
+  "groups": {
+    "automation": "AUTOMATION MANAGEMENT",
+    "config": "CONFIG",
+    "mes_error": "MES ERROR",
+    "api_request": "API MANAGEMENT"
+  },
+  "items": {
+    "autolineManagement": "AUTOLINE MANAGEMENT",
+    "machineStatus": "MACHINE STATUS",
+    "rack": "RACK",
+    "rackConfig": "RACK CONFIG",
+    "rackOverview": "RACK OVERVIEW CONFIG",
+    "carrierConfig": "CARRIER CONFIG",
+    "machineConfig": "MACHINE CONFIG",
+    "automationLineControl": "AUTOMATION LINE CONTROL",
+    "stationLayoutControl": "STATION LAYOUT CONTROL",
+    "unlockCarrier": "UNLOCK CARRIER",
+    "autolineOperations": "AUTOLINE OPERATIONS",
+    "product": "PRODUCT",
+    "nvidia": "NVIDIA",
+    "mesErrorCodeList": "MES ERROR CODE LIST",
+    "apiRequestLog": "API REQUEST LOG"
+  }
+}
+

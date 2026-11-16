@@ -1,0 +1,51 @@
+{
+  "config": {
+    "headerTitle": "CARRIER CONFIGURATION & MONITORING",
+    "headerBadge": "MASTER CARRIER",
+    "headerDesc": "Real-time monitoring of carrier lifespan, mechanical wear, calibration deadlines, and lifecycle thresholds for Foxconn / NVIDIA AutoLine system.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbCarrierConfig": "CARRIER CONFIG",
+    "tabs": {
+      "realtime": "Real-time Monitoring",
+      "lifecycle": "Lifecycle & Type Configuration"
+    },
+    "kpi": {
+      "total": "Total Carriers",
+      "running": "Active on Line",
+      "warning": "Expiring Soon",
+      "locked": "Locked / Expired",
+      "maintenance": "Under Inspection"
+    },
+    "toast": {
+      "refresh": "Carrier status data has been refreshed instantly",
+      "lock": "Forcefully locked carrier [{{id}}] and isolated from line",
+      "unlock": "Successfully unlocked carrier [{{id}}]. Ready for production",
+      "inspect": "Successfully logged inspection result for carrier [{{id}}]"
+    }
+  },
+  "unlock": {
+    "headerTitle": "UNLOCK CARRIER",
+    "headerBadge": "JIG UNLOCK",
+    "headerDesc": "Query, verify error interlocks and unlock carriers/fixtures on the AutoLine automated production lines.",
+    "breadcrumbConfig": "CONFIG",
+    "breadcrumbCarrier": "CARRIER",
+    "breadcrumbUnlock": "UNLOCK CARRIER",
+    "tabs": {
+      "single": "Single Carrier Scan",
+      "wholeLine": "Unlock Entire Line",
+      "batch": "Batch Codes Input"
+    },
+    "general": {
+      "title": "Approval Information & Unlock Reason",
+      "reasonLabel": "Unlock Reason",
+      "approverLabel": "Approver",
+      "resetCycleLabel": "Reset Cycle Count"
+    },
+    "historyTitle": "Recent Unlock History",
+    "toast": {
+      "unlockSuccess": "Successfully unlocked carrier [{{id}}]!",
+      "batchSuccess": "Successfully unlocked {{count}} carriers!"
+    }
+  }
+}
+

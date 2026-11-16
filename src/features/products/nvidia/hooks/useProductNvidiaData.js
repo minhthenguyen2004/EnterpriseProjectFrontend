@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
+import i18n from '../../../../locales/i18n';
 import { INITIAL_PRODUCT_MODELS, SAMPLE_SERIAL_NUMBERS } from '../mock/productNvidiaMockData';
 
 export function useProductNvidiaData() {
@@ -194,7 +195,7 @@ export function useProductNvidiaData() {
           updatedAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
         };
         setProductsList((prev) => [newItem, ...prev]);
-        showToast(`Đã thêm mới model "${newItem.model}" thành công!`, 'success');
+        showToast(i18n.t('product:toast.addSuccess', { model: newItem.model }), 'success');
       } else {
         setProductsList((prev) =>
           prev.map((item) =>
@@ -207,7 +208,7 @@ export function useProductNvidiaData() {
               : item
           )
         );
-        showToast(`Đã cập nhật model "${productData.model}" thành công!`, 'success');
+        showToast(i18n.t('product:toast.editSuccess', { model: productData.model }), 'success');
       }
       handleCloseAddEditModal();
     },
@@ -233,7 +234,7 @@ export function useProductNvidiaData() {
     const targetId = deleteModal.item.id;
     const targetModel = deleteModal.item.model;
     setProductsList((prev) => prev.filter((p) => p.id !== targetId));
-    showToast(`Đã xóa model "${targetModel}" khỏi hệ thống!`, 'info');
+    showToast(i18n.t('product:toast.deleteSuccess', { model: targetModel }), 'info');
     handleCloseDeleteModal();
   }, [deleteModal.item, showToast, handleCloseDeleteModal]);
 
@@ -256,7 +257,7 @@ export function useProductNvidiaData() {
         updatedAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
       }));
       setProductsList((prev) => [...newItems, ...prev]);
-      showToast(`Đã import thành công ${newItems.length} model vào hệ thống!`, 'success');
+      showToast(i18n.t('product:toast.importSuccess', { count: newItems.length }), 'success');
       handleCloseImportModal();
     },
     [productsList, showToast, handleCloseImportModal]
@@ -303,9 +304,9 @@ export function useProductNvidiaData() {
           model: [targetModel],
         }));
         setCurrentPage(1);
-        showToast(`Tìm thấy Model: "${targetModel}" từ SN: ${searchTarget}`, 'success');
+        showToast(i18n.t('product:toast.snFound', { model: targetModel, sn: searchTarget }), 'success');
       } else {
-        showToast(`Không tìm thấy Model nào khớp với SN: "${searchTarget}"`, 'error');
+        showToast(i18n.t('product:toast.snNotFound', { sn: searchTarget }), 'error');
       }
     },
     [serialSearchInput, productsList, showToast]
@@ -336,7 +337,7 @@ export function useProductNvidiaData() {
       }));
       setCurrentPage(1);
       handleCloseSearchSNModal();
-      showToast(`Đang lọc bảng theo Model: ${foundModel}`, 'info');
+      showToast(i18n.t('product:toast.filteringBy', { model: foundModel }), 'info');
     },
     [handleCloseSearchSNModal, showToast]
   );

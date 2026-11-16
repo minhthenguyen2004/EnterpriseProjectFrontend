@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { getMachineModalData } from '../../data/machineModalMockData';
 import MachineInfoCard from './left_column/MachineInfoCard';
@@ -10,6 +11,7 @@ import MachineDetailTabsContainer from './right_tabs/MachineDetailTabsContainer'
 import MachineStatusBadge from '../machine_flow/MachineStatusBadge';
 
 export default function MachineDetailModal({ machine, onClose }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -119,7 +121,7 @@ export default function MachineDetailModal({ machine, onClose }) {
                   ? 'hover:bg-slate-100 text-slate-600'
                   : 'hover:bg-zinc-800 text-zinc-300'
               }`}
-              title={isFullscreen ? 'Thu nhỏ' : 'Toàn màn hình'}
+              title={isFullscreen ? t('management.machineModal.shrinkTitle') : t('management.machineModal.fullscreenTitle')}
             >
               {isFullscreen ? '🗗' : '🗖'}
             </button>
@@ -132,9 +134,9 @@ export default function MachineDetailModal({ machine, onClose }) {
                   ? 'bg-slate-200 hover:bg-slate-300 text-slate-700'
                   : 'bg-zinc-800 hover:bg-zinc-700 text-white'
               }`}
-              title="Đóng cửa sổ (ESC)"
+              title={t('management.machineModal.closeTooltip')}
             >
-              ✕ Đóng
+              {t('management.machineModal.closeBtn')}
             </button>
           </div>
         </div>

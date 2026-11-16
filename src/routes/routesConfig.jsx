@@ -16,6 +16,7 @@ const StationLayoutControlPage = lazy(() => import('../features/config/station-l
 const UnlockCarrierPage = lazy(() => import('../features/config/carrier/components/unlock_carrier/UnlockCarrierPage'));
 const AutolineOperationsPage = lazy(() => import('../features/config/autoline_operations/AutolineOperationsPage'));
 const ProductNvidiaPage = lazy(() => import('../features/products/nvidia/ProductNvidiaPage'));
+const MesErrorCodeListPage = lazy(() => import('../features/config/mes_error_code/MesErrorCodeListPage'));
 
 // API MANAGEMENT routes
 const ApiRequestHistoryPage = lazy(() => import('../features/api_management/api_request_history/ApiRequestHistoryPage'));
@@ -110,6 +111,24 @@ export const protectedRoutes = [
   {
     path: '/products/nvidia',
     element: <ProductNvidiaPage />,
+  },
+
+  // Nhóm MES ERROR CODE LIST routes
+  {
+    path: '/config/mes-error-code',
+    element: <MesErrorCodeListPage />,
+  },
+  {
+    path: '/config/error-codes',
+    element: <Navigate to="/config/mes-error-code" replace />,
+  },
+  {
+    path: '/mes-error/code-list',
+    element: <MesErrorCodeListPage />,
+  },
+  {
+    path: '/mes-error',
+    element: <Navigate to="/config/mes-error-code" replace />,
   },
 
   // Nhóm API MANAGEMENT routes

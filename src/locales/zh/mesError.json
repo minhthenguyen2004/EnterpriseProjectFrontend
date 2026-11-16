@@ -1,0 +1,83 @@
+{
+  "header": {
+    "title": "MES 错误代码列表",
+    "badge": "现场故障字典",
+    "description": "MES 系统错误代码主目录管理、技术归属部门分类、国际双语告警通知与标准化排障作业规程 (SOP)。"
+  },
+  "search": {
+    "placeholder": "按错误代码 (ERR_...)、中英文或越南文描述搜索...",
+    "btnSearch": "查询",
+    "btnAdd": "新增代码",
+    "addTooltipDisabled": "该功能仅限系统管理员 (Admin) 或部门主管 (Manager) 操作"
+  },
+  "table": {
+    "headerTitle": "MES 生产错误代码目录",
+    "hint": "💡 提示: 单击代码查看详情 • 右键点击数据行可进行 编辑 / 删除",
+    "colNo": "序号",
+    "colErrorCode": "错误代码 (ERROR CODE)",
+    "colOwner": "责任部门 (OWNER)",
+    "colMessageEn": "英文报错信息 (MESSAGE EN)",
+    "emptyTitle": "未找到匹配的错误代码",
+    "emptyDesc": "请尝试输入其他关键词或清除查询条件。",
+    "btnClearFilter": "清空搜索条件"
+  },
+  "contextMenu": {
+    "codeLabel": "代码: ",
+    "edit": "编辑错误代码",
+    "delete": "删除错误代码",
+    "permissionWarning": "⚠️ 仅限管理员 / 部门主管操作",
+    "editTooltipDisabled": "需要管理员或主管权限方可编辑",
+    "deleteTooltipDisabled": "需要管理员或主管权限方可删除"
+  },
+  "detail": {
+    "title": "MES 错误代码详情与排障作业指导 (SOP)",
+    "ownerLabel": "🏢 责任归属部门 (Owner)",
+    "stationsLabel": "⚙️ 适用机台工位 (Applicable Stations)",
+    "msgEnLabel": "🌐 英文系统消息 (Message EN)",
+    "msgViLabel": "🇻🇳 越南语释义消息 (Message VI)",
+    "sopLabel": "🛠️ 标准排障处置指引 (Troubleshooting SOP)",
+    "lastUpdated": "最后更新时间:",
+    "updatedBy": "更新人员:",
+    "btnEditThis": "编辑此项错误代码",
+    "btnClose": "关闭"
+  },
+  "addEdit": {
+    "addTitle": "新增 MES 错误代码",
+    "editTitle": "编辑 MES 错误代码",
+    "addSubtitle": "向系统知识库注册新的异常代码",
+    "editSubtitle": "更新错误代码信息: {{code}}",
+    "errorCodeLabel": "错误代码 (Error Code)",
+    "errorCodePlaceholder": "例如: ERR_SFC_CARRIER_LOCKED",
+    "severityLabel": "严重级别",
+    "ownerLabel": "责任部门 (Owner)",
+    "stationsLabel": "适用工位 (英文逗号分隔)",
+    "stationsPlaceholder": "例如: SMT_01, AOI_02, ALL_STATIONS",
+    "msgEnLabel": "英文报错消息 (Message EN)",
+    "msgEnPlaceholder": "输入机台和工位界面的标准英文报错提示...",
+    "msgViLabel": "越南语对照描述 (Message VI)",
+    "msgViPlaceholder": "为现场工程师与作业员输入越南语译文...",
+    "sopLabel": "排障指引 (Troubleshooting SOP)",
+    "sopPlaceholder": "输入具体步骤: 1. 检查... 2. 更换... 3. 确认...",
+    "btnCancel": "取消",
+    "btnSaveAdd": "确认创建",
+    "btnSaveEdit": "保存更新"
+  },
+  "delete": {
+    "title": "确认删除 MES 错误代码",
+    "warningDesc": "此操作将从 MES 字典中永久移除此代码。自动化机台和 SFC 工位将无法再检索此代码的 SOP 排障指引。",
+    "codeLabel": "错误代码: ",
+    "ownerLabel": "责任部门: ",
+    "confirmQuestion": "您确定要继续删除此错误代码吗？",
+    "btnCancel": "取消",
+    "btnConfirmDelete": "确认删除"
+  },
+  "toast": {
+    "addSuccess": "已成功新增错误代码 [{{code}}]！",
+    "editSuccess": "已成功更新错误代码 [{{code}}] 信息！",
+    "deleteSuccess": "已从系统中删除错误代码 [{{code}}]！",
+    "addDenied": "仅具备 Admin 或 Manager 权限的用户方可新增代码！",
+    "editDenied": "仅具备 Admin 或 Manager 权限的用户方可编辑代码！",
+    "deleteDenied": "仅具备 Admin 或 Manager 权限的用户方可删除代码！",
+    "resetSuccess": "已恢复默认的 20 条 MES 错误代码列表！"
+  }
+}

@@ -1,7 +1,9 @@
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, ReferenceLine, CartesianGrid } from 'recharts';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function MachineHourlyYieldChart({ data = [] }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -17,19 +19,20 @@ export default function MachineHourlyYieldChart({ data = [] }) {
           }`}
         >
           <div className={`font-bold text-xs pb-1 mb-1.5 border-b border-slate-200 dark:border-zinc-800 ${isFoxconn ? 'text-slate-800' : 'text-zinc-400'}`}>
-            Khung giờ: <span className="text-white font-black">{d.hour}</span>
+            {t('management.analytics.tooltipHour')}{' '}
+            <span className="text-white font-black">{d.hour}</span>
           </div>
           <div className="space-y-1 font-bold">
             <div className="flex justify-between gap-4">
-              <span className="text-emerald-500 font-semibold">Pass Qty:</span>
+              <span className="text-emerald-500 font-semibold">{t('management.machineModal.passQty')}</span>
               <span className="font-black text-emerald-500">{d.passQty} pcs</span>
             </div>
             <div className="flex justify-between gap-4">
-              <span className="text-rose-500 font-semibold">Fail Qty:</span>
+              <span className="text-rose-500 font-semibold">{t('management.machineModal.failQty')}</span>
               <span className="font-black text-rose-500">{d.failQty} pcs</span>
             </div>
             <div className="flex justify-between gap-4 pt-1 border-t border-slate-100 dark:border-zinc-800">
-              <span className="font-semibold">Yield Rate:</span>
+              <span className="font-semibold">{t('management.machineModal.yieldRate')}</span>
               <span className={`font-black ${isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}`}>
                 {d.yieldRate}%
               </span>
@@ -61,7 +64,7 @@ export default function MachineHourlyYieldChart({ data = [] }) {
               isFoxconn ? 'text-slate-700' : 'text-white'
             }`}
           >
-            Machine Yield Rate & Output
+            {t('management.machineModal.hourlyYieldTitle')}
           </h4>
         </div>
         <span
@@ -69,7 +72,7 @@ export default function MachineHourlyYieldChart({ data = [] }) {
             isFoxconn ? 'bg-emerald-50 text-emerald-700' : 'bg-[#76B900]/15 text-[#76B900]'
           }`}
         >
-          Scale: 0 - 100%
+          {t('management.machineModal.scaleBadge')}
         </span>
       </div>
 
@@ -111,7 +114,7 @@ export default function MachineHourlyYieldChart({ data = [] }) {
               stroke="#ef4444"
               strokeDasharray="3 3"
               label={{
-                value: 'Target: 98%',
+                value: t('management.machineModal.target98'),
                 position: 'insideTopRight',
                 fill: '#ef4444',
                 fontSize: 9,

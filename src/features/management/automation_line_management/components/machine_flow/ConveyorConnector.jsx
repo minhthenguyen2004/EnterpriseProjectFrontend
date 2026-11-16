@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function ConveyorConnector({ isActive = true }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -13,7 +15,7 @@ export default function ConveyorConnector({ isActive = true }) {
             ? 'bg-white border-blue-200 text-blue-700 shadow-xs'
             : 'bg-zinc-900 border-[#76B900]/40 text-[#76B900] shadow-[0_0_8px_rgba(118,185,0,0.2)]'
         }`}
-        title="Băng tải chuyển phôi tự động (Conveyor Flow)"
+        title={t('management.machineFlow.conveyorTooltip')}
       >
         <svg
           className={`w-3 h-3 ${isActive ? 'animate-pulse' : ''}`}

@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { MACHINE_STATUS } from '../../constants/autolineConstants';
 import MachineStatusBadge from './MachineStatusBadge';
 import MachineMetricsBlock from './MachineMetricsBlock';
 
 export default function MachineCard({ machine, index, onSelect }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -28,7 +30,7 @@ export default function MachineCard({ machine, index, onSelect }) {
               : 'bg-zinc-900/90 border-zinc-800 hover:border-[#76B900]/60 hover:shadow-[0_0_12px_rgba(118,185,0,0.2)] text-white'
       }`}
       onClick={() => onSelect && onSelect(machine)}
-      title="Nhấp để xem chi tiết cảm biến trạm"
+      title={t('management.machineFlow.cardClickTooltip')}
     >
       <div>
         {/* Header Thẻ Máy: Số trạm & Badge Trạng thái */}

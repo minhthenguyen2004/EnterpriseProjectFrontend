@@ -1,16 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import PageHeaderBar from '../../../../../components/common/PageHeaderBar';
 
 export default function MachineConfigHeaderBar() {
+  const { t } = useTranslation('machine');
+
   return (
     <PageHeaderBar
       breadcrumbs={[
-        { label: 'CONFIG', isCurrent: false },
-        { label: 'MACHINE CONFIGURATION', isCurrent: true }
+        { label: t('header.breadcrumbConfig'), isCurrent: false },
+        { label: t('header.breadcrumbMachineConfig'), isCurrent: true }
       ]}
-      title="CẤU HÌNH THIẾT BỊ MÁY MÓC"
-      badge="MASTER CONFIG"
+      title={t('header.title')}
+      badge={t('header.badge')}
       badgeType="brand"
-      description="Quản trị danh mục trạm máy tự động hóa toàn nhà máy Foxconn & NVIDIA. Đồng bộ tham số IP, Hostname, liên kết chuyền sản xuất, mã công đoạn và quy trình kiểm soát chất lượng."
+      description={t('header.description')}
       showFullscreen={true}
     />
   );

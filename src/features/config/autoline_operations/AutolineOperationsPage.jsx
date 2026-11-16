@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import PageHeaderBar from '../../../components/common/PageHeaderBar';
 import useAutolineOperations from './hooks/useAutolineOperations';
@@ -8,6 +9,7 @@ import StageDetailHistoryModal from './components/modals/StageDetailHistoryModal
 import ChangeCarrierModal from './components/modals/ChangeCarrierModal';
 
 export default function AutolineOperationsPage() {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -50,13 +52,13 @@ export default function AutolineOperationsPage() {
       {/* 1. Page Header Bar */}
       <PageHeaderBar
         breadcrumbs={[
-          { label: 'CONFIG', isCurrent: false },
-          { label: 'AUTOLINE OPERATIONS', isCurrent: true }
+          { label: t('operations.breadcrumbConfig'), isCurrent: false },
+          { label: t('operations.breadcrumbOperations'), isCurrent: true }
         ]}
-        title="AUTOLINE OPERATIONS"
-        badge="SHOPFLOOR CONTROL"
+        title={t('operations.headerTitle')}
+        badge={t('operations.headerBadge')}
         badgeType="brand"
-        description="Vận hành dây chuyền tự động, tra cứu lộ trình sản xuất (Routing) và thực hiện các thao tác can thiệp đặc biệt."
+        description={t('operations.headerDesc')}
         showFullscreen={true}
       />
 

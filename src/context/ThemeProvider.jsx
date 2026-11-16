@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ThemeContext } from './ThemeContext.js';
+import i18n from '../locales/i18n.js';
 
 export default function ThemeProvider({ children }) {
   
@@ -31,6 +32,9 @@ export default function ThemeProvider({ children }) {
 
   useEffect(() => {
     localStorage.setItem('app_lang', language);
+    if (i18n.language !== language) {
+      i18n.changeLanguage(language);
+    }
   }, [language]);
 
   return (

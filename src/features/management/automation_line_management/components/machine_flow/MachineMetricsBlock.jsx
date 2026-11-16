@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineMetricsBlock({ input = 0, output = 0, ngCount = 0, yieldRate }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -17,7 +19,7 @@ export default function MachineMetricsBlock({ input = 0, output = 0, ngCount = 0
           }`}
         >
           <span className={`text-[9px] font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-            INPUT
+            {t('management.machineFlow.inputLabel')}
           </span>
           <span className={`text-xs font-bold ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>
             {input.toLocaleString()}
@@ -33,7 +35,7 @@ export default function MachineMetricsBlock({ input = 0, output = 0, ngCount = 0
           }`}
         >
           <span className={`text-[9px] font-black uppercase tracking-wider ${isFoxconn ? 'text-emerald-600' : 'text-emerald-400'}`}>
-            OUTPUT
+            {t('management.machineFlow.outputLabel')}
           </span>
           <span className={`text-xs font-bold ${isFoxconn ? 'text-emerald-700' : 'text-white font-black'}`}>
             {output.toLocaleString()}
@@ -51,7 +53,7 @@ export default function MachineMetricsBlock({ input = 0, output = 0, ngCount = 0
       >
         {/* NG */}
         <div className={`flex items-center justify-between text-[10px] px-1 font-semibold ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-          <span>NG:</span>
+          <span>{t('management.machineFlow.ngLabel')}</span>
           <strong className={`font-bold ${ngCount > 0 ? 'text-rose-400' : isFoxconn ? 'text-slate-700' : 'text-white'}`}>
             {ngCount} pcs
           </strong>
@@ -60,7 +62,7 @@ export default function MachineMetricsBlock({ input = 0, output = 0, ngCount = 0
         {/* YIELD */}
         {yieldRate !== undefined && (
           <div className={`flex items-center justify-between text-[10px] px-1 font-semibold ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-            <span>Yield:</span>
+            <span>{t('management.machineFlow.yieldLabel')}</span>
             <strong className={`font-bold ${isFoxconn ? 'text-emerald-600' : 'text-[#76B900]'}`}>
               {yieldRate}%
             </strong>

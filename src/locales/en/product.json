@@ -1,0 +1,106 @@
+{
+  "header": {
+    "title": "NVIDIA PRODUCT MODEL CONFIGURATION",
+    "subtitle": "Manage NVIDIA Model & Product catalogs, lookup by Serial Number and batch import",
+    "breadcrumbConfig": "SYSTEM CONFIGURATION",
+    "breadcrumbProduct": "PRODUCT",
+    "breadcrumbNvidia": "NVIDIA"
+  },
+  "toolbar": {
+    "addModel": "Add product model",
+    "importFile": "Add/update product model by file",
+    "serialPlaceholder": "Scan or enter Serial Number (SN)...",
+    "clearSerialTitle": "Clear serial",
+    "searchBySN": "Search by serial number",
+    "activeFiltersLabel": "Active filters:",
+    "recordsCount": "(Showing {{shown}}/{{total}} records)",
+    "clearAllFilters": "Clear all filters"
+  },
+  "table": {
+    "colId": "ID",
+    "colModel": "MODEL",
+    "colProduct": "PRODUCT",
+    "colModelName": "MODEL NAME",
+    "colActions": "ACTIONS",
+    "emptyTitle": "No matching product models found",
+    "emptyDesc": "Please try adjusting or clearing your filter criteria above.",
+    "editTooltip": "Edit model",
+    "deleteTooltip": "Delete this model",
+    "btnEdit": "Edit",
+    "btnDelete": "Delete"
+  },
+  "popover": {
+    "filterBy": "Filter by {{title}}",
+    "sortAsc": "A → Z",
+    "sortDesc": "Z → A",
+    "sortAscTitle": "Sort ascending A-Z",
+    "sortDescTitle": "Sort descending Z-A",
+    "quickSearchPlaceholder": "Quick search {{title}}...",
+    "selectAll": "Select all ({{count}})",
+    "deselectAll": "Deselect all",
+    "noData": "No data found",
+    "clearFilter": "Clear filter",
+    "close": "Close"
+  },
+  "modal": {
+    "addTitle": "Add New Product Model",
+    "editTitle": "Edit Product Model",
+    "modalSubtitle": "Enter complete identification information for the Product Model",
+    "fieldCustomer": "Customer",
+    "fieldCustomerPlaceholder": "E.g.: NVIDIA, FOXCONN, MICROSOFT...",
+    "fieldModelSerial": "Model Serial",
+    "fieldModelSerialPlaceholder": "E.g.: GB200-NVL72 or B200-HGX-192GB...",
+    "fieldProductName": "Product Name",
+    "fieldProductNamePlaceholder": "E.g.: Blackwell GB200, B200 GPU Server...",
+    "fieldModelName": "Model Name",
+    "fieldModelNamePlaceholder": "E.g.: NVIDIA GB200 NVL72 Liquid-Cooled AI Server Rack System...",
+    "errorCustomer": "Please enter Customer name!",
+    "errorModelSerial": "Please enter Model Serial!",
+    "errorProductName": "Please enter Product Name!",
+    "errorModelName": "Please enter full Model Name!",
+    "btnCancel": "Cancel",
+    "btnCreate": "Create Model",
+    "btnSave": "Save Changes"
+  },
+  "delete": {
+    "title": "Confirm Delete Model",
+    "desc": "This action cannot be undone once confirmed.",
+    "question": "Are you sure you want to delete this product model from the database?",
+    "btnCancel": "Cancel",
+    "btnConfirm": "Confirm Delete"
+  },
+  "import": {
+    "title": "Add / Update Product Model by File",
+    "desc": "Supports Excel (.xlsx, .xls) or CSV file formats",
+    "dragDrop": "Drag & drop Excel / CSV file here or",
+    "selectFile": "Choose file from computer",
+    "loadedFile": "✓ Loaded file: {{name}} ({{size}} KB)",
+    "noTemplate": "Don't have standard template?",
+    "downloadTemplate": "Download template file (.csv)",
+    "previewTitle": "Extracted data preview ({{count}} rows):",
+    "btnCancel": "Close",
+    "btnConfirm": "Confirm Import ({{count}} models)",
+    "alertSelectFile": "Please select a template file or valid data file before importing!"
+  },
+  "searchSN": {
+    "title": "Search By Serial Number",
+    "desc": "Scan barcode or enter device Serial Number to lookup Model",
+    "placeholder": "Enter or scan Serial Number...",
+    "btnSearch": "Lookup",
+    "sampleTitle": "💡 Quick test sample Serial Numbers:",
+    "foundTitle": "Matched Model Result:",
+    "notFound": "No Model found matching Serial Number: \"{{sn}}\"",
+    "applyFilter": "Apply filter by this Model",
+    "close": "Close"
+  },
+  "toast": {
+    "addSuccess": "Successfully added model \"{{model}}\"!",
+    "editSuccess": "Successfully updated model \"{{model}}\"!",
+    "deleteSuccess": "Deleted model \"{{model}}\" from system!",
+    "importSuccess": "Successfully imported {{count}} models into system!",
+    "snFound": "Found Model: \"{{model}}\" from SN: {{sn}}",
+    "snNotFound": "No Model found matching SN: \"{{sn}}\"",
+    "filteringBy": "Filtering table by Model: {{model}}"
+  }
+}
+

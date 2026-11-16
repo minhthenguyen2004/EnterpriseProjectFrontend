@@ -1,0 +1,106 @@
+{
+  "header": {
+    "title": "CẤU HÌNH MODEL SẢN PHẨM NVIDIA",
+    "subtitle": "Quản lý danh mục Model & Dòng sản phẩm NVIDIA, tra cứu theo Serial Number và import hàng loạt",
+    "breadcrumbConfig": "CẤU HÌNH HỆ THỐNG",
+    "breadcrumbProduct": "PRODUCT",
+    "breadcrumbNvidia": "NVIDIA"
+  },
+  "toolbar": {
+    "addModel": "Thêm model sản phẩm",
+    "importFile": "Thêm/cập nhật model bằng file",
+    "serialPlaceholder": "Quét hoặc nhập Serial Number (SN)...",
+    "clearSerialTitle": "Xóa serial",
+    "searchBySN": "Tìm bằng serial number",
+    "activeFiltersLabel": "Đang áp dụng bộ lọc:",
+    "recordsCount": "(Hiển thị {{shown}}/{{total}} bản ghi)",
+    "clearAllFilters": "Xóa tất cả bộ lọc"
+  },
+  "table": {
+    "colId": "ID",
+    "colModel": "MODEL",
+    "colProduct": "PRODUCT",
+    "colModelName": "MODEL NAME",
+    "colActions": "THAO TÁC",
+    "emptyTitle": "Không tìm thấy model sản phẩm nào phù hợp",
+    "emptyDesc": "Vui lòng thử điều chỉnh hoặc xóa bớt các tiêu chí lọc bên trên.",
+    "editTooltip": "Chỉnh sửa model",
+    "deleteTooltip": "Xóa model này",
+    "btnEdit": "Sửa",
+    "btnDelete": "Xóa"
+  },
+  "popover": {
+    "filterBy": "Lọc theo {{title}}",
+    "sortAsc": "A → Z",
+    "sortDesc": "Z → A",
+    "sortAscTitle": "Sắp xếp tăng dần A-Z",
+    "sortDescTitle": "Sắp xếp giảm dần Z-A",
+    "quickSearchPlaceholder": "Tìm nhanh {{title}}...",
+    "selectAll": "Chọn tất cả ({{count}})",
+    "deselectAll": "Bỏ chọn tất cả",
+    "noData": "Không tìm thấy dữ liệu",
+    "clearFilter": "Xóa lọc",
+    "close": "Đóng"
+  },
+  "modal": {
+    "addTitle": "Thêm mới Product Model",
+    "editTitle": "Chỉnh sửa Product Model",
+    "modalSubtitle": "Nhập đầy đủ thông tin định danh cho Model sản phẩm",
+    "fieldCustomer": "Customer (Khách hàng)",
+    "fieldCustomerPlaceholder": "Ví dụ: NVIDIA, FOXCONN, MICROSOFT...",
+    "fieldModelSerial": "Model Serial (Mã Model)",
+    "fieldModelSerialPlaceholder": "Ví dụ: GB200-NVL72 hoặc B200-HGX-192GB...",
+    "fieldProductName": "Product Name (Tên dòng sản phẩm)",
+    "fieldProductNamePlaceholder": "Ví dụ: Blackwell GB200, B200 GPU Server...",
+    "fieldModelName": "Model Name (Tên đầy đủ của Model)",
+    "fieldModelNamePlaceholder": "Ví dụ: NVIDIA GB200 NVL72 Liquid-Cooled AI Server Rack System...",
+    "errorCustomer": "Vui lòng nhập thông tin Customer (Khách hàng)!",
+    "errorModelSerial": "Vui lòng nhập Model Serial!",
+    "errorProductName": "Vui lòng nhập Product Name (Tên dòng sản phẩm)!",
+    "errorModelName": "Vui lòng nhập Model Name (Tên đầy đủ của Model)!",
+    "btnCancel": "Hủy bỏ",
+    "btnCreate": "Tạo mới Model",
+    "btnSave": "Lưu cập nhật"
+  },
+  "delete": {
+    "title": "Xác Nhận Xóa Model",
+    "desc": "Hành động này không thể hoàn tác sau khi xác nhận.",
+    "question": "Bạn có chắc chắn muốn xóa model sản phẩm này khỏi cơ sở dữ liệu?",
+    "btnCancel": "Hủy bỏ",
+    "btnConfirm": "Xác nhận Xóa"
+  },
+  "import": {
+    "title": "Thêm / Cập Nhật Product Model Bằng File",
+    "desc": "Hỗ trợ tệp định dạng Excel (.xlsx, .xls) hoặc CSV",
+    "dragDrop": "Kéo & thả file Excel / CSV vào đây hoặc",
+    "selectFile": "Chọn tệp từ máy tính",
+    "loadedFile": "✓ Đã nạp file: {{name}} ({{size}} KB)",
+    "noTemplate": "Chưa có file mẫu chuẩn?",
+    "downloadTemplate": "Tải file mẫu template (.csv)",
+    "previewTitle": "Xem trước dữ liệu bóc tách ({{count}} dòng):",
+    "btnCancel": "Đóng",
+    "btnConfirm": "Xác nhận Import ({{count}} model)",
+    "alertSelectFile": "Vui lòng chọn file mẫu hoặc file dữ liệu hợp lệ trước khi Import!"
+  },
+  "searchSN": {
+    "title": "Tìm Bằng Serial Number",
+    "desc": "Quét mã vạch hoặc nhập số Serial của thiết bị để tra cứu Model",
+    "placeholder": "Nhập hoặc quét mã Serial Number...",
+    "btnSearch": "Tra Cứu",
+    "sampleTitle": "💡 Thử nhanh các số Serial Number mẫu:",
+    "foundTitle": "Kết Quả Tra Cứu Khớp Model:",
+    "notFound": "Không tìm thấy Model phù hợp với mã Serial: \"{{sn}}\"",
+    "applyFilter": "Áp dụng lọc theo Model này",
+    "close": "Đóng"
+  },
+  "toast": {
+    "addSuccess": "Đã thêm model \"{{model}}\" thành công!",
+    "editSuccess": "Đã cập nhật model \"{{model}}\" thành công!",
+    "deleteSuccess": "Đã xóa model \"{{model}}\" khỏi hệ thống!",
+    "importSuccess": "Đã import thành công {{count}} model vào hệ thống!",
+    "snFound": "Tìm thấy Model: \"{{model}}\" từ SN: {{sn}}",
+    "snNotFound": "Không tìm thấy Model nào khớp với SN: \"{{sn}}\"",
+    "filteringBy": "Đang lọc bảng theo Model: {{model}}"
+  }
+}
+

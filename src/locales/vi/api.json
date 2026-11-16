@@ -1,0 +1,26 @@
+{
+  "header": {
+    "title": "NHẬT KÝ YÊU CẦU API (API REQUEST HISTORY)",
+    "badge": "TRAFFIC AUDIT",
+    "description": "Bảng điều khiển giám sát & đối soát nhật ký yêu cầu API thời gian thực: Phương thức HTTP, mã trạng thái, độ trễ xử lý và toàn văn dữ liệu bản tin.",
+    "breadcrumbApi": "API MANAGEMENT",
+    "breadcrumbHistory": "API REQUEST HISTORY"
+  },
+  "filter": {
+    "dateFrom": "Từ ngày",
+    "dateTo": "Đến ngày",
+    "area": "Khu vực (Area)",
+    "controller": "Controller",
+    "action": "Action",
+    "clientIp": "Client IP",
+    "selectTop": "Số lượng bản ghi (Top)",
+    "btnQuery": "Truy vấn dữ liệu (Query Data)",
+    "btnReset": "Đặt lại bộ lọc",
+    "btnExport": "Xuất CSV"
+  },
+  "toast": {
+    "querySuccess": "Đã truy vấn thành công {{count}} bản ghi nhật ký API!",
+    "resetSuccess": "Đã đặt lại bộ lọc truy vấn về mặc định!"
+  }
+}
+

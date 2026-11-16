@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function ScrewDataTab({ screwData = [] }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -18,22 +20,22 @@ export default function ScrewDataTab({ screwData = [] }) {
           >
             <tr>
               <th className="py-2.5 px-2.5 text-center w-10">#</th>
-              <th className="py-2.5 px-3">Step</th>
-              <th className="py-2.5 px-3 font-bold">Position</th>
-              <th className="py-2.5 px-2.5">Action</th>
-              <th className="py-2.5 px-2.5 text-right font-bold">Torque</th>
-              <th className="py-2.5 px-2.5 text-right font-bold">Angle</th>
-              <th className="py-2.5 px-2.5 text-right font-bold">Time(s)</th>
-              <th className="py-2.5 px-2.5 text-center">Result</th>
-              <th className="py-2.5 px-2.5 text-center font-bold">Error Code</th>
-              <th className="py-2.5 px-3 text-right font-bold">Time</th>
+              <th className="py-2.5 px-3">{t('management.machineModal.screwTab.step')}</th>
+              <th className="py-2.5 px-3 font-bold">{t('management.machineModal.screwTab.position')}</th>
+              <th className="py-2.5 px-2.5">{t('management.machineModal.screwTab.action')}</th>
+              <th className="py-2.5 px-2.5 text-right font-bold">{t('management.machineModal.screwTab.torque')}</th>
+              <th className="py-2.5 px-2.5 text-right font-bold">{t('management.machineModal.screwTab.angle')}</th>
+              <th className="py-2.5 px-2.5 text-right font-bold">{t('management.machineModal.screwTab.timeS')}</th>
+              <th className="py-2.5 px-2.5 text-center">{t('management.machineModal.screwTab.result')}</th>
+              <th className="py-2.5 px-2.5 text-center font-bold">{t('management.machineModal.screwTab.errorCode')}</th>
+              <th className="py-2.5 px-3 text-right font-bold">{t('management.machineModal.screwTab.time')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60 font-bold text-[11px]">
             {screwData.length === 0 ? (
               <tr>
                 <td colSpan="10" className="py-8 text-center text-slate-400 dark:text-zinc-500 font-sans">
-                  Không có dữ liệu siết ốc vít (Screw Data)
+                  {t('management.machineModal.screwTab.noData')}
                 </td>
               </tr>
             ) : (

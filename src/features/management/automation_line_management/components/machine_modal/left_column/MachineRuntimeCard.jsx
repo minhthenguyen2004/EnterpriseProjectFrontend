@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function MachineRuntimeCard({ runtime }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -27,11 +29,11 @@ export default function MachineRuntimeCard({ runtime }) {
               isFoxconn ? 'text-slate-700' : 'text-white'
             }`}
           >
-            Thời Gian Vận Hành (Machine Runtime)
+            {t('management.machineModal.runtimeCardTitle')}
           </h4>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-slate-400">Ca hiện tại:</span>
+          <span className="text-[10px] text-slate-400">{t('management.machineModal.currentShift')}</span>
           <span
             className={`text-[11px] font-bold ${
               isFoxconn ? 'text-blue-700' : 'text-[#76B900]'
@@ -45,9 +47,11 @@ export default function MachineRuntimeCard({ runtime }) {
       {/* Stacked Progress Bar */}
       <div className="space-y-1.5 mb-3">
         <div className="flex items-center justify-between text-[10px]">
-          <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Phân bổ thời gian:</span>
+          <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>
+            {t('management.machineModal.timeDistribution')}
+          </span>
           <span className="font-bold text-emerald-500">
-            Khả dụng: {runtime.availability}%
+            {t('management.machineModal.availability', { val: runtime.availability })}
           </span>
         </div>
 
