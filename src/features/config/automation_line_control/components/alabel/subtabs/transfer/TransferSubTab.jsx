@@ -102,6 +102,8 @@ export default function TransferSubTab({
         currentSn={currentSn}
         currentOldCarrier={currentOldCarrier}
         currentNewCarrier={currentNewCarrier}
+        handleSnChange={handleSnChange}
+        setForm={setForm}
       />
 
       {/* 2. DÒNG SẢN PHẨM & MÃ NHÂN VIÊN (Lưới 2 cột) */}
@@ -119,6 +121,7 @@ export default function TransferSubTab({
         isFoxconn={isFoxconn}
         currentTargetStep={currentTargetStep}
         ROUTER_STEPS_LIST={ROUTER_STEPS_LIST}
+        setForm={setForm}
       />
 
       {/* 4. CỤM NÚT HÀNH ĐỘNG THỰC THI CHUYỂN KHAY */}

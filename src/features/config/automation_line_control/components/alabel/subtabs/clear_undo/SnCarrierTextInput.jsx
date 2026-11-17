@@ -1,9 +1,13 @@
+import { useTranslation } from 'react-i18next';
+
 export default function SnCarrierTextInput({isFoxconn, currentTargetType, handleTargetTypeChange, currentTargetCode, handleTargetCodeChange  }) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="space-y-1.5">
             <div className="flex items-center justify-between">
             <label className={`text-xs font-bold ${ isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1.5`}>
-                <span>Mã Đối Tượng</span>
+                <span>{t('control.alabel.forms.targetObject')}</span>
                 <span className="text-red-500 font-black">*</span>
             </label>
 
@@ -26,7 +30,7 @@ export default function SnCarrierTextInput({isFoxconn, currentTargetType, handle
                         : 'text-zinc-400 hover:text-zinc-200'
                 }`}
                 >
-                ★ Serial Number (SN)
+                {t('control.alabel.forms.snLabel')}
                 </button>
                 <button
                 type="button"
@@ -41,7 +45,7 @@ export default function SnCarrierTextInput({isFoxconn, currentTargetType, handle
                         : 'text-zinc-400 hover:text-zinc-200'
                 }`}
                 >
-                Carrier RFID / Pallet
+                {t('control.alabel.forms.carrierLabel')}
                 </button>
             </div>
             </div>
@@ -65,8 +69,8 @@ export default function SnCarrierTextInput({isFoxconn, currentTargetType, handle
                 onChange={(e) => handleTargetCodeChange(e.target.value)}
                 placeholder={
                 currentTargetType === 'sn'
-                    ? 'Nhập Serial Number sản phẩm (ví dụ: SN8839210492-NV)...'
-                    : 'Nhập mã khay Carrier RFID (ví dụ: CARRIER-RFID-8819)...'
+                    ? t('control.alabel.forms.placeholderSnTarget')
+                    : t('control.alabel.forms.placeholderCarrierTarget')
                 }
                 className={`w-full pl-9 pr-8 py-2.5 rounded-xl border text-xs font-mono font-bold transition-all ${
                 isFoxconn
@@ -81,7 +85,7 @@ export default function SnCarrierTextInput({isFoxconn, currentTargetType, handle
                 className={`absolute inset-y-0 right-0 pr-3 flex items-center transition-all cursor-pointer ${
                     isFoxconn ? "text-slate-400 hover:text-slate-600" : "text-zinc-500 hover:text-zinc-200"
                 }`}
-                title="Xóa nhanh mã đối tượng"
+                title="✕"
                 >
                 ✕
                 </button>

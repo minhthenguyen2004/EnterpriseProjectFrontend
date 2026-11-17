@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 /**
@@ -11,6 +12,7 @@ export default function CarrierLockActionModal({
   onConfirmLock,
   onConfirmUnlock,
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -21,11 +23,11 @@ export default function CarrierLockActionModal({
     if (carrier) {
       setReason(
         isCurrentlyLocked
-          ? 'Đã khắc phục lỗi cơ học và kiểm tra độ phẳng đạt yêu cầu, mở khóa đưa vào vận hành.'
-          : 'Khóa cách ly thủ công do phát hiện bất thường trong quá trình chuyển làn trạm AutoLine.'
+          ? t('config.lockModal.defaultReasonUnlock')
+          : t('config.lockModal.defaultReasonLock')
       );
     }
-  }, [carrier, isCurrentlyLocked]);
+  }, [carrier, isCurrentlyLocked, t]);
 
   if (!isOpen || !carrier) return null;
 
@@ -71,10 +73,10 @@ export default function CarrierLockActionModal({
               </div>
               <div>
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white">
-                  {isCurrentlyLocked ? 'MỞ KHÓA KHAY CHỨA' : 'CƯỠNG CHẾ KHÓA KHAY'}
+                  {isCurrentlyLocked ? t('config.lockModal.titleUnlock') : t('config.lockModal.titleLock')}
                 </h3>
                 <p className="text-[11px] text-slate-500 dark:text-zinc-400 font-bold">
-                  Mã khay: <span className="font-bold text-slate-800 dark:text-zinc-200">{carrier.carrierCode}</span>
+                  {t('config.lockModal.carrierLabel')} <span className="font-bold text-slate-800 dark:text-zinc-200">{carrier.carrierCode}</span>
                 </p>
               </div>
             </div>
@@ -91,20 +93,20 @@ export default function CarrierLockActionModal({
           <div className="p-5 space-y-4 text-xs">
             <p className="text-slate-600 dark:text-zinc-300">
               {isCurrentlyLocked
-                ? 'Khay này đang ở trạng thái LOCKED. Khi mở khóa, trạm AutoLine và đầu đọc RFID sẽ cho phép khay tiếp tục quay trở lại chuyền sản xuất.'
-                : 'CẢNH BÁO: Khi bị khóa (LOCKED), trạm AutoLine sẽ lập tức từ chối khay tại đầu vào và tự động kích hoạt PLC đẩy khay ra làn bảo dưỡng.'}
+                ? t('config.lockModal.descUnlock')
+                : t('config.lockModal.descLock')}
             </p>
 
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
-                Lý do thực hiện (*)
+                {t('config.lockModal.fieldReason')}
               </label>
               <textarea
                 rows={3}
                 required
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                placeholder="Nhập lý do khóa hoặc mở khóa..."
+                placeholder={t('config.lockModal.reasonPlaceholder')}
                 className={`w-full p-2.5 rounded-xl border text-xs focus:outline-none ${
                   isFoxconn
                     ? 'bg-white border-slate-300 text-slate-800'
@@ -125,7 +127,7 @@ export default function CarrierLockActionModal({
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 hover:bg-slate-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 cursor-pointer"
             >
-              Hủy
+              {t('config.lockModal.btnCancel')}
             </button>
             <button
               type="submit"
@@ -135,7 +137,7 @@ export default function CarrierLockActionModal({
                   : 'bg-rose-600 hover:bg-rose-700 text-white shadow-rose-900/20'
               }`}
             >
-              <span>{isCurrentlyLocked ? 'Xác Nhận Mở Khóa' : 'Xác Nhận Khóa Khay'}</span>
+              <span>{isCurrentlyLocked ? t('config.lockModal.btnConfirmUnlock') : t('config.lockModal.btnConfirmLock')}</span>
             </button>
           </div>
         </form>

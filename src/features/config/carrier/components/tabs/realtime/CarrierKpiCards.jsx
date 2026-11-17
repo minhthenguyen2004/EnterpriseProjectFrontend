@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**
@@ -9,6 +10,7 @@ import useTheme from '../../../../../../hooks/useTheme';
  * 5. Đang bị khóa (LOCKED)
  */
 export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStatus }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -26,10 +28,10 @@ export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStat
   const cards = [
     {
       id: 'ALL',
-      title: 'TỔNG SỐ KHAY',
+      title: t('config.kpi.total'),
       count: total,
-      unit: 'khay',
-      subText: '100% tài sản lưu hành',
+      unit: t('config.kpi.unit'),
+      subText: t('config.kpi.subTotal'),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -47,10 +49,10 @@ export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStat
     },
     {
       id: 'ACTIVE',
-      title: 'BÌNH THƯỜNG',
+      title: t('config.kpi.active'),
       count: normal,
-      unit: 'khay',
-      subText: `${normalPct}% hoạt động an toàn`,
+      unit: t('config.kpi.unit'),
+      subText: t('config.kpi.subActive', { pct: normalPct }),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -68,10 +70,10 @@ export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStat
     },
     {
       id: 'WARNING',
-      title: 'SẮP ĐẾN HẠN',
+      title: t('config.kpi.warning'),
       count: warning,
-      unit: 'khay',
-      subText: `${warningPct}% cần theo dõi (≥80%)`,
+      unit: t('config.kpi.unit'),
+      subText: t('config.kpi.subWarning', { pct: warningPct }),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -89,10 +91,10 @@ export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStat
     },
     {
       id: 'INSPECTION_REQUIRED',
-      title: 'CẦN KIỂM ĐỊNH',
+      title: t('config.kpi.inspection'),
       count: inspection,
-      unit: 'khay',
-      subText: `${inspectionPct}% yêu cầu QA/QC (≥95%)`,
+      unit: t('config.kpi.unit'),
+      subText: t('config.kpi.subInspection', { pct: inspectionPct }),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -110,10 +112,10 @@ export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStat
     },
     {
       id: 'LOCKED',
-      title: 'ĐANG BỊ KHÓA',
+      title: t('config.kpi.locked'),
       count: locked,
-      unit: 'khay',
-      subText: `${lockedPct}% cách ly khỏi chuyền`,
+      unit: t('config.kpi.unit'),
+      subText: t('config.kpi.subLocked', { pct: lockedPct }),
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -194,7 +196,7 @@ export default function CarrierKpiCards({ kpiStats, selectedStatus, onSelectStat
               </span>
               {isSelected && (
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 dark:text-[#76B900]">
-                  Đang lọc ●
+                  {t('config.kpi.filtering')}
                 </span>
               )}
             </div>

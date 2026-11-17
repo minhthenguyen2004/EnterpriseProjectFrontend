@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import MachineStatusRectCard from './MachineStatusRectCard';
 
@@ -11,6 +12,7 @@ export default function MachineCardGrid({
   sortBy,
   onSortChange,
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [viewMode, setViewMode] = useState('standard'); // 'standard' | 'compact'
@@ -21,14 +23,17 @@ export default function MachineCardGrid({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 px-1">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <span className={`font-bold ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>
-            Danh Sách Trạm Máy:
+            {t('statusManagement.grid.listTitle', 'Danh Sách Trạm Máy:')}
           </span>
           <span
             className={`font-bold text-[11px] px-2 py-0.5 rounded-full ${
               isFoxconn ? 'bg-slate-200 text-slate-800' : 'bg-zinc-800 text-[#76B900]'
             }`}
           >
-            {machines.length} / {allCount} máy
+            {t('statusManagement.grid.counter', '{{current}} / {{total}} máy', {
+              current: machines.length,
+              total: allCount,
+            })}
           </span>
 
           {/* Nếu đang tìm kiếm text thì hiển thị chip từ khóa */}
@@ -38,7 +43,7 @@ export default function MachineCardGrid({
                 isFoxconn ? 'bg-blue-50 border-blue-200 text-blue-800' : 'bg-zinc-800 border-zinc-700 text-[#76B900]'
               }`}
             >
-              <span>Từ khóa: "{filters.searchQuery}"</span>
+              <span>{t('statusManagement.grid.keywordChip', 'Từ khóa: "{{query}}"', { query: filters.searchQuery })}</span>
             </span>
           )}
         </div>
@@ -56,7 +61,7 @@ export default function MachineCardGrid({
             <button
               type="button"
               onClick={() => setViewMode('standard')}
-              title="Chế độ xem Tiêu chuẩn (Đầy đủ thông tin)"
+              title={t('statusManagement.grid.standardViewTitle', 'Chế độ xem Tiêu chuẩn (Đầy đủ thông tin)')}
               className={`px-2 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 text-[11px] ${
                 viewMode === 'standard'
                   ? isFoxconn
@@ -68,13 +73,13 @@ export default function MachineCardGrid({
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
               </svg>
-              <span>Tiêu chuẩn</span>
+              <span>{t('statusManagement.grid.standardView', 'Tiêu chuẩn')}</span>
             </button>
 
             <button
               type="button"
               onClick={() => setViewMode('compact')}
-              title="Chế độ xem Thu gọn (Ít chữ, xem nhiều máy)"
+              title={t('statusManagement.grid.compactViewTitle', 'Chế độ xem Thu gọn (Ít chữ, xem nhiều máy)')}
               className={`px-2 py-1 rounded-lg transition-all cursor-pointer flex items-center gap-1 text-[11px] ${
                 viewMode === 'compact'
                   ? isFoxconn
@@ -86,7 +91,7 @@ export default function MachineCardGrid({
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
               </svg>
-              <span>Thu gọn</span>
+              <span>{t('statusManagement.grid.compactView', 'Thu gọn')}</span>
             </button>
           </div>
 
@@ -101,10 +106,10 @@ export default function MachineCardGrid({
                   : 'bg-zinc-900 border-zinc-700 text-white'
               }`}
             >
-              <option value="default">Sắp xếp: Mặc định</option>
-              <option value="name">Tên máy (A → Z)</option>
-              <option value="ip">Địa chỉ IP</option>
-              <option value="status">Ưu tiên máy lỗi (ERROR)</option>
+              <option value="default">{t('statusManagement.grid.sortDefault', 'Sắp xếp: Mặc định')}</option>
+              <option value="name">{t('statusManagement.grid.sortName', 'Tên máy (A → Z)')}</option>
+              <option value="ip">{t('statusManagement.grid.sortIp', 'Địa chỉ IP')}</option>
+              <option value="status">{t('statusManagement.grid.sortStatus', 'Ưu tiên máy lỗi (ERROR)')}</option>
             </select>
           </div>
         </div>
@@ -146,10 +151,13 @@ export default function MachineCardGrid({
           </div>
           <div>
             <h3 className={`text-base font-black ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>
-              Không Tìm Thấy Máy Nào Phù Hợp
+              {t('statusManagement.grid.emptyTitle', 'Không Tìm Thấy Máy Nào Phù Hợp')}
             </h3>
             <p className={`text-xs mt-1 max-w-sm ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-              Không có máy nào thỏa mãn các tiêu chí lọc hoặc từ khóa tìm kiếm hiện tại. Bạn vui lòng thử lại với tiêu chí khác.
+              {t(
+                'statusManagement.grid.emptyDesc',
+                'Không có máy nào thỏa mãn các tiêu chí lọc hoặc từ khóa tìm kiếm hiện tại. Bạn vui lòng thử lại với tiêu chí khác.'
+              )}
             </p>
           </div>
           <button
@@ -161,7 +169,7 @@ export default function MachineCardGrid({
                 : 'bg-[#76B900] hover:bg-[#86D400] text-black font-black'
             }`}
           >
-            Đặt Lại Bộ Lọc Mặc Định
+            {t('statusManagement.grid.btnResetDefault', 'Đặt Lại Bộ Lọc Mặc Định')}
           </button>
         </div>
       )}

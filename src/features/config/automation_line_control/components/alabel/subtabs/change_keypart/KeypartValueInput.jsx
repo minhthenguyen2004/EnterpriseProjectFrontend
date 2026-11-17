@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export default function KeypartValueInput({
   isFoxconn,
   selectedKeypart,
@@ -6,6 +8,8 @@ export default function KeypartValueInput({
   newKeypartValue,
   handleNewValueChange,
 }) {
+  const { t } = useTranslation('autoline');
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
       {/* Cột 1: Chọn Keypart (Dropdown menu) */}
@@ -15,7 +19,7 @@ export default function KeypartValueInput({
             isFoxconn ? 'text-slate-700' : 'text-zinc-200'
           } flex items-center gap-1.5`}
         >
-          <span>Chọn Keypart (Linh Kiện Cần Thay Thế)</span>
+          <span>{t('control.alabel.forms.selectKeypart')}</span>
           <span className="text-red-500 font-black">*</span>
         </label>
         <div className="relative">
@@ -31,7 +35,7 @@ export default function KeypartValueInput({
           </div>
           <select
             value={selectedKeypart}
-            onChange={(e) => handleKeypartSelect(e.target.value)}
+            onChange={(e) => handleKeypartSelect?.(e.target.value)}
             className={`w-full pl-9 pr-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -58,7 +62,7 @@ export default function KeypartValueInput({
             isFoxconn ? 'text-slate-700' : 'text-zinc-200'
           } flex items-center gap-1.5`}
         >
-          <span>Giá Trị Mới (New Barcode / Serial Value)</span>
+          <span>{t('control.alabel.forms.newKeypartBarcode')}</span>
           <span className="text-red-500 font-black">*</span>
         </label>
         <div className="relative">
@@ -75,8 +79,8 @@ export default function KeypartValueInput({
           <input
             type="text"
             value={newKeypartValue}
-            onChange={(e) => handleNewValueChange(e.target.value)}
-            placeholder="Quét hoặc nhập barcode linh kiện mới (ví dụ: NV-B200-GPU-9920-REV2)..."
+            onChange={(e) => handleNewValueChange?.(e.target.value)}
+            placeholder={t('control.alabel.forms.placeholderNewKeypart')}
             className={`w-full pl-9 pr-8 py-2.5 rounded-xl border text-xs font-mono font-bold transition-all ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
@@ -86,9 +90,9 @@ export default function KeypartValueInput({
           {newKeypartValue && (
             <button
               type="button"
-              onClick={() => handleNewValueChange('')}
+              onClick={() => handleNewValueChange?.('')}
               className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 cursor-pointer"
-              title="Xóa nhanh giá trị mới"
+              title="✕"
             >
               ✕
             </button>

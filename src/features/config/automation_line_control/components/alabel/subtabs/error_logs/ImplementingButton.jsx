@@ -1,9 +1,13 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ImplementingButton({
   isFoxconn,
   isExecuting,
   onExecute,
   onReset,
 }) {
+  const { t } = useTranslation('autoline');
+
   return (
     <div className="flex flex-wrap items-center justify-end gap-3 pt-3 border-t border-slate-200 dark:border-zinc-800">
       {/* Nút phụ: Làm sạch bộ lọc */}
@@ -17,20 +21,19 @@ export default function ImplementingButton({
             : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
         }`}
       >
-        Làm Sạch Bộ Lọc
+        {t('control.alabel.forms.btnClearForm')}
       </button>
 
       {/* Nút hành động chính: Thực thi tra cứu bảng ErrorLogs */}
       <button
         type="button"
         disabled={isExecuting}
-        onClick={() => onExecute('error_logs')}
+        onClick={() => onExecute?.('error_logs')}
         className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold transition-all shadow-md active:scale-98 cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed ${
           isFoxconn
             ? 'bg-[#002766] hover:bg-blue-900 text-white shadow-blue-950/20'
             : 'bg-[#76B900] hover:bg-[#88d400] text-black font-extrabold shadow-[#76B900]/25'
         }`}
-        title="Quét và lọc danh sách cảnh báo, lỗi thiết bị trên máy chủ ALABEL"
       >
         {isExecuting ? (
           <>
@@ -49,7 +52,7 @@ export default function ImplementingButton({
                 d="M4 12a8 8 0 018-8v8H4z"
               />
             </svg>
-            <span>Đang truy vấn bảng ErrorLogs...</span>
+            <span>{t('control.alabel.forms.btnExecutingErrorSearch')}</span>
           </>
         ) : (
           <>
@@ -61,7 +64,7 @@ export default function ImplementingButton({
                 d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
               />
             </svg>
-            <span>Thực thi tra cứu bảng ErrorLogs</span>
+            <span>{t('control.alabel.forms.btnExecuteErrorSearch')}</span>
           </>
         )}
       </button>

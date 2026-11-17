@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import FaceContainerCard from './FaceContainerCard';
 
@@ -20,6 +21,7 @@ export default function RackHierarchyCanvas({
   onSwapSlots,
   onSwapRacks
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -38,7 +40,7 @@ export default function RackHierarchyCanvas({
           <div>
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className={`text-sm sm:text-base font-black tracking-tight ${ isFoxconn ? "text-slate-800" : "text-white"} uppercase`}>
-                Bố Cục Mặt Bằng Rack
+                {t('overview.canvas.title')}
               </h3>
               <span
                 className={`px-2.5 py-0.5 rounded-lg text-xs font-mono font-extrabold border ${
@@ -59,14 +61,14 @@ export default function RackHierarchyCanvas({
                     ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
                     : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
                 }`}
-                title="Thay đổi tên Group Name được chọn ở bộ lọc trên"
+                title={t('overview.canvas.btnRenameGroupTooltip')}
               >
                 <span>✏️</span>
-                <span>Đổi tên Group</span>
+                <span>{t('overview.canvas.btnRenameGroup')}</span>
               </button>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-0.5">
-              Cấu trúc phân cấp lồng nhau: Face (Mặt tủ) ➔ Group (Nhóm chuyền) ➔ Rack (Tủ thiết bị) ➔ Slot (Khe cắm)
+              {t('overview.canvas.hierarchyDesc')}
             </p>
           </div>
         </div>
@@ -82,7 +84,7 @@ export default function RackHierarchyCanvas({
           }`}
         >
           <span className="font-bold text-sm">+</span>
-          <span>Thêm Face Mới</span>
+          <span>{t('overview.canvas.btnAddFace')}</span>
         </button>
       </div>
 
@@ -120,10 +122,10 @@ export default function RackHierarchyCanvas({
               🔲
             </div>
             <h4 className="text-sm font-bold text-slate-800 dark:text-zinc-200">
-              Chưa có Face (Mặt tủ) nào trong bố cục hiện tại
+              {t('overview.canvas.emptyFaces')}
             </h4>
             <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1 max-w-md mx-auto">
-              Bắt đầu xây dựng sơ đồ mặt bằng bằng cách tạo Face đầu tiên (ví dụ: Face Mặt Trước A).
+              {t('overview.canvas.emptyFacesDesc')}
             </p>
             <button
               type="button"
@@ -134,7 +136,7 @@ export default function RackHierarchyCanvas({
                   : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
               }`}
             >
-              ➕ Thêm Face Đầu Tiên
+              {t('overview.canvas.btnAddFirstFace')}
             </button>
           </div>
         )}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function SlotItemRow({
@@ -10,6 +11,7 @@ export default function SlotItemRow({
   onDeleteSlot,
   onSwapSlots
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const isApproved = slot.status === 'approved';
@@ -73,7 +75,7 @@ export default function SlotItemRow({
           ? 'bg-rose-50/60 border-rose-200/90 hover:bg-rose-100/60'
           : 'bg-rose-950/20 border-rose-800/50 hover:bg-rose-950/40 text-rose-300'
       }`}
-      title="Kéo thả để đổi chỗ với Slot khác hoặc click để chỉnh sửa"
+      title={t('overview.slotRow.rowTooltip')}
     >
       {/* Left: Drag Grip + Slot Number & Identifier */}
       <div className="flex items-center gap-2 min-w-0">
@@ -107,7 +109,7 @@ export default function SlotItemRow({
           }`}
         >
           <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
-          <span>{isApproved ? 'Approved' : 'Rejected'}</span>
+          <span>{isApproved ? t('overview.slotRow.approved') : t('overview.slotRow.rejected')}</span>
         </span>
 
         {/* Edit Button */}
@@ -124,7 +126,7 @@ export default function SlotItemRow({
               ? 'hover:bg-slate-200 text-slate-600'
               : 'hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200'
           }`}
-          title={`Click để chuyển trạng thái sang ${isApproved ? 'Rejected' : 'Approved'}`}
+          title={t('overview.slotRow.toggleTooltip', { status: isApproved ? t('overview.slotRow.rejected') : t('overview.slotRow.approved') })}
         >
           🔄
         </button>
@@ -137,7 +139,7 @@ export default function SlotItemRow({
             onDeleteSlot(faceId, groupId, rackId, slot.id);
           }}
           className="p-1 rounded-md text-[10px] text-rose-500 hover:bg-rose-100 dark:hover:bg-rose-950/50 cursor-pointer transition-colors"
-          title="Xóa Slot này"
+          title={t('overview.slotRow.deleteTooltip')}
         >
           ✕
         </button>

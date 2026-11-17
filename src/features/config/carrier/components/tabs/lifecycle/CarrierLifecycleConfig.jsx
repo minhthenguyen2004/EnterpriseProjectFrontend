@@ -1,4 +1,5 @@
-﻿import { useState, useMemo } from "react";
+import { useState, useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import useTheme from "../../../../../../hooks/useTheme";
 import FilterToolbar from "./FilterToolbar";
 import TableConfig from "./TableConfig";
@@ -21,6 +22,7 @@ const EMPTY_FORM = {
 };
 
 export default function CarrierLifecycleConfig({ configs, onAdd, onUpdate, onDelete, onRefresh, onNotify }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === "foxconn";
 
@@ -52,22 +54,22 @@ export default function CarrierLifecycleConfig({ configs, onAdd, onUpdate, onDel
 
   const handleSave = () => {
     if (!formData.lineName.trim() || !formData.productName.trim() || !formData.assignedCarrierCode.trim()) {
-      onNotify?.("Vui long nhap day du: Chuyen, San pham va Ma khay chi dinh.");
+      onNotify?.(t('config.lifecycle.toastValidate'));
       return;
     }
     if (modalMode === "add") {
       onAdd?.(formData);
-      onNotify?.(`Da them cau hinh vong doi moi cho ${formData.lineName} - ${formData.productName}.`);
+      onNotify?.(t('config.lifecycle.toastAddSuccess', { line: formData.lineName, product: formData.productName }));
     } else {
       onUpdate?.(editingId, formData);
-      onNotify?.(`Da cap nhat cau hinh [${editingId}] thanh cong.`);
+      onNotify?.(t('config.lifecycle.toastUpdateSuccess', { id: editingId }));
     }
     setModalMode(null);
   };
 
   const handleRefresh = () => {
     setIsRefreshing(true);
-    setTimeout(() => { onRefresh?.(); setIsRefreshing(false); onNotify?.("Da lam moi danh sach cau hinh vong doi."); }, 500);
+    setTimeout(() => { onRefresh?.(); setIsRefreshing(false); onNotify?.(t('config.lifecycle.toastRefreshSuccess')); }, 500);
   };
 
   const cardCls = isFoxconn ? "bg-white border-slate-200 shadow-sm" : "bg-zinc-900 border-zinc-800";
@@ -104,19 +106,19 @@ export default function CarrierLifecycleConfig({ configs, onAdd, onUpdate, onDel
           <div>
             <h3 className={`font-bold text-base flex items-center gap-2 ${isFoxconn ? "text-slate-900" : "text-white"}`}>
               <span className="text-lg">&#9881;&#65039;</span>
-              <span>Cấu hình vòng đời (Lifecycle Configs)</span>
+              <span>{t('config.lifecycle.title')}</span>
               <span className={`ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold border ${isFoxconn ? "bg-slate-100 text-slate-500 border-slate-200" : "bg-zinc-800 text-zinc-400 border-zinc-700"}`}>
-                {filtered.length} bản ghi
+                {t('config.lifecycle.recordsCount', { count: filtered.length })}
               </span>
             </h3>
             <p className={`text-xs mt-0.5 ${isFoxconn ? "text-slate-500" : "text-zinc-500"}`}>
-              Thiết lập quy tắc chu kỳ, cảnh báo và kiểm định cho từng tổ hợp Chuyên - Sản phẩm - Khay.
+              {t('config.lifecycle.desc')}
             </p>
           </div>
           <div className="flex items-center gap-2 shrink-0">
             <button id="lifecycle-config-add-btn" type="button" onClick={handleOpenAdd}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold shadow-md transition-all cursor-pointer ${primaryBtn}`}>
-              + Thêm cấu hình
+              {t('config.lifecycle.btnAdd')}
             </button>
             <button id="lifecycle-config-refresh-btn" type="button" onClick={handleRefresh} disabled={isRefreshing}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${secondaryBtn}`}>
@@ -124,7 +126,7 @@ export default function CarrierLifecycleConfig({ configs, onAdd, onUpdate, onDel
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                   d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              Làm mới
+              {t('config.lifecycle.btnRefresh')}
             </button>
           </div>
         </div>
@@ -158,7 +160,7 @@ export default function CarrierLifecycleConfig({ configs, onAdd, onUpdate, onDel
         />
 
         <div className={`px-5 py-2.5 border-t text-xs ${isFoxconn ? "border-slate-100 text-slate-400" : "border-zinc-800 text-zinc-500"}`}>
-          Hiển thị {filtered.length} / {(configs || []).length} cấu hình vòng đời
+          {t('config.lifecycle.showingCount', { filtered: filtered.length, total: (configs || []).length })}
         </div>
       </div>
 
@@ -186,6 +188,8 @@ export default function CarrierLifecycleConfig({ configs, onAdd, onUpdate, onDel
             deleteTargetId={deleteTargetId}
             setDeleteTargetId={setDeleteTargetId}
             secondaryBtn={secondaryBtn}
+            onDelete={onDelete}
+            onNotify={onNotify}
         />
       )}
     </>

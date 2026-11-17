@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { PRODUCT_FAMILIES, STATION_GROUPS } from '../../constants/sfcControlConstants';
 
@@ -15,6 +16,7 @@ export default function SfcFilterBar({
   onResetFilters,
   onSearch,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -36,7 +38,7 @@ export default function SfcFilterBar({
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-blue-500"></span>
           <span className={`text-xs font-bold uppercase tracking-wider ${ isFoxconn ? "text-slate-600" : "text-white"}`}>
-            Bộ Lọc Thông Tin Truy Vấn SFC
+            {t('control.sfc.filter.title')}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -49,7 +51,7 @@ export default function SfcFilterBar({
                 : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800'
             }`}
           >
-            Đặt lại
+            {t('control.sfc.filter.btnReset')}
           </button>
         </div>
       </div>
@@ -58,8 +60,8 @@ export default function SfcFilterBar({
         {/* Trường 1: Tìm theo SN / Carrier */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 flex items-center justify-between">
-            <span>Tìm theo SN / Carrier:</span>
-            <span className="text-[10px] text-blue-500 font-mono">SN/CR</span>
+            <span>{t('control.sfc.filter.searchLabel')}</span>
+            <span className="text-[10px] text-blue-500 font-mono">{t('control.sfc.filter.searchBadge')}</span>
           </label>
           <div className="relative">
             <input
@@ -67,7 +69,7 @@ export default function SfcFilterBar({
               value={filters.searchTerm}
               onChange={(e) => onFilterChange('searchTerm', e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Nhập SN hoặc Carrier..."
+              placeholder={t('control.sfc.filter.searchPlaceholder')}
               className={`w-full pl-8 pr-3 py-2 text-xs rounded-xl font-mono border transition-all outline-none ${
                 isFoxconn
                   ? 'bg-white border-slate-300 text-slate-800 focus:ring-1 focus:ring-blue-500'
@@ -88,7 +90,7 @@ export default function SfcFilterBar({
         {/* Trường 2: Dòng sản phẩm (Dropdown) */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-bold text-slate-500 dark:text-zinc-400">
-            Dòng sản phẩm:
+            {t('control.sfc.filter.productFamily')}
           </label>
           <select
             value={filters.productFamily}
@@ -110,7 +112,7 @@ export default function SfcFilterBar({
         {/* Trường 3: Trạm (Group) (Dropdown) */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-bold text-slate-500 dark:text-zinc-400">
-            Trạm (Group):
+            {t('control.sfc.filter.stationGroup')}
           </label>
           <select
             value={filters.stationGroup}
@@ -132,13 +134,13 @@ export default function SfcFilterBar({
         {/* Trường 4: Host (Trường text) */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-bold text-slate-500 dark:text-zinc-400">
-            Host:
+            {t('control.sfc.filter.host')}
           </label>
           <input
             type="text"
             value={filters.host}
             onChange={(e) => onFilterChange('host', e.target.value)}
-            placeholder="Host SFC / Server..."
+            placeholder={t('control.sfc.filter.hostPlaceholder')}
             className={`w-full px-3 py-2 text-xs rounded-xl font-mono border transition-all outline-none ${
               isFoxconn
                 ? 'bg-white border-slate-300 text-slate-800'
@@ -150,13 +152,13 @@ export default function SfcFilterBar({
         {/* Trường 5: Station IP (Trường text) */}
         <div className="flex flex-col gap-1.5">
           <label className="text-[11px] font-bold text-slate-500 dark:text-zinc-400">
-            Station IP:
+            {t('control.sfc.filter.stationIp')}
           </label>
           <input
             type="text"
             value={filters.stationIp}
             onChange={(e) => onFilterChange('stationIp', e.target.value)}
-            placeholder="IP Trạm máy..."
+            placeholder={t('control.sfc.filter.stationIpPlaceholder')}
             className={`w-full px-3 py-2 text-xs rounded-xl font-mono border transition-all outline-none ${
               isFoxconn
                 ? 'bg-white border-slate-300 text-slate-800'

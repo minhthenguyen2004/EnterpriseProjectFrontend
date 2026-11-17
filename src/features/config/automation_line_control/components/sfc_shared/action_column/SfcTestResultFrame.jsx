@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**
@@ -12,6 +13,7 @@ export default function SfcTestResultFrame({
   onExecuteInsertTestResult,
   isExecuting,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -35,7 +37,7 @@ export default function SfcTestResultFrame({
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
           <span className={`text-[11px] font-bold uppercase tracking-wider ${ isFoxconn ? "text-slate-700" : "text-zinc-300"}`}>
-            Khung Kết Quả Kiểm Thử ({isAdapter ? 'ADAPTER' : 'SWITCH'})
+            {t('control.sfc.testResult.title', { mode: isAdapter ? 'ADAPTER' : 'SWITCH' })}
           </span>
         </div>
         <span
@@ -45,7 +47,7 @@ export default function SfcTestResultFrame({
               : 'bg-rose-500/10 text-rose-500'
           }`}
         >
-          Selected: {testResultStatus}
+          {t('control.sfc.testResult.selected')} {testResultStatus}
         </span>
       </div>
 
@@ -67,7 +69,7 @@ export default function SfcTestResultFrame({
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
           </svg>
-          <span>Pass</span>
+          <span>{t('control.sfc.testResult.pass')}</span>
         </button>
 
         <button
@@ -84,7 +86,7 @@ export default function SfcTestResultFrame({
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
           </svg>
-          <span>Fail</span>
+          <span>{t('control.sfc.testResult.fail')}</span>
         </button>
       </div>
 
@@ -107,7 +109,7 @@ export default function SfcTestResultFrame({
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            <span>Đang gửi kết quả...</span>
+            <span>{t('control.sfc.testResult.sending')}</span>
           </>
         ) : (
           <>

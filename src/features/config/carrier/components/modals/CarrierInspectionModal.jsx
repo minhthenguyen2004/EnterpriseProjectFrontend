@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 /**
  * Modal Ghi Nhận Kiểm Định Dung Sai & Reset Chu Kỳ Khay Chứa
  */
 export default function CarrierInspectionModal({ carrier, isOpen, onClose, onConfirm }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -56,10 +58,10 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
               </div>
               <div>
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white">
-                  NGHIỆM THU KIỂM ĐỊNH & BẢO TRÌ KHAY
+                  {t('config.inspectModal.title')}
                 </h3>
                 <p className="text-[11px] text-slate-400 font-bold">
-                  Mã khay: <span className="font-bold text-slate-700 dark:text-zinc-200">{carrier.carrierCode}</span> ({carrier.carrierType})
+                  {t('config.inspectModal.carrierLabel')} <span className="font-bold text-slate-700 dark:text-zinc-200">{carrier.carrierCode}</span> ({carrier.carrierType})
                 </p>
               </div>
             </div>
@@ -79,13 +81,13 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
               isFoxconn ? 'bg-slate-50 border-slate-200' : 'bg-zinc-950 border-zinc-800'
             }`}>
               <div>
-                <span className="text-slate-500 dark:text-zinc-400">Chu kỳ hiện tại: </span>
+                <span className="text-slate-500 dark:text-zinc-400">{t('config.inspectModal.currentCycleLabel')}{' '}</span>
                 <span className="font-bold text-slate-900 dark:text-white">
                   {carrier.currentCycles} / {carrier.maxCycles} ({carrier.usagePercentage}%)
                 </span>
               </div>
               <div>
-                <span className="text-slate-500 dark:text-zinc-400">Giờ từ lần KT cuối: </span>
+                <span className="text-slate-500 dark:text-zinc-400">{t('config.inspectModal.hoursSinceLastLabel')}{' '}</span>
                 <span className="font-bold text-slate-900 dark:text-white">
                   {carrier.hoursSinceLastInspection}h
                 </span>
@@ -95,7 +97,7 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
             {/* Chuyên viên kiểm định */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
-                Kỹ thuật viên / Chuyên viên QC phụ trách (*)
+                {t('config.inspectModal.fieldInspector')}
               </label>
               <input
                 type="text"
@@ -114,7 +116,7 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
-                  Độ phẳng đo thực tế (mm)
+                  {t('config.inspectModal.fieldCoplanarity')}
                 </label>
                 <input
                   type="number"
@@ -132,7 +134,7 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
 
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
-                  Kết luận nghiệm thu
+                  {t('config.inspectModal.fieldResult')}
                 </label>
                 <select
                   value={result}
@@ -147,8 +149,8 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
                       : 'bg-zinc-950 border-zinc-700'
                   }`}
                 >
-                  <option value="PASS">🟢 ĐẠT (PASS)</option>
-                  <option value="FAIL">🔴 KHÔNG ĐẠT (FAIL)</option>
+                  <option value="PASS">{t('config.inspectModal.resultPass')}</option>
+                  <option value="FAIL">{t('config.inspectModal.resultFail')}</option>
                 </select>
               </div>
             </div>
@@ -174,10 +176,10 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
               />
               <div>
                 <div className="font-bold text-slate-900 dark:text-white">
-                  Đặt lại (Reset) chu kỳ vận hành về 0 lượt
+                  {t('config.inspectModal.resetCyclesTitle')}
                 </div>
                 <div className="text-[11px] text-slate-500 dark:text-zinc-400 mt-0.5">
-                  Tích chọn khi khay đã được thay mới linh kiện hao mòn, chốt định vị hoặc bảo trì đại tu.
+                  {t('config.inspectModal.resetCyclesDesc')}
                 </div>
               </div>
             </div>
@@ -185,7 +187,7 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
             {/* Ghi chú */}
             <div>
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1">
-                Ghi chú bảo dưỡng / Số phiếu kiểm định
+                {t('config.inspectModal.fieldNotes')}
               </label>
               <textarea
                 rows={2}
@@ -211,7 +213,7 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
               onClick={onClose}
               className="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-200 hover:bg-slate-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 cursor-pointer"
             >
-              Hủy bỏ
+              {t('config.inspectModal.btnCancel')}
             </button>
             <button
               type="submit"
@@ -224,7 +226,7 @@ export default function CarrierInspectionModal({ carrier, isOpen, onClose, onCon
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span>Xác Nhận Nghiệm Thu</span>
+              <span>{t('config.inspectModal.btnConfirm')}</span>
             </button>
           </div>
         </form>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function AddSlotModal({
@@ -6,6 +7,7 @@ export default function AddSlotModal({
   onClose,
   onSubmit
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -20,7 +22,7 @@ export default function AddSlotModal({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!slotNumber.trim()) {
-      setError('Vui lòng nhập số định danh cho Slot');
+      setError(t('overview.addSlotModal.errorSlotNumber'));
       return;
     }
 
@@ -66,9 +68,9 @@ export default function AddSlotModal({
               🔌
             </div>
             <div>
-              <h3 className="text-sm font-bold tracking-tight">Thêm Mới Khe Cắm (Slot)</h3>
+              <h3 className="text-sm font-bold tracking-tight">{t('overview.addSlotModal.title')}</h3>
               <p className="text-[11px] text-slate-500 dark:text-zinc-400">
-                Nhập số định danh và chọn trạng thái phê duyệt
+                {t('overview.addSlotModal.subtitle')}
               </p>
             </div>
           </div>
@@ -87,12 +89,12 @@ export default function AddSlotModal({
           {/* 1. Số định danh cho Slot */}
           <div>
             <label className="block text-xs font-bold mb-1 text-slate-700 dark:text-zinc-300">
-              Số định danh cho Slot <span className="text-rose-500">*</span>
+              {t('overview.addSlotModal.fieldSlotNumber')} <span className="text-rose-500">*</span>
             </label>
             <input
               type="text"
               autoFocus
-              placeholder="VD: 01, 02, 12..."
+              placeholder={t('overview.addSlotModal.slotNumberPlaceholder')}
               value={slotNumber}
               onChange={(e) => {
                 setSlotNumber(e.target.value);
@@ -110,11 +112,11 @@ export default function AddSlotModal({
           {/* 2. Tên hiển thị Slot (Tùy chọn) */}
           <div>
             <label className="block text-xs font-bold mb-1 text-slate-700 dark:text-zinc-300">
-              Tên hiển thị Slot (Slot Name)
+              {t('overview.addSlotModal.fieldSlotName')}
             </label>
             <input
               type="text"
-              placeholder={`Mặc định: SLOT-${slotNumber ? slotNumber.padStart(2, '0') : '01'}`}
+              placeholder={t('overview.addSlotModal.slotNamePlaceholder', { num: slotNumber ? slotNumber.padStart(2, '0') : '01' })}
               value={slotName}
               onChange={(e) => setSlotName(e.target.value)}
               className={`w-full px-3 py-2 text-xs font-medium rounded-xl border outline-hidden transition-colors ${
@@ -128,7 +130,7 @@ export default function AddSlotModal({
           {/* 3. Trạng thái: approved or rejected */}
           <div>
             <label className="block text-xs font-bold mb-2 text-slate-700 dark:text-zinc-300">
-              Trạng thái phê duyệt <span className="text-rose-500">*</span>
+              {t('overview.addSlotModal.fieldStatus')} <span className="text-rose-500">*</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
               {/* Option Approved */}
@@ -153,9 +155,9 @@ export default function AddSlotModal({
                 </div>
                 <div>
                   <div className="text-xs font-bold flex items-center gap-1">
-                    <span>✅</span> Approved
+                    <span>✅</span> {t('overview.addSlotModal.statusApproved')}
                   </div>
-                  <div className="text-[10px] opacity-75">Đã duyệt sẵn sàng</div>
+                  <div className="text-[10px] opacity-75">{t('overview.addSlotModal.statusApprovedSub')}</div>
                 </div>
               </label>
 
@@ -181,9 +183,9 @@ export default function AddSlotModal({
                 </div>
                 <div>
                   <div className="text-xs font-bold flex items-center gap-1">
-                    <span>⛔</span> Rejected
+                    <span>⛔</span> {t('overview.addSlotModal.statusRejected')}
                   </div>
-                  <div className="text-[10px] opacity-75">Từ chối / Khóa</div>
+                  <div className="text-[10px] opacity-75">{t('overview.addSlotModal.statusRejectedSub')}</div>
                 </div>
               </label>
             </div>
@@ -192,7 +194,7 @@ export default function AddSlotModal({
           {/* 4. IP Address (Tùy chọn) */}
           <div>
             <label className="block text-xs font-bold mb-1 text-slate-700 dark:text-zinc-300">
-              Địa chỉ IP (IP Address)
+              {t('overview.addSlotModal.fieldIp')}
             </label>
             <input
               type="text"
@@ -222,7 +224,7 @@ export default function AddSlotModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
               }`}
             >
-              Hủy bỏ
+              {t('overview.addSlotModal.btnCancel')}
             </button>
 
             <button
@@ -233,7 +235,7 @@ export default function AddSlotModal({
                   : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
               }`}
             >
-              <span>Xác nhận Thêm Slot</span>
+              <span>{t('overview.addSlotModal.btnSubmit')}</span>
             </button>
           </div>
         </form>

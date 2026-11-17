@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**
@@ -9,6 +10,7 @@ export default function SfcTransactionConsole({
   latestTransaction,
   onClearConsole,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -24,7 +26,7 @@ export default function SfcTransactionConsole({
             : 'bg-zinc-950 border-zinc-800 text-zinc-500'
         }`}
       >
-        <div className="text-xs font-semibold">Chưa có giao dịch SFC nào được kích hoạt.</div>
+        <div className="text-xs font-semibold">{t('control.sfc.console.noTransactions')}</div>
       </div>
     );
   }
@@ -54,7 +56,7 @@ export default function SfcTransactionConsole({
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block"></span>
           </div>
           <span className={`text-[11px] font-bold ${ isFoxconn ? "text-slate-400" : "text-white"} ml-1`}>
-            KẾT QUẢ GIAO DỊCH GẦN NHẤT
+            {t('control.sfc.console.headerTitle')}
           </span>
         </div>
 
@@ -62,18 +64,18 @@ export default function SfcTransactionConsole({
           <button
             type="button"
             onClick={handleCopyJson}
-            title="Sao chép toàn bộ JSON"
+            title={t('control.sfc.console.copyTitle')}
             className="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer"
           >
-            {copied ? '✓ Đã chép' : 'Sao chép'}
+            {copied ? t('control.sfc.console.btnCopied') : t('control.sfc.console.btnCopy')}
           </button>
           <button
             type="button"
             onClick={onClearConsole}
-            title="Xóa console"
+            title={t('control.sfc.console.clearTitle')}
             className="px-2 py-0.5 rounded text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors cursor-pointer"
           >
-            Xóa
+            {t('control.sfc.console.btnClear')}
           </button>
         </div>
       </div>
@@ -107,7 +109,7 @@ export default function SfcTransactionConsole({
 
         {/* Row 2: Action Name */}
         <div className="text-[11px]">
-          <span className="text-slate-400">Action: </span>
+          <span className="text-slate-400">{t('control.sfc.console.actionLabel')}{' '}</span>
           <span className="font-bold text-cyan-300 dark:text-[#76B900]">
             {latestTransaction.actionName}
           </span>
@@ -131,7 +133,7 @@ export default function SfcTransactionConsole({
             onClick={() => setShowRaw(!showRaw)}
             className="text-[10px] text-slate-400 hover:text-slate-200 underline cursor-pointer"
           >
-            {showRaw ? '▼ Thu gọn dữ liệu chi tiết' : '▶ Xem chi tiết Payload & Response JSON'}
+            {showRaw ? t('control.sfc.console.toggleCollapse') : t('control.sfc.console.toggleExpand')}
           </button>
 
           {showRaw && (

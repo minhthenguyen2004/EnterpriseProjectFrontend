@@ -34,6 +34,106 @@
     "updateSuccess": "Successfully updated machine [{{name}}]!",
     "deleteSuccess": "Deleted machine [{{name}}] from system!",
     "importSuccess": "Successfully imported {{count}} machines from Excel file!"
+  },
+  "statusManagement": {
+    "header": {
+      "title": "MACHINE STATUS MONITORING",
+      "badge": "LIVE MONITOR",
+      "description": "Real-time Operations Dashboard: Monitor all production stations, network IP, running recipes, and assembly line positions.",
+      "breadcrumbAutomation": "AUTOMATION MANAGEMENT",
+      "breadcrumbMachineStatus": "MACHINE STATUS"
+    },
+    "filterBtn": "Filter",
+    "filterBtnTitle": "Open multi-criteria machine filter drawer",
+    "filterHandle": {
+      "openTitle": "Open machine filter (Search, Status, Line, Floor)",
+      "closeTitle": "Close machine filter",
+      "openAria": "Open machine status filter",
+      "closeAria": "Close filter",
+      "filterText": "FILTER",
+      "closeText": "CLOSE"
+    },
+    "filterDrawer": {
+      "title": "MACHINE STATUS FILTER",
+      "activeCount": "Applying {{count}} active filters",
+      "noActiveFilter": "No active filters applied",
+      "closeTooltip": "Close filter drawer (ESC)",
+      "searchLabel": "Search by Machine Name or IP Address:",
+      "clearSearch": "Clear search",
+      "searchPlaceholder": "Enter machine name (e.g. SMT #01) or IP (e.g. 192.168)...",
+      "factoryLabel": "Factory:",
+      "floorLabel": "Workshop Floor:",
+      "areaLabel": "Production Area:",
+      "statusLabel": "Operating Status:",
+      "factories": {
+        "all": "All Factories",
+        "factory_01": "F01 Plant - Que Vo Industrial Park (Bac Ninh)",
+        "factory_02": "F02 Plant - Yen Phong Industrial Park (Bac Ninh)",
+        "factory_03": "F03 Plant - Quang Chau Industrial Park (Bac Giang)",
+        "factory_05": "F05 Plant - Dinh Vu Industrial Park (Hai Phong)"
+      },
+      "floors": {
+        "all": "All Floors",
+        "floor_01": "Floor 1 (F1) - Pre-machining & Mechanical Workshop",
+        "floor_02": "Floor 2 (F2) - High-Speed SMT & Cleanroom Workshop",
+        "floor_03": "Floor 3 (F3) - System Integration & QA Testing"
+      },
+      "areas": {
+        "all": "All Areas",
+        "area_smt": "SMT & Component Placement Area",
+        "area_assembly": "Tray / Chassis Assembly Area",
+        "area_aoi": "Automated Optical Inspection (AOI / SPI) Area",
+        "area_testing": "ICT & Burn-in Testing Area",
+        "area_packing": "Automated Packing & Shipping Area"
+      },
+      "statusOptions": {
+        "all": "All Statuses",
+        "RUN": "Running (RUN)",
+        "IDLE": "Idle / Waiting (IDLE)",
+        "STOP": "Stopped (STOP)",
+        "ERROR": "Alarm / Error (ERROR)"
+      },
+      "btnReset": "Reset to Default",
+      "btnApply": "Apply Filters"
+    },
+    "kpi": {
+      "totalTitle": "TOTAL MACHINES",
+      "runningTitle": "OPERATIONAL",
+      "stoppedTitle": "NON-OPERATIONAL",
+      "unit": "units",
+      "badgeError": "{{count}} ERRORS",
+      "badgeNormal": "NORMAL"
+    },
+    "grid": {
+      "listTitle": "Machine Station List:",
+      "counter": "{{current}} / {{total}} machines",
+      "keywordChip": "Keyword: \"{{query}}\"",
+      "standardView": "Standard",
+      "standardViewTitle": "Standard View (Full Details)",
+      "compactView": "Compact",
+      "compactViewTitle": "Compact View (Dense grid, more machines)",
+      "sortDefault": "Sort: Default",
+      "sortName": "Machine Name (A → Z)",
+      "sortIp": "IP Address",
+      "sortStatus": "Prioritize Alarms (ERROR)",
+      "emptyTitle": "No Matching Machines Found",
+      "emptyDesc": "No machines match the selected filter criteria or search keyword. Please try adjusting your filters.",
+      "btnResetDefault": "Reset Default Filters"
+    },
+    "card": {
+      "ipTooltip": "IP Address",
+      "copyIp": "Copy IP",
+      "copiedIp": "Copied",
+      "programTooltip": "Recipe/Program: {{program}}",
+      "areaTooltip": "Area: {{area}}",
+      "locationTooltip": "Location: {{location}}"
+    },
+    "status": {
+      "RUN": "RUNNING",
+      "IDLE": "IDLE",
+      "STOP": "STOPPED",
+      "ERROR": "ERROR / ALARM"
+    }
   }
 }
 

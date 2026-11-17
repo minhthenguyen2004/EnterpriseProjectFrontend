@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import {
   ACTION_BADGE_CONFIG,
@@ -11,6 +12,7 @@ import {
  * Stored Procedure và toàn văn Request Payload / Response Body.
  */
 export default function ActionLogDetailModal({ isOpen, onClose, log }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [copiedKey, setCopiedKey] = useState(null);
@@ -67,7 +69,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                     isFoxconn ? 'text-slate-800' : 'text-zinc-100'
                   }`}
                 >
-                  Chi Tiết Bản Ghi Kiểm Toán
+                  {t('control.actionLogs.detailModal.title')}
                 </h3>
                 <span
                   className={`font-mono text-xs px-2 py-0.5 rounded font-bold ${
@@ -80,7 +82,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                 </span>
               </div>
               <p className={`text-xs ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-                Lưu vết toàn bộ thông số thực thi tác vụ, hạ tầng máy trạm và thông điệp CSDL.
+                {t('control.actionLogs.detailModal.desc')}
               </p>
             </div>
           </div>
@@ -112,7 +114,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-slate-500' : 'text-zinc-400'
                 }`}
               >
-                Thời Gian Thực Thi
+                {t('control.actionLogs.detailModal.execTime')}
               </span>
               <span
                 className={`font-mono font-semibold ${
@@ -133,7 +135,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-slate-500' : 'text-zinc-400'
                 }`}
               >
-                Người Thực Hiện
+                {t('control.actionLogs.detailModal.operator')}
               </span>
               <span
                 className={`font-mono font-bold flex items-center gap-1 ${
@@ -155,7 +157,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-slate-500' : 'text-zinc-400'
                 }`}
               >
-                Hành Động
+                {t('control.actionLogs.detailModal.action')}
               </span>
               <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-extrabold border ${actionBadge.color}`}>
                 {actionBadge.label}
@@ -172,7 +174,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-slate-500' : 'text-zinc-400'
                 }`}
               >
-                Trạng Thái
+                {t('control.actionLogs.detailModal.status')}
               </span>
               <span className={`inline-block px-2 py-0.5 rounded text-[10px] font-bold border ${statusBadge.color}`}>
                 {statusBadge.label}
@@ -193,53 +195,53 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                 isFoxconn ? 'text-slate-800' : 'text-zinc-200'
               }`}
             >
-              Thông Tin Môi Trường & Stored Procedure
+              {t('control.actionLogs.detailModal.envTitle')}
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <div>
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Bảng CSDL Đích:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.targetTable')}</span>{' '}
                 <strong className={`font-mono ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
                   {log.targetTable}
                 </strong>
               </div>
               <div>
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Mục Tiêu Tác Động:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.targetImpact')}</span>{' '}
                 <strong className={`font-mono ${isFoxconn ? 'text-blue-600' : 'text-blue-400'}`}>
                   [{log.targetType.toUpperCase()}] {log.targetCode}
                 </strong>
               </div>
               <div>
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Client IP:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.clientIp')}</span>{' '}
                 <span className={`font-mono font-semibold ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
                   {log.metadata?.clientIp || '192.168.10.45'}
                 </span>
               </div>
               <div>
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Hostname:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.hostname')}</span>{' '}
                 <span className={`font-mono font-semibold ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
                   {log.metadata?.hostname || 'ALABEL-GW-01'}
                 </span>
               </div>
               <div>
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Session ID:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.sessionId')}</span>{' '}
                 <span className={`font-mono text-[11px] font-semibold ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
                   {log.metadata?.sessionId || 'N/A'}
                 </span>
               </div>
               <div>
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Độ Trễ Xử Lý:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.latency')}</span>{' '}
                 <span className={`font-mono font-bold ${isFoxconn ? 'text-emerald-600' : 'text-[#76B900]'}`}>
                   ⚡ {log.metadata?.latencyMs || 24}ms
                 </span>
               </div>
               <div className="sm:col-span-2">
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Stored Procedure:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.spName')}</span>{' '}
                 <span className={`font-mono font-bold ${isFoxconn ? 'text-amber-700' : 'text-amber-400'}`}>
                   {log.metadata?.spName || '[AutoLine].[ALABEL_ExecuteAction]'}
                 </span>
               </div>
               <div className="sm:col-span-2">
-                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Mô Tả:</span>{' '}
+                <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.detailModal.description')}</span>{' '}
                 <span className={isFoxconn ? 'text-slate-800 font-medium' : 'text-zinc-200'}>
                   {log.description}
                 </span>
@@ -255,7 +257,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-slate-800' : 'text-zinc-200'
                 }`}
               >
-                📤 Request Payload (Dữ liệu gửi lên):
+                {t('control.actionLogs.detailModal.reqPayload')}
               </span>
               <button
                 type="button"
@@ -264,7 +266,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-blue-600' : 'text-[#76B900]'
                 }`}
               >
-                {copiedKey === 'req' ? '✓ Đã chép' : 'Sao chép JSON'}
+                {copiedKey === 'req' ? t('control.actionLogs.detailModal.copied') : t('control.actionLogs.detailModal.copyJson')}
               </button>
             </div>
             <pre
@@ -286,7 +288,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-slate-800' : 'text-zinc-200'
                 }`}
               >
-                📥 Response Body (Phản hồi từ CSDL / Dịch vụ):
+                {t('control.actionLogs.detailModal.respBody')}
               </span>
               <button
                 type="button"
@@ -295,7 +297,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                   isFoxconn ? 'text-blue-600' : 'text-[#76B900]'
                 }`}
               >
-                {copiedKey === 'res' ? '✓ Đã chép' : 'Sao chép JSON'}
+                {copiedKey === 'res' ? t('control.actionLogs.detailModal.copied') : t('control.actionLogs.detailModal.copyJson')}
               </button>
             </div>
             <pre
@@ -325,7 +327,7 @@ export default function ActionLogDetailModal({ isOpen, onClose, log }) {
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-100'
             }`}
           >
-            Đóng Hộp Thoại
+            {t('control.actionLogs.detailModal.btnClose')}
           </button>
         </div>
       </div>

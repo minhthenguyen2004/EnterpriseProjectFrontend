@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function RenameGroupModal({
@@ -7,6 +8,7 @@ export default function RenameGroupModal({
   onClose,
   onSubmit
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -42,7 +44,7 @@ export default function RenameGroupModal({
         >
           <div className="flex items-center gap-2">
             <span className="text-base">✏️</span>
-            <h3 className="text-xs font-bold tracking-tight uppercase">Đổi Tên Group Name</h3>
+            <h3 className="text-xs font-bold tracking-tight uppercase">{t('overview.renameGroupModal.title')}</h3>
           </div>
           <button
             type="button"
@@ -56,7 +58,7 @@ export default function RenameGroupModal({
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
             <label className="block text-xs font-bold mb-1.5 text-slate-700 dark:text-zinc-300">
-              Tên Group mới
+              {t('overview.renameGroupModal.fieldNewName')}
             </label>
             <input
               type="text"
@@ -81,7 +83,7 @@ export default function RenameGroupModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
               }`}
             >
-              Hủy
+              {t('overview.renameGroupModal.btnCancel')}
             </button>
             <button
               type="submit"
@@ -91,7 +93,7 @@ export default function RenameGroupModal({
                   : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[#76B900]/25'
               }`}
             >
-              Lưu Tên Mới
+              {t('overview.renameGroupModal.btnSubmit')}
             </button>
           </div>
         </form>

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ModelTopLimitSelect({
   isFoxconn,
   currentModel,
@@ -6,12 +8,14 @@ export default function ModelTopLimitSelect({
   currentTopLimit,
   handleTopLimitChange,
 }) {
+  const { t } = useTranslation('autoline');
+
   const limitOptions = [
-    { value: 50, label: '50 bản ghi (Truy vấn nhanh)' },
-    { value: 100, label: '100 bản ghi (Khuyến nghị mặc định)' },
-    { value: 200, label: '200 bản ghi' },
-    { value: 500, label: '500 bản ghi' },
-    { value: 1000, label: '1000 bản ghi (Tối đa lịch sử)' },
+    { value: 50, label: t('control.alabel.forms.limitRecords', { count: 50 }) },
+    { value: 100, label: t('control.alabel.forms.limitRecords', { count: 100 }) },
+    { value: 200, label: t('control.alabel.forms.limitRecords', { count: 200 }) },
+    { value: 500, label: t('control.alabel.forms.limitRecords', { count: 500 }) },
+    { value: 1000, label: t('control.alabel.forms.limitRecords', { count: 1000 }) },
   ];
 
   return (
@@ -20,7 +24,7 @@ export default function ModelTopLimitSelect({
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Dòng Sản Phẩm (Model - Tùy chọn)
+            {t('control.alabel.forms.modelDropdown')}
           </label>
           <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
             OPTIONAL
@@ -28,7 +32,7 @@ export default function ModelTopLimitSelect({
         </div>
         <select
           value={currentModel}
-          onChange={(e) => handleModelChange(e.target.value)}
+          onChange={(e) => handleModelChange?.(e.target.value)}
           className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
             isFoxconn
               ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -36,7 +40,7 @@ export default function ModelTopLimitSelect({
           }`}
         >
           <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-            -- Tất Cả Dòng Sản Phẩm (Mặc Định) --
+            {t('control.alabel.forms.allModels')}
           </option>
           {DB_ACTIVE_MODELS.map((m) => (
             <option
@@ -54,7 +58,7 @@ export default function ModelTopLimitSelect({
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'} flex items-center gap-1`}>
-            <span>Giới Hạn Bản Ghi (Top Limit)</span>
+            <span>{t('control.alabel.forms.topLimit')}</span>
             <span className="text-red-500 font-black">*</span>
           </label>
           <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-500 border border-blue-500/20 font-mono">
@@ -63,7 +67,7 @@ export default function ModelTopLimitSelect({
         </div>
         <select
           value={currentTopLimit}
-          onChange={(e) => handleTopLimitChange(Number(e.target.value))}
+          onChange={(e) => handleTopLimitChange?.(Number(e.target.value))}
           className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
             isFoxconn
               ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'

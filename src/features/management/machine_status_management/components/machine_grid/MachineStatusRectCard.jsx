@@ -1,13 +1,19 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import MachineStatusLedBadge from './MachineStatusLedBadge';
 
 export default function MachineStatusRectCard({ machine, onSelect, compact = false }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [copied, setCopied] = useState(false);
 
   if (!machine) return null;
+
+  const areaDisplay = machine.areaId
+    ? t(`statusManagement.filterDrawer.areas.${machine.areaId}`, machine.areaName)
+    : machine.areaName;
 
   const handleCopyIp = (e) => {
     e.stopPropagation();
@@ -86,7 +92,7 @@ export default function MachineStatusRectCard({ machine, onSelect, compact = fal
           </div>
           <div className="flex items-start gap-1.5">
             <span className="text-amber-500 shrink-0 mt-0.5">📍</span>
-            <span className={`wrap-break-word leading-snug ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>{machine.areaName}</span>
+            <span className={`wrap-break-word leading-snug ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>{areaDisplay}</span>
           </div>
         </div>
       </div>
@@ -149,7 +155,12 @@ export default function MachineStatusRectCard({ machine, onSelect, compact = fal
         {/* ĐỊA CHỈ IP - Liền mạch, tự động bẻ dòng nếu IP hoặc Hostname dài, nút copy tiện lợi */}
         <div className="flex items-start justify-between gap-1.5 py-0.5">
           <div className="flex items-start gap-2 font-bold text-xs min-w-0">
-            <span className="text-blue-500 shrink-0 text-xs mt-0.5" title="Địa chỉ IP">🌐</span>
+            <span
+              className="text-blue-500 shrink-0 text-xs mt-0.5"
+              title={t('statusManagement.card.ipTooltip', 'Địa chỉ IP')}
+            >
+              🌐
+            </span>
             <span className={`font-bold break-all leading-tight ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>
               {machine.ip}
             </span>
@@ -157,7 +168,7 @@ export default function MachineStatusRectCard({ machine, onSelect, compact = fal
           <button
             type="button"
             onClick={handleCopyIp}
-            title="Sao chép IP"
+            title={copied ? t('statusManagement.card.copiedIp', 'Đã sao chép') : t('statusManagement.card.copyIp', 'Sao chép IP')}
             className={`p-1 rounded-md transition-all cursor-pointer shrink-0 ${
               copied
                 ? 'bg-emerald-500 text-white'
@@ -181,7 +192,7 @@ export default function MachineStatusRectCard({ machine, onSelect, compact = fal
         {/* CHƯƠNG TRÌNH - Tự động bẻ dòng xuống dưới khi tên recipe/HEX dài (break-all) */}
         <div
           className="flex items-start gap-2 font-bold text-[11px] py-0.5"
-          title={`Chương trình: ${machine.program}`}
+          title={t('statusManagement.card.programTooltip', 'Chương trình: {{program}}', { program: machine.program })}
         >
           <span className="text-purple-500 dark:text-purple-400 text-xs shrink-0 font-bold mt-0.5">&lt;/&gt;</span>
           <span className={`font-semibold break-all leading-snug ${isFoxconn ? 'text-slate-800' : 'text-zinc-100'}`}>
@@ -192,18 +203,18 @@ export default function MachineStatusRectCard({ machine, onSelect, compact = fal
         {/* KHU VỰC - Tự động xuống dòng khi tên khu vực dài (wrap-break-word) */}
         <div
           className="flex items-start gap-2 text-[11px] py-0.5"
-          title={`Khu vực: ${machine.areaName}`}
+          title={t('statusManagement.card.areaTooltip', 'Khu vực: {{area}}', { area: areaDisplay })}
         >
           <span className="text-amber-500 shrink-0 text-xs mt-0.5">🏢</span>
           <span className={`font-medium wrap-break-word leading-snug ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            {machine.areaName}
+            {areaDisplay}
           </span>
         </div>
 
         {/* VỊ TRÍ - Tự động xuống dòng khi tên vị trí/trạm dài (wrap-break-word) */}
         <div
           className="flex items-start gap-2 text-[11px] py-0.5"
-          title={`Vị trí: ${machine.location}`}
+          title={t('statusManagement.card.locationTooltip', 'Vị trí: {{location}}', { location: machine.location })}
         >
           <span className="text-emerald-500 shrink-0 text-xs mt-0.5">📍</span>
           <span className={`font-bold text-[10.5px] wrap-break-word leading-snug ${isFoxconn ? 'text-slate-600' : 'text-zinc-300'}`}>

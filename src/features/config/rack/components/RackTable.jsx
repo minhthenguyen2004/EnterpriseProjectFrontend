@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import { TABLE_COLUMNS } from '../constants/rackConfigConstants';
 import RackColumnFilterDropdown from './RackColumnFilterDropdown';
@@ -18,6 +19,7 @@ export default function RackTable({
   onDelete,
   searchTerm
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -48,12 +50,12 @@ export default function RackTable({
           </svg>
         </div>
         <h3 className="text-sm font-bold text-slate-800 dark:text-zinc-200">
-          Không tìm thấy cấu hình tủ Rack nào phù hợp
+          {t('config.table.emptyTitle')}
         </h3>
         <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1 max-w-sm mx-auto">
           {hasAnyFilter
-            ? 'Không có bản ghi nào khớp với điều kiện lọc hiện tại. Vui lòng thử từ khóa khác hoặc đặt lại bộ lọc.'
-            : 'Hiện tại chưa có dữ liệu cấu hình tủ Rack trong hệ thống.'}
+            ? t('config.table.emptyFilteredDesc')
+            : t('config.table.emptyDesc')}
         </p>
         {hasAnyFilter && (
           <button
@@ -65,7 +67,7 @@ export default function RackTable({
                 : 'bg-[#76B900]/10 hover:bg-[#76B900]/20 text-[#76B900] border border-[#76B900]/30'
             }`}
           >
-            Đặt lại toàn bộ bộ lọc ({activeFilterCount})
+            {t('config.table.btnResetAll', { count: activeFilterCount })}
           </button>
         )}
       </div>
@@ -93,11 +95,13 @@ export default function RackTable({
           >
             <tr>
               {TABLE_COLUMNS.map((col) => {
+                const colLabel = t(`config.cols.${col.id}`, col.label);
+
                 // Column 1: Row Index
                 if (col.isIndex) {
                   return (
                     <th key={col.id} className="py-3 px-3 text-center w-12 whitespace-nowrap">
-                      {col.label}
+                      {colLabel}
                     </th>
                   );
                 }
@@ -110,7 +114,7 @@ export default function RackTable({
                         <button
                           type="button"
                           onClick={onResetAllFilters}
-                          title="Đặt lại toàn bộ các bộ lọc trên mọi cột và ô tìm kiếm"
+                          title={t('config.table.resetTooltip')}
                           className={`px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer active:scale-95 ${
                             activeFilterCount > 0
                               ? isFoxconn
@@ -129,7 +133,7 @@ export default function RackTable({
                               d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                             />
                           </svg>
-                          <span>⟲ Reset</span>
+                          <span>{t('config.table.btnResetTable')}</span>
                           {activeFilterCount > 0 && (
                             <span
                               className={`px-1.5 py-0.2 rounded-full text-[10px] font-mono font-black ${
@@ -168,9 +172,9 @@ export default function RackTable({
                             ? 'hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 border border-transparent'
                             : 'hover:bg-zinc-800 text-zinc-300 hover:text-white border border-transparent'
                         }`}
-                        title={`Bấm để mở bộ lọc cột ${col.label}`}
+                        title={t('config.table.colFilterTooltip', { col: colLabel })}
                       >
-                        <span>{col.label}</span>
+                        <span>{colLabel}</span>
 
                         {/* Active filter count badge */}
                         {isFiltered && (
@@ -219,7 +223,7 @@ export default function RackTable({
                       {/* Dropdown Popover */}
                       {isPopoverOpen && (
                         <RackColumnFilterDropdown
-                          column={col}
+                          column={{ ...col, label: colLabel }}
                           uniqueValues={getUniqueValuesForColumn(col.id)}
                           selectedValues={columnFilters[col.id] || []}
                           sortConfig={sortConfig}
@@ -356,7 +360,7 @@ export default function RackTable({
                             ? 'bg-blue-50/80 hover:bg-blue-100 text-blue-700 border-blue-200/80 hover:border-blue-300 shadow-2xs'
                             : 'bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border-cyan-500/30 hover:border-cyan-500/50 shadow-2xs'
                         }`}
-                        title="Chỉnh sửa cấu hình"
+                        title={t('config.table.editTooltip')}
                       >
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
@@ -366,7 +370,7 @@ export default function RackTable({
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                           />
                         </svg>
-                        <span className="hidden sm:inline">Sửa</span>
+                        <span className="hidden sm:inline">{t('config.table.btnEdit')}</span>
                       </button>
 
                       {/* Nút Xóa (Delete) */}
@@ -378,7 +382,7 @@ export default function RackTable({
                             ? 'bg-rose-50/80 hover:bg-rose-100 text-rose-700 border-rose-200/80 hover:border-rose-300 shadow-2xs'
                             : 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border-rose-500/30 hover:border-rose-500/50 shadow-2xs'
                         }`}
-                        title="Xóa cấu hình"
+                        title={t('config.table.deleteTooltip')}
                       >
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
@@ -388,7 +392,7 @@ export default function RackTable({
                             d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                           />
                         </svg>
-                        <span className="hidden sm:inline">Xóa</span>
+                        <span className="hidden sm:inline">{t('config.table.btnDelete')}</span>
                       </button>
                     </div>
                   </td>

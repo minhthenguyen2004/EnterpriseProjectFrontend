@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 /**
@@ -8,14 +9,15 @@ import useTheme from '../../../../hooks/useTheme';
  * 4. Action Logs & Restore
  */
 export default function AutolineControlTabsNav({ activeTab, onTabChange }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
   const tabs = [
     {
       id: 'sfc_switch',
-      label: 'SFC Switch Helpers',
-      tag: 'CORE',
+      label: t('control.tabs.sfcSwitch'),
+      tag: t('control.tabs.sfcSwitchTag'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -29,8 +31,8 @@ export default function AutolineControlTabsNav({ activeTab, onTabChange }) {
     },
     {
       id: 'sfc_adapter',
-      label: 'SFC Adapter Helpers',
-      tag: 'ADAPTER',
+      label: t('control.tabs.sfcAdapter'),
+      tag: t('control.tabs.sfcAdapterTag'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -44,8 +46,8 @@ export default function AutolineControlTabsNav({ activeTab, onTabChange }) {
     },
     {
       id: 'a_label_helpers',
-      label: 'ALABEL Helpers',
-      tag: 'LABEL/RFID',
+      label: t('control.tabs.alabel'),
+      tag: t('control.tabs.alabelTag'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -59,8 +61,8 @@ export default function AutolineControlTabsNav({ activeTab, onTabChange }) {
     },
     {
       id: 'action_logs',
-      label: 'Action Logs & Restore',
-      tag: 'HISTORY',
+      label: t('control.tabs.actionLogs'),
+      tag: t('control.tabs.actionLogsTag'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

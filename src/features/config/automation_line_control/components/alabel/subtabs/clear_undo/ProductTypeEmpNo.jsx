@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ProductTypeEmpNo({ isFoxconn, isManualModel, currentModel, DB_ACTIVE_MODELS, operatorId, handleModelSelect }) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             {/* Cột 1: Dòng sản phẩm (Dropdown menu) */}
             <div>
                 <div className="flex items-center justify-between mb-1.5">
                 <label className={`font-bold ${ isFoxconn ? "text-slate-700" : "text-zinc-200"}`}>
-                    Dòng Sản Phẩm (Model)
+                    {t('control.alabel.forms.modelDropdown')}
                 </label>
                 <span
                     className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
@@ -14,7 +18,7 @@ export default function ProductTypeEmpNo({ isFoxconn, isManualModel, currentMode
                         : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                     }`}
                 >
-                    {isManualModel ? 'Chọn thủ công' : '⚡ Tự động giải mã'}
+                    {isManualModel ? t('control.alabel.forms.manualSelect') : t('control.alabel.forms.autoDecode')}
                 </span>
                 </div>
                 <select
@@ -33,7 +37,7 @@ export default function ProductTypeEmpNo({ isFoxconn, isManualModel, currentMode
                 ))}
                 </select>
                 <p className={`text-[10px] mt-1 ${isFoxconn ? "text-slate-500" : "text-zinc-400"}`}>
-                Được đồng bộ từ CSDL hệ thống ALABEL Engine
+                {t('control.alabel.modelNote')}
                 </p>
             </div>
 
@@ -41,7 +45,7 @@ export default function ProductTypeEmpNo({ isFoxconn, isManualModel, currentMode
             <div>
                 <div className="flex items-center justify-between mb-1.5">
                 <label className={`font-bold ${ isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1`}>
-                    <span>Mã Nhân Viên</span>
+                    <span>{t('control.alabel.forms.operatorId')}</span>
                     <span className="text-[11px]">🔒</span>
                 </label>
                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${isFoxconn ? "bg-slate-200 text-slate-700 border-slate-300" : "bg-zinc-800 text-zinc-300 border-zinc-700"}`}>
@@ -64,11 +68,11 @@ export default function ProductTypeEmpNo({ isFoxconn, isManualModel, currentMode
                         ? 'bg-slate-100 border-slate-200 text-slate-600'
                         : 'bg-zinc-900/90 border-zinc-800 text-zinc-400'
                     }`}
-                    title="Tự truy xuất từ tài khoản đăng nhập hiện tại. Không thể sửa đổi nhằm bảo đảm tính toàn vẹn kiểm toán (Audit Trail)."
+                    title={t('control.alabel.forms.operatorTitle')}
                 />
                 </div>
                 <p className={`text-[10px] mt-1 ${isFoxconn ? "text-slate-500" : "text-zinc-400"}`}>
-                Tự động truy xuất sau khi đăng nhập (Audit Trail Foxconn / NVIDIA)
+                {t('control.alabel.forms.autoRetrieved')}
                 </p>
             </div>
         </div>

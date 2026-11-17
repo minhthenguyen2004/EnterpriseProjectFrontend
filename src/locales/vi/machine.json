@@ -34,6 +34,106 @@
     "updateSuccess": "Đã cập nhật thông tin thiết bị [{{name}}] thành công!",
     "deleteSuccess": "Đã xóa máy [{{name}}] khỏi hệ thống!",
     "importSuccess": "Đã nhập thành công {{count}} thiết bị từ tệp Excel!"
+  },
+  "statusManagement": {
+    "header": {
+      "title": "GIÁM SÁT TRẠNG THÁI MÁY MÓC",
+      "badge": "LIVE MONITOR",
+      "description": "Bảng điều hành thời gian thực: Giám sát toàn bộ các trạm máy sản xuất, định danh IP, chương trình và vị trí dây chuyền.",
+      "breadcrumbAutomation": "QUẢN LÝ TỰ ĐỘNG HÓA",
+      "breadcrumbMachineStatus": "MACHINE STATUS"
+    },
+    "filterBtn": "Bộ Lọc",
+    "filterBtnTitle": "Mở bảng lọc đa tiêu chí máy móc",
+    "filterHandle": {
+      "openTitle": "Mở bảng lọc máy móc (Tìm kiếm, Trạng thái, Chuyền, Tầng)",
+      "closeTitle": "Đóng bảng lọc máy móc",
+      "openAria": "Mở bộ lọc trạng thái máy móc",
+      "closeAria": "Đóng bộ lọc",
+      "filterText": "BỘ LỌC",
+      "closeText": "ĐÓNG"
+    },
+    "filterDrawer": {
+      "title": "BỘ LỌC TRẠNG THÁI MÁY",
+      "activeCount": "Đang áp dụng {{count}} tiêu chí lọc",
+      "noActiveFilter": "Chưa áp dụng tiêu chí lọc nào",
+      "closeTooltip": "Đóng bảng lọc (ESC)",
+      "searchLabel": "Tìm kiếm theo Tên máy hoặc Địa chỉ IP:",
+      "clearSearch": "Xóa tìm kiếm",
+      "searchPlaceholder": "Nhập tên máy (vd: SMT #01) hoặc IP (vd: 192.168)...",
+      "factoryLabel": "Nhà Máy (Factory):",
+      "floorLabel": "Tầng Xưởng (Floor):",
+      "areaLabel": "Khu Vực Sản Xuất (Area):",
+      "statusLabel": "Trạng Thái Vận Hành (Status):",
+      "factories": {
+        "all": "Tất cả nhà máy",
+        "factory_01": "Nhà máy F01 - KCN Quế Võ (Bắc Ninh)",
+        "factory_02": "Nhà máy F02 - KCN Yên Phong (Bắc Ninh)",
+        "factory_03": "Nhà máy F03 - KCN Quang Châu (Bắc Giang)",
+        "factory_05": "Nhà máy F05 - KCN Đình Vũ (Hải Phòng)"
+      },
+      "floors": {
+        "all": "Tất cả các tầng",
+        "floor_01": "Tầng 1 (F1) - Xưởng Gia Công Sơ Bộ",
+        "floor_02": "Tầng 2 (F2) - Xưởng SMT Cao Tốc & Cleanroom",
+        "floor_03": "Tầng 3 (F3) - Xưởng Lắp Ráp Hệ Thống & Kiểm Tra"
+      },
+      "areas": {
+        "all": "Tất cả khu vực",
+        "area_smt": "Khu Vực SMT & Gắn Linh Kiện",
+        "area_assembly": "Khu Vực Lắp Ráp Tray / Chassis",
+        "area_aoi": "Khu Vực Kiểm Tra Tự Động (AOI / SPI)",
+        "area_testing": "Khu Vực Thử Nghiệm ICT & Burn-in",
+        "area_packing": "Khu Vực Đóng Gói Tự Động & Xuất Xưởng"
+      },
+      "statusOptions": {
+        "all": "Tất cả trạng thái",
+        "RUN": "Đang chạy (RUN)",
+        "IDLE": "Chờ hàng (IDLE)",
+        "STOP": "Dừng máy (STOP)",
+        "ERROR": "Cảnh báo lỗi (ERROR)"
+      },
+      "btnReset": "Đặt Lại Mặc Định",
+      "btnApply": "Áp Dụng Lọc"
+    },
+    "kpi": {
+      "totalTitle": "TỔNG SỐ MÁY",
+      "runningTitle": "ĐANG HOẠT ĐỘNG",
+      "stoppedTitle": "DỪNG HOẠT ĐỘNG",
+      "unit": "máy",
+      "badgeError": "{{count}} LỖI",
+      "badgeNormal": "BÌNH THƯỜNG"
+    },
+    "grid": {
+      "listTitle": "Danh Sách Trạm Máy:",
+      "counter": "{{current}} / {{total}} máy",
+      "keywordChip": "Từ khóa: \"{{query}}\"",
+      "standardView": "Tiêu chuẩn",
+      "standardViewTitle": "Chế độ xem Tiêu chuẩn (Đầy đủ thông tin)",
+      "compactView": "Thu gọn",
+      "compactViewTitle": "Chế độ xem Thu gọn (Ít chữ, xem nhiều máy)",
+      "sortDefault": "Sắp xếp: Mặc định",
+      "sortName": "Tên máy (A → Z)",
+      "sortIp": "Địa chỉ IP",
+      "sortStatus": "Ưu tiên máy lỗi (ERROR)",
+      "emptyTitle": "Không Tìm Thấy Máy Nào Phù Hợp",
+      "emptyDesc": "Không có máy nào thỏa mãn các tiêu chí lọc hoặc từ khóa tìm kiếm hiện tại. Bạn vui lòng thử lại với tiêu chí khác.",
+      "btnResetDefault": "Đặt Lại Bộ Lọc Mặc Định"
+    },
+    "card": {
+      "ipTooltip": "Địa chỉ IP",
+      "copyIp": "Sao chép IP",
+      "copiedIp": "Đã sao chép",
+      "programTooltip": "Chương trình: {{program}}",
+      "areaTooltip": "Khu vực: {{area}}",
+      "locationTooltip": "Vị trí: {{location}}"
+    },
+    "status": {
+      "RUN": "RUNNING",
+      "IDLE": "IDLE / CHỜ",
+      "STOP": "STOPPED",
+      "ERROR": "ERROR / ALARM"
+    }
   }
 }
 

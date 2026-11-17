@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**
@@ -11,6 +12,7 @@ export default function UndoLinkConfirmModal({
   sn,
   mode = 'switch',
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -34,17 +36,17 @@ export default function UndoLinkConfirmModal({
             </svg>
           </div>
           <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider">Xác Nhận {actionTitle}</h3>
+            <h3 className="text-sm font-bold uppercase tracking-wider">
+              {t('control.sfc.undoModal.title', { actionTitle })}
+            </h3>
             <p className="text-xs text-slate-500 dark:text-zinc-400">
-              Hoàn tác và giải phóng liên kết linh kiện {targetSystem}
+              {t('control.sfc.undoModal.subtitle', { targetSystem })}
             </p>
           </div>
         </div>
 
         <div className="p-3.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/40 text-xs text-amber-800 dark:text-amber-300 leading-relaxed mb-6">
-          Bạn có chắc chắn muốn hủy liên kết toàn bộ linh kiện của Serial Number{' '}
-          <strong className="font-mono text-amber-900 dark:text-amber-200">{sn}</strong> trên trạm hiện tại qua{' '}
-          <strong>{targetSystem}</strong> không? Hành động này sẽ reset cờ SFC về trạng thái chưa liên kết.
+          {t('control.sfc.undoModal.message', { sn: sn || 'N/A', targetSystem })}
         </div>
 
         <div className="flex items-center justify-end gap-3">
@@ -58,7 +60,7 @@ export default function UndoLinkConfirmModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
             }`}
           >
-            Hủy Bỏ
+            {t('control.sfc.undoModal.btnCancel')}
           </button>
           <button
             type="button"
@@ -66,7 +68,7 @@ export default function UndoLinkConfirmModal({
             onClick={onConfirm}
             className="px-4 py-2 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-900/20 transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50"
           >
-            {isExecuting ? 'Đang hoàn tác...' : 'Xác Nhận Hoàn Tác'}
+            {isExecuting ? t('control.sfc.undoModal.btnConfirming') : t('control.sfc.undoModal.btnConfirm')}
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function OverviewQuickActions({
@@ -5,6 +6,7 @@ export default function OverviewQuickActions({
   onAddGroup,
   onAddRack
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -19,7 +21,7 @@ export default function OverviewQuickActions({
       <div className="flex items-center gap-2 mb-3.5 pb-2 border-b border-slate-100 dark:border-zinc-800">
         <span className="text-base">⚡</span>
         <h4 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
-          Thao Tác Nhanh
+          {t('overview.quickActions.title')}
         </h4>
       </div>
 
@@ -38,7 +40,7 @@ export default function OverviewQuickActions({
             <span className="w-5 h-5 rounded-lg flex items-center justify-center font-bold text-xs bg-white/60 dark:bg-zinc-900/60">
               🔲
             </span>
-            <span>Thêm Face</span>
+            <span>{t('overview.quickActions.addFace')}</span>
           </span>
           <span className="text-sm font-bold group-hover:translate-x-0.5 transition-transform">+</span>
         </button>
@@ -57,7 +59,7 @@ export default function OverviewQuickActions({
             <span className="w-5 h-5 rounded-lg flex items-center justify-center font-bold text-xs bg-white/60 dark:bg-zinc-900/60">
               👥
             </span>
-            <span>Thêm Group</span>
+            <span>{t('overview.quickActions.addGroup')}</span>
           </span>
           <span className="text-sm font-bold group-hover:translate-x-0.5 transition-transform">+</span>
         </button>
@@ -76,7 +78,7 @@ export default function OverviewQuickActions({
             <span className="w-5 h-5 rounded-lg flex items-center justify-center font-bold text-xs bg-white/60 dark:bg-zinc-900/60">
               🗄️
             </span>
-            <span>Thêm Rack</span>
+            <span>{t('overview.quickActions.addRack')}</span>
           </span>
           <span className="text-sm font-bold group-hover:translate-x-0.5 transition-transform">+</span>
         </button>

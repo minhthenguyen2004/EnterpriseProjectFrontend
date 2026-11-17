@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import GroupContainerCard from './GroupContainerCard';
 
@@ -18,6 +19,7 @@ export default function FaceContainerCard({
   onSwapSlots,
   onSwapRacks
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -101,22 +103,14 @@ export default function FaceContainerCard({
                     ? 'hover:bg-slate-200 text-slate-700'
                     : 'hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
-                title="Sửa tên Face"
+                title={t('overview.faceCard.editTooltip')}
               >
                 ✏️
               </button>
 
               {/* Text thống kê: bao gồm bao nhiêu rack và bao nhiêu slot */}
               <span className="text-xs font-medium text-slate-500 dark:text-zinc-400">
-                (bao gồm{' '}
-                <strong className={`font-bold ${ isFoxconn ? "text-black" : "text-white"}`}>
-                  {rackCount}
-                </strong>{' '}
-                rack và{' '}
-                <strong className={`font-bold ${ isFoxconn ? "text-black" : "text-white"}`}>
-                  {slotCount}
-                </strong>{' '}
-                slot)
+                {t('overview.faceCard.stats', { racks: rackCount, slots: slotCount })}
               </span>
             </div>
           )}
@@ -133,10 +127,10 @@ export default function FaceContainerCard({
                 ? 'bg-white hover:bg-purple-50 text-purple-900 border-purple-200 hover:border-purple-300'
                 : 'bg-purple-950/40 hover:bg-purple-950/70 text-purple-300 border-purple-700/60 hover:border-purple-600'
             }`}
-            title="Thêm một Group lồng vào trong khung Face này"
+            title={t('overview.faceCard.btnAddGroupTooltip')}
           >
             <span className="font-extrabold text-sm">+</span>
-            <span>Thêm Group</span>
+            <span>{t('overview.faceCard.btnAddGroup')}</span>
           </button>
 
           {/* Nút Xóa Face */}
@@ -144,7 +138,7 @@ export default function FaceContainerCard({
             type="button"
             onClick={() => onDeleteFace(face.id)}
             className="p-2 rounded-xl text-xs font-bold text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-800/40 cursor-pointer transition-colors"
-            title="Xóa Face này và toàn bộ các Group, Rack bên trong"
+            title={t('overview.faceCard.deleteTooltip')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -187,9 +181,9 @@ export default function FaceContainerCard({
             }`}
           >
             <div className="text-2xl mb-1.5">👥</div>
-            Chưa có Group nào trong Face này.
+            {t('overview.faceCard.emptyGroups')}
             <div className="mt-1">
-              Nhấn <strong>"+ Thêm Group"</strong> ở trên để tạo nhóm chuyền lồng vào trong.
+              {t('overview.faceCard.emptyGroupsHint')}
             </div>
           </div>
         )}

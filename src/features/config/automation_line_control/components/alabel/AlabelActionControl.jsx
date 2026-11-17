@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { ALABEL_SUB_TABS } from '../../constants/alabelConstants';
 import UndoResetSubTab from './subtabs/undo_reset/UndoResetFunction';
@@ -32,6 +33,7 @@ export default function AlabelActionControl({
   setErrorLogsForm,
   errorLogsList,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -52,14 +54,14 @@ export default function AlabelActionControl({
               </svg>
             </div>
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider">Thao Tác Điều Khiển ALABEL</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider">{t('control.alabel.actionTitle')}</h3>
               <p className="text-[11px] text-slate-500 dark:text-zinc-400">
-                Thực thi các nghiệp vụ can thiệp Router, hoàn tác, điều chuyển và bù dữ liệu SFC
+                {t('control.alabel.actionDesc')}
               </p>
             </div>
           </div>
           <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-            DISPATCHER
+            {t('control.alabel.actionBadge')}
           </span>
         </div>
 
@@ -86,7 +88,7 @@ export default function AlabelActionControl({
                     : 'hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
               >
-                {tab.label}
+                {t(`control.alabel.subtabs.${tab.id}`, { defaultValue: tab.label })}
               </button>
             );
           })}

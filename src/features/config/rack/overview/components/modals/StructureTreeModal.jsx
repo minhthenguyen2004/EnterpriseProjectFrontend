@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function StructureTreeModal({
@@ -9,6 +10,7 @@ export default function StructureTreeModal({
   selectedGroupName,
   faces = []
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -40,10 +42,10 @@ export default function StructureTreeModal({
             <span className="text-xl">🌳</span>
             <div>
               <h3 className="text-sm font-black tracking-tight uppercase">
-                Sơ Đồ Cây Cấu Trúc Phân Cấp (Structure Tree)
+                {t('overview.structureModal.title')}
               </h3>
               <p className="text-[11px] text-slate-500 dark:text-zinc-400">
-                Mô hình trực quan: Location ➔ Product ➔ Face ➔ Group ➔ Rack ➔ Slot
+                {t('overview.structureModal.subtitle')}
               </p>
             </div>
           </div>
@@ -130,7 +132,7 @@ export default function StructureTreeModal({
                                         <span>#{slot.slot_number}</span>
                                         <span>{slot.slot_name}</span>
                                         <span className="text-[9px] uppercase opacity-75">
-                                          [{isApproved ? 'Approved' : 'Rejected'}]
+                                          [{isApproved ? t('overview.slotRow.approved') : t('overview.slotRow.rejected')}]
                                         </span>
                                       </span>
                                     );
@@ -156,7 +158,7 @@ export default function StructureTreeModal({
           }`}
         >
           <div className="text-[11px] text-slate-400 dark:text-zinc-500">
-            Tổng: {faces.length} Faces
+            {t('overview.structureModal.totalFaces', { count: faces.length })}
           </div>
           <button
             type="button"
@@ -167,7 +169,7 @@ export default function StructureTreeModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('overview.structureModal.btnClose')}
           </button>
         </div>
       </div>

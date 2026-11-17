@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function OverviewOperationTips() {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -15,7 +17,7 @@ export default function OverviewOperationTips() {
       <div className="flex items-center gap-2 mb-3 pb-2 border-b border-amber-200/50 dark:border-zinc-800">
         <span className="text-base">💡</span>
         <h4 className="text-xs font-black uppercase tracking-wider text-amber-900 dark:text-amber-400">
-          Mẹo Thao Tác
+          {t('overview.tips.title')}
         </h4>
       </div>
 
@@ -24,8 +26,10 @@ export default function OverviewOperationTips() {
         <div className="flex items-start gap-2">
           <span className="text-xs mt-0.5 shrink-0">🖱️</span>
           <div>
-            <strong className={`${isFoxconn ? 'text-black' : 'text-zinc-100'} font-bold`}>Click vào Rack hoặc Slot</strong>{' '}
-            để mở bảng sửa thuộc tính.
+            <strong className={`${isFoxconn ? 'text-black' : 'text-zinc-100'} font-bold`}>
+              {t('overview.tips.tip1Bold')}
+            </strong>{' '}
+            {t('overview.tips.tip1Text')}
           </div>
         </div>
 
@@ -33,7 +37,10 @@ export default function OverviewOperationTips() {
         <div className="flex items-start gap-2">
           <span className="text-xs mt-0.5 shrink-0">🔄</span>
           <div>
-            <strong className={`${isFoxconn ? 'text-black' : 'text-zinc-100'} font-bold`}>Kéo thả đổi chỗ:</strong> Kéo Slot thả lên Slot khác để đổi vị trí tức thì.
+            <strong className={`${isFoxconn ? 'text-black' : 'text-zinc-100'} font-bold`}>
+              {t('overview.tips.tip2Bold')}
+            </strong>{' '}
+            {t('overview.tips.tip2Text')}
           </div>
         </div>
 
@@ -41,7 +48,10 @@ export default function OverviewOperationTips() {
         <div className="flex items-start gap-2">
           <span className="text-xs mt-0.5 shrink-0">↔️</span>
           <div>
-            <strong className={`${isFoxconn ? 'text-black' : 'text-zinc-100'} font-bold`}>Đổi thứ tự Rack:</strong> Kéo đầu Rack thả lên Rack khác để đổi chỗ cột.
+            <strong className={`${isFoxconn ? 'text-black' : 'text-zinc-100'} font-bold`}>
+              {t('overview.tips.tip3Bold')}
+            </strong>{' '}
+            {t('overview.tips.tip3Text')}
           </div>
         </div>
 
@@ -54,26 +64,26 @@ export default function OverviewOperationTips() {
           }`}
         >
           <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400 mb-1.5 flex items-center gap-1">
-            <span>⌨️</span> Phím tắt hệ thống:
+            <span>⌨️</span> {t('overview.tips.shortcutTitle')}
           </div>
           <div className="grid grid-cols-1 gap-1 text-[11px] font-mono">
             <div className="flex items-center justify-between">
               <span className="px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-zinc-800 font-bold text-slate-800 dark:text-zinc-200 text-[10px]">
                 Ctrl + S
               </span>
-              <span className="text-slate-600 dark:text-zinc-400">Lưu layout</span>
+              <span className="text-slate-600 dark:text-zinc-400">{t('overview.tips.saveLayout')}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-zinc-800 font-bold text-slate-800 dark:text-zinc-200 text-[10px]">
                 Esc
               </span>
-              <span className="text-slate-600 dark:text-zinc-400">Bỏ chọn / Đóng</span>
+              <span className="text-slate-600 dark:text-zinc-400">{t('overview.tips.cancelClose')}</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-zinc-800 font-bold text-slate-800 dark:text-zinc-200 text-[10px]">
                 Delete
               </span>
-              <span className="text-slate-600 dark:text-zinc-400">Xóa đối tượng</span>
+              <span className="text-slate-600 dark:text-zinc-400">{t('overview.tips.deleteObject')}</span>
             </div>
           </div>
         </div>

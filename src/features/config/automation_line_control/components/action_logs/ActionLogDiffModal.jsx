@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 /**
@@ -14,6 +15,7 @@ export default function ActionLogDiffModal({
   diffViewMode,
   setDiffViewMode,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [copied, setCopied] = useState(false);
@@ -65,14 +67,14 @@ export default function ActionLogDiffModal({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-bold uppercase tracking-wider">
-                  Đối Soát Diff Trạng Thái Cũ vs Mới
+                  {t('control.actionLogs.diffModal.title')}
                 </h3>
                 <span className="font-mono text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 font-bold">
                   {log.id}
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-zinc-400">
-                Mục tiêu: <strong className="text-blue-600 dark:text-blue-400">{log.targetCode}</strong> | Bảng CSDL:{' '}
+                {t('control.actionLogs.diffModal.targetLabel')} <strong className="text-blue-600 dark:text-blue-400">{log.targetCode}</strong> | {t('control.actionLogs.diffModal.tableLabel')}{' '}
                 <strong className="font-mono text-slate-700 dark:text-zinc-200">{log.targetTable}</strong>
               </p>
             </div>
@@ -92,7 +94,7 @@ export default function ActionLogDiffModal({
                     : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
                 }`}
               >
-                📊 Dạng Bảng
+                {t('control.actionLogs.diffModal.viewTable')}
               </button>
               <button
                 type="button"
@@ -105,7 +107,7 @@ export default function ActionLogDiffModal({
                     : 'text-slate-500 dark:text-zinc-400 hover:text-slate-800 dark:hover:text-zinc-200'
                 }`}
               >
-                📝 Raw JSON Diff
+                {t('control.actionLogs.diffModal.viewJson')}
               </button>
             </div>
 
@@ -114,7 +116,7 @@ export default function ActionLogDiffModal({
               onClick={handleCopyDiff}
               className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 border border-slate-300 dark:border-zinc-700 transition-all cursor-pointer"
             >
-              {copied ? '✓ Đã chép' : 'Sao chép Diff'}
+              {copied ? t('control.actionLogs.diffModal.copied') : t('control.actionLogs.diffModal.copyDiff')}
             </button>
 
             <button
@@ -134,8 +136,7 @@ export default function ActionLogDiffModal({
             <div className="flex items-center gap-2">
               <span className="text-base">⚠️</span>
               <span>
-                Phát hiện <strong>{changedFields.length}</strong> trường thuộc tính có sự biến động sau thao tác{' '}
-                <strong className="uppercase">[{log.actionType}]</strong>.
+                {t('control.actionLogs.diffModal.diffNotice', { count: changedFields.length, action: log.actionType })}
               </span>
             </div>
             <div className="flex items-center gap-1 font-mono text-[11px]">
@@ -158,10 +159,10 @@ export default function ActionLogDiffModal({
                 <div className="px-4 py-2.5 bg-rose-500/10 border-b border-rose-500/20 flex items-center justify-between">
                   <div className="flex items-center gap-1.5 font-bold text-rose-600 dark:text-rose-400">
                     <span>🔴</span>
-                    <span>TRẠNG THÁI CŨ (BEFORE / OLD STATE)</span>
+                    <span>{t('control.actionLogs.diffModal.beforeHeader')}</span>
                   </div>
                   <span className="text-[10px] uppercase font-bold text-rose-500 px-1.5 py-0.5 rounded bg-rose-500/10 border border-rose-500/20">
-                    Snapshot Trước Khi Tác Vụ
+                    {t('control.actionLogs.diffModal.beforeBadge')}
                   </span>
                 </div>
 
@@ -184,7 +185,7 @@ export default function ActionLogDiffModal({
                               : 'text-slate-700 dark:text-zinc-300'
                           }`}
                         >
-                          {val !== undefined ? String(val) : '<Trống / Không tồn tại>'}
+                          {val !== undefined ? String(val) : t('control.actionLogs.diffModal.emptyOrNotExist')}
                         </span>
                       </div>
                     );
@@ -197,10 +198,10 @@ export default function ActionLogDiffModal({
                 <div className="px-4 py-2.5 bg-emerald-500/10 border-b border-emerald-500/20 flex items-center justify-between">
                   <div className="flex items-center gap-1.5 font-bold text-emerald-600 dark:text-emerald-400">
                     <span>🟢</span>
-                    <span>TRẠNG THÁI MỚI (AFTER / NEW STATE)</span>
+                    <span>{t('control.actionLogs.diffModal.afterHeader')}</span>
                   </div>
                   <span className="text-[10px] uppercase font-bold text-emerald-500 px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
-                    Dữ Liệu Hiện Tại CSDL
+                    {t('control.actionLogs.diffModal.afterBadge')}
                   </span>
                 </div>
 
@@ -223,7 +224,7 @@ export default function ActionLogDiffModal({
                               : 'text-slate-700 dark:text-zinc-300'
                           }`}
                         >
-                          {val !== undefined ? String(val) : '<Trống / Không tồn tại>'}
+                          {val !== undefined ? String(val) : t('control.actionLogs.diffModal.emptyOrNotExist')}
                         </span>
                       </div>
                     );
@@ -236,7 +237,7 @@ export default function ActionLogDiffModal({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-[11px]">
               <div>
                 <span className="block font-bold text-rose-600 dark:text-rose-400 mb-1.5">
-                  🔴 Old State Snapshot (JSON):
+                  {t('control.actionLogs.diffModal.oldSnapshotJson')}
                 </span>
                 <pre className="p-3.5 rounded-xl bg-slate-900 text-rose-300 dark:bg-zinc-950 border border-rose-500/30 overflow-x-auto max-h-80">
                   {JSON.stringify(beforeState, null, 2)}
@@ -245,7 +246,7 @@ export default function ActionLogDiffModal({
 
               <div>
                 <span className="block font-bold text-emerald-600 dark:text-emerald-400 mb-1.5">
-                  🟢 New State Snapshot (JSON):
+                  {t('control.actionLogs.diffModal.newSnapshotJson')}
                 </span>
                 <pre className="p-3.5 rounded-xl bg-slate-900 text-emerald-300 dark:bg-zinc-950 border border-emerald-500/30 overflow-x-auto max-h-80">
                   {JSON.stringify(afterState, null, 2)}
@@ -266,7 +267,7 @@ export default function ActionLogDiffModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-100'
             }`}
           >
-            Đóng Hộp Thoại
+            {t('control.actionLogs.diffModal.btnClose')}
           </button>
         </div>
       </div>

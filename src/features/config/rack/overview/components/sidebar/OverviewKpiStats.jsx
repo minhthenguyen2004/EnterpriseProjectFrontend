@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 export default function OverviewKpiStats({
@@ -7,6 +8,7 @@ export default function OverviewKpiStats({
   totalSlots,
   approvedSlotsCount
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -14,37 +16,37 @@ export default function OverviewKpiStats({
 
   const statsList = [
     {
-      label: 'Tổng số Face',
+      label: t('overview.kpi.totalFaces'),
       value: totalFaces,
-      unit: 'Mặt',
+      unit: t('overview.kpi.unitFace'),
       color: 'blue',
       icon: '🔲'
     },
     {
-      label: 'Tổng số Group',
+      label: t('overview.kpi.totalGroups'),
       value: totalGroups,
-      unit: 'Nhóm',
+      unit: t('overview.kpi.unitGroup'),
       color: 'purple',
       icon: '👥'
     },
     {
-      label: 'Tổng số Rack',
+      label: t('overview.kpi.totalRacks'),
       value: totalRacks,
-      unit: 'Tủ',
+      unit: t('overview.kpi.unitRack'),
       color: 'amber',
       icon: '🗄️'
     },
     {
-      label: 'Tổng số Slot',
+      label: t('overview.kpi.totalSlots'),
       value: totalSlots,
-      unit: 'Khe',
+      unit: t('overview.kpi.unitSlot'),
       color: 'cyan',
       icon: '🔌'
     },
     {
-      label: 'Đã approved',
+      label: t('overview.kpi.approvedSlots'),
       value: `${approvedSlotsCount} / ${totalSlots}`,
-      sub: `${approvalRate}% đã duyệt`,
+      sub: t('overview.kpi.approvedSub', { rate: approvalRate }),
       color: 'emerald',
       icon: '✅',
       isHighlight: true
@@ -63,7 +65,7 @@ export default function OverviewKpiStats({
         <div className="flex items-center gap-2">
           <span className={`text-base ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>📊</span>
           <h4 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
-            Tổng Quan
+            {t('overview.kpi.title')}
           </h4>
         </div>
         <span
@@ -73,7 +75,7 @@ export default function OverviewKpiStats({
               : 'bg-emerald-950/60 text-emerald-400 border-emerald-800/60'
           }`}
         >
-          {approvalRate}% Ready
+          {t('overview.kpi.readyBadge', { rate: approvalRate })}
         </span>
       </div>
 

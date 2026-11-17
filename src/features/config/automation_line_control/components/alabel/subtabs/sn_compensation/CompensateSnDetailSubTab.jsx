@@ -8,6 +8,7 @@ import TargetStepEmpNo from './TargetStepEmpNo';
 import TechnicalNote from './TechnicalNote';
 import ImplementingButton from './ImplementingButton';
 
+
 /**
  * Sub-Tab 4: Bù SN_Details (Nạp Bù Seri Thủ Công)
  * Nghiệp vụ: Shared_ManualInsertSN qua Stored Procedure [AutoLine].[Shared_ManualInsertSn]
@@ -24,6 +25,8 @@ import ImplementingButton from './ImplementingButton';
  * @param {boolean} props.isExecuting - Trạng thái loading khi đang gửi lệnh
  * @param {Function} props.onExecute - Handler gửi lệnh thực thi ('compensate_detail')
  */
+
+
 export default function CompensateSnDetailSubTab({
   form = {},
   setForm,
@@ -144,7 +147,8 @@ export default function CompensateSnDetailSubTab({
 
       {/* 3. DÒNG THỨ BA: TARGET STEP & MÃ NHÂN VIÊN THỰC THI (LƯỚI 2 CỘT) */}
       <TargetStepEmpNo
-        currentTargetStep={currentCarrierCode}
+        isFoxconn={isFoxconn}
+        currentTargetStep={currentTargetStep}
         handleTargetStepChange={handleTargetStepChange}
         operatorId={operatorId}
       />

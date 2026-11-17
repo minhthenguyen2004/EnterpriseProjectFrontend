@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ProductTypeEmpCode({isFoxconn, currentModel, handleModelSelect, DB_ACTIVE_MODELS, operatorId, isManualModel }) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                 {/* Dòng sản phẩm (Dropdown menu tự động giải mã) */}
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className={`block font-bold ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                      Dòng Sản Phẩm (Model)
+                      {t('control.alabel.forms.modelDropdown')}
                     </label>
                     <span
                       className={`text-[10px] font-medium px-1.5 py-0.5 rounded ${
@@ -14,12 +18,12 @@ export default function ProductTypeEmpCode({isFoxconn, currentModel, handleModel
                           : 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
                       }`}
                     >
-                      {isManualModel ? 'Chọn thủ công' : '⚡ Tự động giải mã'}
+                      {isManualModel ? t('control.alabel.forms.manualSelect') : t('control.alabel.forms.autoDecode')}
                     </span>
                   </div>
                   <select
                     value={currentModel}
-                    onChange={(e) => handleModelSelect(e.target.value)}
+                    onChange={(e) => handleModelSelect?.(e.target.value)}
                     className={`w-full px-3 py-2 rounded-xl border font-semibold text-xs transition-all cursor-pointer ${
                       isFoxconn
                         ? 'bg-slate-50 border-slate-300 text-slate-800'
@@ -38,10 +42,10 @@ export default function ProductTypeEmpCode({isFoxconn, currentModel, handleModel
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
                     <label className={`block font-bold  ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                      Mã Nhân Viên (Operator ID)
+                      {t('control.alabel.forms.operatorId')}
                     </label>
                     <span className="text-[10px] text-slate-400 dark:text-zinc-500 flex items-center gap-1 font-mono">
-                      🔒 Tự truy xuất
+                      {t('control.alabel.forms.autoRetrieved')}
                     </span>
                   </div>
                   <div className="relative">
@@ -55,7 +59,7 @@ export default function ProductTypeEmpCode({isFoxconn, currentModel, handleModel
                           ? 'bg-slate-100 border-slate-200 text-slate-600'
                           : 'bg-zinc-900 border-zinc-800 text-zinc-400'
                       }`}
-                      title="Mã nhân viên tự động trích xuất từ tài khoản đăng nhập hiện tại và không thể sửa"
+                      title={t('control.alabel.forms.operatorTitle')}
                     />
                     <span className="absolute left-2.5 top-2 text-xs opacity-60">🔒</span>
                   </div>

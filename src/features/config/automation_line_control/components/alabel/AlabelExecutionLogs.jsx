@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 /**
  * Component: AlabelExecutionLogs
- * Phân hệ Nhật Ký Thực Thi Thao Tác ALABEL (Console Terminal Thời Gian Thực)
- * Tối ưu hóa giao diện đa độ phân giải (Mobile, Tablet, Desktop)
+ * Hiển thị nhật ký thực thi ALABEL (Console / Terminal thời gian thực)
+ * Tối ưu hóa giao diện đa tầng: Mobile, Tablet, Desktop
  */
 export default function AlabelExecutionLogs({
   logs,
@@ -18,6 +19,7 @@ export default function AlabelExecutionLogs({
   onClearLogs,
   onExportLogs,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [expandedLogId, setExpandedLogId] = useState(null);
@@ -62,7 +64,7 @@ export default function AlabelExecutionLogs({
     return { success, error, warning, info };
   }, [logs]);
 
-  // Màu sắc và style cho từng mức log
+  // Màu sắc & style cho từng mức log
   const getLevelBadge = (level) => {
     switch (level) {
       case 'SUCCESS':
@@ -117,34 +119,34 @@ export default function AlabelExecutionLogs({
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
-                Nhật Ký Thực Thi ALABEL
+                {t('control.alabel.logs.title')}
               </h3>
               <span className="text-[10px] px-1.5 py-0.5 rounded font-mono font-bold bg-slate-200 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 shrink-0">
-                {logs.length}/{rawLogsCount} Events
+                {t('control.alabel.logs.eventsCount', { filtered: logs.length, total: rawLogsCount })}
               </span>
               <div className="hidden xs:inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Realtime</span>
+                <span>{t('control.alabel.logs.realtime')}</span>
               </div>
             </div>
             <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-zinc-400 line-clamp-1 sm:line-clamp-none">
-              Console giám sát thời gian thực toàn bộ tác vụ SFC & ALABEL Dispatcher
+              {t('control.alabel.logs.desc')}
             </p>
           </div>
         </div>
       </div>
 
-      {/* 2. Responsive Toolbar: Bộ lọc, Tìm kiếm và Nút chức năng */}
+      {/* 2. Responsive Toolbar */}
       <div className="mt-3.5 space-y-2.5">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-          {/* Nhóm lọc Level: Hỗ trợ cuộn ngang mượt mà trên mobile */}
+          {/* Nút lọc Level */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-none">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider shrink-0 mr-1 hidden sm:inline">
-              Lọc:
+              {t('control.alabel.logs.filterLabel')}
             </span>
             <div className="flex items-center gap-1 bg-slate-100 dark:bg-zinc-950 p-1 rounded-xl border border-slate-200 dark:border-zinc-800 shrink-0">
               {[
-                { id: 'ALL', label: 'TẤT CẢ' },
+                { id: 'ALL', label: t('control.alabel.logs.all') },
                 { id: 'SUCCESS', label: 'SUCCESS' },
                 { id: 'ERROR', label: 'ERROR' },
                 { id: 'WARNING', label: 'WARN' },
@@ -170,15 +172,15 @@ export default function AlabelExecutionLogs({
             </div>
           </div>
 
-          {/* Nhóm Tìm kiếm & Hành động (Responsive wrap) */}
+          {/* Ô Tìm kiếm & Hành động */}
           <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
-            {/* Input tìm kiếm mở rộng linh hoạt */}
-            <div className="relative flex-1 sm:w-56 md:w-64 min-w-37.5">
+            {/* Input tìm kiếm */}
+            <div className="relative flex-1 sm:w-56 md:w-64 min-w-[150px]">
               <input
                 type="text"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
-                placeholder="Tìm Action, SN, từ khóa..."
+                placeholder={t('control.alabel.logs.searchPlaceholder')}
                 className={`w-full pl-7 pr-7 py-1.5 rounded-xl border text-xs font-mono transition-all ${
                   isFoxconn
                     ? 'bg-slate-50 border-slate-300 text-slate-800'
@@ -198,7 +200,7 @@ export default function AlabelExecutionLogs({
                   type="button"
                   onClick={() => setKeyword('')}
                   className="absolute right-2 top-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 text-xs px-1"
-                  title="Xóa tìm kiếm"
+                  title="Clear"
                 >
                   ✕
                 </button>
@@ -220,7 +222,7 @@ export default function AlabelExecutionLogs({
                     ? 'bg-slate-50 border-slate-200 text-slate-400'
                     : 'bg-zinc-950 border-zinc-800 text-zinc-500'
                 }`}
-                title="Tự động cuộn xuống dòng mới nhất"
+                title="Auto scroll"
               >
                 <span
                   className={`w-1.5 h-1.5 rounded-full ${
@@ -231,7 +233,7 @@ export default function AlabelExecutionLogs({
                       : 'bg-slate-400'
                   }`}
                 />
-                <span className="text-[10px] sm:text-[11px] whitespace-nowrap">Auto-scroll</span>
+                <span className="text-[10px] sm:text-[11px] whitespace-nowrap">{t('control.alabel.logs.autoScroll')}</span>
               </button>
 
               {/* Xóa Terminal */}
@@ -243,11 +245,11 @@ export default function AlabelExecutionLogs({
                     ? 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
                     : 'bg-zinc-950 hover:bg-zinc-800 border-zinc-800 text-zinc-400'
                 }`}
-                title="Làm sạch danh sách nhật ký"
+                title={t('control.alabel.logs.clearTitle')}
               >
-                <span>🧹</span>
+                <span>🗑️</span>
                 <span className="text-[10px] sm:text-[11px] hidden xs:inline whitespace-nowrap">
-                  Xóa
+                  {t('control.alabel.logs.btnClear')}
                 </span>
               </button>
 
@@ -260,11 +262,11 @@ export default function AlabelExecutionLogs({
                     ? 'bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-600'
                     : 'bg-zinc-950 hover:bg-zinc-800 border-zinc-800 text-zinc-400'
                 }`}
-                title="Tải về file nhật ký định dạng JSON"
+                title={t('control.alabel.logs.exportTitle')}
               >
                 <span>📥</span>
                 <span className="text-[10px] sm:text-[11px] hidden xs:inline whitespace-nowrap">
-                  Xuất Log
+                  {t('control.alabel.logs.btnExport')}
                 </span>
               </button>
             </div>
@@ -272,7 +274,7 @@ export default function AlabelExecutionLogs({
         </div>
       </div>
 
-      {/* 3. Terminal View: Tối ưu hiển thị cho Responsive */}
+      {/* 3. Terminal View */}
       <div
         ref={logContainerRef}
         className={`mt-3 rounded-xl border p-2 sm:p-3 font-mono text-xs max-h-80 sm:max-h-96 overflow-y-auto space-y-2 select-text transition-all ${
@@ -283,7 +285,7 @@ export default function AlabelExecutionLogs({
           <div className="py-10 text-center space-y-2 font-sans">
             <div className="text-2xl">📋</div>
             <p className="text-slate-400 text-xs font-medium">
-              Không có sự kiện ALABEL nào phù hợp với bộ lọc hiện tại.
+              {t('control.alabel.logs.noLogs')}
             </p>
             {(filterLevel !== 'ALL' || keyword) && (
               <button
@@ -296,7 +298,7 @@ export default function AlabelExecutionLogs({
                   isFoxconn ? 'text-blue-400 hover:text-blue-300' : 'text-[#76B900] hover:underline'
                 }`}
               >
-                Đặt lại bộ lọc để xem toàn bộ log
+                {t('control.alabel.logs.btnResetFilter')}
               </button>
             )}
           </div>
@@ -348,7 +350,7 @@ export default function AlabelExecutionLogs({
                   <div className="flex items-center gap-3 shrink-0 text-[11px]">
                     {log.latencyMs && (
                       <span className="text-emerald-400 font-mono text-[10px] bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
-                        ⚡ {log.latencyMs}ms
+                        ⚡{log.latencyMs}ms
                       </span>
                     )}
                     <span
@@ -358,12 +360,12 @@ export default function AlabelExecutionLogs({
                           : 'bg-white/5 text-slate-400 hover:text-slate-200'
                       }`}
                     >
-                      {isExpanded ? '▲ Thu gọn' : '▼ JSON'}
+                      {isExpanded ? t('control.alabel.logs.collapse') : t('control.alabel.logs.expandJson')}
                     </span>
                   </div>
                 </div>
 
-                {/* 3.2. Phiên Bản MOBILE (< md): Card phân tầng rõ ràng, không bị ngắt dòng lung tung */}
+                {/* 3.2. Phiên Bản MOBILE (< md): Card phân tầng rõ ràng */}
                 <div
                   onClick={() => toggleExpandLog(log.id)}
                   className="md:hidden p-2.5 space-y-1.5 cursor-pointer select-none"
@@ -384,7 +386,7 @@ export default function AlabelExecutionLogs({
                     <div className="flex items-center gap-1.5 shrink-0 text-[10px]">
                       {log.latencyMs && (
                         <span className="text-emerald-400 font-mono text-[9px]">
-                          ⚡ {log.latencyMs}ms
+                          ⚡{log.latencyMs}ms
                         </span>
                       )}
                       <span className="text-slate-400 text-[10px] font-mono">
@@ -410,7 +412,7 @@ export default function AlabelExecutionLogs({
                     </span>
                   </div>
 
-                  {/* Hàng 3: Toàn bộ nội dung Message (Không bị truncate khó nhìn) */}
+                  {/* Hàng 3: Toàn bộ nội dung Message */}
                   <div className="text-[11px] text-slate-200 leading-snug wrap-break-word pt-0.5">
                     {log.message}
                   </div>
@@ -425,14 +427,14 @@ export default function AlabelExecutionLogs({
                         <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/10">
                           <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                            Request Payload
+                            {t('control.alabel.logs.reqPayload')}
                           </span>
                           <button
                             type="button"
                             onClick={(e) => handleCopyJson(`${log.id}-req`, log.payload, e)}
                             className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-300 transition-all cursor-pointer"
                           >
-                            {copiedKey === `${log.id}-req` ? '✓ Đã chép' : 'Sao chép'}
+                            {copiedKey === `${log.id}-req` ? t('control.alabel.logs.btnCopied') : t('control.alabel.logs.btnCopy')}
                           </button>
                         </div>
                         <pre className="text-emerald-300 text-[10px] font-mono overflow-x-auto max-h-48 p-1 leading-relaxed selection:bg-emerald-800">
@@ -446,14 +448,14 @@ export default function AlabelExecutionLogs({
                           <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-white/10">
                             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
                               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-                              Response Body
+                              {t('control.alabel.logs.respBody')}
                             </span>
                             <button
                               type="button"
                               onClick={(e) => handleCopyJson(`${log.id}-res`, log.response, e)}
                               className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-300 transition-all cursor-pointer"
                             >
-                              {copiedKey === `${log.id}-res` ? '✓ Đã chép' : 'Sao chép'}
+                              {copiedKey === `${log.id}-res` ? t('control.alabel.logs.btnCopied') : t('control.alabel.logs.btnCopy')}
                             </button>
                           </div>
                           <pre className="text-cyan-300 text-[10px] font-mono overflow-x-auto max-h-48 p-1 leading-relaxed selection:bg-cyan-800">

@@ -1,10 +1,14 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ProductTypeEmployeeCodeInputs({isFoxconn, selectedModel, DB_ACTIVE_MODELS, operatorId, handleModelChange}) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
             {/* Cột 1: Dòng sản phẩm (Dropdown menu) */}
             <div>
                 <label className={`block font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-zinc-200"}`}>
-                Dòng Sản Phẩm (Model)
+                {t('control.alabel.forms.modelDropdown')}
                 </label>
                 <select
                 value={selectedModel}
@@ -27,10 +31,10 @@ export default function ProductTypeEmployeeCodeInputs({isFoxconn, selectedModel,
             <div>
                 <div className="flex items-center justify-between mb-1.5">
                 <label className={`block font-bold ${ isFoxconn ? "text-slate-700" : "text-zinc-200" }`}>
-                    Mã Nhân Viên (Operator ID)
+                    {t('control.alabel.forms.operatorId')}
                 </label>
                 <span className={`text-[10px] flex items-center gap-1 font-mono ${isFoxconn ? "text-slate-400" : "text-zinc-500"}`}>
-                    🔒 Tự truy xuất
+                    {t('control.alabel.forms.autoRetrieved')}
                 </span>
                 </div>
                 <div className="relative">
@@ -44,7 +48,7 @@ export default function ProductTypeEmployeeCodeInputs({isFoxconn, selectedModel,
                         ? 'bg-slate-100 border-slate-200 text-slate-600'
                         : 'bg-zinc-900 border-zinc-800 text-zinc-400'
                     }`}
-                    title="Mã nhân viên tự động trích xuất từ tài khoản đăng nhập hiện tại và không thể sửa"
+                    title={t('control.alabel.forms.operatorTitle')}
                 />
                 <span className="absolute left-2.5 top-2 text-xs opacity-60">🔒</span>
                 </div>

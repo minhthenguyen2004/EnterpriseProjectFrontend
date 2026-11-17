@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function SnCarrierBasedInput(
     {isFoxconn, handleTargetTypeChange, targetType, targetCode, handleTargetCodeChange}
 ) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="space-y-1.5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <label className={`block text-xs font-bold ${ isFoxconn ? "text-slate-700" : "text-zinc-200"}`}>
-            Mã Đối Tượng Thao Tác (SN / Carrier)
+            {t('control.alabel.forms.targetObject')}
           </label>
 
           {/* Tab chuyển đổi qua lại giữa SN và Carrier */}
@@ -27,7 +31,7 @@ export default function SnCarrierBasedInput(
                     : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              SN (Serial Number)
+              {t('control.alabel.forms.snLabel')}
             </button>
             <button
               type="button"
@@ -42,7 +46,7 @@ export default function SnCarrierBasedInput(
                     : 'text-zinc-400 hover:text-zinc-200'
               }`}
             >
-              Carrier RFID / Pallet
+              {t('control.alabel.forms.carrierLabel')}
             </button>
           </div>
         </div>
@@ -60,8 +64,8 @@ export default function SnCarrierBasedInput(
             }`}
             placeholder={
               targetType === 'sn'
-                ? 'Nhập mã Serial Number (SN)... (VD: SN8839210492-NV)'
-                : 'Nhập mã khay Carrier RFID / Pallet... (VD: CARRIER-RFID-8819)'
+                ? t('control.alabel.forms.placeholderSnTarget')
+                : t('control.alabel.forms.placeholderCarrierTarget')
             }
           />
           <span className={`absolute right-3 top-2 text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded border ${isFoxconn ? "bg-slate-200 text-slate-600 border-slate-300" : "bg-zinc-800 text-zinc-400 border-zinc-700"}`}>

@@ -109,7 +109,7 @@ export default function RackOverviewTopBar({
                   ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300 hover:border-slate-400 shadow-2xs'
                   : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-200 border-zinc-700 hover:border-zinc-600 shadow-2xs'
               }`}
-              title="Xem toàn bộ sơ đồ cấu trúc cây Face > Group > Rack > Slot"
+              title={t('overview.topBar.btnStructureTooltip')}
             >
               <span className="text-sm">🌳</span>
               <span>{t('overview.topBar.btnStructure')}</span>
@@ -128,7 +128,7 @@ export default function RackOverviewTopBar({
                 ? 'bg-slate-100 hover:bg-slate-200/80 text-slate-700 border-slate-200/80'
                 : 'bg-zinc-800/80 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
             }`}
-            title="Tải lại dữ liệu từ database"
+            title={t('overview.topBar.btnReloadDBTooltip')}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -150,7 +150,7 @@ export default function RackOverviewTopBar({
                 ? 'bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200/90 shadow-2xs'
                 : 'bg-zinc-800 hover:bg-zinc-700 text-[#76B900] border-zinc-700 shadow-2xs'
             }`}
-            title="Thêm mới Face / Mặt tủ"
+            title={t('overview.topBar.btnAddFaceTooltip')}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M12 4v16m8-8H4" />
@@ -167,7 +167,7 @@ export default function RackOverviewTopBar({
                 ? 'bg-[#002766] hover:bg-[#003893] text-white shadow-blue-900/20 active:scale-98'
                 : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold shadow-[0_0_15px_rgba(118,185,0,0.3)] active:scale-98'
             }`}
-            title="Lưu bố cục layout (Ctrl + S)"
+            title={t('overview.topBar.btnSaveLayoutTooltip')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path

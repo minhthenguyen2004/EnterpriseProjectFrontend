@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function TargetStepEmpNo({ currentTargetStep, handleTargetStepChange, operatorId, isFoxconn }) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
         {/* Cột 1: Target Step */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className={`font-bold ${isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1`}>
-              <span>Target Step (Bước Router Mục Tiêu)</span>
+              <span>{t('control.alabel.forms.targetStep')}</span>
               <span className="text-red-500 font-black">*</span>
             </label>
             <span className="px-1.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
@@ -15,8 +19,8 @@ export default function TargetStepEmpNo({ currentTargetStep, handleTargetStepCha
           <input
             type="text"
             value={currentTargetStep}
-            onChange={(e) => handleTargetStepChange(e.target.value)}
-            placeholder="Nhập Target Step đích (ví dụ: 030, 040, ST03-SMT-A)..."
+            onChange={(e) => handleTargetStepChange?.(e.target.value)}
+            placeholder="030, 040, ST03-SMT-A..."
             className={`w-full px-3 py-2 rounded-xl border text-xs font-mono font-bold transition-all ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800'
@@ -29,7 +33,7 @@ export default function TargetStepEmpNo({ currentTargetStep, handleTargetStepCha
         <div>
           <div className="flex items-center justify-between mb-1.5">
             <label className={`font-bold ${isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1`}>
-              <span>Mã Nhân Viên Thực Thi</span>
+              <span>{t('control.alabel.forms.operatorId')}</span>
               <span className="text-[11px]">🔒</span>
             </label>
             <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold border ${isFoxconn ? "bg-slate-200 text-slate-700 border-slate-300" : "bg-zinc-800 text-zinc-300 border-zinc-700"}`}>
@@ -52,7 +56,7 @@ export default function TargetStepEmpNo({ currentTargetStep, handleTargetStepCha
                   ? 'bg-slate-100 border-slate-200 text-slate-600'
                   : 'bg-zinc-900/90 border-zinc-800 text-zinc-400'
               }`}
-              title="Tự truy xuất từ tài khoản đăng nhập thành công. Không thể sửa đổi nhằm bảo đảm tính toàn vẹn kiểm toán."
+              title={t('control.alabel.forms.operatorTitle')}
             />
           </div>
         </div>

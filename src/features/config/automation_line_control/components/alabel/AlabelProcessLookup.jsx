@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { DB_ACTIVE_MODELS } from '../../constants/alabelConstants';
 import CriteriaBasedSearchInput from './CriteriaBasedSearchInput';
@@ -19,6 +20,7 @@ function AlabelProcessLookup({
   processResult,
   onExecuteSearch,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -44,14 +46,14 @@ function AlabelProcessLookup({
               </svg>
             </div>
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider">Tra Cứu Tiến Trình Sản Xuất</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider">{t('control.alabel.lookupTitle')}</h3>
               <p className="text-[11px] text-slate-500 dark:text-zinc-400">
-                Nhận diện vị trí, Router step và trạng thái đối tượng trên chuyền tự động
+                {t('control.alabel.lookupDesc')}
               </p>
             </div>
           </div>
           <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-blue-500/10 text-blue-500 border border-blue-500/20">
-            LOOKUP ENGINE
+            {t('control.alabel.lookupBadge')}
           </span>
         </div>
 

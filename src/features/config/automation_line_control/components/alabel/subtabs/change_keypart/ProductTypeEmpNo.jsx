@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ProductTypeEmpNo({
   isFoxconn,
   isManualModel,
@@ -6,13 +8,15 @@ export default function ProductTypeEmpNo({
   operatorId,
   handleModelSelect,
 }) {
+  const { t } = useTranslation('autoline');
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
       {/* Cột 1: Dòng sản phẩm (Dropdown menu) */}
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Dòng Sản Phẩm (Model)
+            {t('control.alabel.forms.modelDropdown')}
           </label>
           <span
             className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
@@ -21,12 +25,12 @@ export default function ProductTypeEmpNo({
                 : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
             }`}
           >
-            {isManualModel ? 'Chọn thủ công' : '⚡ Tự động giải mã'}
+            {isManualModel ? t('control.alabel.forms.manualSelect') : t('control.alabel.forms.autoDecode')}
           </span>
         </div>
         <select
           value={currentModel}
-          onChange={(e) => handleModelSelect(e.target.value)}
+          onChange={(e) => handleModelSelect?.(e.target.value)}
           className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
             isFoxconn
               ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -51,7 +55,7 @@ export default function ProductTypeEmpNo({
           <label
             className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'} flex items-center gap-1`}
           >
-            <span>Mã Nhân Viên</span>
+            <span>{t('control.alabel.forms.operatorId')}</span>
             <span className="text-[11px]">🔒</span>
           </label>
           <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400 border border-slate-300 dark:border-zinc-700">
@@ -79,7 +83,7 @@ export default function ProductTypeEmpNo({
                 ? 'bg-slate-100 border-slate-200 text-slate-600'
                 : 'bg-zinc-900/90 border-zinc-800 text-zinc-400'
             }`}
-            title="Tự truy xuất từ tài khoản đăng nhập hiện tại. Không thể sửa đổi nhằm bảo đảm tính toàn vẹn kiểm toán (Audit Trail)."
+            title={t('control.alabel.forms.operatorTitle')}
           />
         </div>
       </div>

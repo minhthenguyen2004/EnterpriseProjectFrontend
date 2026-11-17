@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import {
   ACTION_TYPES,
@@ -16,6 +17,7 @@ export default function ActionLogsFilterBar({
   onExportReport,
   totalRecords,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -56,14 +58,14 @@ export default function ActionLogsFilterBar({
                 isFoxconn ? 'text-slate-800' : 'text-zinc-100'
               }`}
             >
-              Khung Lọc Kiểm Toán Hành Động
+              {t('control.actionLogs.filterTitle')}
             </span>
             <span
               className={`ml-2 text-[11px] font-semibold ${
                 isFoxconn ? 'text-slate-500' : 'text-zinc-400'
               }`}
             >
-              (Lọc theo thời gian, loại hành động, phân hệ & từ khóa)
+              {t('control.actionLogs.filterDesc')}
             </span>
           </div>
         </div>
@@ -77,10 +79,10 @@ export default function ActionLogsFilterBar({
                 ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
             }`}
-            title="Làm sạch bộ lọc về mặc định"
+            title={t('control.actionLogs.clearTitle')}
           >
             <span>🧹</span>
-            <span>Làm Sạch</span>
+            <span>{t('control.actionLogs.btnClear')}</span>
           </button>
           <button
             type="button"
@@ -90,7 +92,7 @@ export default function ActionLogsFilterBar({
                 ? 'bg-blue-600 hover:bg-blue-700 text-white'
                 : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
             }`}
-            title="Xuất danh sách nhật ký hiện tại ra file CSV"
+            title={t('control.actionLogs.exportTitle')}
           >
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -100,7 +102,7 @@ export default function ActionLogsFilterBar({
                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
               />
             </svg>
-            <span>Xuất Báo Cáo (CSV)</span>
+            <span>{t('control.actionLogs.btnExport')}</span>
           </button>
         </div>
       </div>
@@ -114,7 +116,7 @@ export default function ActionLogsFilterBar({
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
           >
-            📅 Từ Ngày
+            {t('control.actionLogs.fromDate')}
           </label>
           <input
             type="datetime-local"
@@ -135,7 +137,7 @@ export default function ActionLogsFilterBar({
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
           >
-            📅 Đến Ngày
+            {t('control.actionLogs.toDate')}
           </label>
           <input
             type="datetime-local"
@@ -156,7 +158,7 @@ export default function ActionLogsFilterBar({
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
           >
-            ⚡ Hành Động
+            {t('control.actionLogs.actionType')}
           </label>
           <select
             value={filters.actionType}
@@ -186,7 +188,7 @@ export default function ActionLogsFilterBar({
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
           >
-            🏢 Phân Hệ
+            {t('control.actionLogs.subsystem')}
           </label>
           <select
             value={filters.subsystem}
@@ -217,7 +219,7 @@ export default function ActionLogsFilterBar({
                 isFoxconn ? 'text-slate-700' : 'text-zinc-200'
               }`}
             >
-              🔍 Tìm Kiếm
+              {t('control.actionLogs.keyword')}
             </label>
             {filters.keyword && (
               <button
@@ -227,7 +229,7 @@ export default function ActionLogsFilterBar({
                   isFoxconn ? 'text-slate-400 hover:text-red-500' : 'text-zinc-400 hover:text-rose-400'
                 }`}
               >
-                Xóa ✕
+                {t('control.actionLogs.clearKeyword')}
               </button>
             )}
           </div>
@@ -236,7 +238,7 @@ export default function ActionLogsFilterBar({
               type="text"
               value={filters.keyword}
               onChange={(e) => onFilterChange('keyword', e.target.value)}
-              placeholder="Mã thẻ, SN, Carrier, bảng..."
+              placeholder={t('control.actionLogs.keywordPlaceholder')}
               className={`w-full pl-2.5 pr-8 py-1.5 rounded-xl border text-xs transition-all font-mono ${
                 isFoxconn
                   ? 'bg-slate-50 border-slate-300 text-slate-800'

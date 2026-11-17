@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import {
   FACTORIES,
@@ -16,6 +17,7 @@ export default function MachineStatusFilterDrawer({
   onResetFilters,
   activeCount = 0,
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -88,12 +90,12 @@ export default function MachineStatusFilterDrawer({
               </div>
               <div>
                 <h3 className={`text-sm font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-900' : 'text-white'}`}>
-                  BỘ LỌC TRẠNG THÁI MÁY
+                  {t('statusManagement.filterDrawer.title', 'BỘ LỌC TRẠNG THÁI MÁY')}
                 </h3>
                 <p className={`text-[10px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
                   {activeCount > 0
-                    ? `Đang áp dụng ${activeCount} tiêu chí lọc`
-                    : 'Chưa áp dụng tiêu chí lọc nào'}
+                    ? t('statusManagement.filterDrawer.activeCount', 'Đang áp dụng {{count}} tiêu chí lọc', { count: activeCount })
+                    : t('statusManagement.filterDrawer.noActiveFilter', 'Chưa áp dụng tiêu chí lọc nào')}
                 </p>
               </div>
             </div>
@@ -106,7 +108,7 @@ export default function MachineStatusFilterDrawer({
                   ? 'bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border-slate-200 hover:border-rose-200'
                   : 'bg-zinc-800/90 hover:bg-rose-950/60 text-zinc-300 hover:text-rose-400 border-zinc-700 hover:border-rose-500/50'
               }`}
-              title="Đóng bảng lọc (ESC)"
+              title={t('statusManagement.filterDrawer.closeTooltip', 'Đóng bảng lọc (ESC)')}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
@@ -123,7 +125,7 @@ export default function MachineStatusFilterDrawer({
                   <svg className="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  <span>Tìm kiếm theo Tên máy hoặc Địa chỉ IP:</span>
+                  <span>{t('statusManagement.filterDrawer.searchLabel', 'Tìm kiếm theo Tên máy hoặc Địa chỉ IP:')}</span>
                 </span>
                 {draftFilters.searchQuery && (
                   <button
@@ -131,7 +133,7 @@ export default function MachineStatusFilterDrawer({
                     onClick={() => handleChange('searchQuery', '')}
                     className="text-[10px] text-rose-500 hover:underline cursor-pointer"
                   >
-                    Xóa tìm kiếm
+                    {t('statusManagement.filterDrawer.clearSearch', 'Xóa tìm kiếm')}
                   </button>
                 )}
               </label>
@@ -140,7 +142,7 @@ export default function MachineStatusFilterDrawer({
                   type="text"
                   value={draftFilters.searchQuery}
                   onChange={(e) => handleChange('searchQuery', e.target.value)}
-                  placeholder="Nhập tên máy (vd: SMT #01) hoặc IP (vd: 192.168)..."
+                  placeholder={t('statusManagement.filterDrawer.searchPlaceholder', 'Nhập tên máy (vd: SMT #01) hoặc IP (vd: 192.168)...')}
                   className={`w-full text-xs px-3 py-2.5 rounded-xl border focus:outline-none transition-all pr-8 ${
                     isFoxconn
                       ? 'bg-white border-slate-300 text-slate-800 focus:ring-1 focus:ring-blue-500'
@@ -165,7 +167,7 @@ export default function MachineStatusFilterDrawer({
                 <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
-                <span>Nhà Máy (Factory):</span>
+                <span>{t('statusManagement.filterDrawer.factoryLabel', 'Nhà Máy (Factory):')}</span>
               </label>
               <select
                 value={draftFilters.factoryId}
@@ -178,7 +180,7 @@ export default function MachineStatusFilterDrawer({
               >
                 {FACTORIES.map((f) => (
                   <option key={f.id} value={f.id}>
-                    {f.name}
+                    {t(`statusManagement.filterDrawer.factories.${f.id}`, f.name)}
                   </option>
                 ))}
               </select>
@@ -190,7 +192,7 @@ export default function MachineStatusFilterDrawer({
                 <svg className="w-3.5 h-3.5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
-                <span>Tầng Xưởng (Floor):</span>
+                <span>{t('statusManagement.filterDrawer.floorLabel', 'Tầng Xưởng (Floor):')}</span>
               </label>
               <select
                 value={draftFilters.floorId}
@@ -203,7 +205,7 @@ export default function MachineStatusFilterDrawer({
               >
                 {FLOORS.map((fl) => (
                   <option key={fl.id} value={fl.id}>
-                    {fl.name}
+                    {t(`statusManagement.filterDrawer.floors.${fl.id}`, fl.name)}
                   </option>
                 ))}
               </select>
@@ -215,7 +217,7 @@ export default function MachineStatusFilterDrawer({
                 <svg className="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                 </svg>
-                <span>Khu Vực Sản Xuất (Area):</span>
+                <span>{t('statusManagement.filterDrawer.areaLabel', 'Khu Vực Sản Xuất (Area):')}</span>
               </label>
               <select
                 value={draftFilters.areaId}
@@ -228,7 +230,7 @@ export default function MachineStatusFilterDrawer({
               >
                 {AREAS.map((a) => (
                   <option key={a.id} value={a.id}>
-                    {a.name}
+                    {t(`statusManagement.filterDrawer.areas.${a.id}`, a.name)}
                   </option>
                 ))}
               </select>
@@ -240,7 +242,7 @@ export default function MachineStatusFilterDrawer({
                 <svg className="w-3.5 h-3.5 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <span>Trạng Thái Vận Hành (Status):</span>
+                <span>{t('statusManagement.filterDrawer.statusLabel', 'Trạng Thái Vận Hành (Status):')}</span>
               </label>
               <div className="grid grid-cols-2 gap-1.5">
                 {STATUS_FILTER_OPTIONS.map((opt) => {
@@ -260,7 +262,7 @@ export default function MachineStatusFilterDrawer({
                             : 'bg-zinc-800/80 hover:bg-zinc-800 text-zinc-300 border-zinc-700'
                       }`}
                     >
-                      <span>{opt.label}</span>
+                      <span>{t(`statusManagement.filterDrawer.statusOptions.${opt.id}`, opt.label)}</span>
                       {isSelected && <span>✓</span>}
                     </button>
                   );
@@ -284,7 +286,7 @@ export default function MachineStatusFilterDrawer({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-white border-zinc-700'
               }`}
             >
-              Đặt Lại Mặc Định
+              {t('statusManagement.filterDrawer.btnReset', 'Đặt Lại Mặc Định')}
             </button>
             <button
               type="button"
@@ -295,7 +297,7 @@ export default function MachineStatusFilterDrawer({
                   : 'bg-[#76B900] hover:bg-[#86d400] text-black shadow-[0_0_15px_rgba(118,185,0,0.35)]'
               }`}
             >
-              Áp Dụng Lọc
+              {t('statusManagement.filterDrawer.btnApply', 'Áp Dụng Lọc')}
             </button>
           </div>
         </div>

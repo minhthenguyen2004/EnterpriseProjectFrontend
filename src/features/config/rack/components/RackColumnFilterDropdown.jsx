@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 export default function RackColumnFilterDropdown({
@@ -11,6 +12,7 @@ export default function RackColumnFilterDropdown({
   onSort,
   onClose
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -101,7 +103,7 @@ export default function RackColumnFilterDropdown({
       <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100 dark:border-zinc-800">
         <div className="flex items-center gap-1.5">
           <span className="text-xs font-black uppercase tracking-wider text-slate-700 dark:text-zinc-200">
-            Lọc: {column.label}
+            {t('config.columnFilter.filterTitle', { col: column.label })}
           </span>
           {tempSelected.length > 0 && (
             <span
@@ -128,11 +130,11 @@ export default function RackColumnFilterDropdown({
           type="text"
           value={internalSearch}
           onChange={(e) => setInternalSearch(e.target.value)}
-          placeholder={`Tìm giá trị ${column.label}...`}
+          placeholder={t('config.columnFilter.searchPlaceholder', { col: column.label })}
           className={`w-full pl-8 pr-7 py-1.5 text-xs rounded-xl border outline-hidden transition-colors ${
             isFoxconn
-              ? 'bg-slate-50 border-slate-300 text-slate-800 placeholder-slate-400 focus:border-[#002766]'
-              : 'bg-zinc-950 border-zinc-700 text-zinc-100 placeholder-zinc-500 focus:border-[#76B900]'
+              ? 'bg-slate-50 border-slate-300 text-slate-800'
+              : 'bg-zinc-950 border-zinc-700 text-zinc-100'
           }`}
         />
         <svg
@@ -168,14 +170,14 @@ export default function RackColumnFilterDropdown({
             onChange={(e) => (e.target.checked ? handleSelectAll() : handleClearAll())}
             className="rounded text-blue-600 focus:ring-0 cursor-pointer"
           />
-          <span>Chọn tất cả</span>
+          <span>{t('config.columnFilter.selectAll')}</span>
         </label>
         <button
           type="button"
           onClick={handleClearAll}
           className="text-slate-400 hover:text-rose-500 text-[10px] cursor-pointer"
         >
-          Bỏ chọn
+          {t('config.columnFilter.clearAll')}
         </button>
       </div>
 
@@ -216,7 +218,7 @@ export default function RackColumnFilterDropdown({
           })
         ) : (
           <div className="text-center py-4 text-xs text-slate-400 dark:text-zinc-500">
-            Không tìm thấy giá trị
+            {t('config.columnFilter.noValues')}
           </div>
         )}
       </div>
@@ -265,7 +267,7 @@ export default function RackColumnFilterDropdown({
           onClick={handleResetThisColumn}
           className="text-xs font-semibold text-slate-500 hover:text-rose-600 dark:text-zinc-400 dark:hover:text-rose-400 cursor-pointer"
         >
-          Bỏ lọc cột
+          {t('config.columnFilter.clearColumn')}
         </button>
 
         <button
@@ -277,7 +279,7 @@ export default function RackColumnFilterDropdown({
               : 'bg-[#76B900] hover:bg-[#86d400] text-black font-extrabold'
           }`}
         >
-          Áp dụng {tempSelected.length > 0 ? `(${tempSelected.length})` : ''}
+          {t('config.columnFilter.btnApply')} {tempSelected.length > 0 ? `(${tempSelected.length})` : ''}
         </button>
       </div>
     </div>

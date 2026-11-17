@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { initialOverviewLayout } from '../mock/rackOverviewMockData';
 import {
   LOCATION_OPTIONS,
@@ -7,6 +8,8 @@ import {
 } from '../constants/rackOverviewConstants';
 
 export default function useRackOverviewData() {
+  const { t } = useTranslation('rack');
+
   // Top Filters
   const [location, setLocation] = useState(initialOverviewLayout.location || LOCATION_OPTIONS[0]);
   const [productLine, setProductLine] = useState(initialOverviewLayout.product_line || PRODUCT_LINE_OPTIONS[0]);
@@ -81,8 +84,8 @@ export default function useRackOverviewData() {
     };
 
     setFaces((prev) => [...prev, newFace]);
-    showToast(`Đã thêm mới ${newFace.face_name}!`, 'success');
-  }, [faces.length, showToast]);
+    showToast(t('overview.toast.addFaceSuccess', { name: newFace.face_name }), 'success');
+  }, [faces.length, showToast, t]);
 
   const handleEditFace = useCallback((faceId, newName) => {
     if (!newName?.trim()) return;
@@ -92,13 +95,13 @@ export default function useRackOverviewData() {
         face.id === faceId ? { ...face, face_name: newName.trim() } : face
       )
     );
-    showToast('Đã đổi tên Face thành công!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.editFaceSuccess'), 'success');
+  }, [showToast, t]);
 
   const handleDeleteFace = useCallback((faceId) => {
     setFaces((prev) => prev.filter((face) => face.id !== faceId));
-    showToast('Đã xóa Face thành công!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.deleteFaceSuccess'), 'success');
+  }, [showToast, t]);
 
   // ========================
   // CRUD OPERATIONS: GROUP
@@ -106,7 +109,7 @@ export default function useRackOverviewData() {
   const handleAddGroup = useCallback((faceId, customName) => {
     const targetFaceId = faceId || faces[0]?.id;
     if (!targetFaceId) {
-      showToast('Vui lòng tạo ít nhất 1 Face trước khi thêm Group!', 'warning');
+      showToast(t('overview.toast.needFaceWarning'), 'warning');
       return;
     }
 
@@ -128,8 +131,8 @@ export default function useRackOverviewData() {
       })
     );
 
-    showToast('Đã thêm mới Group lồng vào Face!', 'success');
-  }, [faces, showToast]);
+    showToast(t('overview.toast.addGroupSuccess'), 'success');
+  }, [faces, showToast, t]);
 
   const handleEditGroup = useCallback((faceId, groupId, newName) => {
     if (!newName?.trim()) return;
@@ -147,8 +150,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã cập nhật tên Group thành công!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.editGroupSuccess'), 'success');
+  }, [showToast, t]);
 
   const handleDeleteGroup = useCallback((faceId, groupId) => {
     setFaces((prev) =>
@@ -162,8 +165,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã xóa Group thành công!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.deleteGroupSuccess'), 'success');
+  }, [showToast, t]);
 
   // ========================
   // CRUD OPERATIONS: RACK
@@ -179,7 +182,7 @@ export default function useRackOverviewData() {
         targetFaceId = firstFaceWithGroup.id;
         targetGroupId = firstFaceWithGroup.groups[0].id;
       } else {
-        showToast('Vui lòng tạo Face và Group trước khi thêm Rack!', 'warning');
+        showToast(t('overview.toast.needFaceGroupWarning'), 'warning');
         return;
       }
     }
@@ -211,8 +214,8 @@ export default function useRackOverviewData() {
       })
     );
 
-    showToast('Đã thêm mới tủ Rack lồng vào Group!', 'success');
-  }, [faces, showToast]);
+    showToast(t('overview.toast.addRackSuccess'), 'success');
+  }, [faces, showToast, t]);
 
   const handleEditRack = useCallback((faceId, groupId, rackId, newName) => {
     if (!newName?.trim()) return;
@@ -238,8 +241,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã cập nhật tên Rack thành công!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.editRackSuccess'), 'success');
+  }, [showToast, t]);
 
   const handleDeleteRack = useCallback((faceId, groupId, rackId) => {
     setFaces((prev) =>
@@ -261,8 +264,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã xóa tủ Rack thành công!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.deleteRackSuccess'), 'success');
+  }, [showToast, t]);
 
   // ========================
   // CRUD OPERATIONS: SLOT
@@ -313,8 +316,8 @@ export default function useRackOverviewData() {
     );
 
     setAddSlotTarget(null);
-    showToast(`Đã thêm Slot ${newSlot.slot_number} [${newSlot.status.toUpperCase()}] thành công!`, 'success');
-  }, [addSlotTarget, showToast]);
+    showToast(t('overview.toast.addSlotSuccess', { num: newSlot.slot_number, status: newSlot.status.toUpperCase() }), 'success');
+  }, [addSlotTarget, showToast, t]);
 
   const handleEditSlot = useCallback((faceId, groupId, rackId, slotId, updatedFields) => {
     setFaces((prev) =>
@@ -346,8 +349,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã cập nhật thông tin Slot!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.editSlotSuccess'), 'success');
+  }, [showToast, t]);
 
   const handleDeleteSlot = useCallback((faceId, groupId, rackId, slotId) => {
     setFaces((prev) =>
@@ -377,8 +380,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã xóa Slot khỏi Rack!', 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.deleteSlotSuccess'), 'success');
+  }, [showToast, t]);
 
   // ========================
   // REORDERING / DRAG & DROP
@@ -410,8 +413,8 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã đổi thứ tự cột Rack thành công!', 'info');
-  }, [showToast]);
+    showToast(t('overview.toast.swapRacksSuccess'), 'info');
+  }, [showToast, t]);
 
   const handleSwapSlots = useCallback((faceId, groupId, rackId, sourceSlotId, targetSlotId) => {
     if (sourceSlotId === targetSlotId) return;
@@ -448,30 +451,30 @@ export default function useRackOverviewData() {
         return face;
       })
     );
-    showToast('Đã hoán đổi vị trí Slot tức thì!', 'info');
-  }, [showToast]);
+    showToast(t('overview.toast.swapSlotsSuccess'), 'info');
+  }, [showToast, t]);
 
   // ========================
   // GLOBAL ACTIONS & SHORTCUTS
   // ========================
   const handleSaveLayout = useCallback(() => {
-    showToast(`Đã lưu toàn bộ bố cục Layout [${selectedGroupName}] vào Database!`, 'success');
-  }, [selectedGroupName, showToast]);
+    showToast(t('overview.toast.saveLayoutSuccess', { name: selectedGroupName }), 'success');
+  }, [selectedGroupName, showToast, t]);
 
   const handleReloadDatabase = useCallback(() => {
     setFaces(initialOverviewLayout.faces);
     setLocation(initialOverviewLayout.location);
     setProductLine(initialOverviewLayout.product_line);
     setSelectedGroupName(initialOverviewLayout.selected_group_name);
-    showToast('Đã tải lại bố cục mới nhất từ Database!', 'info');
-  }, [showToast]);
+    showToast(t('overview.toast.reloadSuccess'), 'info');
+  }, [showToast, t]);
 
   const handleRenameSelectedGroup = useCallback((newName) => {
     if (!newName?.trim()) return;
     setSelectedGroupName(newName.trim());
     setIsRenameGroupModalOpen(false);
-    showToast(`Đã đổi tên Group thành: "${newName.trim()}"!`, 'success');
-  }, [showToast]);
+    showToast(t('overview.toast.renameGroupSuccess', { name: newName.trim() }), 'success');
+  }, [showToast, t]);
 
   // Keyboard Shortcuts Listener: Ctrl+S, Esc, Delete
   useEffect(() => {

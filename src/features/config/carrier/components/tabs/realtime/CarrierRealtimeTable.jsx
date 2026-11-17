@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**
@@ -20,6 +21,7 @@ export default function CarrierRealtimeTable({
   onOpenInspect,
   onToggleLock,
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -27,20 +29,20 @@ export default function CarrierRealtimeTable({
   const renderSeverity = (severity, status) => {
     let dotColor = 'bg-emerald-500';
     let ringColor = 'ring-emerald-400/30';
-    let label = 'An toàn';
+    let label = t('config.table.severitySafe');
 
     if (status === 'LOCKED' || severity === 'critical') {
       dotColor = 'bg-rose-500';
       ringColor = 'ring-rose-400/40 animate-ping';
-      label = 'Nguy cấp';
+      label = t('config.table.severityCritical');
     } else if (status === 'INSPECTION_REQUIRED' || severity === 'urgent') {
       dotColor = 'bg-orange-500';
       ringColor = 'ring-orange-400/30 animate-pulse';
-      label = 'Cần KT';
+      label = t('config.table.severityUrgent');
     } else if (status === 'WARNING' || severity === 'warning') {
       dotColor = 'bg-amber-500';
       ringColor = 'ring-amber-400/30';
-      label = 'Cảnh báo';
+      label = t('config.table.severityWarning');
     }
 
     return (
@@ -180,31 +182,31 @@ export default function CarrierRealtimeTable({
           >
             <tr>
               <th scope="col" className="py-3 px-3.5 text-center w-16">
-                Mức độ
+                {t('config.table.colSeverity')}
               </th>
               <th scope="col" className="py-3 px-4 min-w-35">
-                Mã khay
+                {t('config.table.colCarrierCode')}
               </th>
               <th scope="col" className="py-3 px-4 min-w-40">
-                Chuyền / Sản phẩm
+                {t('config.table.colLineProduct')}
               </th>
               <th scope="col" className="py-3 px-4 min-w-37.5">
-                Loại khay
+                {t('config.table.colCarrierType')}
               </th>
               <th scope="col" className="py-3 px-4 min-w-40">
-                Tiến độ chu kỳ
+                {t('config.table.colCycleProgress')}
               </th>
               <th scope="col" className="py-3 px-3.5 text-right min-w-22.5">
-                % sử dụng
+                {t('config.table.colUsagePct')}
               </th>
               <th scope="col" className="py-3 px-4 min-w-32.5">
-                Giờ từ lần KT cuối
+                {t('config.table.colHoursSinceInspection')}
               </th>
               <th scope="col" className="py-3 px-4 min-w-42.5">
-                Lần kiểm định gần nhất
+                {t('config.table.colLastInspection')}
               </th>
               <th scope="col" className="py-3 px-4 text-center min-w-30">
-                Trạng thái
+                {t('config.table.colStatus')}
               </th>
             </tr>
           </thead>
@@ -223,7 +225,7 @@ export default function CarrierRealtimeTable({
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span className="font-bold text-xs text-slate-700 dark:text-zinc-300">
-                      Không tìm thấy khay chứa nào phù hợp với bộ lọc hiện tại
+                      {t('config.table.emptyText')}
                     </span>
                   </div>
                 </td>
@@ -260,7 +262,7 @@ export default function CarrierRealtimeTable({
                               ? 'text-blue-900 hover:text-blue-700'
                               : 'text-white hover:text-[#76B900]'
                           }`}
-                          title="Bấm để xem chi tiết thông số khay"
+                          title={t('config.table.viewDetailTooltip')}
                         >
                           {carrier.carrierCode}
                         </button>
@@ -344,12 +346,12 @@ export default function CarrierRealtimeTable({
                         {carrier.hoursSinceLastInspection}h
                         {carrier.hoursSinceLastInspection >= 720 && (
                           <span className="text-[10px] px-1.5 py-0.5 rounded font-extrabold bg-rose-500/20 text-rose-500 dark:text-rose-300 border border-rose-500/30">
-                            Quá hạn
+                            {t('config.table.overdueBadge')}
                           </span>
                         )}
                       </div>
                       <div className={`text-[10px] font-bold ${isFoxconn ? 'text-slate-600' : 'text-zinc-300'}`}>
-                        (~{(carrier.hoursSinceLastInspection / 24).toFixed(1)} ngày)
+                        {t('config.table.daysAgo', { days: (carrier.hoursSinceLastInspection / 24).toFixed(1) })}
                       </div>
                     </td>
 

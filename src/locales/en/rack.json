@@ -13,6 +13,7 @@
     "filterTooltipHas": "Reset all active filters and sorting",
     "filterTooltipNone": "No active filters currently applied",
     "cols": {
+      "index": "#",
       "id": "#",
       "factory": "FACTORY",
       "floor": "FLOOR",
@@ -20,9 +21,34 @@
       "product": "PRODUCT",
       "group": "GROUP",
       "rack": "RACK",
+      "slot_number": "SLOT NO.",
+      "slot_name": "SLOT NAME",
       "slot": "SLOT",
+      "ip_address": "IP ADDRESS",
       "ip": "IP",
       "actions": "ACTIONS"
+    },
+    "table": {
+      "emptyTitle": "No matching rack configuration records found",
+      "emptyFilteredDesc": "No records match the current filter criteria. Please try different keywords or reset filters.",
+      "emptyDesc": "No rack configuration records currently in the system.",
+      "btnResetAll": "Reset All Filters ({{count}})",
+      "btnResetTable": "⟲ Reset",
+      "resetTooltip": "Reset all active filters on all columns and search bar",
+      "colFilterTooltip": "Click to open column filter for {{col}}",
+      "editTooltip": "Edit configuration",
+      "deleteTooltip": "Delete configuration",
+      "btnEdit": "Edit",
+      "btnDelete": "Delete"
+    },
+    "columnFilter": {
+      "filterTitle": "Filter: {{col}}",
+      "searchPlaceholder": "Search value {{col}}...",
+      "selectAll": "Select All",
+      "clearAll": "Clear All",
+      "noValues": "No matching values found",
+      "clearColumn": "Clear Column Filter",
+      "btnApply": "Apply"
     },
     "actions": {
       "edit": "Edit",
@@ -46,8 +72,21 @@
       "fieldProduct": "Product Line",
       "fieldGroup": "Group",
       "fieldRack": "Rack ID",
-      "fieldSlot": "Slot",
+      "fieldSlotNumber": "Slot Number",
+      "fieldSlotName": "Slot Name",
       "fieldIp": "IP Address",
+      "validation": {
+        "factory": "Please select or enter Factory",
+        "floor": "Please select Floor",
+        "room": "Please enter Room name",
+        "product": "Please select or enter Product Line",
+        "group": "Please select or enter Group",
+        "rack": "Please enter Rack ID (e.g. RCK-A01)",
+        "slotNumber": "Slot number must be greater than 0",
+        "slotName": "Please enter Slot Name (e.g. SLOT-GPU-01)",
+        "ipRequired": "Please enter IP address",
+        "ipInvalid": "Invalid IPv4 address format (e.g. 192.168.1.100)"
+      },
       "btnCancel": "Cancel",
       "btnSubmitCreate": "Create Configuration",
       "btnSubmitEdit": "Save Changes"
@@ -56,6 +95,10 @@
       "title": "Confirm Delete Rack Configuration",
       "subtitle": "This operation will remove the rack record from database.",
       "question": "Are you sure you want to delete the following rack record?",
+      "fieldLocation": "Location:",
+      "fieldProductGroup": "Product & Group:",
+      "safetyNoticeTitle": "⚠️ Safety notice:",
+      "safetyNotice": "This operation will permanently delete the record from system database and cannot be undone.",
       "btnCancel": "Cancel",
       "btnConfirm": "Confirm Delete"
     },
@@ -76,28 +119,150 @@
       "productLineLabel": "Product Line:",
       "groupLabel": "Rack Group:",
       "allGroups": "All Groups",
-      "btnStructure": "Structure Tree",
+      "btnStructure": "Structure",
+      "btnStructureTooltip": "View entire hierarchical tree: Face > Group > Rack > Slot",
       "btnSaveLayout": "Save Layout",
+      "btnSaveLayoutTooltip": "Save layout arrangement (Ctrl + S)",
       "btnReloadDB": "Reload DB",
+      "btnReloadDBTooltip": "Reload layout data from database",
       "btnAddFace": "Add Face",
+      "btnAddFaceTooltip": "Add new Face container",
       "btnAddGroup": "Add Group",
       "btnAddRack": "Add Rack"
     },
+    "quickActions": {
+      "title": "Quick Actions",
+      "addFace": "Add Face",
+      "addGroup": "Add Group",
+      "addRack": "Add Rack"
+    },
     "kpi": {
+      "title": "Overview",
+      "readyBadge": "{{rate}}% Ready",
       "faces": "Faces",
       "groups": "Groups",
       "racks": "Racks",
       "slots": "Slots",
-      "approvedRate": "Activation Rate"
+      "approvedRate": "Activation Rate",
+      "totalFaces": "Total Faces",
+      "unitFace": "Faces",
+      "totalGroups": "Total Groups",
+      "unitGroup": "Groups",
+      "totalRacks": "Total Racks",
+      "unitRack": "Racks",
+      "totalSlots": "Total Slots",
+      "unitSlot": "Slots",
+      "approvedSlots": "Approved",
+      "approvedSub": "{{rate}}% approved"
+    },
+    "tips": {
+      "title": "Quick Tips",
+      "tip1Bold": "Click on Rack or Slot",
+      "tip1Text": "to inspect and edit properties.",
+      "tip2Bold": "Drag & Drop Swap:",
+      "tip2Text": "Drag a Slot onto another Slot to swap positions immediately.",
+      "tip3Bold": "Reorder Racks:",
+      "tip3Text": "Drag the Rack header to swap columns.",
+      "shortcutTitle": "Keyboard Shortcuts:",
+      "saveLayout": "Save layout",
+      "cancelClose": "Deselect / Close",
+      "deleteObject": "Delete item"
+    },
+    "canvas": {
+      "title": "Rack Floorplan Layout",
+      "btnRenameGroup": "Rename Group",
+      "btnRenameGroupTooltip": "Rename the Group selected in the top filter",
+      "hierarchyDesc": "Hierarchical nested layout: Face ➔ Group ➔ Rack ➔ Slot",
+      "btnAddFace": "Add New Face",
+      "emptyFaces": "No Face containers in current layout",
+      "emptyFacesDesc": "Start building the floorplan layout by creating the first Face (e.g. Front Face A).",
+      "btnAddFirstFace": "➕ Add First Face"
+    },
+    "faceCard": {
+      "editTooltip": "Edit Face Name",
+      "stats": "(includes {{racks}} racks and {{slots}} slots)",
+      "btnAddGroup": "Add Group",
+      "btnAddGroupTooltip": "Add a Group inside this Face container",
+      "deleteTooltip": "Delete this Face and all nested Groups and Racks",
+      "emptyGroups": "No Groups in this Face container.",
+      "emptyGroupsHint": "Click \"+ Add Group\" above to create a nested group."
+    },
+    "groupCard": {
+      "editTooltip": "Edit Group Name",
+      "stats": "(includes {{racks}} racks)",
+      "btnAddRack": "Add Rack",
+      "btnAddRackTooltip": "Add a new Rack into this Group",
+      "deleteTooltip": "Delete this Group",
+      "emptyRacks": "No Racks in this Group container.",
+      "emptyRacksHint": "Click \"+ Add Rack\" at top right to add a rack."
+    },
+    "rackCard": {
+      "dragTooltip": "Drag Rack header onto another Rack to swap column order",
+      "editTooltip": "Click to rename Rack",
+      "deleteTooltip": "Delete this Rack",
+      "btnAddSlot": "Add Slot",
+      "btnAddSlotTooltip": "Add a new slot into this Rack",
+      "emptySlots": "No Slots currently.",
+      "emptySlotsHint": "Click \"+ Add Slot\" above to create a slot.",
+      "statsSlots": "{{count}} Slots",
+      "statsApproved": "{{count}} Approved"
+    },
+    "slotRow": {
+      "rowTooltip": "Drag to swap with another Slot or click to edit",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "toggleTooltip": "Click to switch status to {{status}}",
+      "deleteTooltip": "Delete this Slot"
+    },
+    "addSlotModal": {
+      "title": "Add New Slot",
+      "subtitle": "Enter slot number and select approval status",
+      "fieldSlotNumber": "Slot Number",
+      "slotNumberPlaceholder": "e.g. 01, 02, 12...",
+      "errorSlotNumber": "Please enter slot number",
+      "fieldSlotName": "Slot Display Name",
+      "slotNamePlaceholder": "Default: SLOT-{{num}}",
+      "fieldStatus": "Approval Status",
+      "statusApproved": "Approved",
+      "statusApprovedSub": "Approved and ready",
+      "statusRejected": "Rejected",
+      "statusRejectedSub": "Rejected / Locked",
+      "fieldIp": "IP Address",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Confirm Add Slot"
+    },
+    "renameGroupModal": {
+      "title": "Rename Group",
+      "fieldNewName": "New Group Name",
+      "btnCancel": "Cancel",
+      "btnSubmit": "Save New Name"
+    },
+    "structureModal": {
+      "title": "Structure Tree",
+      "subtitle": "Visual hierarchy: Location ➔ Product ➔ Face ➔ Group ➔ Rack ➔ Slot",
+      "totalFaces": "Total: {{count}} Faces",
+      "btnClose": "Close"
     },
     "toast": {
-      "saveLayoutSuccess": "Successfully saved rack floorplan layout!",
-      "reloadSuccess": "Reloaded hierarchy tree from database!",
-      "addFaceSuccess": "Added new Face container!",
-      "addGroupSuccess": "Added new Group container!",
-      "addRackSuccess": "Added new Rack container!",
-      "addSlotSuccess": "Added new Slot item!"
+      "addFaceSuccess": "Added new {{name}}!",
+      "editFaceSuccess": "Successfully renamed Face!",
+      "deleteFaceSuccess": "Successfully deleted Face!",
+      "needFaceWarning": "Please create at least 1 Face before adding a Group!",
+      "addGroupSuccess": "Added new Group into Face!",
+      "editGroupSuccess": "Successfully updated Group name!",
+      "deleteGroupSuccess": "Successfully deleted Group!",
+      "needFaceGroupWarning": "Please create Face and Group before adding a Rack!",
+      "addRackSuccess": "Added new Rack into Group!",
+      "editRackSuccess": "Successfully updated Rack name!",
+      "deleteRackSuccess": "Successfully deleted Rack!",
+      "addSlotSuccess": "Successfully added Slot {{num}} [{{status}}]!",
+      "editSlotSuccess": "Successfully updated Slot information!",
+      "deleteSlotSuccess": "Deleted Slot from Rack!",
+      "swapRacksSuccess": "Successfully swapped Rack columns!",
+      "swapSlotsSuccess": "Swapped Slot positions immediately!",
+      "saveLayoutSuccess": "Successfully saved Layout [{{name}}] to Database!",
+      "reloadSuccess": "Reloaded latest layout from Database!",
+      "renameGroupSuccess": "Successfully renamed Group to: \"{{name}}\"!"
     }
   }
 }
-

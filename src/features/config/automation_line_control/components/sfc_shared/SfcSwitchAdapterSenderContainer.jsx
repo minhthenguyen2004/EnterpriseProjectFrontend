@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import SfcFilterBar from './SfcFilterBar';
 import SfcKeypartsTable from './keyparts_table/SfcKeypartsTable';
@@ -39,17 +40,18 @@ export default function SfcSwitchAdapterSenderContainer({
   isUndoModalOpen,
   setIsUndoModalOpen,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
   const isAdapter = mode === 'adapter';
   const containerTitle = isAdapter
-    ? 'SFC Adapter Keypart & Action Sender'
-    : 'SFC Switch Keypart & Action Sender';
+    ? t('control.sfc.adapterTitle')
+    : t('control.sfc.switchTitle');
 
   const containerSubtitle = isAdapter
-    ? 'Bảng điều khiển tương tác SFC Adapter Gateway: Quản lý Keyparts, xác thực Token và điều phối bản tin.'
-    : 'Bảng điều khiển tương tác SFC Switch: Quản lý Keyparts theo SN, thẩm định BOM, và phát lệnh điều khiển quy trình.';
+    ? t('control.sfc.adapterSubtitle')
+    : t('control.sfc.switchSubtitle');
 
   return (
     <div
@@ -100,7 +102,7 @@ export default function SfcSwitchAdapterSenderContainer({
                     isAdapter ? 'bg-violet-500' : 'bg-emerald-500'
                   }`}
                 ></span>
-                <span>{isAdapter ? 'ADAPTER GATEWAY' : 'SWITCH PROTOCOL'}</span>
+                <span>{isAdapter ? t('control.sfc.badgeAdapter') : t('control.sfc.badgeSwitch')}</span>
               </span>
             </div>
             <p className="text-xs text-slate-500 dark:text-zinc-400 mt-0.5">

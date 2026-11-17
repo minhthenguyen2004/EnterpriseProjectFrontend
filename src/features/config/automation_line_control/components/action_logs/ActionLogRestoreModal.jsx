@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 /**
@@ -17,6 +18,7 @@ export default function ActionLogRestoreModal({
   isRestoring,
   onConfirmRestore,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -67,14 +69,14 @@ export default function ActionLogRestoreModal({
                   isFoxconn ? 'text-rose-700' : 'text-rose-400'
                 }`}
               >
-                Xác Nhận Phục Hồi An Toàn (Safe State Restore)
+                {t('control.actionLogs.restoreModal.title')}
               </h3>
               <p
                 className={`text-xs ${
                   isFoxconn ? 'text-rose-800 font-medium' : 'text-rose-300'
                 }`}
               >
-                Thao tác cấp độ cao: Hoàn nguyên trạng thái CSDL về thời điểm trước tác vụ.
+                {t('control.actionLogs.restoreModal.subtitle')}
               </p>
             </div>
           </div>
@@ -105,18 +107,10 @@ export default function ActionLogRestoreModal({
           >
             <div className="font-bold flex items-center gap-1.5">
               <span>⚠️</span>
-              <span>LƯU Ý QUAN TRỌNG TRƯỚC KHI RESTORE:</span>
+              <span>{t('control.actionLogs.restoreModal.warningTitle')}</span>
             </div>
             <p className="text-[11px] leading-relaxed">
-              Việc rollback sẽ ghi đè trực tiếp trạng thái hiện tại của đối tượng trong bảng{' '}
-              <strong
-                className={`font-mono ${
-                  isFoxconn ? 'text-amber-950 font-extrabold' : 'text-zinc-100'
-                }`}
-              >
-                {log.targetTable}
-              </strong>{' '}
-              trở về snapshot cũ. Điều này có thể làm thay đổi thứ tự bước Router hoặc hủy bỏ các linh kiện đã liên kết.
+              {t('control.actionLogs.restoreModal.warningDesc', { table: log.targetTable })}
             </p>
           </div>
 
@@ -133,7 +127,7 @@ export default function ActionLogRestoreModal({
                 isFoxconn ? 'border-slate-200' : 'border-zinc-800'
               }`}
             >
-              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Bản Ghi Gốc:</span>
+              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.restoreModal.originalRecord')}</span>
               <span className={`font-mono font-bold ${isFoxconn ? 'text-slate-800' : 'text-zinc-100'}`}>
                 {log.id}
               </span>
@@ -143,7 +137,7 @@ export default function ActionLogRestoreModal({
                 isFoxconn ? 'border-slate-200' : 'border-zinc-800'
               }`}
             >
-              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Đối Tượng Mục Tiêu:</span>
+              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.restoreModal.targetObject')}</span>
               <span className={`font-mono font-bold ${isFoxconn ? 'text-blue-600' : 'text-blue-400'}`}>
                 [{log.targetType.toUpperCase()}] {log.targetCode}
               </span>
@@ -153,13 +147,13 @@ export default function ActionLogRestoreModal({
                 isFoxconn ? 'border-slate-200' : 'border-zinc-800'
               }`}
             >
-              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Hành Động Cần Hoàn Nguyên:</span>
+              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.restoreModal.rollbackAction')}</span>
               <span className={`font-bold uppercase ${isFoxconn ? 'text-purple-700' : 'text-purple-400'}`}>
                 {log.actionType}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>Bảng CSDL Phục Hồi:</span>
+              <span className={isFoxconn ? 'text-slate-500' : 'text-zinc-400'}>{t('control.actionLogs.restoreModal.restoreTable')}</span>
               <span className={`font-mono font-bold ${isFoxconn ? 'text-slate-800' : 'text-zinc-200'}`}>
                 {log.targetTable}
               </span>
@@ -174,7 +168,7 @@ export default function ActionLogRestoreModal({
                   isFoxconn ? 'text-slate-700' : 'text-zinc-200'
                 }`}
               >
-                <span>Người Thực Hiện Phục Hồi (Operator ID)</span>
+                <span>{t('control.actionLogs.restoreModal.operatorLabel')}</span>
                 <span className="text-[11px]">🔒</span>
               </label>
               <span
@@ -184,7 +178,7 @@ export default function ActionLogRestoreModal({
                     : 'bg-zinc-800 text-zinc-300'
                 }`}
               >
-                TỰ ĐỘNG XÁC THỰC
+                {t('control.actionLogs.restoreModal.autoAuthBadge')}
               </span>
             </div>
             <input
@@ -207,14 +201,14 @@ export default function ActionLogRestoreModal({
                 isFoxconn ? 'text-slate-700' : 'text-zinc-200'
               }`}
             >
-              Lý Do Phục Hồi (Bắt buộc, tối thiểu 10 ký tự) <span className="text-rose-500">*</span>
+              {t('control.actionLogs.restoreModal.reasonLabel')} <span className="text-rose-500">*</span>
             </label>
             <textarea
               rows={3}
               value={restoreReason}
               onChange={(e) => setRestoreReason(e.target.value)}
               disabled={isRestoring}
-              placeholder="Ví dụ: Kỹ sư thao tác nhầm bước Router trong ca sáng, đã kiểm tra hiện trường đủ điều kiện rollback..."
+              placeholder={t('control.actionLogs.restoreModal.reasonPlaceholder')}
               className={`w-full px-3 py-2 rounded-xl border text-xs transition-all ${
                 isFoxconn
                   ? 'bg-white border-slate-300 text-slate-800'
@@ -222,7 +216,7 @@ export default function ActionLogRestoreModal({
               }`}
             />
             <div className={`flex justify-between items-center mt-1 text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-              <span>Ghi rõ nguyên nhân để lưu vào hồ sơ kiểm toán ISO/SFC</span>
+              <span>{t('control.actionLogs.restoreModal.reasonHint')}</span>
               <span
                 className={
                   restoreReason.length < 10
@@ -232,7 +226,7 @@ export default function ActionLogRestoreModal({
                     : 'text-[#76B900] font-bold'
                 }
               >
-                {restoreReason.length}/10 ký tự
+                {t('control.actionLogs.restoreModal.reasonCharCount', { count: restoreReason.length })}
               </span>
             </div>
           </div>
@@ -258,7 +252,7 @@ export default function ActionLogRestoreModal({
                   isFoxconn ? 'text-slate-800' : 'text-zinc-200'
                 }`}
               >
-                Tôi xác nhận đã kiểm tra đối tượng thực tế trên chuyền và chịu trách nhiệm về quyết định phục hồi trạng thái này.
+                {t('control.actionLogs.restoreModal.confirmCheckbox')}
               </span>
             </label>
           </div>
@@ -280,7 +274,7 @@ export default function ActionLogRestoreModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700'
             }`}
           >
-            Hủy Bỏ
+            {t('control.actionLogs.restoreModal.btnCancel')}
           </button>
 
           <button
@@ -301,12 +295,12 @@ export default function ActionLogRestoreModal({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
-                <span>Đang Phục Hồi...</span>
+                <span>{t('control.actionLogs.restoreModal.btnRestoring')}</span>
               </>
             ) : (
               <>
                 <span>⚠️</span>
-                <span>Xác Nhận Phục Hồi Trạng Thái</span>
+                <span>{t('control.actionLogs.restoreModal.btnConfirm')}</span>
               </>
             )}
           </button>

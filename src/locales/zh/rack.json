@@ -13,6 +13,7 @@
     "filterTooltipHas": "重置全部生效的筛选与排序",
     "filterTooltipNone": "当前无正在应用的过滤条件",
     "cols": {
+      "index": "序号",
       "id": "序号",
       "factory": "厂区 (FACTORY)",
       "floor": "楼层 (FLOOR)",
@@ -20,9 +21,34 @@
       "product": "产品系列 (PRODUCT)",
       "group": "机组群 (GROUP)",
       "rack": "机柜 (RACK)",
+      "slot_number": "槽位编号 (SLOT NO.)",
+      "slot_name": "槽位名称 (SLOT NAME)",
       "slot": "槽位 (SLOT)",
-      "ip": "IP 地址",
+      "ip_address": "IP 地址",
+      "ip": "IP",
       "actions": "操作"
+    },
+    "table": {
+      "emptyTitle": "未找到匹配的机柜配置数据",
+      "emptyFilteredDesc": "没有记录与当前筛选条件匹配，请尝试输入其他关键词或重置筛选条件。",
+      "emptyDesc": "当前系统中暂无机柜配置数据。",
+      "btnResetAll": "重置全部筛选条件 ({{count}})",
+      "btnResetTable": "⟲ 重置",
+      "resetTooltip": "重置所有列筛选条件及全局搜索栏",
+      "colFilterTooltip": "点击打开 {{col}} 列筛选面板",
+      "editTooltip": "编辑机柜配置",
+      "deleteTooltip": "删除机柜配置",
+      "btnEdit": "编辑",
+      "btnDelete": "删除"
+    },
+    "columnFilter": {
+      "filterTitle": "筛选: {{col}}",
+      "searchPlaceholder": "搜索数值 {{col}}...",
+      "selectAll": "全选",
+      "clearAll": "取消选择",
+      "noValues": "未找到匹配项",
+      "clearColumn": "清除本列筛选",
+      "btnApply": "应用"
     },
     "actions": {
       "edit": "编辑",
@@ -46,8 +72,21 @@
       "fieldProduct": "产品系列 (Product)",
       "fieldGroup": "机组群 (Group)",
       "fieldRack": "机柜代码 (Rack ID)",
-      "fieldSlot": "槽位编号 (Slot)",
+      "fieldSlotNumber": "槽位序号 (Slot Number)",
+      "fieldSlotName": "槽位名称 (Slot Name)",
       "fieldIp": "IP 地址 (IP Address)",
+      "validation": {
+        "factory": "请选择或输入厂区代码",
+        "floor": "请选择楼层",
+        "room": "请输入车间房号",
+        "product": "请选择或输入产品系列",
+        "group": "请选择或输入机组群",
+        "rack": "请输入机柜代码（如 RCK-A01）",
+        "slotNumber": "槽位序号必须大于 0",
+        "slotName": "请输入槽位名称（如 SLOT-GPU-01）",
+        "ipRequired": "请输入 IP 地址",
+        "ipInvalid": "IP 地址格式不符合 IPv4 标准（如 192.168.1.100）"
+      },
       "btnCancel": "取消",
       "btnSubmitCreate": "创建机柜配置",
       "btnSubmitEdit": "保存更改"
@@ -56,6 +95,10 @@
       "title": "确认删除机柜配置",
       "subtitle": "此操作将从数据库中永久移除此机柜配置记录。",
       "question": "您确定要删除下列机柜配置记录吗？",
+      "fieldLocation": "安装位置:",
+      "fieldProductGroup": "产品与机组:",
+      "safetyNoticeTitle": "⚠️ 安全警示:",
+      "safetyNotice": "此操作将从系统配置目录中彻底移除此数据，且不可逆。",
       "btnCancel": "取消",
       "btnConfirm": "确认删除"
     },
@@ -76,28 +119,150 @@
       "productLineLabel": "产品系列:",
       "groupLabel": "机柜组:",
       "allGroups": "所有群组",
-      "btnStructure": "层级树状图 (Structure Tree)",
-      "btnSaveLayout": "保存布局 (Save Layout)",
+      "btnStructure": "层级树",
+      "btnStructureTooltip": "查看全厂区层级树状图: Face > Group > Rack > Slot",
+      "btnSaveLayout": "保存布局",
+      "btnSaveLayoutTooltip": "保存布局结构 (Ctrl + S)",
       "btnReloadDB": "重载数据库",
+      "btnReloadDBTooltip": "从数据库重新加载布局数据",
       "btnAddFace": "新增 Face",
+      "btnAddFaceTooltip": "新增柜面 (Face)",
       "btnAddGroup": "新增 Group",
       "btnAddRack": "新增 Rack"
     },
+    "quickActions": {
+      "title": "快捷操作",
+      "addFace": "新增 Face",
+      "addGroup": "新增 Group",
+      "addRack": "新增 Rack"
+    },
     "kpi": {
+      "title": "运行总览",
+      "readyBadge": "{{rate}}% 就绪",
       "faces": "柜面 (Faces)",
       "groups": "群组 (Groups)",
       "racks": "机柜 (Racks)",
       "slots": "槽位 (Slots)",
-      "approvedRate": "激活率"
+      "approvedRate": "激活率",
+      "totalFaces": "柜面总数",
+      "unitFace": "面",
+      "totalGroups": "群组总数",
+      "unitGroup": "组",
+      "totalRacks": "机柜总数",
+      "unitRack": "柜",
+      "totalSlots": "槽位总数",
+      "unitSlot": "槽",
+      "approvedSlots": "已审核通过",
+      "approvedSub": "{{rate}}% 已审核就绪"
+    },
+    "tips": {
+      "title": "操作小技巧",
+      "tip1Bold": "点击机柜或槽位",
+      "tip1Text": "可直接打开属性查看与修改面板。",
+      "tip2Bold": "拖拽对调位置:",
+      "tip2Text": "按住 Slot 拖拽至另一 Slot 上方可立即交换位置。",
+      "tip3Bold": "机柜列排序:",
+      "tip3Text": "拖拽 Rack 顶部栏可快速互换整列位置。",
+      "shortcutTitle": "系统快捷键:",
+      "saveLayout": "保存布局",
+      "cancelClose": "取消选择 / 关闭",
+      "deleteObject": "删除所选项目"
+    },
+    "canvas": {
+      "title": "机柜车间平面拓扑布局",
+      "btnRenameGroup": "重命名群组",
+      "btnRenameGroupTooltip": "修改顶部筛选器当前选中的群组名称",
+      "hierarchyDesc": "多层级嵌套拓扑: 柜面 (Face) ➔ 产线组 (Group) ➔ 机柜 (Rack) ➔ 槽位 (Slot)",
+      "btnAddFace": "新增柜面 Face",
+      "emptyFaces": "当前布局下暂无柜面 (Face) 容器",
+      "emptyFacesDesc": "请通过创建第一个 Face 开始绘制平面拓扑图（例如：A 面机房前部）。",
+      "btnAddFirstFace": "➕ 创建首个 Face 柜面"
+    },
+    "faceCard": {
+      "editTooltip": "修改 Face 名称",
+      "stats": "（包含 {{racks}} 台机柜，{{slots}} 个槽位）",
+      "btnAddGroup": "新增 Group",
+      "btnAddGroupTooltip": "在此 Face 容器内新增一个 Group 群组",
+      "deleteTooltip": "删除此 Face 及其包含的所有群组与机柜",
+      "emptyGroups": "此 Face 容器内暂无任何 Group 群组。",
+      "emptyGroupsHint": "点击上方“+ 新增 Group”创建嵌套产线机组。"
+    },
+    "groupCard": {
+      "editTooltip": "修改 Group 群组名称",
+      "stats": "（包含 {{racks}} 台机柜）",
+      "btnAddRack": "新增 Rack",
+      "btnAddRackTooltip": "在此群组内新增一台机柜",
+      "deleteTooltip": "删除此群组",
+      "emptyRacks": "此 Group 群组内暂无机柜。",
+      "emptyRacksHint": "点击右上角“+ 新增 Rack”添加机柜设备。"
+    },
+    "rackCard": {
+      "dragTooltip": "按住机柜顶部拖拽至其他机柜可对调列顺序",
+      "editTooltip": "点击修改机柜名称",
+      "deleteTooltip": "删除此台机柜",
+      "btnAddSlot": "新增 Slot",
+      "btnAddSlotTooltip": "在此机柜中添加新槽位",
+      "emptySlots": "暂无槽位数据。",
+      "emptySlotsHint": "点击上方“+ 新增 Slot”创建槽位插槽。",
+      "statsSlots": "{{count}} 槽位",
+      "statsApproved": "{{count}} 已审核"
+    },
+    "slotRow": {
+      "rowTooltip": "拖拽可与其他槽位互换位置，或点击切换状态",
+      "approved": "已审核",
+      "rejected": "已驳回",
+      "toggleTooltip": "点击将状态切换为 {{status}}",
+      "deleteTooltip": "删除此槽位"
+    },
+    "addSlotModal": {
+      "title": "新增插槽 (Slot)",
+      "subtitle": "输入槽位序号并选择当前审核状态",
+      "fieldSlotNumber": "槽位编号序号",
+      "slotNumberPlaceholder": "如: 01, 02, 12...",
+      "errorSlotNumber": "请输入槽位编号序号",
+      "fieldSlotName": "槽位显示名称",
+      "slotNamePlaceholder": "默认: SLOT-{{num}}",
+      "fieldStatus": "审核状态",
+      "statusApproved": "Approved",
+      "statusApprovedSub": "已审核可投入生产",
+      "statusRejected": "Rejected",
+      "statusRejectedSub": "已驳回 / 临时锁定",
+      "fieldIp": "网络 IP 地址",
+      "btnCancel": "取消",
+      "btnSubmit": "确认新增 Slot"
+    },
+    "renameGroupModal": {
+      "title": "重命名机组群 (Group)",
+      "fieldNewName": "新群组名称",
+      "btnCancel": "取消",
+      "btnSubmit": "保存新名称"
+    },
+    "structureModal": {
+      "title": "系统层级树状图 (Structure Tree)",
+      "subtitle": "多级拓扑结构: 厂区 ➔ 产品 ➔ 柜面 ➔ 群组 ➔ 机柜 ➔ 槽位",
+      "totalFaces": "合计: {{count}} 个 Face 柜面",
+      "btnClose": "关闭"
     },
     "toast": {
-      "saveLayoutSuccess": "已成功保存机柜平面拓扑布局！",
-      "reloadSuccess": "已从数据库重新加载层级结构树！",
-      "addFaceSuccess": "已添加新柜面 (Face)！",
-      "addGroupSuccess": "已添加新群组 (Group)！",
-      "addRackSuccess": "已添加新机柜 (Rack)！",
-      "addSlotSuccess": "已添加新槽位 (Slot)！"
+      "addFaceSuccess": "已成功新增 {{name}}！",
+      "editFaceSuccess": "已成功修改 Face 柜面名称！",
+      "deleteFaceSuccess": "已成功删除 Face 柜面！",
+      "needFaceWarning": "请先创建至少 1 个 Face 柜面后再添加 Group！",
+      "addGroupSuccess": "已成功在 Face 中新增 Group 群组！",
+      "editGroupSuccess": "已成功更新 Group 群组名称！",
+      "deleteGroupSuccess": "已成功删除 Group 群组！",
+      "needFaceGroupWarning": "请先创建 Face 柜面与 Group 群组后再添加机柜！",
+      "addRackSuccess": "已成功新增机柜设备！",
+      "editRackSuccess": "已成功更新机柜名称！",
+      "deleteRackSuccess": "已成功删除机柜设备！",
+      "addSlotSuccess": "已成功新增槽位 {{num}} [{{status}}]！",
+      "editSlotSuccess": "已成功更新槽位参数！",
+      "deleteSlotSuccess": "已从机柜中删除槽位！",
+      "swapRacksSuccess": "已成功互换机柜列排布顺序！",
+      "swapSlotsSuccess": "已立即互换槽位位置！",
+      "saveLayoutSuccess": "已将布局 [{{name}}] 成功持久化保存至数据库！",
+      "reloadSuccess": "已从数据库重新加载最新布局！",
+      "renameGroupSuccess": "已成功将 Group 重命名为：“{{name}}”！"
     }
   }
 }
-

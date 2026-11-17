@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import RackContainerCard from './RackContainerCard';
 
@@ -16,6 +17,7 @@ export default function GroupContainerCard({
   onSwapSlots,
   onSwapRacks
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -84,14 +86,14 @@ export default function GroupContainerCard({
                     ? 'hover:bg-blue-100 text-blue-700'
                     : 'hover:bg-zinc-800 text-zinc-400 hover:text-zinc-200'
                 }`}
-                title="Sửa tên khung Group"
+                title={t('overview.groupCard.editTooltip')}
               >
                 ✏️
               </button>
 
               {/* Text thống kê: bao gồm bao nhiêu rack */}
               <span className="text-[11px] font-medium text-slate-500 dark:text-zinc-400">
-                (bao gồm <strong className={`font-bold ${ isFoxconn ? "text-black" : "text-white"}`}>{rackCount}</strong> rack)
+                {t('overview.groupCard.stats', { racks: rackCount })}
               </span>
             </div>
           )}
@@ -108,10 +110,10 @@ export default function GroupContainerCard({
                 ? 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-200/90 shadow-2xs'
                 : 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border-amber-500/30 shadow-2xs'
             }`}
-            title="Thêm tủ Rack mới vào Group này"
+            title={t('overview.groupCard.btnAddRackTooltip')}
           >
             <span className="font-bold">+</span>
-            <span>Thêm Rack</span>
+            <span>{t('overview.groupCard.btnAddRack')}</span>
           </button>
 
           {/* Nút Xóa Group */}
@@ -119,7 +121,7 @@ export default function GroupContainerCard({
             type="button"
             onClick={() => onDeleteGroup(faceId, group.id)}
             className="p-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-transparent hover:border-rose-200 dark:hover:border-rose-800/40 cursor-pointer transition-colors"
-            title="Xóa Group này"
+            title={t('overview.groupCard.deleteTooltip')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -161,9 +163,9 @@ export default function GroupContainerCard({
                 : 'border-zinc-800 text-zinc-400 bg-zinc-950/40'
             }`}
           >
-            Chưa có tủ Rack nào trong Group này.
+            {t('overview.groupCard.emptyRacks')}
             <div className="mt-1">
-              Nhấn <strong>"+ Thêm Rack"</strong> ở góc trên bên phải để bổ sung tủ.
+              {t('overview.groupCard.emptyRacksHint')}
             </div>
           </div>
         )}

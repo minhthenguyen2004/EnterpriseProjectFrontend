@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { MACHINE_STATUS_CONFIG } from '../../constants/machineStatusConstants';
 
 export default function MachineStatusLedBadge({ status = 'RUN' }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -27,7 +29,7 @@ export default function MachineStatusLedBadge({ status = 'RUN' }) {
       </span>
 
       {/* Nhãn trạng thái */}
-      <span>{cfg.label}</span>
+      <span>{t('statusManagement.status.' + status, cfg.label)}</span>
     </div>
   );
 }

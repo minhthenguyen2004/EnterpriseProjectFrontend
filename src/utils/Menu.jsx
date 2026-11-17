@@ -8,7 +8,7 @@ export const menuGroups = [
     },
     items: [
       {
-        name: { vi: 'AUTOLINE MANAGEMENT', en: 'AUTOLINE MANAGEMENT', zh: '自动化产线管理' },
+        name: { vi: 'QUẢN LÝ TỰ ĐỘNG HÓA', en: 'AUTOMATION MANAGEMENT', zh: '自动化产线管理' },
         path: '/autoline-management',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -17,7 +17,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'MACHINE STATUS', en: 'MACHINE STATUS', zh: '机台状态' },
+        name: { vi: 'TRẠNG THÁI MÁY', en: 'MACHINE STATUS', zh: '机台状态' },
         path: '/machine-status',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,17 +45,17 @@ export const menuGroups = [
         ),
         children: [
           {
-            name: { vi: 'RACK CONFIG', en: 'RACK CONFIG', zh: '机架配置' },
+            name: { vi: 'CẤU HÌNH RACK', en: 'RACK CONFIG', zh: '机架配置' },
             path: '/config/rack',
           },
           {
-            name: { vi: 'RACK OVERVIEW CONFIG', en: 'RACK OVERVIEW CONFIG', zh: '机架概览配置' },
+            name: { vi: 'CẤU HÌNH TỔNG QUAN RACK', en: 'RACK OVERVIEW CONFIG', zh: '机架概览配置' },
             path: '/config/rack-overview',
           },
         ],
       },
       {
-        name: { vi: 'CARRIER CONFIG', en: 'CARRIER CONFIG', zh: '载具配置' },
+        name: { vi: 'CẤU HÌNH KHAY', en: 'CARRIER CONFIG', zh: '载具配置' },
         path: '/config/carrier',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'MACHINE CONFIG', en: 'MACHINE CONFIG', zh: '机台配置' },
+        name: { vi: 'CẤU HÌNH MÁY', en: 'MACHINE CONFIG', zh: '机台配置' },
         path: '/config/machine',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,7 +73,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'AUTOMATION LINE CONTROL', en: 'AUTOMATION LINE CONTROL', zh: '产线自动化控制' },
+        name: { vi: 'ĐIỀU KHIỂN DÂY CHUYỀN TỰ ĐỘNG', en: 'AUTOMATION LINE CONTROL', zh: '产线自动化控制' },
         path: '/config/automation-line',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'STATION LAYOUT CONTROL', en: 'STATION LAYOUT CONTROL', zh: '工位布局控制' },
+        name: { vi: 'ĐIỀU KHIỂN BỐ CỤC TRẠM', en: 'STATION LAYOUT CONTROL', zh: '工位布局控制' },
         path: '/config/station-layout',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -91,7 +91,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'UNLOCK CARRIER', en: 'UNLOCK CARRIER', zh: '解除运营商锁定' },
+        name: { vi: 'GIẢI KHÓA KHAY', en: 'UNLOCK CARRIER', zh: '解除运营商锁定' },
         path: '/config/unlock-carrier',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -100,7 +100,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'AUTOLINE OPERATIONS', en: 'AUTOLINE OPERATIONS', zh: '自动化线操作' },
+        name: { vi: 'ĐIỀU KHIỂN HOẠT ĐỘNG TỰ ĐỘNG', en: 'AUTOLINE OPERATIONS', zh: '自动化线操作' },
         path: '/config/autoline-operations',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -110,7 +110,7 @@ export const menuGroups = [
       },
       {
         id: 'products',
-        name: { vi: 'PRODUCT', en: 'PRODUCT', zh: '产品配置' },
+        name: { vi: 'SẢN PHẨM', en: 'PRODUCT', zh: '产品配置' },
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M5 4h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2zm0 9h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 012-2zM6 7.5h.01M6 16.5h.01M9 7.5h.01M9 16.5h.01" />
@@ -128,13 +128,13 @@ export const menuGroups = [
   {
     id: 'mes_error',
     title: {
-      vi: 'MES ERROR',
+      vi: 'LỖI MES',
       en: 'MES ERROR',
       zh: 'MES 错误',
     },
     items: [
       {
-        name: { vi: 'MES ERROR CODE LIST', en: 'MES ERROR CODE LIST', zh: 'MES 错误代码列表' },
+        name: { vi: 'DANH SÁCH MÃ LỖI MES', en: 'MES ERROR CODE LIST', zh: 'MES 错误代码列表' },
         path: '/config/mes-error-code',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

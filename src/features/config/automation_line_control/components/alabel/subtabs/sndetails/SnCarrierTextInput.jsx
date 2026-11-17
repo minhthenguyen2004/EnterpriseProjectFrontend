@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export default function SnCarrierTextInput({
   isFoxconn,
   currentTargetType,
@@ -5,6 +7,8 @@ export default function SnCarrierTextInput({
   currentTargetCode,
   handleTargetCodeChange,
 }) {
+  const { t } = useTranslation('autoline');
+
   return (
     <div className="space-y-1.5">
       <div className="flex items-center justify-between">
@@ -13,7 +17,7 @@ export default function SnCarrierTextInput({
             isFoxconn ? 'text-slate-700' : 'text-zinc-200'
           } flex items-center gap-1.5`}
         >
-          <span>Mã Đối Tượng Tra Cứu</span>
+          <span>{t('control.alabel.forms.targetObject')}</span>
           <span className="text-red-500 font-black">*</span>
         </label>
 
@@ -34,7 +38,7 @@ export default function SnCarrierTextInput({
                 : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
             }`}
           >
-            ★ Serial Number (SN)
+            {t('control.alabel.forms.snLabel')}
           </button>
           <button
             type="button"
@@ -47,7 +51,7 @@ export default function SnCarrierTextInput({
                 : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200'
             }`}
           >
-            Carrier RFID / Pallet
+            {t('control.alabel.forms.carrierLabel')}
           </button>
         </div>
       </div>
@@ -78,11 +82,11 @@ export default function SnCarrierTextInput({
         <input
           type="text"
           value={currentTargetCode}
-          onChange={(e) => handleTargetCodeChange(e.target.value)}
+          onChange={(e) => handleTargetCodeChange?.(e.target.value)}
           placeholder={
             currentTargetType === 'sn'
-              ? 'Nhập Serial Number tra cứu (ví dụ: SN8839210492-NV)...'
-              : 'Nhập mã khay Carrier RFID tra cứu (ví dụ: CARRIER-RFID-8819)...'
+              ? t('control.alabel.forms.placeholderSnTarget')
+              : t('control.alabel.forms.placeholderCarrierTarget')
           }
           className={`w-full pl-9 pr-8 py-2.5 rounded-xl border text-xs font-mono font-bold transition-all ${
             isFoxconn
@@ -93,9 +97,9 @@ export default function SnCarrierTextInput({
         {currentTargetCode && (
           <button
             type="button"
-            onClick={() => handleTargetCodeChange('')}
+            onClick={() => handleTargetCodeChange?.('')}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-zinc-200 cursor-pointer"
-            title="Xóa nhanh mã đối tượng"
+            title="✕"
           >
             ✕
           </button>

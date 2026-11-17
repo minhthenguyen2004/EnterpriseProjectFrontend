@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ProductTypeLineInput({isManualModel, currentModel, isFoxconn, handleModelSelect, DB_ACTIVE_MODELS, currentLine, handleLineChange }) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
         {/* Cột 1: Dropdown menu Dòng sản phẩm */}
             <div>
                 <div className="flex items-center justify-between mb-1.5">
                 <label className={`font-bold ${isFoxconn ? "text-slate-700" : "text-zinc-200"}`}>
-                    Dòng Sản Phẩm (Model)
+                    {t('control.alabel.forms.modelDropdown')}
                 </label>
                 <span
                     className={`px-1.5 py-0.5 rounded text-[10px] font-semibold ${
@@ -14,12 +18,12 @@ export default function ProductTypeLineInput({isManualModel, currentModel, isFox
                         : 'bg-blue-500/10 text-blue-500 border border-blue-500/20'
                     }`}
                 >
-                    {isManualModel ? 'Chọn thủ công' : '⚡ Tự động giải mã'}
+                    {isManualModel ? t('control.alabel.forms.manualSelect') : t('control.alabel.forms.autoDecode')}
                 </span>
                 </div>
                 <select
                 value={currentModel}
-                onChange={(e) => handleModelSelect(e.target.value)}
+                onChange={(e) => handleModelSelect?.(e.target.value)}
                 className={`w-full px-3 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
                     isFoxconn
                     ? 'bg-slate-50 border-slate-300 text-slate-800'
@@ -38,7 +42,7 @@ export default function ProductTypeLineInput({isManualModel, currentModel, isFox
             <div>
                 <div className="flex items-center justify-between mb-1.5">
                 <label className={`font-bold ${isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1`}>
-                    <span>Dây Chuyền Sản Xuất</span>
+                    <span>{t('control.alabel.forms.lineLabel')}</span>
                     <span className="text-red-500 font-black">*</span>
                 </label>
                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold border ${isFoxconn ? "bg-slate-200 text-slate-600 border-slate-300" : "bg-zinc-800 text-zinc-400 border-zinc-700"}`}>
@@ -48,8 +52,8 @@ export default function ProductTypeLineInput({isManualModel, currentModel, isFox
                 <input
                 type="text"
                 value={currentLine}
-                onChange={(e) => handleLineChange(e.target.value)}
-                placeholder="Nhập mã dây chuyền (ví dụ: LINE-01-SMT)..."
+                onChange={(e) => handleLineChange?.(e.target.value)}
+                placeholder="LINE-01-SMT..."
                 className={`w-full px-3 py-2 rounded-xl border text-xs font-mono font-semibold transition-all ${
                     isFoxconn
                     ? 'bg-slate-50 border-slate-300 text-slate-800'

@@ -1,11 +1,15 @@
+import { useTranslation } from 'react-i18next';
+
 export default function SnCarrierCodeInput({currentSn, isFoxconn, handleSnChange, handleCarrierCodeChange, currentCarrierCode }) {
+    const { t } = useTranslation('autoline');
+
     return(
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             {/* Trường 1: Serial Number */}
             <div className="space-y-1.5">
             <div className="flex items-center justify-between">
                 <label className={`font-bold ${isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1`}>
-                <span>Mã Serial Number (SN)</span>
+                <span>{t('control.alabel.forms.snCode')}</span>
                 <span className="text-red-500 font-black">*</span>
                 </label>
                 <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
@@ -21,8 +25,8 @@ export default function SnCarrierCodeInput({currentSn, isFoxconn, handleSnChange
                 <input
                 type="text"
                 value={currentSn}
-                onChange={(e) => handleSnChange(e.target.value)}
-                placeholder="Nhập Serial Number nạp bù (ví dụ: SN8839210492-NV)..."
+                onChange={(e) => handleSnChange?.(e.target.value)}
+                placeholder={t('control.alabel.forms.placeholderSnTarget')}
                 className={`w-full pl-9 pr-8 py-2 rounded-xl border text-xs font-mono font-bold transition-all ${
                     isFoxconn
                     ? 'bg-slate-50 border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-100'
@@ -32,9 +36,9 @@ export default function SnCarrierCodeInput({currentSn, isFoxconn, handleSnChange
                 {currentSn && (
                 <button
                     type="button"
-                    onClick={() => handleSnChange('')}
+                    onClick={() => handleSnChange?.('')}
                     className={`absolute inset-y-0 right-0 pr-3 flex items-center transition-all cursor-pointer ${isFoxconn ? "text-slate-400 hover:text-slate-600" : "text-zinc-500 hover:text-zinc-200"}`}
-                    title="Xóa Serial Number"
+                    title="✕"
                 >
                     ✕
                 </button>
@@ -46,7 +50,7 @@ export default function SnCarrierCodeInput({currentSn, isFoxconn, handleSnChange
             <div className="space-y-1.5">
             <div className="flex items-center justify-between">
                 <label className={`font-bold ${isFoxconn ? "text-slate-700" : "text-zinc-200"} flex items-center gap-1`}>
-                <span>Mã Carrier Code</span>
+                <span>{t('control.alabel.forms.carrierCode')}</span>
                 <span className="text-red-500 font-black">*</span>
                 </label>
                 <span className="px-1.5 py-0.2 rounded text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
@@ -62,8 +66,8 @@ export default function SnCarrierCodeInput({currentSn, isFoxconn, handleSnChange
                 <input
                 type="text"
                 value={currentCarrierCode}
-                onChange={(e) => handleCarrierCodeChange(e.target.value)}
-                placeholder="Nhập mã khay Carrier Code (ví dụ: CARRIER-RFID-8819)..."
+                onChange={(e) => handleCarrierCodeChange?.(e.target.value)}
+                placeholder={t('control.alabel.forms.placeholderCarrierCode')}
                 className={`w-full pl-9 pr-8 py-2 rounded-xl border text-xs font-mono font-bold transition-all ${
                     isFoxconn
                     ? 'bg-slate-50 border-slate-300 text-slate-800 focus:ring-2 focus:ring-blue-100'
@@ -73,9 +77,9 @@ export default function SnCarrierCodeInput({currentSn, isFoxconn, handleSnChange
                 {currentCarrierCode && (
                 <button
                     type="button"
-                    onClick={() => handleCarrierCodeChange('')}
+                    onClick={() => handleCarrierCodeChange?.('')}
                     className={`absolute inset-y-0 right-0 pr-3 flex items-center transition-all cursor-pointer ${isFoxconn ? "text-slate-400 hover:text-slate-600" : "text-zinc-500 hover:text-zinc-200"}`}
-                    title="Xóa Carrier Code"
+                    title="✕"
                 >
                     ✕
                 </button>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import useActionLogsRestoreData from '../../hooks/useActionLogsRestoreData';
 import {
@@ -16,6 +17,7 @@ import {
  * @param {Object} props.filters - Bộ lọc toàn cục từ trang chính (snCarrier, model, stationGroup...)
  */
 export default function ActionLogsRestoreTab({ filters: globalFilters }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -79,7 +81,7 @@ export default function ActionLogsRestoreTab({ filters: globalFilters }) {
             <span>{toast.message}</span>
           </div>
           <span className={`text-[10px] font-mono ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-            Tự động ẩn
+            {t('control.actionLogs.toastAutoClose')}
           </span>
         </div>
       )}

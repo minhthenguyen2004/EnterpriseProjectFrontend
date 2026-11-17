@@ -34,6 +34,106 @@
     "updateSuccess": "已成功更新设备 [{{name}}] 配置！",
     "deleteSuccess": "已从系统中删除机台 [{{name}}]！",
     "importSuccess": "已成功从 Excel 文件导入 {{count}} 台设备！"
+  },
+  "statusManagement": {
+    "header": {
+      "title": "机台设备运行状态监控",
+      "badge": "LIVE MONITOR",
+      "description": "实时智能监控大屏：全天候监视各车间机台工位、网络 IP、运行配方程序以及生产线具体工步。",
+      "breadcrumbAutomation": "自动化运维管理",
+      "breadcrumbMachineStatus": "机台状态监控"
+    },
+    "filterBtn": "筛选条件",
+    "filterBtnTitle": "打开机台多维度智能筛选抽屉",
+    "filterHandle": {
+      "openTitle": "展开筛选抽屉（搜索、状态、产线、楼层）",
+      "closeTitle": "收起机台筛选抽屉",
+      "openAria": "展开机台状态筛选",
+      "closeAria": "收起筛选",
+      "filterText": "筛选",
+      "closeText": "收起"
+    },
+    "filterDrawer": {
+      "title": "机台运行状态智能筛选",
+      "activeCount": "已应用 {{count}} 项筛选条件",
+      "noActiveFilter": "当前未应用任何筛选条件",
+      "closeTooltip": "关闭筛选抽屉 (ESC)",
+      "searchLabel": "按机台名称或网络 IP 地址检索：",
+      "clearSearch": "清空搜索",
+      "searchPlaceholder": "输入机台名称（如 SMT #01）或 IP（如 192.168）...",
+      "factoryLabel": "制造厂区 (Factory)：",
+      "floorLabel": "车间楼层 (Floor)：",
+      "areaLabel": "生产工段 (Area)：",
+      "statusLabel": "运行状态 (Status)：",
+      "factories": {
+        "all": "全部厂区",
+        "factory_01": "F01 厂区 - 桂武工业园（北宁）",
+        "factory_02": "F02 厂区 - 安风工业园（北宁）",
+        "factory_03": "F03 厂区 - 光州工业园（北江）",
+        "factory_05": "F05 厂区 - 亭武工业园（海防）"
+      },
+      "floors": {
+        "all": "全部楼层",
+        "floor_01": "1 楼 (F1) - 机械粗加工与冲压车间",
+        "floor_02": "2 楼 (F2) - 高速 SMT 贴片与无尘车间",
+        "floor_03": "3 楼 (F3) - 系统整机组装与品质测试"
+      },
+      "areas": {
+        "all": "全部工段",
+        "area_smt": "SMT 表面贴装与元器件工段",
+        "area_assembly": "托盘 / 机箱结构组装工段",
+        "area_aoi": "自动光学检查工段 (AOI / SPI)",
+        "area_testing": "ICT 电性与老化测试工段 (Burn-in)",
+        "area_packing": "成品自动包装与出货工段"
+      },
+      "statusOptions": {
+        "all": "全部状态",
+        "RUN": "正在运行 (RUN)",
+        "IDLE": "待料待机 (IDLE)",
+        "STOP": "正常停机 (STOP)",
+        "ERROR": "故障报警 (ERROR)"
+      },
+      "btnReset": "恢复默认设置",
+      "btnApply": "立即应用筛选"
+    },
+    "kpi": {
+      "totalTitle": "机台总数",
+      "runningTitle": "正常运行中",
+      "stoppedTitle": "停机 / 待机",
+      "unit": "台",
+      "badgeError": "{{count}} 台报警",
+      "badgeNormal": "运转正常"
+    },
+    "grid": {
+      "listTitle": "机台工位列表：",
+      "counter": "{{current}} / {{total}} 台",
+      "keywordChip": "关键词：\"{{query}}\"",
+      "standardView": "标准视图",
+      "standardViewTitle": "标准视图（显示完整参数）",
+      "compactView": "精简视图",
+      "compactViewTitle": "精简视图（紧凑排布，浏览更多）",
+      "sortDefault": "排序：默认顺序",
+      "sortName": "按机台名称 (A → Z)",
+      "sortIp": "按 IP 地址顺序",
+      "sortStatus": "优先显示异常故障机台 (ERROR)",
+      "emptyTitle": "未找到符合条件的机台设备",
+      "emptyDesc": "当前筛选条件或搜索关键词下暂无匹配机台，请尝试调整筛选参数或清除搜索词。",
+      "btnResetDefault": "重置为默认筛选"
+    },
+    "card": {
+      "ipTooltip": "IP 地址",
+      "copyIp": "复制 IP",
+      "copiedIp": "已复制",
+      "programTooltip": "配方程序：{{program}}",
+      "areaTooltip": "所属工段：{{area}}",
+      "locationTooltip": "安装位置：{{location}}"
+    },
+    "status": {
+      "RUN": "运行中",
+      "IDLE": "待机中",
+      "STOP": "停机",
+      "ERROR": "故障报警"
+    }
   }
 }
 

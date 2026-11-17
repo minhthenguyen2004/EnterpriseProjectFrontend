@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import MachineStatusKpiCard from './MachineStatusKpiCard';
 
 export default function MachineStatusTopKpiRow({ kpiMetrics }) {
+  const { t } = useTranslation('machine');
+
   if (!kpiMetrics) return null;
 
   const {
@@ -17,9 +20,9 @@ export default function MachineStatusTopKpiRow({ kpiMetrics }) {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 mb-4">
       {/* 1. TỔNG SỐ MÁY */}
       <MachineStatusKpiCard
-        title="TỔNG SỐ MÁY"
+        title={t('statusManagement.kpi.totalTitle', 'TỔNG SỐ MÁY')}
         value={total}
-        unit="máy"
+        unit={t('statusManagement.kpi.unit', 'máy')}
         badgeType="neutral"
         accentColor="blue"
         icon={
@@ -36,9 +39,9 @@ export default function MachineStatusTopKpiRow({ kpiMetrics }) {
 
       {/* 2. SỐ MÁY ĐANG CHẠY */}
       <MachineStatusKpiCard
-        title="ĐANG HOẠT ĐỘNG"
+        title={t('statusManagement.kpi.runningTitle', 'ĐANG HOẠT ĐỘNG')}
         value={runningCount}
-        unit="máy"
+        unit={t('statusManagement.kpi.unit', 'máy')}
         badge={`${runningPct}%`}
         badgeType={runningPct >= 85 ? 'success' : 'warning'}
         accentColor="emerald"
@@ -57,10 +60,14 @@ export default function MachineStatusTopKpiRow({ kpiMetrics }) {
 
       {/* 3. SỐ MÁY DỪNG */}
       <MachineStatusKpiCard
-        title="DỪNG HOẠT ĐỘNG"
+        title={t('statusManagement.kpi.stoppedTitle', 'DỪNG HOẠT ĐỘNG')}
         value={stoppedCount}
-        unit="máy"
-        badge={errorCount > 0 ? `${errorCount} LỖI` : 'BÌNH THƯỜNG'}
+        unit={t('statusManagement.kpi.unit', 'máy')}
+        badge={
+          errorCount > 0
+            ? t('statusManagement.kpi.badgeError', '{{count}} LỖI', { count: errorCount })
+            : t('statusManagement.kpi.badgeNormal', 'BÌNH THƯỜNG')
+        }
         badgeType={errorCount > 0 ? 'danger' : 'warning'}
         accentColor={errorCount > 0 ? 'rose' : 'amber'}
         icon={

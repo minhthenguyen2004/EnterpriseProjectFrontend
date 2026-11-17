@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 
 /**
@@ -24,6 +25,7 @@ export default function CarrierFilterToolbar({
   totalFiltered,
   totalAll,
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -43,14 +45,14 @@ export default function CarrierFilterToolbar({
         {/* Ô 1: Tìm kiếm theo mã khay (Carrier Code) */}
         <div className="lg:col-span-3 relative">
           <label className={`block text-[10px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'} font-bold uppercase tracking-wider mb-1`}>
-            Mã khay / RFID
+            {t('config.filter.carrierCodeLabel')}
           </label>
           <div className="relative">
             <input
               type="text"
               value={searchCarrierCode}
               onChange={(e) => onCarrierCodeChange(e.target.value)}
-              placeholder="VD: CRR-A089, TRAY-01..."
+              placeholder={t('config.filter.carrierCodePlaceholder')}
               className={`w-full pl-9 pr-7 py-2 rounded-xl text-xs font-medium border focus:outline-none transition-all ${
                 isFoxconn
                   ? 'bg-slate-50 border-slate-200 text-slate-800'
@@ -80,14 +82,14 @@ export default function CarrierFilterToolbar({
         {/* Ô 2: Tìm kiếm theo tên chuyền (Line Name) */}
         <div className="lg:col-span-2 relative">
           <label className={`block text-[10px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'} font-bold uppercase tracking-wider mb-1`}>
-            Tên chuyền
+            {t('config.filter.lineNameLabel')}
           </label>
           <div className="relative">
             <input
               type="text"
               value={searchLineName}
               onChange={(e) => onLineNameChange(e.target.value)}
-              placeholder="VD: Line01, Line02..."
+              placeholder={t('config.filter.lineNamePlaceholder')}
               className={`w-full pl-8 pr-7 py-2 rounded-xl text-xs font-medium border focus:outline-none transition-all ${
                 isFoxconn
                   ? 'bg-slate-50 border-slate-200 text-slate-800'
@@ -117,14 +119,14 @@ export default function CarrierFilterToolbar({
         {/* Ô 3: Tìm kiếm theo tên sản phẩm (Product Name) */}
         <div className="lg:col-span-2 relative">
           <label className={`block text-[10px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'} font-bold uppercase tracking-wider mb-1`}>
-            Tên sản phẩm
+            {t('config.filter.productNameLabel')}
           </label>
           <div className="relative">
             <input
               type="text"
               value={searchProductName}
               onChange={(e) => onProductNameChange(e.target.value)}
-              placeholder="VD: GB200, B200, H100..."
+              placeholder={t('config.filter.productNamePlaceholder')}
               className={`w-full pl-8 pr-7 py-2 rounded-xl text-xs font-medium border focus:outline-none transition-all ${
                 isFoxconn
                   ? 'bg-slate-50 text-slate-800 focus:border-blue-600'
@@ -154,7 +156,7 @@ export default function CarrierFilterToolbar({
         {/* Ô 4: Dropdown lọc theo trạng thái */}
         <div className="lg:col-span-2 relative">
           <label className={`block text-[10px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'} font-bold uppercase tracking-wider mb-1`}>
-            Trạng thái khay
+            {t('config.filter.statusLabel')}
           </label>
           <div className="relative">
             <select
@@ -166,11 +168,11 @@ export default function CarrierFilterToolbar({
                   : 'bg-zinc-950 border-zinc-700 text-zinc-100'
               }`}
             >
-              <option value="ALL">Tất cả trạng thái (ALL)</option>
-              <option value="ACTIVE">🟢 ACTIVE (Bình thường)</option>
-              <option value="WARNING">🟡 WARNING (Sắp đến hạn)</option>
-              <option value="INSPECTION_REQUIRED">🟠 INSPECTION (Cần K.định)</option>
-              <option value="LOCKED">🔴 LOCKED (Đang bị khóa)</option>
+              <option value="ALL">{t('config.filter.statusAll')}</option>
+              <option value="ACTIVE">{t('config.filter.statusActive')}</option>
+              <option value="WARNING">{t('config.filter.statusWarning')}</option>
+              <option value="INSPECTION_REQUIRED">{t('config.filter.statusInspection')}</option>
+              <option value="LOCKED">{t('config.filter.statusLocked')}</option>
             </select>
             <svg
               className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 dark:text-zinc-500"
@@ -186,7 +188,7 @@ export default function CarrierFilterToolbar({
         {/* Ô 5: Nút lọc theo số lượng trang (Page Size Selector) */}
         <div className="lg:col-span-2 relative">
           <label className={`block text-[10px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'} font-bold uppercase tracking-wider mb-1`}>
-            Hiển thị / trang
+            {t('config.filter.pageSizeLabel')}
           </label>
           <div className="relative">
             <select
@@ -198,10 +200,10 @@ export default function CarrierFilterToolbar({
                   : 'bg-zinc-950 border-zinc-700 text-zinc-100'
               }`}
             >
-              <option value={10}>10 khay / trang</option>
-              <option value={20}>20 khay / trang</option>
-              <option value={50}>50 khay / trang</option>
-              <option value={100}>100 khay / trang</option>
+              <option value={10}>{t('config.filter.perPage', { size: 10 })}</option>
+              <option value={20}>{t('config.filter.perPage', { size: 20 })}</option>
+              <option value={50}>{t('config.filter.perPage', { size: 50 })}</option>
+              <option value={100}>{t('config.filter.perPage', { size: 100 })}</option>
             </select>
             <svg
               className="w-4 h-4 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 dark:text-zinc-500"
@@ -220,7 +222,7 @@ export default function CarrierFilterToolbar({
             type="button"
             onClick={onResetFilters}
             disabled={!isFiltered}
-            title="Khôi phục toàn bộ bộ lọc về mặc định"
+            title={t('config.filter.resetTooltip')}
             className={`w-full py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1 transition-all ${
               isFiltered
                 ? isFoxconn
@@ -232,7 +234,7 @@ export default function CarrierFilterToolbar({
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            <span className="hidden sm:inline">Reset</span>
+            <span className="hidden sm:inline">{t('config.filter.resetBtn')}</span>
           </button>
         </div>
       </div>
@@ -243,7 +245,7 @@ export default function CarrierFilterToolbar({
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-blue-500 dark:bg-[#76B900] animate-pulse" />
             <span className="text-slate-600 dark:text-zinc-300">
-              Đang lọc: Tìm thấy <span className="font-bold text-slate-900 dark:text-white">{totalFiltered}</span> / {totalAll} khay
+              {t('config.filter.summary', { filtered: totalFiltered, total: totalAll })}
             </span>
           </div>
           <button
@@ -251,7 +253,7 @@ export default function CarrierFilterToolbar({
             onClick={onResetFilters}
             className="text-xs font-semibold text-blue-600 dark:text-[#76B900] hover:underline"
           >
-            Xóa bộ lọc
+            {t('config.filter.clearFilter')}
           </button>
         </div>
       )}

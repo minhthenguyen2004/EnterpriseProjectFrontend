@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import SlotItemRow from './SlotItemRow';
 
@@ -14,6 +15,7 @@ export default function RackContainerCard({
   onSwapSlots,
   onSwapRacks
 }) {
+  const { t } = useTranslation('rack');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -90,7 +92,7 @@ export default function RackContainerCard({
             ? 'bg-white/80 border-slate-200 text-slate-800'
             : 'bg-zinc-950/70 border-zinc-800 text-zinc-100'
         }`}
-        title="Kéo đầu Rack thả lên Rack khác để đổi thứ tự cột"
+        title={t('overview.rackCard.dragTooltip')}
       >
         <div className="flex items-center gap-1.5 min-w-0">
           <span className="text-slate-400 dark:text-zinc-500 text-xs cursor-grab">
@@ -122,7 +124,7 @@ export default function RackContainerCard({
             <span
               onClick={() => setIsEditingName(true)}
               className="font-mono font-bold text-xs truncate cursor-pointer hover:underline"
-              title="Click để đổi tên Rack"
+              title={t('overview.rackCard.editTooltip')}
             >
               {rack.rack_name}
             </span>
@@ -134,7 +136,7 @@ export default function RackContainerCard({
           type="button"
           onClick={() => onDeleteRack(faceId, groupId, rack.id)}
           className="p-1 rounded-md text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 cursor-pointer transition-colors"
-          title="Xóa tủ Rack này"
+          title={t('overview.rackCard.deleteTooltip')}
         >
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
@@ -157,10 +159,10 @@ export default function RackContainerCard({
               ? 'bg-blue-50/80 hover:bg-blue-100 text-blue-700 border-blue-200/90 shadow-2xs'
               : 'bg-[#76B900]/15 hover:bg-[#76B900]/25 text-[#76B900] border-[#76B900]/30 shadow-2xs'
           }`}
-          title="Thêm slot mới vào tủ Rack này"
+          title={t('overview.rackCard.btnAddSlotTooltip')}
         >
           <span className="text-sm font-extrabold">+</span>
-          <span>Thêm Slot</span>
+          <span>{t('overview.rackCard.btnAddSlot')}</span>
         </button>
       </div>
 
@@ -187,8 +189,10 @@ export default function RackContainerCard({
                 : 'border-zinc-800 text-zinc-500 bg-zinc-950/40'
             }`}
           >
-            Chưa có Slot nào.
-            <div className="mt-1">Nhấn <strong>"+ Thêm Slot"</strong> ở trên để tạo khe cắm.</div>
+            {t('overview.rackCard.emptySlots')}
+            <div className="mt-1">
+              {t('overview.rackCard.emptySlotsHint')}
+            </div>
           </div>
         )}
       </div>
@@ -199,9 +203,13 @@ export default function RackContainerCard({
           isFoxconn ? 'bg-slate-50/50 border-slate-200' : 'bg-zinc-950/40 border-zinc-800'
         }`}
       >
-        <span>{rack.slots?.length || 0} Slots</span>
         <span>
-          {rack.slots?.filter((s) => s.status === 'approved').length || 0} Approved
+          {t('overview.rackCard.statsSlots', { count: rack.slots?.length || 0 })}
+        </span>
+        <span>
+          {t('overview.rackCard.statsApproved', {
+            count: rack.slots?.filter((s) => s.status === 'approved').length || 0
+          })}
         </span>
       </div>
     </div>

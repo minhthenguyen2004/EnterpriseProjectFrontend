@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import useSidebar from '../../../../../hooks/useSidebar';
 
 export default function LeftMachineFilterTabHandle({ onClick, onToggle, isOpen, activeCount = 0 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const { isOpen: isSidebarOpen } = useSidebar();
@@ -27,8 +29,16 @@ export default function LeftMachineFilterTabHandle({ onClick, onToggle, isOpen, 
             ? 'bg-[#002766] hover:bg-[#003893] text-white border-blue-900 shadow-blue-950/40 hover:translate-x-1'
             : 'bg-zinc-900/95 hover:bg-zinc-800 border-[#76B900]/60 text-[#76B900] shadow-[0_0_18px_rgba(118,185,0,0.3)] hover:translate-x-1'
       }`}
-      title={isOpen ? 'Đóng bảng lọc máy móc' : 'Mở bảng lọc máy móc (Tìm kiếm, Trạng thái, Chuyền, Tầng)'}
-      aria-label={isOpen ? 'Đóng bộ lọc' : 'Mở bộ lọc trạng thái máy móc'}
+      title={
+        isOpen
+          ? t('statusManagement.filterHandle.closeTitle', 'Đóng bảng lọc máy móc')
+          : t('statusManagement.filterHandle.openTitle', 'Mở bảng lọc máy móc (Tìm kiếm, Trạng thái, Chuyền, Tầng)')
+      }
+      aria-label={
+        isOpen
+          ? t('statusManagement.filterHandle.closeAria', 'Đóng bộ lọc')
+          : t('statusManagement.filterHandle.openAria', 'Mở bộ lọc trạng thái máy móc')
+      }
     >
       {/* Vùng đệm hitbox mở rộng sang phải để bấm cực nhạy */}
       <span className="absolute -right-4 inset-y-0 w-8 pointer-events-auto" aria-hidden="true" />
@@ -75,7 +85,9 @@ export default function LeftMachineFilterTabHandle({ onClick, onToggle, isOpen, 
         className="text-[10px] font-black uppercase tracking-widest pointer-events-none select-none my-1"
         style={{ writingMode: 'vertical-lr' }}
       >
-        {isOpen ? 'ĐÓNG' : 'BỘ LỌC'}
+        {isOpen
+          ? t('statusManagement.filterHandle.closeText', 'ĐÓNG')
+          : t('statusManagement.filterHandle.filterText', 'BỘ LỌC')}
       </span>
 
       {/* Mũi tên trượt */}

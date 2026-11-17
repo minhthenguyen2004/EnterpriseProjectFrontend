@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function ErrorLogsTable({
   isFoxconn,
   errorLogsList = [],
   isExecuting,
 }) {
+  const { t } = useTranslation('autoline');
   const [filterLevel, setFilterLevel] = useState('ALL');
   const [keyword, setKeyword] = useState('');
 
@@ -27,7 +29,7 @@ export default function ErrorLogsTable({
       <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
         <div className="flex flex-wrap items-center gap-1.5">
           <span className={`font-bold text-slate-700 ${ isFoxconn ? "text-black" : "text-white"} mr-1 text-[11px]`}>
-            Cấp Độ:
+            {t('control.alabel.forms.colErrorLevel')}:
           </span>
           {['ALL', 'CRITICAL', 'ERROR', 'WARNING', 'INFO'].map((lvl) => (
             <button
@@ -55,7 +57,7 @@ export default function ErrorLogsTable({
               type="text"
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              placeholder="Lọc mã lỗi, trạm, nguồn..."
+              placeholder={t('control.alabel.logs.searchPlaceholder')}
               className={`w-full pl-8 pr-3 py-1.5 rounded-lg border text-xs font-medium transition-all ${
                 isFoxconn
                   ? 'bg-slate-50 border-slate-300 focus:bg-white text-slate-800'
@@ -77,7 +79,7 @@ export default function ErrorLogsTable({
             </svg>
           </div>
           <span className="text-[11px] font-mono whitespace-nowrap text-slate-500 dark:text-zinc-400">
-            {filtered.length} lỗi
+            {t('control.alabel.logs.eventsCount', { filtered: filtered.length, total: errorLogsList.length })}
           </span>
         </div>
       </div>
@@ -91,12 +93,12 @@ export default function ErrorLogsTable({
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
               </svg>
-              <span>Đang truy vấn bảng ErrorLogs...</span>
+              <span>{t('control.alabel.forms.btnExecutingErrorSearch')}</span>
             </div>
           </div>
         ) : filtered.length === 0 ? (
           <div className="p-6 text-center text-xs text-slate-400 dark:text-zinc-500 rounded-xl border border-dashed border-slate-200 dark:border-zinc-800">
-            Không có cảnh báo hoặc lỗi nào được ghi nhận khớp với bộ lọc.
+            {t('control.alabel.forms.noErrorLogs')}
           </div>
         ) : (
           filtered.map((log) => (
@@ -134,11 +136,11 @@ export default function ErrorLogsTable({
                   </span>
                   {log.source && (
                     <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
-                      Nguồn: {log.source}
+                      {t('control.alabel.forms.errorSource')}: {log.source}
                     </span>
                   )}
                   <span className="text-[11px] text-slate-500 dark:text-zinc-400">
-                    Trạm: <strong>{log.station}</strong>
+                    {t('control.alabel.forms.station')}: <strong>{log.station}</strong>
                   </span>
                   {log.line && (
                     <span className="text-[11px] text-slate-400">
@@ -158,14 +160,14 @@ export default function ErrorLogsTable({
               <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] pt-1.5 border-t border-slate-200/60 dark:border-zinc-800/60">
                 <div className="flex items-center gap-3 text-slate-400">
                   <span className="font-mono">ID: {log.id}</span>
-                  {log.stage && <span>Giai đoạn: {log.stage}</span>}
+                  {log.stage && <span>{t('control.alabel.forms.stage')}: {log.stage}</span>}
                 </div>
                 {log.sopLink && (
                   <span className="text-blue-600 dark:text-[#76B900] font-semibold cursor-pointer hover:underline flex items-center gap-1">
                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
-                    SOP Tham Chiếu: {log.sopLink}
+                    {t('control.alabel.forms.colErrorSop')}: {log.sopLink}
                   </span>
                 )}
               </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import ActionButton from './ActionButton';
 import SfcTestResultFrame from './SfcTestResultFrame';
@@ -34,6 +35,7 @@ export default function SfcActionDispatcherColumn({
   onClearConsole,
   isExecutingAction,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -56,16 +58,16 @@ export default function SfcActionDispatcherColumn({
               isFoxconn ? 'bg-blue-600 text-white' : 'bg-[#76B900] text-black font-extrabold'
             }`}
           >
-            1
+            {t('control.sfc.actionColumn.badgeNum')}
           </div>
           <div>
             <div className="text-xs font-bold uppercase tracking-wider">
-              {isAdapter ? 'Tác Vụ Gửi SFC Adapter' : 'Tác Vụ Gửi SFC Switch'}
+              {isAdapter ? t('control.sfc.actionColumn.adapterTitle') : t('control.sfc.actionColumn.switchTitle')}
             </div>
             <div className="text-[11px] text-slate-500 dark:text-zinc-400">
               {isAdapter
-                ? 'Điều phối bản tin SFC Adapter Gateway'
-                : 'Điều phối lệnh giao dịch và kiểm thử'}
+                ? t('control.sfc.actionColumn.adapterDesc')
+                : t('control.sfc.actionColumn.switchDesc')}
             </div>
           </div>
         </div>
@@ -78,7 +80,7 @@ export default function SfcActionDispatcherColumn({
                 : 'bg-amber-500/10 text-amber-500 border border-amber-500/30'
             }`}
           >
-            {accessToken ? 'TOKEN ACTIVE' : 'NO TOKEN'}
+            {accessToken ? t('control.sfc.actionColumn.tokenActive') : t('control.sfc.actionColumn.noToken')}
           </span>
         )}
       </div>
@@ -88,8 +90,10 @@ export default function SfcActionDispatcherColumn({
         isExecutingAction={isExecutingAction}
         onExecuteGetAccessToken={onExecuteGetAccessToken}
         isFoxconn={isFoxconn}
+        isAdapter={isAdapter}
         accessToken={accessToken}
         onExecuteInsertSN={onExecuteInsertSN}
+        onExecuteCheckSN={onExecuteCheckSN}
         onExecuteCheckKeyparts={onExecuteCheckKeyparts}
       />
 

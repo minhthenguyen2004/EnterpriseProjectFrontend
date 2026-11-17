@@ -62,13 +62,13 @@ export default function RackDeleteModal({
               <span className="font-mono font-bold">{rackItem.ip_address}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500 dark:text-zinc-400">Vị trí:</span>
+              <span className="text-slate-500 dark:text-zinc-400">{t('config.deleteModal.fieldLocation')}</span>
               <span className="font-medium">
                 {rackItem.floor} - {rackItem.room}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500 dark:text-zinc-400">Sản phẩm & Nhóm:</span>
+              <span className="text-slate-500 dark:text-zinc-400">{t('config.deleteModal.fieldProductGroup')}</span>
               <span className="font-medium">
                 {rackItem.product} ({rackItem.group})
               </span>
@@ -83,7 +83,7 @@ export default function RackDeleteModal({
                 : 'bg-amber-950/40 border-amber-800/60 text-amber-300'
             }`}
           >
-            <span className="font-bold">⚠️ Lưu ý an toàn:</span> Thao tác này sẽ xóa bản ghi khỏi danh mục cấu hình hệ thống và không thể hoàn tác.
+            <span className="font-bold">{t('config.deleteModal.safetyNoticeTitle')}</span> {t('config.deleteModal.safetyNotice')}
           </div>
 
           {/* Action Buttons */}

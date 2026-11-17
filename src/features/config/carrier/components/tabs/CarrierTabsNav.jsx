@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 /**
@@ -6,13 +7,14 @@ import useTheme from '../../../../../hooks/useTheme';
  * 2. Cấu hình vòng đời (Lifecycle Configuration)
  */
 export default function CarrierTabsNav({ activeTab, onTabChange, kpiStats }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
   const tabs = [
     {
       id: 'realtime',
-      label: 'Giám sát thời gian thực',
+      label: t('config.tabs.realtime'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -28,7 +30,7 @@ export default function CarrierTabsNav({ activeTab, onTabChange, kpiStats }) {
     },
     {
       id: 'lifecycle',
-      label: 'Cấu hình vòng đời',
+      label: t('config.tabs.lifecycle'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -89,7 +91,7 @@ export default function CarrierTabsNav({ activeTab, onTabChange, kpiStats }) {
             )}
 
             {tab.alertCount > 0 && (
-              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" title="Có khay cần chú ý an toàn" />
+              <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse" title={t('config.tabs.alertTooltip')} />
             )}
           </button>
         );

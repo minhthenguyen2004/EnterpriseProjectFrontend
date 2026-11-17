@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import Pagination from '../../../../../components/common/Pagination';
 import {
@@ -23,6 +24,7 @@ export default function ActionLogsTable({
   onViewDiff,
   onOpenRestore,
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -45,13 +47,13 @@ export default function ActionLogsTable({
         <div className="flex items-center gap-2">
           <span className="text-sm">📋</span>
           <span className="text-xs font-bold uppercase tracking-wider">
-            Nhật Ký Tác Vụ Hệ Thống (Audit Logs)
+            {t('control.actionLogs.tableTitle')}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-xs">
           <span className={`text-[11px] font-semibold ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
-            Trang <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{currentPage}</strong> / <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-100'}>{totalPages}</strong>
+            {t('control.actionLogs.pageOf', { current: currentPage, total: totalPages })}
           </span>
         </div>
       </div>
@@ -67,15 +69,15 @@ export default function ActionLogsTable({
                   : 'bg-zinc-950 text-zinc-300 border-zinc-800'
               }`}
             >
-              <th className="py-2.5 px-3 whitespace-nowrap">ID Tác Vụ</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Thời Gian</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Người Thực Hiện</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Hành Động</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Bảng Đích</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Mục Tiêu</th>
-              <th className="py-2.5 px-3 min-w-50">Mô Tả Chi Tiết</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Trạng Thái</th>
-              <th className="py-2.5 px-3 text-center whitespace-nowrap">Thao Tác</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colActionId')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colTime')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colOperator')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colAction')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colTargetTable')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colTarget')}</th>
+              <th className="py-2.5 px-3 min-w-50">{t('control.actionLogs.colDesc')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('control.actionLogs.colStatus')}</th>
+              <th className="py-2.5 px-3 text-center whitespace-nowrap">{t('control.actionLogs.colActions')}</th>
             </tr>
           </thead>
           <tbody
@@ -94,7 +96,7 @@ export default function ActionLogsTable({
                   <div className="flex flex-col items-center justify-center gap-2">
                     <span className="text-2xl">📋</span>
                     <span className="text-xs font-semibold">
-                      Không tìm thấy bản ghi kiểm toán nào phù hợp với bộ lọc.
+                      {t('control.actionLogs.noRecords')}
                     </span>
                   </div>
                 </td>
@@ -149,7 +151,7 @@ export default function ActionLogsTable({
                           className={`text-[10px] ${
                             isFoxconn ? 'text-slate-400' : 'text-zinc-500'
                           }`}
-                          title="Đã xác thực phiên đăng nhập"
+                          title={t('control.actionLogs.authenticatedTooltip')}
                         >
                           🔒
                         </span>
@@ -231,10 +233,10 @@ export default function ActionLogsTable({
                               ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
                               : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
                           }`}
-                          title="Xem toàn văn Metadata, IP và Payload"
+                          title={t('control.actionLogs.viewTitle')}
                         >
                           <span>👁️</span>
-                          <span>Xem</span>
+                          <span>{t('control.actionLogs.btnView')}</span>
                         </button>
 
                         {/* Nút 2: Đối soát Diff */}
@@ -246,10 +248,10 @@ export default function ActionLogsTable({
                               ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
                               : 'bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border-indigo-500/30'
                           }`}
-                          title="So sánh trực quan trạng thái Cũ và Mới"
+                          title={t('control.actionLogs.diffTitle')}
                         >
                           <span>⚖️</span>
-                          <span>Diff</span>
+                          <span>{t('control.actionLogs.btnDiff')}</span>
                         </button>
 
                         {/* Nút 3: Restore */}
@@ -268,14 +270,14 @@ export default function ActionLogsTable({
                           }`}
                           title={
                             row.status === 'RESTORED'
-                              ? 'Bản ghi này đã được hoàn nguyên.'
+                              ? t('control.actionLogs.restoreRestoredTitle')
                               : row.canRestore
-                              ? 'Phục hồi trạng thái về trước khi xảy ra thay đổi'
-                              : 'Hành động không hỗ trợ phục hồi'
+                              ? t('control.actionLogs.restoreSupportedTitle')
+                              : t('control.actionLogs.restoreUnsupportedTitle')
                           }
                         >
                           <span>⏪</span>
-                          <span>Restore</span>
+                          <span>{t('control.actionLogs.btnRestore')}</span>
                         </button>
                       </div>
                     </td>
@@ -297,7 +299,7 @@ export default function ActionLogsTable({
         onPageSizeChange={onPageSizeChange}
         pageSizeOptions={PAGE_SIZE_OPTIONS}
         showPageSize={true}
-        recordLabel="nhật ký"
+        recordLabel={t('control.actionLogs.recordLabel')}
         className="rounded-t-none rounded-b-2xl border-t border-x-0 border-b-0 mt-0 shadow-none"
       />
     </div>

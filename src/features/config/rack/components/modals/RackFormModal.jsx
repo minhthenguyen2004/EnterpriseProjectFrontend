@@ -59,20 +59,20 @@ export default function RackFormModal({
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.factory?.trim()) newErrors.factory = 'Vui lòng chọn hoặc nhập Factory';
-    if (!formData.floor?.trim()) newErrors.floor = 'Vui lòng chọn Floor';
-    if (!formData.room?.trim()) newErrors.room = 'Vui lòng nhập tên phòng (Room)';
-    if (!formData.product?.trim()) newErrors.product = 'Vui lòng chọn hoặc nhập Product';
-    if (!formData.group?.trim()) newErrors.group = 'Vui lòng chọn hoặc nhập Group';
-    if (!formData.rack?.trim()) newErrors.rack = 'Vui lòng nhập mã tủ Rack (vd: RCK-A01)';
+    if (!formData.factory?.trim()) newErrors.factory = t('config.modal.validation.factory');
+    if (!formData.floor?.trim()) newErrors.floor = t('config.modal.validation.floor');
+    if (!formData.room?.trim()) newErrors.room = t('config.modal.validation.room');
+    if (!formData.product?.trim()) newErrors.product = t('config.modal.validation.product');
+    if (!formData.group?.trim()) newErrors.group = t('config.modal.validation.group');
+    if (!formData.rack?.trim()) newErrors.rack = t('config.modal.validation.rack');
     if (!formData.slot_number || Number(formData.slot_number) < 1) {
-      newErrors.slot_number = 'Số thứ tự slot phải lớn hơn 0';
+      newErrors.slot_number = t('config.modal.validation.slotNumber');
     }
-    if (!formData.slot_name?.trim()) newErrors.slot_name = 'Vui lòng nhập tên Slot (vd: SLOT-GPU-01)';
+    if (!formData.slot_name?.trim()) newErrors.slot_name = t('config.modal.validation.slotName');
     if (!formData.ip_address?.trim()) {
-      newErrors.ip_address = 'Vui lòng nhập địa chỉ IP';
+      newErrors.ip_address = t('config.modal.validation.ipRequired');
     } else if (!IP_REGEX.test(formData.ip_address.trim())) {
-      newErrors.ip_address = 'Địa chỉ IP không đúng định dạng IPv4 hợp lệ (vd: 192.168.1.100)';
+      newErrors.ip_address = t('config.modal.validation.ipInvalid');
     }
 
     setErrors(newErrors);
@@ -141,7 +141,7 @@ export default function RackFormModal({
             {/* 1. Factory */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Factory (Nhà máy) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldFactory')} <span className="text-rose-500">*</span>
               </label>
               <select
                 value={formData.factory}
@@ -164,7 +164,7 @@ export default function RackFormModal({
             {/* 2. Floor */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Floor (Tầng) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldFloor')} <span className="text-rose-500">*</span>
               </label>
               <select
                 value={formData.floor}
@@ -187,7 +187,7 @@ export default function RackFormModal({
             {/* 3. Room */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Room (Phòng / Xưởng) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldRoom')} <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
@@ -206,7 +206,7 @@ export default function RackFormModal({
             {/* 4. Product */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Product (Sản phẩm) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldProduct')} <span className="text-rose-500">*</span>
               </label>
               <select
                 value={formData.product}
@@ -229,7 +229,7 @@ export default function RackFormModal({
             {/* 5. Group */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Group (Nhóm) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldGroup')} <span className="text-rose-500">*</span>
               </label>
               <select
                 value={formData.group}
@@ -252,7 +252,7 @@ export default function RackFormModal({
             {/* 6. Rack */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Rack (Mã tủ Rack) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldRack')} <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
@@ -271,7 +271,7 @@ export default function RackFormModal({
             {/* 7. Slot Number */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Slot Number (Số khe) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldSlotNumber')} <span className="text-rose-500">*</span>
               </label>
               <input
                 type="number"
@@ -294,7 +294,7 @@ export default function RackFormModal({
             {/* 8. Slot Name */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                Slot Name (Tên khe) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldSlotName')} <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"
@@ -313,7 +313,7 @@ export default function RackFormModal({
             {/* 9. IP Address */}
             <div>
               <label className={`block text-xs font-bold mb-1.5 ${ isFoxconn ? "text-slate-700" : "text-white"}`}>
-                IP Address (Địa chỉ IP) <span className="text-rose-500">*</span>
+                {t('config.modal.fieldIp')} <span className="text-rose-500">*</span>
               </label>
               <input
                 type="text"

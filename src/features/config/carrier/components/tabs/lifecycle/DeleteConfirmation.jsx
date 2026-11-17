@@ -1,8 +1,11 @@
-function DeleteConfirmation({isFoxconn, deleteTargetId, setDeleteTargetId, secondaryBtn }) {
-    
+import { useTranslation } from "react-i18next";
+
+function DeleteConfirmation({isFoxconn, deleteTargetId, setDeleteTargetId, secondaryBtn, onDelete, onNotify }) {
+    const { t } = useTranslation('carrier');
+
     const handleDeleteConfirm = () => {
         onDelete?.(deleteTargetId);
-        onNotify?.(`Da xoa cau hinh vong doi [${deleteTargetId}].`);
+        onNotify?.(t('config.lifecycle.toastDeleteSuccess', { id: deleteTargetId }));
         setDeleteTargetId(null);
     };
     
@@ -15,18 +18,18 @@ function DeleteConfirmation({isFoxconn, deleteTargetId, setDeleteTargetId, secon
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
                 </svg>
               </div>
-              <h3 className={`font-bold text-sm ${isFoxconn ? "text-slate-900" : "text-white"}`}>Xác nhận xóa cấu hình</h3>
+              <h3 className={`font-bold text-sm ${isFoxconn ? "text-slate-900" : "text-white"}`}>{t('config.lifecycle.deleteConfirmTitle')}</h3>
               <p className={`text-xs leading-relaxed ${isFoxconn ? "text-slate-500" : "text-zinc-400"}`}>
-                Bạn có chắc muốn xóa cấu hình <span className={`font-bold ${isFoxconn ? "text-black" : "text-white"} `}>[{deleteTargetId}]</span>? Hành động này không thể hoàn tác.
+                {t('config.lifecycle.deleteConfirmDesc', { id: deleteTargetId })}
               </p>
               <div className="flex gap-3 mt-1 w-full">
                 <button type="button" onClick={() => setDeleteTargetId(null)}
                   className={`flex-1 py-2 rounded-xl text-xs font-semibold border cursor-pointer transition-all ${secondaryBtn}`}>
-                  Hủy
+                  {t('config.lifecycle.btnCancel')}
                 </button>
                 <button type="button" onClick={handleDeleteConfirm}
                   className="flex-1 py-2 rounded-xl text-xs font-bold cursor-pointer transition-all bg-rose-600 hover:bg-rose-700 text-white">
-                  Xóa cấu hình
+                  {t('config.lifecycle.btnDelete')}
                 </button>
               </div>
             </div>

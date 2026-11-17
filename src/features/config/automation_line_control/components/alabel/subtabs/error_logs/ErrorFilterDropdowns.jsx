@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 export default function ErrorFilterDropdowns({
   isFoxconn,
   model,
@@ -21,12 +23,14 @@ export default function ErrorFilterDropdowns({
   topLimit,
   onTopLimitChange,
 }) {
+  const { t } = useTranslation('autoline');
+
   const limitOptions = [
-    { value: 50, label: '50 bản ghi (Nhanh)' },
-    { value: 100, label: '100 bản ghi (Khuyến nghị)' },
-    { value: 200, label: '200 bản ghi' },
-    { value: 500, label: '500 bản ghi' },
-    { value: 1000, label: '1000 bản ghi (Tối đa)' },
+    { value: 50, label: t('control.alabel.forms.limitRecords', { count: 50 }) },
+    { value: 100, label: t('control.alabel.forms.limitRecords', { count: 100 }) },
+    { value: 200, label: t('control.alabel.forms.limitRecords', { count: 200 }) },
+    { value: 500, label: t('control.alabel.forms.limitRecords', { count: 500 }) },
+    { value: 1000, label: t('control.alabel.forms.limitRecords', { count: 1000 }) },
   ];
 
   return (
@@ -36,11 +40,11 @@ export default function ErrorFilterDropdowns({
         {/* 1. Dòng sản phẩm */}
         <div>
           <label className={`block font-bold mb-1 ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Dòng Sản Phẩm (Model)
+            {t('control.alabel.forms.modelDropdown')}
           </label>
           <select
             value={model}
-            onChange={(e) => onModelChange(e.target.value)}
+            onChange={(e) => onModelChange?.(e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -48,7 +52,7 @@ export default function ErrorFilterDropdowns({
             }`}
           >
             <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-              -- Tất Cả Dòng SP --
+              {t('control.alabel.forms.allModels')}
             </option>
             {DB_ACTIVE_MODELS.map((m) => (
               <option key={m.id} value={m.id} className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100">
@@ -61,11 +65,11 @@ export default function ErrorFilterDropdowns({
         {/* 2. Loại sản phẩm */}
         <div>
           <label className={`block font-bold mb-1 ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Loại Sản Phẩm (Type)
+            {t('control.alabel.forms.productType')}
           </label>
           <select
             value={productType}
-            onChange={(e) => onProductTypeChange(e.target.value)}
+            onChange={(e) => onProductTypeChange?.(e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -73,7 +77,7 @@ export default function ErrorFilterDropdowns({
             }`}
           >
             <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-              -- Tất Cả Loại SP --
+              {t('control.alabel.forms.allProductTypes')}
             </option>
             {PRODUCT_TYPES.map((pt) => (
               <option key={pt.id} value={pt.id} className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100">
@@ -86,11 +90,11 @@ export default function ErrorFilterDropdowns({
         {/* 3. Tên chuyền */}
         <div>
           <label className={`block font-bold mb-1 ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Tên Dây Chuyền (Line)
+            {t('control.alabel.forms.line')}
           </label>
           <select
             value={line}
-            onChange={(e) => onLineChange(e.target.value)}
+            onChange={(e) => onLineChange?.(e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -98,7 +102,7 @@ export default function ErrorFilterDropdowns({
             }`}
           >
             <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-              -- Tất Cả Dây Chuyền --
+              {t('control.alabel.forms.allLines')}
             </option>
             {PRODUCTION_LINES.map((pl) => (
               <option key={pl.id} value={pl.id} className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100">
@@ -111,11 +115,11 @@ export default function ErrorFilterDropdowns({
         {/* 4. Nguồn lỗi */}
         <div>
           <label className={`block font-bold mb-1 ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Nguồn Lỗi (Source)
+            {t('control.alabel.forms.errorSource')}
           </label>
           <select
             value={errorSource}
-            onChange={(e) => onErrorSourceChange(e.target.value)}
+            onChange={(e) => onErrorSourceChange?.(e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -123,7 +127,7 @@ export default function ErrorFilterDropdowns({
             }`}
           >
             <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-              -- Tất Cả Nguồn Lỗi --
+              {t('control.alabel.forms.allErrorSources')}
             </option>
             {ERROR_SOURCES.map((es) => (
               <option key={es.id} value={es.id} className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100">
@@ -139,11 +143,11 @@ export default function ErrorFilterDropdowns({
         {/* 5. Giai đoạn */}
         <div>
           <label className={`block font-bold mb-1 ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Giai Đoạn Quy Trình (Stage)
+            {t('control.alabel.forms.stage')}
           </label>
           <select
             value={stage}
-            onChange={(e) => onStageChange(e.target.value)}
+            onChange={(e) => onStageChange?.(e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -151,7 +155,7 @@ export default function ErrorFilterDropdowns({
             }`}
           >
             <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-              -- Tất Cả Giai Đoạn --
+              {t('control.alabel.forms.allStages')}
             </option>
             {PROCESS_STAGES.map((stg) => (
               <option key={stg.id} value={stg.id} className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100">
@@ -164,11 +168,11 @@ export default function ErrorFilterDropdowns({
         {/* 6. Trạm */}
         <div>
           <label className={`block font-bold mb-1 ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-            Trạm Công Đoạn (Station)
+            {t('control.alabel.forms.station')}
           </label>
           <select
             value={station}
-            onChange={(e) => onStationChange(e.target.value)}
+            onChange={(e) => onStationChange?.(e.target.value)}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
@@ -176,7 +180,7 @@ export default function ErrorFilterDropdowns({
             }`}
           >
             <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
-              -- Tất Cả Các Trạm --
+              {t('control.alabel.forms.allStations')}
             </option>
             {STATIONS_LIST.map((stn) => (
               <option key={stn.id} value={stn.id} className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100">
@@ -190,7 +194,7 @@ export default function ErrorFilterDropdowns({
         <div>
           <div className="flex items-center justify-between mb-1">
             <label className={`font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-200'}`}>
-              Giới Hạn Bản Ghi (Top Limit)
+              {t('control.alabel.forms.topLimit')}
             </label>
             <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-500 font-bold">
               LIMIT: {topLimit}
@@ -198,7 +202,7 @@ export default function ErrorFilterDropdowns({
           </div>
           <select
             value={topLimit}
-            onChange={(e) => onTopLimitChange(Number(e.target.value))}
+            onChange={(e) => onTopLimitChange?.(Number(e.target.value))}
             className={`w-full px-2.5 py-2 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
               isFoxconn
                 ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
