@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { INITIAL_LOCKED_CARRIERS } from '../../mock/unlockCarrierMockData';
 
 export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -35,10 +37,10 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
           .catch((err) => {
             console.warn('Camera access not permitted or unavailable:', err);
             setStreamActive(false);
-            setCameraError('Không thể mở Camera thiết bị (Chế độ mô phỏng quét barcode tự động kích hoạt).');
+            setCameraError(t('unlock.cameraModal.cameraError'));
           });
       } else {
-        setCameraError('Trình duyệt không hỗ trợ truy cập Webcam trực tiếp.');
+        setCameraError(t('unlock.cameraModal.browserNotSupported'));
       }
     }
 
@@ -47,7 +49,7 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
         streamInstance.getTracks().forEach((track) => track.stop());
       }
     };
-  }, [isOpen]);
+  }, [isOpen, t]);
 
   if (!isOpen) return null;
 
@@ -90,10 +92,10 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
             </div>
             <div>
               <h3 className="text-sm font-black text-slate-800 dark:text-zinc-100">
-                QUÉT MÃ KHAY BẰNG CAMERA / SÚNG QUÉT
+                {t('unlock.cameraModal.title')}
               </h3>
               <p className="text-xs text-slate-500 dark:text-zinc-400">
-                Căn chỉnh mã vạch / QR Code của khay vào giữa khung quét
+                {t('unlock.cameraModal.desc')}
               </p>
             </div>
           </div>
@@ -137,7 +139,7 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
                   </svg>
                 </div>
                 <span className="text-xs font-mono font-bold text-zinc-400">
-                  CAMERA SCANNER READY
+                  {t('unlock.cameraModal.ready')}
                 </span>
                 {cameraError && (
                   <p className="text-[11px] text-amber-400/90 mt-1 max-w-xs mx-auto">
@@ -160,7 +162,7 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-40 h-28 border border-white/30 rounded-lg flex items-center justify-center">
                 <span className="text-[10px] text-white/70 font-mono tracking-widest uppercase">
-                  AIM CARRIER CODE
+                  {t('unlock.cameraModal.aimPrompt')}
                 </span>
               </div>
             </div>
@@ -169,7 +171,7 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
           {/* Quick Simulated Carrier Codes for Testing */}
           <div className="mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800">
             <span className="text-xs font-bold text-slate-700 dark:text-zinc-300 block mb-2">
-              🧪 Mô phỏng quét nhanh mã khay (Click để gửi ngay):
+              {t('unlock.cameraModal.simulatedTitle')}
             </span>
             <div className="grid grid-cols-2 gap-2">
               {INITIAL_LOCKED_CARRIERS.slice(0, 4).map((c) => (
@@ -209,11 +211,10 @@ export default function CameraScannerModal({ isOpen, onClose, onScanSuccess }) {
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('unlock.cameraModal.btnClose')}
           </button>
         </div>
       </div>
     </div>
   );
 }
-

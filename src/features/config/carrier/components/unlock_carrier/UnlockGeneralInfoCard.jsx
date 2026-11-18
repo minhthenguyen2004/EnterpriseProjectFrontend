@@ -1,5 +1,5 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
-import { QUICK_NOTE_TAGS } from '../../mock/unlockCarrierMockData';
 
 export default function UnlockGeneralInfoCard({
   generalInfo,
@@ -7,6 +7,7 @@ export default function UnlockGeneralInfoCard({
   onToggleResetCycle,
   onQuickTagSelect
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -40,10 +41,10 @@ export default function UnlockGeneralInfoCard({
             </div>
             <div>
               <h2 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800 dark:text-zinc-100' : 'text-white'}`}>
-                Thông tin chung
+                {t('unlock.general.cardTitle')}
               </h2>
               <p className={`text-[11px] ${isFoxconn ? 'text-slate-500 dark:text-zinc-400' : 'text-gray-400'}`}>
-                Khai báo thông số kiểm định & mở khóa
+                {t('unlock.general.cardDesc')}
               </p>
             </div>
           </div>
@@ -54,7 +55,7 @@ export default function UnlockGeneralInfoCard({
           {/* Field 1: Mã nhân viên (Employee ID) */}
           <div>
             <label className={`block text-xs font-bold mb-1.5 ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-300'}`}>
-              Mã nhân viên <span className="text-red-500">*</span>
+              {t('unlock.general.empIdLabel')} <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 dark:text-zinc-500">
@@ -71,7 +72,7 @@ export default function UnlockGeneralInfoCard({
                 type="text"
                 value={generalInfo.employeeId}
                 onChange={(e) => onUpdateField('employeeId', e.target.value)}
-                placeholder="Nhập mã NV (ví dụ: V1029384, EMP-8899)..."
+                placeholder={t('unlock.general.empIdPlaceholder')}
                 className={`w-full pl-9 pr-3.5 py-2.5 text-xs font-semibold rounded-xl border transition-all outline-hidden ${
                   isFoxconn
                     ? 'bg-slate-50/80 border-slate-300 text-slate-800 focus:ring-2 focus:ring-[#002766]/10'
@@ -84,7 +85,7 @@ export default function UnlockGeneralInfoCard({
           {/* Field 2: Loại kiểm định (Inspection Type) */}
           <div>
             <label className={`block text-xs font-bold mb-1.5 ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-300'}`}>
-              Loại kiểm định <span className="text-red-500">*</span>
+              {t('unlock.general.inspectionTypeLabel')} <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <select
@@ -96,9 +97,9 @@ export default function UnlockGeneralInfoCard({
                     : 'bg-zinc-950/80 border-zinc-700/80 text-zinc-100 focus:ring-2 focus:ring-[#76B900]/15'
                 }`}
               >
-                <option value="shift_start">Đầu ca (shift start)</option>
-                <option value="periodic">Định kỳ (periodic)</option>
-                <option value="manual">Đột xuất (manual)</option>
+                <option value="shift_start">{t('unlock.general.inspectionTypes.shift_start')}</option>
+                <option value="periodic">{t('unlock.general.inspectionTypes.periodic')}</option>
+                <option value="manual">{t('unlock.general.inspectionTypes.manual')}</option>
               </select>
               <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400 dark:text-zinc-500">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,12 +124,12 @@ export default function UnlockGeneralInfoCard({
             <div className="flex items-center justify-between gap-3">
               <div>
                 <span className={`block text-xs font-bold ${isFoxconn ? 'text-slate-800 dark:text-zinc-200' : 'text-gray-200'}`}>
-                  Reset số vòng (cycle count)
+                  {t('unlock.general.resetCycleTitle')}
                 </span>
                 <span className={`text-[11px] ${isFoxconn ? 'text-slate-500 dark:text-zinc-400' : 'text-gray-400'}`}>
                   {generalInfo.resetCycleCount
-                    ? 'Đưa chu kỳ khay về 0 sau bảo dưỡng'
-                    : 'Giữ nguyên số chu kỳ hiện tại'}
+                    ? t('unlock.general.resetCycleDescOn')
+                    : t('unlock.general.resetCycleDescOff')}
                 </span>
               </div>
 
@@ -147,7 +148,7 @@ export default function UnlockGeneralInfoCard({
                     ? 'bg-slate-300'
                     : 'bg-zinc-700'
                 }`}
-                title="Bật/Tắt đặt lại số vòng tuần hoàn"
+                title={t('unlock.general.resetCycleSwitchTitle')}
               >
                 <span
                   className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out ${
@@ -178,7 +179,7 @@ export default function UnlockGeneralInfoCard({
                     : 'text-slate-500 dark:text-zinc-400'
                 }
               >
-                Trạng thái: {generalInfo.resetCycleCount ? 'BẬT (Reset về 0)' : 'TẮT (Giữ nguyên)'}
+                {t('unlock.general.statusLabel')} {generalInfo.resetCycleCount ? t('unlock.general.statusOn') : t('unlock.general.statusOff')}
               </span>
             </div>
           </div>
@@ -186,7 +187,7 @@ export default function UnlockGeneralInfoCard({
           {/* Field 4: Kết quả (Result) */}
           <div>
             <label className={`block text-xs font-bold mb-1.5 ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-300'}`}>
-              Kết quả kiểm định <span className="text-red-500">*</span>
+              {t('unlock.general.resultLabel')} <span className="text-red-500">*</span>
             </label>
             <div className="relative">
               <select
@@ -202,8 +203,8 @@ export default function UnlockGeneralInfoCard({
                     : 'bg-red-950/60 border-red-700/80 text-red-300'
                 }`}
               >
-                <option value="PASS">✅ Đạt (Pass / Approved)</option>
-                <option value="FAIL">❌ Lỗi (Fail / Rejected)</option>
+                <option value="PASS">{t('unlock.general.resultPass')}</option>
+                <option value="FAIL">{t('unlock.general.resultFail')}</option>
               </select>
               <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-slate-400 dark:text-zinc-500">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,13 +217,13 @@ export default function UnlockGeneralInfoCard({
           {/* Field 5: Ghi chú (Notes / Reason) */}
           <div>
             <label className={`block text-xs font-bold mb-1.5 ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-300'}`}>
-              Ghi chú
+              {t('unlock.general.noteLabel')}
             </label>
             <textarea
               rows={4}
               value={generalInfo.note}
               onChange={(e) => onUpdateField('note', e.target.value)}
-              placeholder="Nhập lý do..."
+              placeholder={t('unlock.general.notePlaceholder')}
               className={`w-full p-3 text-xs font-medium rounded-xl border transition-all outline-hidden resize-none ${
                 isFoxconn
                   ? 'bg-slate-50/80 border-slate-300 text-slate-800 focus:ring-2 focus:ring-[#002766]/10'
@@ -235,4 +236,3 @@ export default function UnlockGeneralInfoCard({
     </div>
   );
 }
-

@@ -1,17 +1,19 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function RecentUnlockHistoryTable({ historyList = [] }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
   const formatInspectionType = (type) => {
     switch (type) {
       case 'shift_start':
-        return 'Đầu ca (Shift start)';
+        return t('unlock.history.inspectionTypes.shift_start');
       case 'periodic':
-        return 'Định kỳ (Periodic)';
+        return t('unlock.history.inspectionTypes.periodic');
       case 'manual':
-        return 'Đột xuất (Manual)';
+        return t('unlock.history.inspectionTypes.manual');
       default:
         return type;
     }
@@ -36,11 +38,11 @@ export default function RecentUnlockHistoryTable({ historyList = [] }) {
             />
           </svg>
           <h4 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800 dark:text-zinc-100' : 'text-gray-200'}`}>
-            Nhật ký mở khóa gần đây (Audit Activity Log)
+            {t('unlock.history.title')}
           </h4>
         </div>
         <span className="text-[11px] text-slate-400 dark:text-zinc-500">
-          Hiển thị {historyList.length} bản ghi gần nhất
+          {t('unlock.history.countLabel', { count: historyList.length })}
         </span>
       </div>
 
@@ -52,13 +54,13 @@ export default function RecentUnlockHistoryTable({ historyList = [] }) {
             }`}
           >
             <tr>
-              <th className="px-3 py-2.5 rounded-l-lg">Thời gian</th>
-              <th className="px-3 py-2.5">Mã khay</th>
-              <th className="px-3 py-2.5">Nhân viên</th>
-              <th className="px-3 py-2.5">Loại kiểm định</th>
-              <th className="px-3 py-2.5 text-center">Reset chu kỳ</th>
-              <th className="px-3 py-2.5 text-center">Kết quả</th>
-              <th className="px-3 py-2.5 rounded-r-lg">Ghi chú</th>
+              <th className="px-3 py-2.5 rounded-l-lg">{t('unlock.history.colTime')}</th>
+              <th className="px-3 py-2.5">{t('unlock.history.colCarrierCode')}</th>
+              <th className="px-3 py-2.5">{t('unlock.history.colEmployee')}</th>
+              <th className="px-3 py-2.5">{t('unlock.history.colInspectionType')}</th>
+              <th className="px-3 py-2.5 text-center">{t('unlock.history.colResetCycle')}</th>
+              <th className="px-3 py-2.5 text-center">{t('unlock.history.colResult')}</th>
+              <th className="px-3 py-2.5 rounded-r-lg">{t('unlock.history.colNote')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
@@ -93,7 +95,7 @@ export default function RecentUnlockHistoryTable({ historyList = [] }) {
                         : 'bg-zinc-800 text-zinc-400'
                     }`}
                   >
-                    {item.resetCycleCount ? 'CÓ' : 'KHÔNG'}
+                    {item.resetCycleCount ? t('unlock.history.resetYes') : t('unlock.history.resetNo')}
                   </span>
                 </td>
                 <td className="px-3 py-2.5 text-center">
@@ -104,7 +106,7 @@ export default function RecentUnlockHistoryTable({ historyList = [] }) {
                         : 'bg-red-100 dark:bg-red-950/80 text-red-800 dark:text-red-300 border border-red-300 dark:border-red-700'
                     }`}
                   >
-                    {item.result === 'PASS' ? 'ĐẠT' : 'LỖI'}
+                    {item.result === 'PASS' ? t('unlock.history.resultPass') : t('unlock.history.resultFail')}
                   </span>
                 </td>
                 <td className="px-3 py-2.5 text-slate-500 dark:text-zinc-400 max-w-xs truncate">
@@ -118,4 +120,3 @@ export default function RecentUnlockHistoryTable({ historyList = [] }) {
     </div>
   );
 }
-

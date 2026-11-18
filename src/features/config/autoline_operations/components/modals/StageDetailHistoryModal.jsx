@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function StageDetailHistoryModal({
@@ -6,6 +7,7 @@ export default function StageDetailHistoryModal({
   stepData,
   productData
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -33,10 +35,12 @@ export default function StageDetailHistoryModal({
               </svg>
             </div>
             <div>
-              <h3 className={`text-sm font-black uppercase ${ isFoxconn ? "text-black" : "text-white"}`}>
-                CHI TIẾT CÔNG ĐOẠN - STEP {String(stepData.stepNumber).padStart(2, '0')}
+              <h3 className={`text-sm font-black uppercase ${isFoxconn ? 'text-black' : 'text-white'}`}>
+                {t('operations.stageDetailModal.title', {
+                  step: String(stepData.stepNumber).padStart(2, '0')
+                })}
               </h3>
-              <p className={`text-xs text-slate-500 dark:text-zinc-400 ${ isFoxconn ? "text-black" : "text-white"}`}>
+              <p className={`text-xs text-slate-500 dark:text-zinc-400 ${isFoxconn ? 'text-black' : 'text-white'}`}>
                 {stepData.stationName} • {stepData.groupName}
               </p>
             </div>
@@ -73,18 +77,20 @@ export default function StageDetailHistoryModal({
           >
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider block opacity-70">
-                Trạng thái kiểm định
+                {t('operations.stageDetailModal.statusInspection')}
               </span>
               <span className="text-sm font-black">
                 {stepData.status === 'PASS'
-                  ? '✅ ĐẠT (PASS) - Hoàn thành'
+                  ? t('operations.stageDetailModal.statusPass')
                   : stepData.status === 'FAIL'
-                  ? '❌ LỖI (FAIL) - Bị chặn kiểm tra'
-                  : '⏳ CHƯA CHẠY (PENDING)'}
+                  ? t('operations.stageDetailModal.statusFail')
+                  : t('operations.stageDetailModal.statusPending')}
               </span>
             </div>
             <div className="text-right text-xs font-mono">
-              <span className="block opacity-70 text-[10px] uppercase font-bold">Ngày giờ qua step</span>
+              <span className="block opacity-70 text-[10px] uppercase font-bold">
+                {t('operations.stageDetailModal.passTimestamp')}
+              </span>
               <span>{stepData.passTimestamp || '- - -'}</span>
             </div>
           </div>
@@ -93,19 +99,21 @@ export default function StageDetailHistoryModal({
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-zinc-950/60 border border-slate-200 dark:border-zinc-800">
               <span className="text-[10px] font-bold text-black uppercase block">
-                Nhân viên vận hành
+                {t('operations.stageDetailModal.operator')}
               </span>
               <span className="font-semibold text-slate-800 dark:text-zinc-200 mt-1 block">
-                {stepData.inspectorId || 'Hệ thống tự động hóa AutoLine'}
+                {stepData.inspectorId || t('operations.stageDetailModal.defaultOperator')}
               </span>
             </div>
 
             <div className="p-3 rounded-xl bg-slate-50 dark:bg-zinc-950/60 border border-slate-200 dark:border-zinc-800">
               <span className="text-[10px] font-bold text-black uppercase block">
-                Thời gian gia công (Cycle Time)
+                {t('operations.stageDetailModal.cycleTime')}
               </span>
               <span className="font-mono font-bold text-slate-800 dark:text-zinc-200 mt-1 block">
-                {stepData.cycleTimeSeconds ? `${stepData.cycleTimeSeconds} giây` : 'N/A'}
+                {stepData.cycleTimeSeconds
+                  ? t('operations.stageDetailModal.seconds', { count: stepData.cycleTimeSeconds })
+                  : 'N/A'}
               </span>
             </div>
           </div>
@@ -115,25 +123,33 @@ export default function StageDetailHistoryModal({
             <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/25 space-y-2">
               <div className="flex items-center gap-2 text-red-600 dark:text-red-400 font-bold text-xs">
                 <span>⚠️</span>
-                <span className="uppercase tracking-wider">Thông tin lỗi chi tiết (Defect Info)</span>
+                <span className="uppercase tracking-wider">
+                  {t('operations.stageDetailModal.defectInfo')}
+                </span>
               </div>
               <div className="text-xs space-y-1">
                 <div>
-                  <span className="font-bold text-slate-700 dark:text-zinc-300">Mã lỗi (Error Code): </span>
+                  <span className="font-bold text-slate-700 dark:text-zinc-300">
+                    {t('operations.stageDetailModal.errorCode')}{' '}
+                  </span>
                   <span className="font-mono font-black text-red-600 dark:text-red-400">
                     {stepData.errorCode || 'ERR-UNKNOWN'}
                   </span>
                 </div>
                 <div>
-                  <span className="font-bold text-slate-700 dark:text-zinc-300">Vị trí sai hỏng: </span>
+                  <span className="font-bold text-slate-700 dark:text-zinc-300">
+                    {t('operations.stageDetailModal.defectLocation')}{' '}
+                  </span>
                   <span className="text-slate-800 dark:text-zinc-200">
-                    {stepData.defectLocation || 'Chưa xác định tọa độ'}
+                    {stepData.defectLocation || t('operations.stageDetailModal.defaultLocation')}
                   </span>
                 </div>
                 <div>
-                  <span className="font-bold text-slate-700 dark:text-zinc-300">Mô tả nguyên nhân: </span>
+                  <span className="font-bold text-slate-700 dark:text-zinc-300">
+                    {t('operations.stageDetailModal.errorDesc')}{' '}
+                  </span>
                   <p className="text-slate-600 dark:text-zinc-400 mt-0.5">
-                    {stepData.errorDescription || 'Phát hiện sự cố đo kiểm không đạt tiêu chuẩn kỹ thuật.'}
+                    {stepData.errorDescription || t('operations.stageDetailModal.defaultErrorDesc')}
                   </p>
                 </div>
               </div>
@@ -143,19 +159,31 @@ export default function StageDetailHistoryModal({
           {/* Product & Station Info */}
           <div className="p-3.5 rounded-xl border border-slate-200 dark:border-zinc-800 text-xs space-y-1.5">
             <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 uppercase block mb-1">
-              Thông tin liên kết sản phẩm
+              {t('operations.stageDetailModal.productLinkTitle')}
             </span>
             <div className="flex justify-between">
-              <span className="text-slate-500 dark:text-zinc-400">Serial Number:</span>
-              <span className={`font-bold ${isFoxconn ? "text-black" : "text-white"}`}>{productData.serialNumber}</span>
+              <span className="text-slate-500 dark:text-zinc-400">
+                {t('operations.stageDetailModal.serialNumber')}
+              </span>
+              <span className={`font-bold ${isFoxconn ? 'text-black' : 'text-white'}`}>
+                {productData.serialNumber}
+              </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500 dark:text-zinc-400">Carrier Jig:</span>
-              <span className={`font-bold ${isFoxconn ? "text-black" : "text-white"}`}>{productData.carrierCode}</span>
+              <span className="text-slate-500 dark:text-zinc-400">
+                {t('operations.stageDetailModal.carrierJig')}
+              </span>
+              <span className={`font-bold ${isFoxconn ? 'text-black' : 'text-white'}`}>
+                {productData.carrierCode}
+              </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-500 dark:text-zinc-400">Line:</span>
-              <span className={`font-bold ${isFoxconn ? "text-black" : "text-white"}`}>{productData.lineName}</span>
+              <span className="text-slate-500 dark:text-zinc-400">
+                {t('operations.stageDetailModal.line')}
+              </span>
+              <span className={`font-bold ${isFoxconn ? 'text-black' : 'text-white'}`}>
+                {productData.lineName}
+              </span>
             </div>
           </div>
         </div>
@@ -171,7 +199,7 @@ export default function StageDetailHistoryModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('operations.stageDetailModal.btnClose')}
           </button>
         </div>
       </div>

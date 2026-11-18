@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ROUTING_MODES } from '../../constants/formModalConstants';
 
 /**
@@ -13,6 +14,7 @@ export default function StepRoutingConfigCard({
   onFieldChange,
   onSave
 }) {
+  const { t } = useTranslation('machine');
   const formUid = useId();
 
   return (
@@ -31,7 +33,7 @@ export default function StepRoutingConfigCard({
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            Cấu Hình Bước Công Đoạn (Step Routing Settings)
+            {t('modals.form.routingConfigs.stepCardTitle')}
           </span>
         </div>
         <span
@@ -41,7 +43,7 @@ export default function StepRoutingConfigCard({
               : 'bg-zinc-900 text-zinc-400 border-zinc-800'
           }`}
         >
-          {stepRoutingState.mode === 1 ? 'Upload Data First' : 'Standard Routing'}
+          {stepRoutingState.mode === 1 ? t('modals.form.routingConfigs.modeUploadFirst') : t('modals.form.routingConfigs.modeStandard')}
         </span>
       </div>
 
@@ -55,7 +57,7 @@ export default function StepRoutingConfigCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Main Key <span className="text-rose-500 font-black">*</span>
+            {t('modals.form.routingConfigs.lblMainKey')} <span className="text-rose-500 font-black">*</span>
           </label>
           <div className="relative">
             <input
@@ -64,7 +66,7 @@ export default function StepRoutingConfigCard({
               list={`${formUid}-suggested-keys`}
               value={stepRoutingState.mainKey}
               onChange={(e) => onFieldChange('mainKey', e.target.value.toUpperCase())}
-              placeholder="VD: BARCODE_MAIN"
+              placeholder={t('modals.form.routingConfigs.placeholderMainKey')}
               className={`w-full px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
                 errors.mainKey
                   ? 'border-rose-400 bg-rose-50 text-rose-800'
@@ -94,7 +96,7 @@ export default function StepRoutingConfigCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Mode (Chế độ định tuyến)
+            {t('modals.form.routingConfigs.lblMode')}
           </label>
           <select
             id={`${formUid}-mode`}
@@ -108,7 +110,7 @@ export default function StepRoutingConfigCard({
           >
             {ROUTING_MODES.map((m) => (
               <option key={m.value} value={m.value}>
-                {m.label}
+                {m.labelKey ? t(m.labelKey) : m.label}
               </option>
             ))}
           </select>
@@ -124,10 +126,10 @@ export default function StepRoutingConfigCard({
                 ? 'bg-[#002766] hover:bg-blue-900 text-white'
                 : 'bg-[#76B900] hover:bg-[#86D400] text-black shadow-[0_0_12px_rgba(118,185,0,0.3)]'
             }`}
-            title="Lưu cấu hình Main Key và Mode cho công đoạn này"
+            title={t('modals.form.routingConfigs.btnSaveStep')}
           >
             <span>💾</span>
-            <span>Lưu Step Config</span>
+            <span>{t('modals.form.routingConfigs.btnSaveStep')}</span>
           </button>
         </div>
       </div>

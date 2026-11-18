@@ -1,10 +1,13 @@
 import { useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   INITIAL_LOCKED_CARRIERS,
   INITIAL_UNLOCK_HISTORY
 } from '../mock/unlockCarrierMockData';
 
 export default function useUnlockCarrier() {
+  const { t } = useTranslation('carrier');
+
   // 1. Thông tin chung (Cột 1)
   const [generalInfo, setGeneralInfo] = useState({
     employeeId: 'V1029384',
@@ -55,7 +58,7 @@ export default function useUnlockCarrier() {
     (codeToScan) => {
       const code = (codeToScan || singleCarrierCode).trim().toUpperCase();
       if (!code) {
-        setScanError('Vui lòng nhập hoặc quét mã khay!');
+        setScanError(t('unlock.toast.errScanEmpty'));
         setScannedCarrier(null);
         return null;
       }
@@ -87,7 +90,7 @@ export default function useUnlockCarrier() {
           usagePercentage: 99.0,
           status: 'LOCKED',
           severity: 'urgent',
-          lockReason: 'Khay bị khóa bởi trạm kiểm tra chất lượng.',
+          lockReason: t('unlock.toast.defaultLockReason'),
           coplanarityDeviation: 0.09
         };
         setScannedCarrier(simulated);
@@ -95,7 +98,7 @@ export default function useUnlockCarrier() {
         return simulated;
       }
     },
-    [carriersList, singleCarrierCode]
+    [carriersList, singleCarrierCode, t]
   );
 
   // Xóa mã khay đang chọn
@@ -244,7 +247,7 @@ export default function useUnlockCarrier() {
   const handleConfirmUnlock = useCallback(() => {
     // Validation
     if (!generalInfo.employeeId.trim()) {
-      showToast('Vui lòng nhập Mã nhân viên kiểm định trước khi xác nhận!', 'error');
+      showToast(t('unlock.toast.errInputEmpId'), 'error');
       return false;
     }
 
@@ -253,19 +256,19 @@ export default function useUnlockCarrier() {
     if (activeTab === 'single') {
       const target = scannedCarrier || handleScanCarrier(singleCarrierCode);
       if (!target || !target.carrierCode) {
-        showToast('Vui lòng quét hoặc nhập mã khay hợp lệ!', 'error');
+        showToast(t('unlock.toast.errInvalidCarrier'), 'error');
         return false;
       }
       targetCodes = [target.carrierCode];
     } else if (activeTab === 'line') {
       if (selectedLineCarrierCodes.length === 0) {
-        showToast(`Chưa có khay nào được chọn trên ${selectedLine}!`, 'error');
+        showToast(t('unlock.toast.errNoCarrierOnLine', { line: selectedLine }), 'error');
         return false;
       }
       targetCodes = selectedLineCarrierCodes;
     } else if (activeTab === 'batch') {
       if (batchQueue.length === 0) {
-        showToast('Hàng đợi mở khóa nhiều khay đang trống!', 'error');
+        showToast(t('unlock.toast.errEmptyBatch'), 'error');
         return false;
       }
       targetCodes = batchQueue.map((item) => item.carrierCode);
@@ -285,7 +288,7 @@ export default function useUnlockCarrier() {
         resetCycleCount: generalInfo.resetCycleCount,
         previousCycles: matched ? matched.currentCycles : 2000,
         result: generalInfo.result,
-        note: generalInfo.note || 'Nghiệm thu kiểm định và cập nhật trạng thái.',
+        note: generalInfo.note || t('unlock.toast.defaultNote'),
         statusAfter: generalInfo.result === 'PASS' ? 'ACTIVE' : 'LOCKED'
       };
     });
@@ -319,12 +322,12 @@ export default function useUnlockCarrier() {
     // Toast thành công
     const countStr =
       targetCodes.length === 1
-        ? `khay ${targetCodes[0]}`
-        : `${targetCodes.length} khay`;
+        ? t('unlock.toast.singleCarrierTarget', { code: targetCodes[0] })
+        : t('unlock.toast.multiCarrierTarget', { count: targetCodes.length });
     showToast(
       generalInfo.result === 'PASS'
-        ? `Đã mở khóa và nghiệm thu thành công cho ${countStr}!`
-        : `Đã ghi nhận kết quả LỖI và duy trì khóa cho ${countStr}!`,
+        ? t('unlock.toast.successPass', { target: countStr })
+        : t('unlock.toast.warningFail', { target: countStr }),
       generalInfo.result === 'PASS' ? 'success' : 'warning'
     );
 
@@ -349,7 +352,8 @@ export default function useUnlockCarrier() {
     selectedLine,
     selectedLineCarrierCodes,
     showToast,
-    singleCarrierCode
+    singleCarrierCode,
+    t
   ]);
 
   return {

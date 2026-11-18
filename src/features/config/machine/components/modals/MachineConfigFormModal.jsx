@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import MachineFormLeftInputs from './form/left_panel/MachineFormLeftInputs';
 import MachineFormTopTabs from './form/navigation/MachineFormTopTabs';
@@ -14,6 +15,7 @@ export default function MachineConfigFormModal({
   onClose,
   onSubmit
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const isEdit = mode === 'edit';
@@ -182,18 +184,18 @@ export default function MachineConfigFormModal({
   const validate = () => {
     const errs = {};
     if (!formData.machineName || !formData.machineName.trim()) {
-      errs.machineName = 'Tên máy không được để trống';
+      errs.machineName = t('modals.form.validation.machineNameRequired');
     }
 
     const ipRegex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
     if (!formData.stationIp || !formData.stationIp.trim()) {
-      errs.stationIp = 'Địa chỉ IP không được để trống';
+      errs.stationIp = t('modals.form.validation.stationIpRequired');
     } else if (!ipRegex.test(formData.stationIp.trim())) {
-      errs.stationIp = 'Định dạng IPv4 không hợp lệ (vd: 192.168.10.101)';
+      errs.stationIp = t('modals.form.validation.stationIpInvalid');
     }
 
     if (!formData.hostName || !formData.hostName.trim()) {
-      errs.hostName = 'Host Name không được để trống';
+      errs.hostName = t('modals.form.validation.hostNameRequired');
     }
 
     setErrors(errs);
@@ -245,8 +247,8 @@ export default function MachineConfigFormModal({
   // Tiêu đề động: ưu tiên prop title từ ngoài truyền vào, nếu không thì dùng fallback theo mode
   const modalDisplayTitle = title || (
     isEdit
-      ? `CHỈNH SỬA CẤU HÌNH MÁY: ${formData.machineName || 'TRẠM MÁY'}`
-      : 'TẠO MỚI CẤU HÌNH TRẠM MÁY (CREATE MACHINE CONFIGURATION)'
+      ? t('modals.form.editTitle', { name: formData.machineName || '' })
+      : t('modals.form.createTitle')
   );
 
   return (
@@ -278,14 +280,14 @@ export default function MachineConfigFormModal({
             </div>
             <div>
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500">
-                <span>CONFIG WORKSPACE</span>
+                <span>{t('modals.form.workspace')}</span>
                 <span>•</span>
                 <span className={isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}>
-                  {isEdit ? 'UPDATE MODE' : 'CREATE MODE'}
+                  {isEdit ? t('modals.form.modeUpdate') : t('modals.form.modeCreate')}
                 </span>
                 <span>•</span>
                 <span className="px-1.5 py-0.2 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
-                  {isEdit ? 'Active' : 'Draft'}
+                  {isEdit ? t('modals.form.statusActive') : t('modals.form.statusDraft')}
                 </span>
               </div>
               <h2 className="text-base sm:text-lg font-black tracking-tight truncate max-w-2xl">
@@ -296,13 +298,13 @@ export default function MachineConfigFormModal({
 
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline-block text-[11px] text-slate-400 dark:text-zinc-500 font-mono">
-              ESC để đóng
+              {t('modals.form.escToClose')}
             </span>
             <button
               type="button"
               onClick={onClose}
               className="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-200 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
-              title="Đóng cửa sổ"
+              title={t('modals.form.closeTooltip')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />

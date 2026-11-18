@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 /**
  * Bảng danh sách Cấu hình Định tuyến (Routing Configs Table):
  * 8 cột: Product, Line, Step, Twin Step, Mode, Carrier Swap, Picker, Action (Sửa, Xóa).
@@ -14,6 +16,8 @@ export default function RoutingConfigsTable({
   onEditClick,
   onDeleteClick
 }) {
+  const { t } = useTranslation('machine');
+
   return (
     <div
       className={`rounded-2xl border transition-all shadow-md overflow-hidden shrink-0 ${
@@ -35,7 +39,7 @@ export default function RoutingConfigsTable({
               isFoxconn ? 'text-slate-800' : 'text-zinc-100'
             }`}
           >
-            Danh Sách Cấu Hình Định Tuyến (Routing Configs Table)
+            {t('modals.form.routingConfigs.tableTitle')}
           </h4>
           <span
             className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
@@ -44,7 +48,7 @@ export default function RoutingConfigsTable({
                 : 'bg-zinc-800 text-[#76B900] border-[#76B900]/40 shadow-[0_0_8px_rgba(118,185,0,0.2)]'
             }`}
           >
-            {routingConfigs.length} cấu hình
+            {t('modals.form.routingConfigs.configsCount', { count: routingConfigs.length })}
           </span>
         </div>
 
@@ -54,7 +58,7 @@ export default function RoutingConfigsTable({
               isFoxconn ? 'text-slate-500' : 'text-zinc-400'
             }`}
           >
-            Tự động đồng bộ toàn tuyến sản xuất
+            {t('modals.form.routingConfigs.syncNote')}
           </span>
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
         </div>
@@ -71,14 +75,14 @@ export default function RoutingConfigsTable({
                   : 'bg-zinc-950/95 text-zinc-300 border-zinc-800'
               }`}
             >
-              <th className="py-2.5 px-3 min-w-30">Product</th>
-              <th className="py-2.5 px-3 min-w-27.5">Line</th>
-              <th className="py-2.5 px-2.5 text-center min-w-17.5">Step</th>
-              <th className="py-2.5 px-2.5 text-center min-w-22.5">Twin Step</th>
-              <th className="py-2.5 px-3 min-w-28.75">Mode</th>
-              <th className="py-2.5 px-2.5 text-center min-w-23.75">Carrier Swap</th>
-              <th className="py-2.5 px-2.5 text-center min-w-23.75">Picker</th>
-              <th className="py-2.5 px-3 text-center min-w-30">Action</th>
+              <th className="py-2.5 px-3 min-w-30">{t('modals.form.routingConfigs.colProduct')}</th>
+              <th className="py-2.5 px-3 min-w-27.5">{t('modals.form.routingConfigs.colLine')}</th>
+              <th className="py-2.5 px-2.5 text-center min-w-17.5">{t('modals.form.routingConfigs.colStep')}</th>
+              <th className="py-2.5 px-2.5 text-center min-w-22.5">{t('modals.form.routingConfigs.colTwinStep')}</th>
+              <th className="py-2.5 px-3 min-w-28.75">{t('modals.form.routingConfigs.colMode')}</th>
+              <th className="py-2.5 px-2.5 text-center min-w-23.75">{t('modals.form.routingConfigs.colCarrierSwap')}</th>
+              <th className="py-2.5 px-2.5 text-center min-w-23.75">{t('modals.form.routingConfigs.colPicker')}</th>
+              <th className="py-2.5 px-3 text-center min-w-30">{t('modals.form.routingConfigs.colAction')}</th>
             </tr>
           </thead>
           <tbody
@@ -96,13 +100,9 @@ export default function RoutingConfigsTable({
                 >
                   <div className="flex flex-col items-center justify-center gap-1.5">
                     <span className="text-2xl">📭</span>
-                    <span>Chưa có cấu hình trạm song song nào.</span>
+                    <span>{t('modals.form.routingConfigs.emptyTable')}</span>
                     <span className="text-[11px] text-slate-500 dark:text-zinc-500">
-                      Hãy nhập số trạm ở khung{' '}
-                      <strong className={isFoxconn ? 'text-blue-600' : 'text-[#76B900]'}>
-                        Thêm Trạm Song Song
-                      </strong>{' '}
-                      phía trên và nhấn <strong>Save</strong> để thêm vào bảng.
+                      {t('modals.form.routingConfigs.emptyTableSub')}
                     </span>
                   </div>
                 </td>
@@ -219,7 +219,7 @@ export default function RoutingConfigsTable({
                         <button
                           type="button"
                           onClick={() => onEditClick(item)}
-                          title="Sửa cấu hình trạm song song này"
+                          title={t('modals.form.routingConfigs.btnEdit')}
                           className={`px-2.5 py-1 rounded-lg text-xs font-bold border transition-all active:scale-95 cursor-pointer flex items-center gap-1 shadow-2xs ${
                             isFoxconn
                               ? 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 hover:border-amber-300'
@@ -227,12 +227,12 @@ export default function RoutingConfigsTable({
                           }`}
                         >
                           <span>✏️</span>
-                          <span>Sửa</span>
+                          <span>{t('modals.form.routingConfigs.btnEdit')}</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => onDeleteClick(item)}
-                          title="Xóa cấu hình trạm song song này"
+                          title={t('modals.form.routingConfigs.btnDelete')}
                           className={`px-2.5 py-1 rounded-lg text-xs font-bold border transition-all active:scale-95 cursor-pointer flex items-center gap-1 shadow-2xs ${
                             isFoxconn
                               ? 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100 hover:border-rose-300'
@@ -240,7 +240,7 @@ export default function RoutingConfigsTable({
                           }`}
                         >
                           <span>🗑️</span>
-                          <span>Xóa</span>
+                          <span>{t('modals.form.routingConfigs.btnDelete')}</span>
                         </button>
                       </div>
                     </td>

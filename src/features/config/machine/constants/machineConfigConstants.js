@@ -72,27 +72,27 @@ export const GROUP_NAME_OPTIONS = [
 ];
 
 export const ACTION_FILTER_OPTIONS = [
-  { value: 'all', label: 'Tất cả các dòng (Mặc định)' },
-  { value: 'has_details', label: '1. Máy có thông tin chi tiết đầy đủ' },
-  { value: 'can_edit', label: '2. Máy được phép sửa cấu hình' },
-  { value: 'can_delete', label: '3. Máy có thể xóa / đang chờ dọn dẹp' }
+  { value: 'all', labelKey: 'table.actionFilter.all', label: 'Tất cả các dòng (Mặc định)' },
+  { value: 'has_details', labelKey: 'table.actionFilter.hasDetails', label: '1. Máy có thông tin chi tiết đầy đủ' },
+  { value: 'can_edit', labelKey: 'table.actionFilter.canEdit', label: '2. Máy được phép sửa cấu hình' },
+  { value: 'can_delete', labelKey: 'table.actionFilter.canDelete', label: '3. Máy có thể xóa / đang chờ dọn dẹp' }
 ];
 
 export const PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
 
 // Danh sách các cột của bảng
 export const MACHINE_TABLE_COLUMNS = [
-  { id: 'customer', label: 'Customer', field: 'customer', width: 'w-28 min-w-[110px]' },
-  { id: 'factory', label: 'Factory', field: 'factory', width: 'w-44 min-w-[170px]' },
-  { id: 'floor', label: 'Floor', field: 'floor', width: 'w-20 min-w-[80px]' },
-  { id: 'productName', label: 'Product Name', field: 'productName', width: 'w-44 min-w-[170px]' },
-  { id: 'productType', label: 'Prod. Type', field: 'productType', width: 'w-44 min-w-[170px]' },
-  { id: 'lineName', label: 'Line Name', field: 'lineName', width: 'w-48 min-w-[190px]' },
-  { id: 'step', label: 'Step', field: 'step', width: 'w-48 min-w-[190px]' },
-  { id: 'keys', label: 'Keys', field: 'keys', width: 'w-32 min-w-[125px]' },
-  { id: 'groupName', label: 'Group Name', field: 'groupName', width: 'w-48 min-w-[190px]' },
-  { id: 'machineName', label: 'Machine Name', field: 'machineName', width: 'w-52 min-w-[205px]' },
-  { id: 'stationIp', label: 'IP Address', field: 'stationIp', width: 'w-36 min-w-[140px]' },
-  { id: 'hostName', label: 'Host Name', field: 'hostName', width: 'w-48 min-w-[190px]' },
-  { id: 'actions', label: 'Thao tác', field: 'actions', width: 'w-36 min-w-[145px]', isAction: true }
+  { id: 'customer', labelKey: 'table.cols.customer', label: 'Customer', field: 'customer', width: 'w-28 min-w-[110px]' },
+  { id: 'factory', labelKey: 'table.cols.factory', label: 'Factory', field: 'factory', width: 'w-44 min-w-[170px]' },
+  { id: 'floor', labelKey: 'table.cols.floor', label: 'Floor', field: 'floor', width: 'w-20 min-w-[80px]' },
+  { id: 'productName', labelKey: 'table.cols.productName', label: 'Product Name', field: 'productName', width: 'w-44 min-w-[170px]' },
+  { id: 'productType', labelKey: 'table.cols.productType', label: 'Prod. Type', field: 'productType', width: 'w-44 min-w-[170px]' },
+  { id: 'lineName', labelKey: 'table.cols.lineName', label: 'Line Name', field: 'lineName', width: 'w-48 min-w-[190px]' },
+  { id: 'step', labelKey: 'table.cols.step', label: 'Step', field: 'step', width: 'w-48 min-w-[190px]' },
+  { id: 'keys', labelKey: 'table.cols.keys', label: 'Keys', field: 'keys', width: 'w-32 min-w-[125px]' },
+  { id: 'groupName', labelKey: 'table.cols.groupName', label: 'Group Name', field: 'groupName', width: 'w-48 min-w-[190px]' },
+  { id: 'machineName', labelKey: 'table.cols.machineName', label: 'Machine Name', field: 'machineName', width: 'w-52 min-w-[205px]' },
+  { id: 'stationIp', labelKey: 'table.cols.stationIp', label: 'IP Address', field: 'stationIp', width: 'w-36 min-w-[140px]' },
+  { id: 'hostName', labelKey: 'table.cols.hostName', label: 'Host Name', field: 'hostName', width: 'w-48 min-w-[190px]' },
+  { id: 'actions', labelKey: 'table.cols.actions', label: 'Thao tác', field: 'actions', width: 'w-36 min-w-[145px]', isAction: true }
 ];

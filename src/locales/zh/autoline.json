@@ -4,7 +4,121 @@
     "headerBadge": "SHOPFLOOR CONTROL",
     "headerDesc": "自动化流水线现场作业调度，生产工艺路径 (Routing) 反查与特殊工艺拦截处置。",
     "breadcrumbConfig": "系统配置",
-    "breadcrumbOperations": "车间作业"
+    "breadcrumbOperations": "车间作业",
+    "topBar": {
+      "methodLabel": "录入方式:",
+      "modes": {
+        "manual": "手动输入",
+        "camera": "摄像头扫码",
+        "image": "图片识码"
+      },
+      "searchPlaceholder": "扫描或录入 SN、载具治具、关键零配件...",
+      "clearTooltip": "清除检索",
+      "searchBtn": "检索"
+    },
+    "routing": {
+      "title": "生产工艺路线 (Routing)",
+      "subtitle": "各工位工艺步骤清单及过站履历流转记录",
+      "progressLabel": "完成进度",
+      "progressBadge": "{{completed}}/{{total}} 步 ({{percent}}%)",
+      "colStep": "工步",
+      "colStation": "工位 / 分组及过站时间",
+      "colStatus": "判定状态",
+      "selectedBadge": "当前选中",
+      "noTimestamp": "暂无过站时间记录",
+      "statusPass": "PASS",
+      "statusFail": "FAIL",
+      "statusPending": "未过站"
+    },
+    "currentStage": {
+      "title": "当前工序",
+      "stepLabel": "工步:",
+      "stepValue": "Step {{number}}",
+      "stageNameLabel": "工序名称:",
+      "statusLabel": "判定状态:",
+      "statusPass": "✅ PASS",
+      "statusFail": "❌ FAIL",
+      "statusPending": "⏳ 未过站",
+      "noStepSelected": "暂未选定任何步骤"
+    },
+    "productInfo": {
+      "title": "在制品物料信息",
+      "codeType": "条码类别:",
+      "defaultCodeType": "序列号 (SN)",
+      "serialNumber": "产品序列号 (SN):",
+      "carrier": "载具 / 治具 (Carrier):",
+      "product": "机种名称:",
+      "category": "物料品类:",
+      "line": "线体代码:"
+    },
+    "stageActions": {
+      "title": "工位操作指令",
+      "btnDetail": "工位过站明细 (查看履历与缺陷)"
+    },
+    "specialManipulation": {
+      "title": "特殊异常处置",
+      "undo": {
+        "label": "Undo (工序撤销/回退)",
+        "sub": "回退1步"
+      },
+      "changeCarrier": {
+        "label": "更换载具治具 (Jig)",
+        "sub": "分配新治具"
+      },
+      "clearUndo": {
+        "label": "清除回退痕迹 (Clear UNDO)",
+        "sub": "抹平操作留痕"
+      },
+      "resetCarrier": {
+        "label": "复位载具治具 (Reset Carrier)",
+        "sub": "恢复默认值"
+      }
+    },
+    "changeCarrierModal": {
+      "title": "更换载具 / 治具 (CHANGE CARRIER)",
+      "subtitle": "将当前在制品转移绑定至新载具托盘",
+      "currentCarrierLabel": "当前绑定载具:",
+      "newCarrierLabel": "新载具治具编号",
+      "placeholder": "请输入或扫描新载具代码 (例如: CRR-B012)...",
+      "suggestionsTitle": "空闲可用载具推荐:",
+      "btnCancel": "取消",
+      "btnConfirm": "确认更换治具"
+    },
+    "stageDetailModal": {
+      "title": "工序明细信息 - STEP {{step}}",
+      "statusInspection": "检验检测状态",
+      "statusPass": "✅ 合格 (PASS) - 检验完毕",
+      "statusFail": "❌ 不良 (FAIL) - 拦截停滞",
+      "statusPending": "⏳ 待过站 (PENDING)",
+      "passTimestamp": "过站打卡时间",
+      "operator": "作业员 / 检测员",
+      "defaultOperator": "AutoLine 自动化集成系统",
+      "cycleTime": "加工节拍周期 (Cycle Time)",
+      "seconds": "{{count}} 秒",
+      "defectInfo": "不良缺陷详细诊断 (Defect Info)",
+      "errorCode": "缺陷错误代码 (Error Code):",
+      "defectLocation": "不良点坐标位置:",
+      "defaultLocation": "未标定具体坐标",
+      "errorDesc": "根本原因简述:",
+      "defaultErrorDesc": "检测项目超出标准工艺允许公差范围。",
+      "productLinkTitle": "在制品关联属性",
+      "serialNumber": "序列号 (SN):",
+      "carrierJig": "载具治具 (Carrier):",
+      "line": "线体代码:",
+      "btnClose": "关闭"
+    },
+    "toast": {
+      "searchEmpty": "请输入或扫描产品 SN、载具或关键零件条码进行检索！",
+      "searchFound": "已成功检索到物料工艺路线: {{sn}}",
+      "searchSimulated": "当前正展示该条码的工艺路线: {{query}}",
+      "undoNoSteps": "尚无已完成工步，无法执行回退撤销！",
+      "undoSuccess": "成功回退撤销 Step {{step}} 步骤！",
+      "changeCarrierInvalid": "请输入合规有效的新载具治具编号！",
+      "changeCarrierSuccess": "已成功更换载具托盘至 Jig: {{jig}}！",
+      "clearUndoEmpty": "当前无可清除的 Undo 回退记录！",
+      "clearUndoSuccess": "已成功清除 {{count}} 条 Undo 历史记录并消除干预留痕！",
+      "resetCarrierSuccess": "已成功复位载具治具至初始默认状态！"
+    }
   },
   "control": {
     "headerTitle": "自动化产线控制台 (AUTOMATION LINE CONTROL)",

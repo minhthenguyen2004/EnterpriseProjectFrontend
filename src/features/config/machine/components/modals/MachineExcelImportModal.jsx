@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import useTheme from '../../../../../hooks/useTheme';
 
@@ -7,6 +8,7 @@ export default function MachineExcelImportModal({
   onClose,
   onBulkImport
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -137,7 +139,7 @@ export default function MachineExcelImportModal({
             if (dataRows.length > 0) {
               setPreviewData(dataRows);
               setIsParsing(false);
-              toast.success(`Đã đọc ${dataRows.length} bản ghi từ file`);
+              toast.success(t('modals.import.toastParsed', { count: dataRows.length }));
               return;
             }
           }
@@ -149,7 +151,7 @@ export default function MachineExcelImportModal({
       // Default sample preview
       setPreviewData(sampleImportRows);
       setIsParsing(false);
-      toast.success('Đã tải trước 3 cấu hình mẫu hợp lệ');
+      toast.success(t('modals.import.toastSampleLoaded'));
     };
 
     reader.readAsText(file);
@@ -210,17 +212,17 @@ export default function MachineExcelImportModal({
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
-    toast.success('Đã tải file mẫu cấu hình máy chuẩn');
+    toast.success(t('modals.import.toastTemplateDownloaded'));
   };
 
   const handleProceedImport = () => {
     if (previewData.length === 0) {
-      toast.error('Vui lòng chọn hoặc kéo thả file Excel trước');
+      toast.error(t('modals.import.toastNoFile'));
       return;
     }
     const validItems = previewData.filter(item => item.isValid);
     if (validItems.length === 0) {
-      toast.error('Không có bản ghi hợp lệ nào để import');
+      toast.error(t('modals.import.toastNoValid'));
       return;
     }
     onBulkImport(validItems);
@@ -242,13 +244,13 @@ export default function MachineExcelImportModal({
         }`}>
           <div>
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 mb-0.5">
-              <span>BATCH DATA MANAGEMENT</span>
+              <span>{t('modals.import.tagCategory')}</span>
               <span>•</span>
               <span className={isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}>
-                EXCEL IMPORT
+                {t('modals.import.tagMethod')}
               </span>
             </div>
-            <h2 className="text-xl font-black tracking-tight">NHẬP CẤU HÌNH MÁY TỪ FILE EXCEL / CSV</h2>
+            <h2 className="text-xl font-black tracking-tight">{t('modals.import.title')}</h2>
           </div>
 
           <button
@@ -267,7 +269,7 @@ export default function MachineExcelImportModal({
           {/* Action Row: Template & File Input */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <p className="text-xs text-slate-500 dark:text-zinc-400">
-              Nhập hàng loạt máy móc từ bảng tính. Tải file mẫu bên phải để xem cấu trúc 12 cột chuẩn.
+              {t('modals.import.desc')}
             </p>
 
             <button
@@ -282,7 +284,7 @@ export default function MachineExcelImportModal({
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              <span>Tải file mẫu Excel (.csv)</span>
+              <span>{t('modals.import.btnDownloadTemplate')}</span>
             </button>
           </div>
 
@@ -322,13 +324,13 @@ export default function MachineExcelImportModal({
 
               <div className="text-sm font-bold">
                 {fileName ? (
-                  <span className="text-emerald-500">Đã chọn: {fileName}</span>
+                  <span className="text-emerald-500">{t('modals.import.fileSelected', { name: fileName })}</span>
                 ) : (
-                  <span>Kéo thả file Excel hoặc nhấp để tải lên</span>
+                  <span>{t('modals.import.dragDropPrompt')}</span>
                 )}
               </div>
               <p className="text-xs text-slate-400 dark:text-zinc-500">
-                Hỗ trợ định dạng .xlsx, .xls, .csv dung lượng tối đa 10MB
+                {t('modals.import.supportedFormats')}
               </p>
             </div>
           </div>
@@ -341,13 +343,13 @@ export default function MachineExcelImportModal({
                 onClick={() => {
                   setFileName('sample_machine_configs.xlsx');
                   setPreviewData(sampleImportRows);
-                  toast.success('Đã nạp 3 bản ghi mẫu thử nghiệm');
+                  toast.success(t('modals.import.toastSampleLoaded'));
                 }}
                 className={`text-xs font-bold underline cursor-pointer ${
                   isFoxconn ? 'text-blue-600' : 'text-[#76B900]'
                 }`}
               >
-                Nhấp vào đây để thử nghiệm nhanh với dữ liệu mẫu
+                {t('modals.import.btnQuickDemo')}
               </button>
             </div>
           )}
@@ -357,10 +359,10 @@ export default function MachineExcelImportModal({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                  Xem trước dữ liệu ({previewData.length} bản ghi)
+                  {t('modals.import.previewTitle', { count: previewData.length })}
                 </span>
                 <span className="text-[11px] text-emerald-500 font-bold">
-                  ✓ Tất cả trường dữ liệu bắt buộc hợp lệ
+                  {t('modals.import.allValid')}
                 </span>
               </div>
 
@@ -372,13 +374,13 @@ export default function MachineExcelImportModal({
                     isFoxconn ? 'bg-slate-100 text-slate-700' : 'bg-zinc-950 text-zinc-300'
                   }`}>
                     <tr>
-                      <th className="px-3 py-2">Khách hàng</th>
-                      <th className="px-3 py-2">Nhà máy</th>
-                      <th className="px-3 py-2">Tên Chuyền</th>
-                      <th className="px-3 py-2">Tên Máy</th>
-                      <th className="px-3 py-2">IP Address</th>
-                      <th className="px-3 py-2">Host Name</th>
-                      <th className="px-3 py-2">Target UPH</th>
+                      <th className="px-3 py-2">{t('modals.import.colCustomer')}</th>
+                      <th className="px-3 py-2">{t('modals.import.colFactory')}</th>
+                      <th className="px-3 py-2">{t('modals.import.colLine')}</th>
+                      <th className="px-3 py-2">{t('modals.import.colMachine')}</th>
+                      <th className="px-3 py-2">{t('modals.import.colIp')}</th>
+                      <th className="px-3 py-2">{t('modals.import.colHost')}</th>
+                      <th className="px-3 py-2">{t('modals.import.colTargetUph')}</th>
                     </tr>
                   </thead>
                   <tbody className={`divide-y ${isFoxconn ? 'divide-slate-200' : 'divide-zinc-800'}`}>
@@ -411,7 +413,7 @@ export default function MachineExcelImportModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('modals.import.btnClose')}
           </button>
 
           <button
@@ -424,7 +426,7 @@ export default function MachineExcelImportModal({
                 : 'bg-[#76B900] hover:bg-[#86d400] text-black shadow-[#76B900]/25'
             }`}
           >
-            Tiến Hành Import ({previewData.length} Bản Ghi)
+            {t('modals.import.btnProceed', { count: previewData.length })}
           </button>
         </div>
       </div>

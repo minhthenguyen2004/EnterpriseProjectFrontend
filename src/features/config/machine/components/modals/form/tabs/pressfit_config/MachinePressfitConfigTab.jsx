@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import NewPressfitPositionConfigCard from './NewPressfitPositionConfigCard';
 import PressfitPositionsTable from './PressfitPositionsTable';
 import PressfitValidationExplanation from './PressfitValidationExplanation';
@@ -13,6 +14,8 @@ export default function MachinePressfitConfigTab({
   onChange,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
+
   // Lấy danh sách cấu hình ép lực nhấn từ formData hoặc fallback mặc định
   const pressfitConfigs = Array.isArray(formData.pressfitConfigs) && formData.pressfitConfigs.length > 0
     ? formData.pressfitConfigs
@@ -77,14 +80,14 @@ export default function MachinePressfitConfigTab({
     const trimmedPosition = (pressfitForm.position || '').trim().toUpperCase();
 
     if (!trimmedPosition) {
-      errors.position = 'Vị trí ép (Position) không được để trống';
+      errors.position = t('modals.form.pressfitConfig.errPosRequired');
     } else {
       // Kiểm tra trùng lặp mã vị trí trong danh sách
       const isDuplicate = pressfitConfigs.some(
         (item) => item.id !== editingId && (item.position || '').toUpperCase() === trimmedPosition
       );
       if (isDuplicate) {
-        errors.position = `Vị trí ép "${trimmedPosition}" đã tồn tại trong danh sách`;
+        errors.position = t('modals.form.pressfitConfig.errPosDuplicate', { pos: trimmedPosition });
       }
     }
 
@@ -93,10 +96,10 @@ export default function MachinePressfitConfigTab({
     params.forEach((param) => {
       const data = pressfitForm[param] || {};
       if (data.standard === '' || isNaN(Number(data.standard))) {
-        errors[`${param}_standard`] = 'Nhập số hợp lệ';
+        errors[`${param}_standard`] = t('modals.form.pressfitConfig.errStandardRequired');
       }
       if (data.limit === '' || isNaN(Number(data.limit)) || Number(data.limit) < 0) {
-        errors[`${param}_limit`] = 'Nhập số >= 0';
+        errors[`${param}_limit`] = t('modals.form.pressfitConfig.errLimitRequired');
       }
     });
 
@@ -135,7 +138,7 @@ export default function MachinePressfitConfigTab({
       updatedList = pressfitConfigs.map((item) =>
         item.id === editingId ? { ...item, ...formattedItem } : item
       );
-      showToast(`Đã cập nhật vị trí ép "${formattedItem.position}" thành công!`);
+      showToast(t('modals.form.pressfitConfig.toastUpdate', { pos: formattedItem.position }));
     } else {
       // Thêm mới
       const newItem = {
@@ -143,7 +146,7 @@ export default function MachinePressfitConfigTab({
         ...formattedItem
       };
       updatedList = [...pressfitConfigs, newItem];
-      showToast(`Đã thêm vị trí ép "${formattedItem.position}" vào danh sách!`);
+      showToast(t('modals.form.pressfitConfig.toastAdd', { pos: formattedItem.position }));
     }
 
     if (onChange) {
@@ -181,7 +184,7 @@ export default function MachinePressfitConfigTab({
 
   // Xóa vị trí ép khỏi danh sách
   const handleDelete = (item) => {
-    if (window.confirm(`Bạn có chắc chắn muốn xóa cấu hình vị trí ép "${item.position}" không?`)) {
+    if (window.confirm(t('modals.form.pressfitConfig.confirmDelete', { pos: item.position }))) {
       const updatedList = pressfitConfigs.filter((s) => s.id !== item.id);
       if (onChange) {
         onChange('pressfitConfigs', updatedList);
@@ -189,7 +192,7 @@ export default function MachinePressfitConfigTab({
       if (editingId === item.id) {
         handleCancel();
       }
-      showToast(`Đã xóa vị trí ép "${item.position}"!`, 'info');
+      showToast(t('modals.form.pressfitConfig.toastDelete', { pos: item.position }), 'info');
     }
   };
 

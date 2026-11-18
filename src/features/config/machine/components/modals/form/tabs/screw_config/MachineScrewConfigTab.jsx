@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import NewScrewPositionConfigCard from './NewScrewPositionConfigCard';
 import ScrewPositionsTable from './ScrewPositionsTable';
 import ScrewValidationExplanation from './ScrewValidationExplanation';
@@ -13,6 +14,8 @@ export default function MachineScrewConfigTab({
   onChange,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
+
   // Lấy danh sách cấu hình vít từ formData hoặc fallback mặc định
   const screwConfigs = Array.isArray(formData.screwConfigs) && formData.screwConfigs.length > 0
     ? formData.screwConfigs
@@ -78,14 +81,14 @@ export default function MachineScrewConfigTab({
     const trimmedPosition = (screwForm.position || '').trim().toUpperCase();
 
     if (!trimmedPosition) {
-      errors.position = 'Vị trí ốc (Position) không được để trống';
+      errors.position = t('modals.form.screwConfig.errPosRequired');
     } else {
       // Kiểm tra trùng lặp mã vị trí trong danh sách
       const isDuplicate = screwConfigs.some(
         (item) => item.id !== editingId && (item.position || '').toUpperCase() === trimmedPosition
       );
       if (isDuplicate) {
-        errors.position = `Vị trí ốc "${trimmedPosition}" đã tồn tại trong danh sách`;
+        errors.position = t('modals.form.screwConfig.errPosDuplicate', { pos: trimmedPosition });
       }
     }
 
@@ -94,10 +97,10 @@ export default function MachineScrewConfigTab({
     params.forEach((param) => {
       const data = screwForm[param] || {};
       if (data.standard === '' || isNaN(Number(data.standard))) {
-        errors[`${param}_standard`] = 'Nhập số hợp lệ';
+        errors[`${param}_standard`] = t('modals.form.screwConfig.errStandardRequired');
       }
       if (data.limit === '' || isNaN(Number(data.limit)) || Number(data.limit) < 0) {
-        errors[`${param}_limit`] = 'Nhập số >= 0';
+        errors[`${param}_limit`] = t('modals.form.screwConfig.errLimitRequired');
       }
     });
 
@@ -141,7 +144,7 @@ export default function MachineScrewConfigTab({
       updatedList = screwConfigs.map((item) =>
         item.id === editingId ? { ...item, ...formattedItem } : item
       );
-      showToast(`Đã cập nhật vị trí ốc "${formattedItem.position}" thành công!`);
+      showToast(t('modals.form.screwConfig.toastUpdate', { pos: formattedItem.position }));
     } else {
       // Thêm mới
       const newItem = {
@@ -149,7 +152,7 @@ export default function MachineScrewConfigTab({
         ...formattedItem
       };
       updatedList = [...screwConfigs, newItem];
-      showToast(`Đã thêm vị trí ốc "${formattedItem.position}" vào danh sách!`);
+      showToast(t('modals.form.screwConfig.toastAdd', { pos: formattedItem.position }));
     }
 
     if (onChange) {
@@ -192,7 +195,7 @@ export default function MachineScrewConfigTab({
 
   // Xóa vị trí ốc khỏi danh sách
   const handleDelete = (item) => {
-    if (window.confirm(`Bạn có chắc chắn muốn xóa cấu hình vị trí ốc "${item.position}" không?`)) {
+    if (window.confirm(t('modals.form.screwConfig.confirmDelete', { pos: item.position }))) {
       const updatedList = screwConfigs.filter((s) => s.id !== item.id);
       if (onChange) {
         onChange('screwConfigs', updatedList);
@@ -200,7 +203,7 @@ export default function MachineScrewConfigTab({
       if (editingId === item.id) {
         handleCancel();
       }
-      showToast(`Đã xóa vị trí ốc "${item.position}"!`, 'info');
+      showToast(t('modals.form.screwConfig.toastDelete', { pos: item.position }), 'info');
     }
   };
 

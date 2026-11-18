@@ -60,7 +60,7 @@ export default function useMachineConfigData() {
     setActionFilter('all');
     setSortConfig({ field: 'id', direction: 'asc' });
     setCurrentPage(1);
-    toast.success('Đã đặt lại toàn bộ bộ lọc về mặc định');
+    toast.success(i18n.t('machine:toast.resetSuccess'));
   }, []);
 
   // Đếm số lượng bộ lọc đang kích hoạt
@@ -354,10 +354,10 @@ export default function useMachineConfigData() {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      toast.success(`Đã xuất ${sortedMachines.length} bản ghi ra file CSV`);
+      toast.success(i18n.t('machine:toast.exportSuccess', { count: sortedMachines.length }));
     } catch (err) {
       console.error('Export CSV error:', err);
-      toast.error('Lỗi khi xuất file CSV');
+      toast.error(i18n.t('machine:toast.exportError'));
     }
   }, [sortedMachines]);
 

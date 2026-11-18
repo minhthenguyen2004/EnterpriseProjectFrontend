@@ -81,7 +81,7 @@ export default function ApiRequestHistoryPage() {
             <span>{toast.message}</span>
           </div>
           <span className={`text-[10px] font-mono ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-            Tự động ẩn
+            {t('toast.autoHide')}
           </span>
         </div>
       )}

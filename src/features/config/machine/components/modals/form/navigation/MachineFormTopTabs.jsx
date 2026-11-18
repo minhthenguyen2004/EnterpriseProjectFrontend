@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { FORM_TABS } from '../constants/formModalConstants';
 
 export default function MachineFormTopTabs({
@@ -5,6 +6,8 @@ export default function MachineFormTopTabs({
   onTabChange,
   isFoxconn
 }) {
+  const { t } = useTranslation('machine');
+
   return (
     <div className={`border-b ${isFoxconn ? 'border-slate-200' : 'border-zinc-800'} pb-2 shrink-0`}>
       <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
@@ -27,7 +30,7 @@ export default function MachineFormTopTabs({
               }`}
             >
               <span className="text-sm">{tab.icon}</span>
-              <span>{tab.label}</span>
+              <span>{tab.labelKey ? t(tab.labelKey) : tab.label}</span>
               <span
                 className={`text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded-md ${
                   isActive

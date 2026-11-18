@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import renderTypeBadge from './RenderTypeBadge';
 
 export default function ValidationKeysTable({
@@ -9,8 +10,7 @@ export default function ValidationKeysTable({
   onDeleteClick,
   onToggleStatus
 }) {
-  // Render badge kiểu dữ liệu với màu đặc trưng
-
+  const { t } = useTranslation('machine');
 
   return (
     <div
@@ -32,7 +32,7 @@ export default function ValidationKeysTable({
               isFoxconn ? 'text-slate-800' : 'text-zinc-100'
             }`}
           >
-            Danh Sách Khóa Xác Thực (Validation Keys Table)
+            {t('modals.form.validationKeys.tableTitle')}
           </span>
           <span
             className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full font-black border ${
@@ -41,14 +41,14 @@ export default function ValidationKeysTable({
                 : 'bg-zinc-800 text-[#76B900] border-[#76B900]/40 shadow-[0_0_8px_rgba(118,185,0,0.2)]'
             }`}
           >
-            {validationKeys.length} keys
+            {t('modals.form.validationKeys.keysCount', { count: validationKeys.length })}
           </span>
         </div>
 
         <span
           className={`text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}
         >
-          Tự động lưu cùng cấu hình máy
+          {t('modals.form.validationKeys.autoSaveNote')}
         </span>
       </div>
 
@@ -63,16 +63,16 @@ export default function ValidationKeysTable({
                   : 'bg-zinc-950/95 text-zinc-300 border-zinc-800'
               }`}
             >
-              <th className="py-2.5 px-3">Step</th>
-              <th className="py-2.5 px-3">Key Name</th>
-              <th className="py-2.5 px-3">Display Name</th>
-              <th className="py-2.5 px-3">Type</th>
-              <th className="py-2.5 px-2.5 text-center">Required</th>
-              <th className="py-2.5 px-2.5 text-center">Bypass</th>
-              <th className="py-2.5 px-2.5 text-center">Verify</th>
-              <th className="py-2.5 px-2.5 text-center">SFC</th>
-              <th className="py-2.5 px-3 text-center">Status</th>
-              <th className="py-2.5 px-3 text-center">Action</th>
+              <th className="py-2.5 px-3">{t('modals.form.validationKeys.colStep')}</th>
+              <th className="py-2.5 px-3">{t('modals.form.validationKeys.colKeyName')}</th>
+              <th className="py-2.5 px-3">{t('modals.form.validationKeys.colDisplayName')}</th>
+              <th className="py-2.5 px-3">{t('modals.form.validationKeys.colType')}</th>
+              <th className="py-2.5 px-2.5 text-center">{t('modals.form.validationKeys.colRequired')}</th>
+              <th className="py-2.5 px-2.5 text-center">{t('modals.form.validationKeys.colBypass')}</th>
+              <th className="py-2.5 px-2.5 text-center">{t('modals.form.validationKeys.colVerify')}</th>
+              <th className="py-2.5 px-2.5 text-center">{t('modals.form.validationKeys.colSfc')}</th>
+              <th className="py-2.5 px-3 text-center">{t('modals.form.validationKeys.colStatus')}</th>
+              <th className="py-2.5 px-3 text-center">{t('modals.form.validationKeys.colAction')}</th>
             </tr>
           </thead>
           <tbody
@@ -86,11 +86,7 @@ export default function ValidationKeysTable({
                   colSpan="10"
                   className="py-8 text-center text-xs text-slate-400 dark:text-zinc-500 font-medium"
                 >
-                  Chưa có key config nào. Hãy nhập thông tin ở khung phía trên và nhấn{' '}
-                  <strong className={isFoxconn ? 'text-blue-600' : 'text-[#76B900]'}>
-                    Save
-                  </strong>{' '}
-                  để thêm vào bảng.
+                  {t('modals.form.validationKeys.emptyTable')}
                 </td>
               </tr>
             ) : (
@@ -191,7 +187,7 @@ export default function ValidationKeysTable({
                       <button
                         type="button"
                         onClick={() => onToggleStatus(item.id)}
-                        title="Bấm để bật/tắt trạng thái Active"
+                        title={t('modals.form.validationKeys.toggleActiveTooltip')}
                         className="cursor-pointer"
                       >
                         {item.isActive ? (
@@ -214,26 +210,26 @@ export default function ValidationKeysTable({
                         <button
                           type="button"
                           onClick={() => onEditClick(item)}
-                          title="Sửa key config này"
+                          title={t('modals.form.validationKeys.btnEdit')}
                           className={`p-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                             isFoxconn
                               ? 'text-amber-600 hover:bg-amber-100'
                               : 'text-amber-400 hover:bg-zinc-800'
                           }`}
                         >
-                          ✏️ Sửa
+                          {t('modals.form.validationKeys.btnEdit')}
                         </button>
                         <button
                           type="button"
                           onClick={() => onDeleteClick(item)}
-                          title="Xóa key config này"
+                          title={t('modals.form.validationKeys.btnDelete')}
                           className={`p-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                             isFoxconn
                               ? 'text-rose-600 hover:bg-rose-100'
                               : 'text-rose-400 hover:bg-zinc-800'
                           }`}
                         >
-                          🗑️ Xóa
+                          {t('modals.form.validationKeys.btnDelete')}
                         </button>
                       </div>
                     </td>

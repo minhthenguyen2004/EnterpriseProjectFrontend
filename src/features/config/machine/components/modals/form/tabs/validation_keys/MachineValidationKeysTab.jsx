@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import ValidationKeyInputCard from './ValidationKeyInputCard';
 import ValidationKeysTable from './ValidationKeysTable';
 import ValidationKeysExplanation from './ValidationKeysExplanation';
@@ -12,6 +13,7 @@ export default function MachineValidationKeysTab({
   onChange,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
   // Trích xuất mã Step ngắn gọn từ formData.step (vd: "ST01 - Solder Paste..." -> "ST01")
   const defaultStepCode = (formData.step || 'ST01').split(' - ')[0].trim() || 'ST01';
 
@@ -64,16 +66,16 @@ export default function MachineValidationKeysTab({
     const trimmedKeyName = keyForm.keyName?.trim().toUpperCase();
 
     if (!trimmedKeyName) {
-      errors.keyName = 'Key Name không được để trống';
+      errors.keyName = t('modals.form.validationKeys.errKeyRequired');
     } else if (!/^[A-Z0-9_]+$/.test(trimmedKeyName)) {
-      errors.keyName = 'Key Name chỉ gồm chữ hoa, số và dấu gạch dưới (_)';
+      errors.keyName = t('modals.form.validationKeys.errKeyInvalid');
     } else {
       // Kiểm tra trùng lặp
       const isDuplicate = validationKeys.some(
         item => item.id !== editingId && item.keyName.toUpperCase() === trimmedKeyName
       );
       if (isDuplicate) {
-        errors.keyName = `Key "${trimmedKeyName}" đã tồn tại trong danh sách`;
+        errors.keyName = t('modals.form.validationKeys.errKeyDuplicate', { name: trimmedKeyName });
       }
     }
 
@@ -99,7 +101,7 @@ export default function MachineValidationKeysTab({
       updatedKeys = validationKeys.map(item =>
         item.id === editingId ? { ...item, ...formattedKey } : item
       );
-      showToast(`Đã cập nhật key "${formattedKey.keyName}" thành công!`);
+      showToast(t('modals.form.validationKeys.toastUpdate', { name: formattedKey.keyName }));
     } else {
       // Thêm mới
       const newItem = {
@@ -107,7 +109,7 @@ export default function MachineValidationKeysTab({
         ...formattedKey
       };
       updatedKeys = [...validationKeys, newItem];
-      showToast(`Đã thêm key "${formattedKey.keyName}" vào danh sách!`);
+      showToast(t('modals.form.validationKeys.toastAdd', { name: formattedKey.keyName }));
     }
 
     if (onChange) {
@@ -135,7 +137,7 @@ export default function MachineValidationKeysTab({
 
   // Xóa key khỏi bảng
   const handleDeleteClick = (item) => {
-    if (window.confirm(`Bạn có chắc chắn muốn xóa key "${item.keyName}" không?`)) {
+    if (window.confirm(t('modals.form.validationKeys.confirmDelete', { name: item.keyName }))) {
       const updatedKeys = validationKeys.filter(k => k.id !== item.id);
       if (onChange) {
         onChange('validationKeys', updatedKeys);
@@ -143,7 +145,7 @@ export default function MachineValidationKeysTab({
       if (editingId === item.id) {
         handleCancel();
       }
-      showToast(`Đã xóa key "${item.keyName}"!`, 'info');
+      showToast(t('modals.form.validationKeys.toastDelete', { name: item.keyName }), 'info');
     }
   };
 

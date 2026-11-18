@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function BatchCarrierScannerTab({
@@ -7,6 +8,7 @@ export default function BatchCarrierScannerTab({
   queue,
   onRemoveItem
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -20,10 +22,10 @@ export default function BatchCarrierScannerTab({
     >
       <div className="pb-3 mb-4 border-b border-slate-200/70 dark:border-zinc-800/80">
         <h3 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-blue-600' : 'text-[#76B900]'} dark:text-zinc-100`}>
-          Mở khóa nhiều khay theo lô (Batch Mode)
+          {t('unlock.batch.title')}
         </h3>
         <p className="text-xs text-slate-500 dark:text-zinc-400">
-          Dán danh sách mã khay (mỗi mã trên một dòng hoặc cách nhau bởi dấu phẩy) để mở khóa đồng loạt
+          {t('unlock.batch.desc')}
         </p>
       </div>
 
@@ -31,13 +33,13 @@ export default function BatchCarrierScannerTab({
       <div className="space-y-2.5 mb-4">
         <div>
           <label className={`block text-xs font-bold mb-1.5 ${isFoxconn ? 'text-slate-700' : 'text-zinc-300'}`}>
-            Nhập danh sách mã máy ( phân cách bằng dấu phẩy hoặc json )
+            {t('unlock.batch.inputLabel')}
           </label>
           <textarea
             rows={4}
             value={batchInput}
             onChange={(e) => onChangeInput(e.target.value)}
-            placeholder="Ví dụ: CARRIER_001, CARRIER_002"
+            placeholder={t('unlock.batch.placeholder')}
             className={`w-full p-3.5 text-xs font-mono font-bold rounded-xl border transition-all outline-hidden resize-none ${
               isFoxconn
                 ? 'bg-slate-50/80 border-slate-300 text-slate-800 focus:ring-2 focus:ring-[#002766]/10'
@@ -46,10 +48,9 @@ export default function BatchCarrierScannerTab({
           />
         </div>
 
-
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <span className="text-[11px] text-slate-500 dark:text-zinc-400">
-            💡 Hỗ trợ: Dấu phẩy (,), xuống dòng (Enter), hoặc mảng JSON (ví dụ: <code className="font-mono font-semibold">["CARRIER_001", "CARRIER_002"]</code>).
+            {t('unlock.batch.tipText')}
           </span>
           <button
             type="button"
@@ -63,17 +64,16 @@ export default function BatchCarrierScannerTab({
                 : 'opacity-40 cursor-not-allowed bg-slate-200 dark:bg-zinc-800 text-slate-400'
             }`}
           >
-            <span>+ Thêm vào hàng đợi</span>
+            <span>{t('unlock.batch.addBtn')}</span>
           </button>
         </div>
       </div>
-
 
       {/* Queue List Table */}
       <div>
         <div className="flex items-center justify-between mb-2">
           <span className={`text-xs font-bold ${isFoxconn ? 'text-slate-700' : 'text-zinc-300'}`}>
-            Hàng đợi khay chuẩn bị mở khóa ({queue.length})
+            {t('unlock.batch.queueTitle', { count: queue.length })}
           </span>
         </div>
 
@@ -86,11 +86,11 @@ export default function BatchCarrierScannerTab({
                 }`}
               >
                 <tr>
-                  <th className="px-3.5 py-2">STT</th>
-                  <th className="px-3.5 py-2">Mã khay</th>
-                  <th className="px-3.5 py-2">Chuyền</th>
-                  <th className="px-3.5 py-2">Chu kỳ</th>
-                  <th className="px-3.5 py-2 text-right">Xóa</th>
+                  <th className="px-3.5 py-2">{t('unlock.batch.colIndex')}</th>
+                  <th className="px-3.5 py-2">{t('unlock.batch.colCarrierCode')}</th>
+                  <th className="px-3.5 py-2">{t('unlock.batch.colLine')}</th>
+                  <th className="px-3.5 py-2">{t('unlock.batch.colCycles')}</th>
+                  <th className="px-3.5 py-2 text-right">{t('unlock.batch.colDelete')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-zinc-800">
@@ -112,7 +112,7 @@ export default function BatchCarrierScannerTab({
                         type="button"
                         onClick={() => onRemoveItem(item.carrierCode)}
                         className="p-1 rounded-md text-red-500 hover:bg-red-50 dark:hover:bg-red-950/40 cursor-pointer"
-                        title="Bỏ khay này"
+                        title={t('unlock.batch.removeTooltip')}
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
@@ -131,11 +131,10 @@ export default function BatchCarrierScannerTab({
           </div>
         ) : (
           <div className="py-6 text-center text-xs text-slate-400 dark:text-zinc-500 border border-dashed border-slate-200 dark:border-zinc-800 rounded-xl">
-            Chưa có khay nào trong hàng đợi. Hãy dán mã vào ô trên để thêm vào.
+            {t('unlock.batch.emptyQueue')}
           </div>
         )}
       </div>
     </div>
   );
 }
-

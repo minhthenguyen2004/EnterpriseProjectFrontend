@@ -1,4 +1,5 @@
-import { useId } from 'react';;
+import { useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import TextInput from './TextInput';
 import TickInput from './TickInput';
 
@@ -12,6 +13,7 @@ export default function ValidationKeyInputCard({
   onCancel,
   onSave
 }) {
+  const { t } = useTranslation('machine');
   const formUid = useId();
 
   return (
@@ -30,11 +32,11 @@ export default function ValidationKeyInputCard({
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            {editingId ? 'Chỉnh Sửa Key Config' : 'Thêm Key Config Mới (Validation Key)'}
+            {editingId ? t('modals.form.validationKeys.cardTitleEdit') : t('modals.form.validationKeys.cardTitleAdd')}
           </span>
           {editingId && (
             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-bold">
-              Đang Sửa
+              {t('modals.form.validationKeys.editingBadge')}
             </span>
           )}
         </div>
@@ -45,7 +47,7 @@ export default function ValidationKeyInputCard({
               : 'bg-zinc-900 text-zinc-400 border-zinc-800'
           }`}
         >
-          Step: {defaultStepCode}
+          {t('modals.form.validationKeys.stepTag', { step: defaultStepCode })}
         </span>
       </div>
 

@@ -73,6 +73,15 @@
     "nvidia": "NVIDIA AI Factory",
     "switchBrand": "Switch Theme"
   },
+  "pageHeader": {
+    "updated": "Updated:",
+    "autoRefreshOn": "Auto ⟳",
+    "autoRefreshOff": "Auto Off",
+    "selectRefreshInterval": "Select refresh interval",
+    "refreshTooltip": "Refresh data immediately",
+    "refresh": "Refresh",
+    "fullscreenTooltip": "Toggle Fullscreen"
+  },
   "toast": {
     "autoClose": "Auto dismiss"
   }

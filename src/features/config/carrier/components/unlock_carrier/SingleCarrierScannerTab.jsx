@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function SingleCarrierScannerTab({
@@ -9,6 +10,7 @@ export default function SingleCarrierScannerTab({
   scanError,
   onOpenCamModal
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -39,7 +41,7 @@ export default function SingleCarrierScannerTab({
             />
           </svg>
           <h3 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800 dark:text-zinc-100' : 'text-gray-200'}`}>
-            Quét mã khay (carrier code)
+            {t('unlock.single.scanTitle')}
           </h3>
         </div>
 
@@ -64,7 +66,7 @@ export default function SingleCarrierScannerTab({
               value={carrierCode}
               onChange={(e) => onChangeCode(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Nhập hoặc quét mã khay (ví dụ: CRR-A089, CRR-B012)..."
+              placeholder={t('unlock.single.scanPlaceholder')}
               className={`w-full pl-10 pr-9 py-3 text-sm font-mono font-bold rounded-xl border transition-all outline-hidden ${
                 isFoxconn
                   ? 'bg-slate-50/80 border-slate-300 text-slate-800 focus:ring-2 focus:ring-[#002766]/10'
@@ -78,7 +80,7 @@ export default function SingleCarrierScannerTab({
                 type="button"
                 onClick={onClear}
                 className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:text-zinc-500 dark:hover:text-zinc-300 cursor-pointer"
-                title="Xóa mã"
+                title={t('unlock.single.clearTooltip')}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -96,7 +98,7 @@ export default function SingleCarrierScannerTab({
                 ? 'bg-blue-50 hover:bg-blue-100 text-[#002766] border-blue-200 hover:border-blue-300'
                 : 'bg-[#76B900]/15 hover:bg-[#76B900]/25 text-[#76B900] border-[#76B900]/40 hover:border-[#76B900]'
             }`}
-            title="Mở Camera quét mã khay"
+            title={t('unlock.single.cameraTooltip')}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -112,7 +114,7 @@ export default function SingleCarrierScannerTab({
                 d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            <span className="hidden sm:inline font-black">Camera</span>
+            <span className="hidden sm:inline font-black">{t('unlock.single.cameraBtn')}</span>
           </button>
         </div>
 
@@ -120,11 +122,11 @@ export default function SingleCarrierScannerTab({
         <div className="mt-2.5 flex items-center gap-2 text-xs text-slate-500 dark:text-zinc-400 font-medium">
           <div className="flex items-center gap-1 text-[11px] font-bold px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700">
             <span>↵</span>
-            <span>Enter</span>
+            <span>{t('unlock.single.keyEnter')}</span>
           </div>
-          <span>hoặc dùng</span>
-          <span className={`font-bold ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-200'}`}>Camera / Súng quét</span>
-          <span>để gửi tự động.</span>
+          <span>{t('unlock.single.scanTipPrefix')}</span>
+          <span className={`font-bold ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-200'}`}>{t('unlock.single.scanTipHighlight')}</span>
+          <span>{t('unlock.single.scanTipSuffix')}</span>
         </div>
 
         {/* Scan Error Display */}
@@ -155,7 +157,7 @@ export default function SingleCarrierScannerTab({
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
             <h4 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800 dark:text-zinc-100' : 'text-gray-200'}`}>
-              Thông tin khay đã quét (Live Preview)
+              {t('unlock.single.livePreviewTitle')}
             </h4>
           </div>
 
@@ -180,13 +182,13 @@ export default function SingleCarrierScannerTab({
                   </span>
                 </div>
                 <p className="text-xs text-slate-500 dark:text-zinc-400 mt-1">
-                  RFID: <span className="font-mono font-medium">{scannedCarrier.rfidTag || 'N/A'}</span>
+                  {t('unlock.single.rfidLabel')} <span className="font-mono font-medium">{scannedCarrier.rfidTag || 'N/A'}</span>
                 </p>
               </div>
 
               <div className="text-left sm:text-right">
                 <span className="text-[11px] text-slate-400 dark:text-zinc-500 block uppercase font-bold">
-                  Vị trí chuyền & Trạm
+                  {t('unlock.single.positionLabel')}
                 </span>
                 <span className="text-xs font-bold text-slate-800 dark:text-zinc-200">
                   {scannedCarrier.lineName} • {scannedCarrier.stationName || 'SMT'}
@@ -202,7 +204,7 @@ export default function SingleCarrierScannerTab({
               {/* Cycles bar */}
               <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40">
                 <div className="flex items-center justify-between text-xs mb-1.5 font-bold">
-                  <span className="text-slate-600 dark:text-zinc-400">Chu kỳ sử dụng:</span>
+                  <span className="text-slate-600 dark:text-zinc-400">{t('unlock.single.cyclesLabel')}</span>
                   <span className="font-mono text-red-500">
                     {scannedCarrier.currentCycles} / {scannedCarrier.maxCycles} (
                     {scannedCarrier.usagePercentage}%)
@@ -225,7 +227,7 @@ export default function SingleCarrierScannerTab({
               {/* Coplanarity */}
               <div className="p-3.5 rounded-xl border border-slate-200/80 dark:border-zinc-800 bg-white/50 dark:bg-zinc-900/40">
                 <div className="flex items-center justify-between text-xs font-bold">
-                  <span className="text-slate-600 dark:text-zinc-400">Dung sai độ phẳng:</span>
+                  <span className="text-slate-600 dark:text-zinc-400">{t('unlock.single.coplanarityLabel')}</span>
                   <span
                     className={`font-mono ${
                       (scannedCarrier.coplanarityDeviation || 0) > 0.08
@@ -237,15 +239,15 @@ export default function SingleCarrierScannerTab({
                   </span>
                 </div>
                 <span className="text-[10px] text-slate-400 dark:text-zinc-500 mt-1.5 block">
-                  Ngưỡng tiêu chuẩn cho phép: &le; 0.08 mm
+                  {t('unlock.single.coplanarityThreshold')}
                 </span>
               </div>
             </div>
 
             {/* Lock Reason Box */}
             <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs">
-              <span className="font-bold block mb-1">⚠️ Lý do khóa hiện tại:</span>
-              <p>{scannedCarrier.lockReason || 'Khay bị khóa bởi hệ thống kiểm soát chất lượng tự động.'}</p>
+              <span className="font-bold block mb-1">{t('unlock.single.lockReasonLabel')}</span>
+              <p>{scannedCarrier.lockReason || t('unlock.single.lockReasonFallback')}</p>
             </div>
           </div>
         ) : (
@@ -261,10 +263,10 @@ export default function SingleCarrierScannerTab({
               </svg>
             </div>
             <h5 className={`text-xs font-bold ${isFoxconn ? 'text-slate-700 dark:text-zinc-300' : 'text-gray-200'}`}>
-              Chưa có mã khay nào được quét
+              {t('unlock.single.emptyTitle')}
             </h5>
             <p className="text-[11px] text-slate-400 dark:text-zinc-500 mt-1 max-w-sm mx-auto">
-              Vui lòng nhập mã khay vào ô phía trên rồi nhấn Enter hoặc nhấn nút Camera để quét mã vạch tự động.
+              {t('unlock.single.emptyDesc')}
             </p>
           </div>
         )}
@@ -272,4 +274,3 @@ export default function SingleCarrierScannerTab({
     </div>
   );
 }
-

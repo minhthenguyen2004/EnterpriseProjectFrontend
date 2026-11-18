@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 export default function ProductionRoutingTable({
@@ -7,6 +8,7 @@ export default function ProductionRoutingTable({
   selectedStepNumber = 6,
   onSelectStep
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -36,10 +38,10 @@ export default function ProductionRoutingTable({
           </div>
           <div>
             <h3 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-slate-800' : 'text-white'}`}>
-              Lộ trình sản xuất
+              {t('operations.routing.title')}
             </h3>
             <p className={`text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-white'}`}>
-              Danh sách các bước công đoạn và lịch sử di chuyển qua trạm
+              {t('operations.routing.subtitle')}
             </p>
           </div>
         </div>
@@ -48,7 +50,7 @@ export default function ProductionRoutingTable({
         <div className="flex items-center gap-2.5 self-end sm:self-auto">
           <div className="text-right">
             <span className="text-[10px] uppercase font-bold text-slate-400 dark:text-zinc-500 block">
-              Tiến độ hoàn thành
+              {t('operations.routing.progressLabel')}
             </span>
             <div className="flex items-center gap-1.5 justify-end">
               <span
@@ -58,7 +60,11 @@ export default function ProductionRoutingTable({
                     : 'bg-[#76B900]/20 text-[#76B900] border-[#76B900]/40 shadow-[0_0_10px_rgba(118,185,0,0.2)]'
                 }`}
               >
-                {completedSteps}/{totalSteps} bước ({percentCompleted}%)
+                {t('operations.routing.progressBadge', {
+                  completed: completedSteps,
+                  total: totalSteps,
+                  percent: percentCompleted
+                })}
               </span>
             </div>
           </div>
@@ -76,9 +82,9 @@ export default function ProductionRoutingTable({
                   : 'bg-zinc-950/80 text-zinc-400 border-zinc-800'
               }`}
             >
-              <th className="py-3 px-4 w-20 text-center">Step</th>
-              <th className="py-3 px-4">Công đoạn (Station / Group Name & Ngày giờ)</th>
-              <th className="py-3 px-4 w-36 text-center">Trạng thái</th>
+              <th className="py-3 px-4 w-20 text-center">{t('operations.routing.colStep')}</th>
+              <th className="py-3 px-4">{t('operations.routing.colStation')}</th>
+              <th className="py-3 px-4 w-36 text-center">{t('operations.routing.colStatus')}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-zinc-800/60">
@@ -123,7 +129,7 @@ export default function ProductionRoutingTable({
                       </span>
                       {isSelected && (
                         <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-100 text-[#002766] dark:bg-[#76B900]/20 dark:text-[#76B900]">
-                          Đang chọn
+                          {t('operations.routing.selectedBadge')}
                         </span>
                       )}
                     </div>
@@ -135,7 +141,7 @@ export default function ProductionRoutingTable({
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span>
-                          {step.passTimestamp ? step.passTimestamp : 'Chưa ghi nhận thời gian'}
+                          {step.passTimestamp ? step.passTimestamp : t('operations.routing.noTimestamp')}
                         </span>
                       </div>
 
@@ -152,21 +158,21 @@ export default function ProductionRoutingTable({
                     {step.status === 'PASS' && (
                       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-black uppercase bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
                         <span>✅</span>
-                        <span>PASS</span>
+                        <span>{t('operations.routing.statusPass')}</span>
                       </span>
                     )}
 
                     {step.status === 'FAIL' && (
                       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-black uppercase bg-red-100 dark:bg-red-950/80 text-red-800 dark:text-red-300 border border-red-300 dark:border-red-700 animate-pulse">
                         <span>❌</span>
-                        <span>FAIL</span>
+                        <span>{t('operations.routing.statusFail')}</span>
                       </span>
                     )}
 
                     {step.status === 'PENDING' && (
                       <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[11px] font-bold uppercase bg-slate-100 dark:bg-zinc-800 text-slate-500 dark:text-zinc-400 border border-slate-200 dark:border-zinc-700">
                         <span>⏳</span>
-                        <span>CHƯA CHẠY</span>
+                        <span>{t('operations.routing.statusPending')}</span>
                       </span>
                     )}
                   </td>
@@ -179,4 +185,3 @@ export default function ProductionRoutingTable({
     </div>
   );
 }
-

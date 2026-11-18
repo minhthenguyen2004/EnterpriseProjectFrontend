@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import MachineConfigTab from './tabs/machine_config/MachineConfigTab';
 import MachineValidationKeysTab from './tabs/validation_keys/MachineValidationKeysTab';
 import MachineRoutingConfigsTab from './tabs/routing_configs/MachineRoutingConfigsTab';
@@ -17,6 +18,7 @@ export default function MachineFormContentSwitcher({
   onChange,
   isFoxconn
 }) {
+  const { t } = useTranslation('machine');
   const isMachineConfigTab = activeTab === 'machine-config';
   const isValidationKeysTab = activeTab === 'validation-keys';
   const isRoutingConfigsTab = activeTab === 'routing-configs';
@@ -88,22 +90,28 @@ export default function MachineFormContentSwitcher({
         <span className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
           {isMachineConfigTab
-            ? 'Machine Flags Configured'
+            ? t('modals.form.contentSwitcher.machineFlagsReady')
             : isValidationKeysTab
-            ? `Validation Keys: ${(formData.validationKeys || []).length} Keys Configured`
+            ? t('modals.form.contentSwitcher.validationKeysCount', { count: (formData.validationKeys || []).length })
             : isRoutingConfigsTab
-            ? `Routing Configs: ${(formData.routingConfigs || []).length} Twin Steps Configured`
+            ? t('modals.form.contentSwitcher.routingConfigsCount', { count: (formData.routingConfigs || []).length })
             : isUphConfigTab
-            ? `UPH Monitoring: ${formData.uphConfig?.enableUphMonitoring !== false ? 'Enabled' : 'Disabled'} | Target: ${formData.uphConfig?.targetUph ?? formData.targetUph ?? 120} p/h (${formData.uphConfig?.targetCycleTime ?? formData.targetCycleTime ?? 30}s)`
+            ? t('modals.form.contentSwitcher.uphMonitoring', {
+                status: formData.uphConfig?.enableUphMonitoring !== false
+                  ? t('modals.form.uphConfig.statusOn')
+                  : t('modals.form.uphConfig.statusOff'),
+                target: formData.uphConfig?.targetUph ?? formData.targetUph ?? 120,
+                cycleTime: formData.uphConfig?.targetCycleTime ?? formData.targetCycleTime ?? 30
+              })
             : isScrewConfigTab
-            ? `Screw Positions: ${(formData.screwConfigs || []).length} Positions Configured`
+            ? t('modals.form.contentSwitcher.screwPositionsCount', { count: (formData.screwConfigs || []).length })
             : isPressfitConfigTab
-            ? `Pressfit Positions: ${(formData.pressfitConfigs || []).length} Positions Configured`
+            ? t('modals.form.contentSwitcher.pressfitPositionsCount', { count: (formData.pressfitConfigs || []).length })
             : isHistoryRestoreTab
-            ? `Audit Logs: ${(formData.auditLogs || []).length} Logs Recorded`
-            : 'Layout 2/3 Workspace Ready'}
+            ? t('modals.form.contentSwitcher.auditLogsCount', { count: (formData.auditLogs || []).length })
+            : t('modals.form.contentSwitcher.workspaceReady')}
         </span>
-        <span className="font-mono">Tab ID: {activeTab}</span>
+        <span className="font-mono">{t('modals.form.contentSwitcher.tabId', { id: activeTab })}</span>
       </div>
     </div>
   );

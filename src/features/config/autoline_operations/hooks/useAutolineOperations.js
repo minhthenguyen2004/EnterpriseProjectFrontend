@@ -1,10 +1,13 @@
 import { useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   INITIAL_PRODUCT_OPERATION,
   MOCK_SEARCHABLE_ITEMS
 } from '../mock/autolineOperationsMockData';
 
 export default function useAutolineOperations() {
+  const { t } = useTranslation('autoline');
+
   // 1. Chế độ quét & Từ khóa tìm kiếm Top Bar
   const [scanMode, setScanMode] = useState('manual'); // 'manual' | 'camera' | 'image'
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,7 +47,7 @@ export default function useAutolineOperations() {
     (termToSearch) => {
       const query = (termToSearch !== undefined ? termToSearch : searchTerm).trim().toUpperCase();
       if (!query) {
-        showToast('Vui lòng nhập hoặc quét mã SN, Carrier, Keypart để tìm kiếm!', 'warning');
+        showToast(t('operations.toast.searchEmpty'), 'warning');
         return;
       }
 
@@ -65,7 +68,7 @@ export default function useAutolineOperations() {
           productCategory: match.productCategory,
           lineName: match.lineName
         }));
-        showToast(`Đã tìm thấy thông tin lộ trình cho: ${match.serialNumber}`, 'success');
+        showToast(t('operations.toast.searchFound', { sn: match.serialNumber }), 'success');
       } else {
         // Giả lập tìm thấy theo mã nhập
         setProductData((prev) => ({
@@ -73,10 +76,10 @@ export default function useAutolineOperations() {
           serialNumber: query.startsWith('SN-') ? query : `SN-${query}`,
           carrierCode: query.startsWith('CRR-') ? query : prev.carrierCode
         }));
-        showToast(`Đang hiển thị lộ trình sản xuất cho mã: ${query}`, 'info');
+        showToast(t('operations.toast.searchSimulated', { query }), 'info');
       }
     },
-    [searchTerm, showToast]
+    [searchTerm, showToast, t]
   );
 
   // Handler chọn bước trong bảng lộ trình
@@ -88,7 +91,7 @@ export default function useAutolineOperations() {
   const handleUndo = useCallback(() => {
     const currentCompleted = productData.completedSteps;
     if (currentCompleted <= 0) {
-      showToast('Không thể Undo vì chưa có bước nào hoàn thành!', 'warning');
+      showToast(t('operations.toast.undoNoSteps'), 'warning');
       return;
     }
 
@@ -123,14 +126,19 @@ export default function useAutolineOperations() {
     });
 
     setSelectedStepNumber(Math.max(1, currentCompleted - 1));
-    showToast(`Đã Undo hoàn tác bước Step 0${currentCompleted} thành công!`, 'success');
-  }, [productData.completedSteps, showToast]);
+    showToast(
+      t('operations.toast.undoSuccess', {
+        step: String(currentCompleted).padStart(2, '0')
+      }),
+      'success'
+    );
+  }, [productData.completedSteps, showToast, t]);
 
   // 7. Thao Tác Đặc Biệt: Đổi Carrier (Jig)
   const handleChangeCarrier = useCallback(
     (newCarrierCode) => {
       if (!newCarrierCode || !newCarrierCode.trim()) {
-        showToast('Vui lòng nhập mã Carrier/Jig mới hợp lệ!', 'error');
+        showToast(t('operations.toast.changeCarrierInvalid'), 'error');
         return;
       }
       const cleanCode = newCarrierCode.trim().toUpperCase();
@@ -139,21 +147,21 @@ export default function useAutolineOperations() {
         carrierCode: cleanCode
       }));
       setIsChangeCarrierModalOpen(false);
-      showToast(`Đã đổi khay mang hàng thành công sang Jig: ${cleanCode}!`, 'success');
+      showToast(t('operations.toast.changeCarrierSuccess', { jig: cleanCode }), 'success');
     },
-    [showToast]
+    [showToast, t]
   );
 
   // 8. Thao Tác Đặc Biệt: Xóa UNDO (Hủy vết hoàn tác / Redo)
   const handleClearUndo = useCallback(() => {
     if (undoStack.length === 0) {
-      showToast('Không có lịch sử Undo nào cần xóa!', 'info');
+      showToast(t('operations.toast.clearUndoEmpty'), 'info');
       return;
     }
     const count = undoStack.length;
     setUndoStack([]);
-    showToast(`Đã xóa ${count} bản ghi lịch sử Undo và làm sạch vết can thiệp!`, 'success');
-  }, [undoStack, showToast]);
+    showToast(t('operations.toast.clearUndoSuccess', { count }), 'success');
+  }, [undoStack, showToast, t]);
 
   // 9. Thao Tác Đặc Biệt: Reset Carrier (Jig)
   const handleResetCarrier = useCallback(() => {
@@ -161,8 +169,8 @@ export default function useAutolineOperations() {
       ...prev,
       carrierCode: 'CRR-DEFAULT (Jig Pallet A - Sẵn sàng)'
     }));
-    showToast(`Đã Reset Carrier/Jig về trạng thái ban đầu!`, 'success');
-  }, [showToast]);
+    showToast(t('operations.toast.resetCarrierSuccess'), 'success');
+  }, [showToast, t]);
 
   return {
     // Top Bar
@@ -199,4 +207,3 @@ export default function useAutolineOperations() {
     toast
   };
 }
-

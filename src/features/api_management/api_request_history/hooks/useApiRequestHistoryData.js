@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   MOCK_API_REQUEST_LOGS,
 } from '../constants/apiRequestHistoryConstants';
@@ -13,6 +14,8 @@ import {
  * - Quản lý Modal xem toàn văn JSON Request Body / Response Body
  */
 export default function useApiRequestHistoryData() {
+  const { t } = useTranslation('api');
+
   // Lấy thời điểm mặc định đầu ngày / ca làm việc
   const defaultDateTime = useMemo(() => {
     const now = new Date();
@@ -69,10 +72,10 @@ export default function useApiRequestHistoryData() {
     });
     setToast({
       type: 'info',
-      message: 'Đã làm sạch bộ lọc về mặc định ban đầu.',
+      message: t('toast.resetSuccess'),
     });
     setTimeout(() => setToast(null), 2500);
-  }, [defaultDateTime]);
+  }, [defaultDateTime, t]);
 
   // Thực thi truy vấn dữ liệu (Query Data)
   const handleExecuteQuery = useCallback(() => {
@@ -111,11 +114,11 @@ export default function useApiRequestHistoryData() {
 
       setToast({
         type: 'success',
-        message: `Truy vấn thành công! Tìm thấy ${limitedLogs.length} bản ghi nhật ký yêu cầu API.`,
+        message: t('toast.querySuccess', { count: limitedLogs.length }),
       });
       setTimeout(() => setToast(null), 3000);
     }, 350);
-  }, [filters]);
+  }, [filters, t]);
 
   // Thống kê nhanh dữ liệu đã query
   const statsSummary = useMemo(() => {
@@ -153,7 +156,7 @@ export default function useApiRequestHistoryData() {
     if (!logs.length) {
       setToast({
         type: 'error',
-        message: 'Không có dữ liệu nhật ký nào để xuất báo cáo.',
+        message: t('toast.exportNoData'),
       });
       setTimeout(() => setToast(null), 2500);
       return;
@@ -197,10 +200,10 @@ export default function useApiRequestHistoryData() {
 
     setToast({
       type: 'success',
-      message: 'Đã xuất file báo cáo nhật ký API thành công.',
+      message: t('toast.exportSuccess'),
     });
     setTimeout(() => setToast(null), 2500);
-  }, [logs]);
+  }, [logs, t]);
 
   return {
     filters,

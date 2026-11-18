@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import {
   AREAS,
@@ -27,6 +28,7 @@ export default function ApiRequestFilterBar({
   onExportCsv,
   totalRecords,
 }) {
+  const { t } = useTranslation('api');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -67,14 +69,14 @@ export default function ApiRequestFilterBar({
                 isFoxconn ? 'text-slate-800' : 'text-zinc-100'
               }`}
             >
-              Bộ Lọc Nhật Ký Yêu Cầu API (Filter Parameters)
+              {t('filter.title')}
             </h3>
             <p
               className={`text-[11px] font-semibold ${
                 isFoxconn ? 'text-slate-500' : 'text-zinc-400'
               }`}
             >
-              Lọc theo thời gian, phân khu, API Controller, phương thức hành động và trạm IP
+              {t('filter.subtitle')}
             </p>
           </div>
         </div>
@@ -89,10 +91,10 @@ export default function ApiRequestFilterBar({
                 ? 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300'
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
             }`}
-            title="Khôi phục các trường lọc về mặc định"
+            title={t('filter.btnResetTooltip')}
           >
             <span>🧹</span>
-            <span>Làm Sạch</span>
+            <span>{t('filter.btnReset')}</span>
           </button>
 
           {/* Nút Xuất Báo Cáo CSV (Nếu đã có dữ liệu) */}
@@ -105,12 +107,12 @@ export default function ApiRequestFilterBar({
                   ? 'bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200'
                   : 'bg-zinc-800 hover:bg-zinc-700 text-[#76B900] border-zinc-700'
               }`}
-              title="Xuất bảng dữ liệu hiện tại ra tệp CSV"
+              title={t('filter.btnExportTooltip')}
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              <span>Xuất CSV</span>
+              <span>{t('filter.btnExport')}</span>
             </button>
           )}
         </div>
@@ -124,9 +126,9 @@ export default function ApiRequestFilterBar({
             className={`block font-bold truncate ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
-            title="Date & Time"
+            title={t('filter.dateTimeTitle')}
           >
-            📅 Date & Time
+            {t('filter.dateTime')}
           </label>
           <input
             type="datetime-local"
@@ -146,9 +148,9 @@ export default function ApiRequestFilterBar({
             className={`block font-bold truncate ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
-            title="Area"
+            title={t('filter.areaTitle')}
           >
-            🏭 Area
+            {t('filter.area')}
           </label>
           <select
             value={filters.area}
@@ -165,7 +167,7 @@ export default function ApiRequestFilterBar({
                 value={a.id}
                 className={isFoxconn ? 'bg-white text-slate-800' : 'bg-zinc-900 text-zinc-100'}
               >
-                {a.name}
+                {a.nameKey ? t(a.nameKey) : a.name}
               </option>
             ))}
           </select>
@@ -177,9 +179,9 @@ export default function ApiRequestFilterBar({
             className={`block font-bold truncate ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
-            title="Controller"
+            title={t('filter.controllerTitle')}
           >
-            🎮 Controller
+            {t('filter.controller')}
           </label>
           <select
             value={filters.controller}
@@ -196,7 +198,7 @@ export default function ApiRequestFilterBar({
                 value={c.id}
                 className={isFoxconn ? 'bg-white text-slate-800' : 'bg-zinc-900 text-zinc-100'}
               >
-                {c.name}
+                {c.nameKey ? t(c.nameKey) : c.name}
               </option>
             ))}
           </select>
@@ -208,9 +210,9 @@ export default function ApiRequestFilterBar({
             className={`block font-bold truncate ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
-            title="Action"
+            title={t('filter.actionTitle')}
           >
-            ⚡ Action
+            {t('filter.action')}
           </label>
           <select
             value={filters.action}
@@ -227,7 +229,7 @@ export default function ApiRequestFilterBar({
                 value={act.id}
                 className={isFoxconn ? 'bg-white text-slate-800' : 'bg-zinc-900 text-zinc-100'}
               >
-                {act.name}
+                {act.nameKey ? t(act.nameKey) : act.name}
               </option>
             ))}
           </select>
@@ -239,9 +241,9 @@ export default function ApiRequestFilterBar({
             className={`block font-bold truncate ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
-            title="Client IP"
+            title={t('filter.clientIpTitle')}
           >
-            🖥️ Client IP
+            {t('filter.clientIp')}
           </label>
           <select
             value={filters.clientIp}
@@ -258,7 +260,7 @@ export default function ApiRequestFilterBar({
                 value={ip.id}
                 className={isFoxconn ? 'bg-white text-slate-800' : 'bg-zinc-900 text-zinc-100'}
               >
-                {ip.name}
+                {ip.nameKey ? t(ip.nameKey) : ip.name}
               </option>
             ))}
           </select>
@@ -270,9 +272,9 @@ export default function ApiRequestFilterBar({
             className={`block font-bold truncate ${
               isFoxconn ? 'text-slate-700' : 'text-zinc-200'
             }`}
-            title="Select Top"
+            title={t('filter.selectTopTitle')}
           >
-            🔝 Select Top
+            {t('filter.selectTop')}
           </label>
           <select
             value={filters.topLimit}
@@ -289,7 +291,7 @@ export default function ApiRequestFilterBar({
                 value={opt.value}
                 className={isFoxconn ? 'bg-white text-slate-800' : 'bg-zinc-900 text-zinc-100'}
               >
-                {opt.label}
+                {opt.labelKey ? t(opt.labelKey, { count: opt.count }) : opt.label}
               </option>
             ))}
           </select>
@@ -316,7 +318,7 @@ export default function ApiRequestFilterBar({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                 </svg>
-                <span>Querying...</span>
+                <span>{t('filter.btnQuerying')}</span>
               </>
             ) : (
               <>
@@ -328,7 +330,7 @@ export default function ApiRequestFilterBar({
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                   />
                 </svg>
-                <span>Query Data</span>
+                <span>{t('filter.btnQuery')}</span>
               </>
             )}
           </button>

@@ -35,8 +35,8 @@ export default function ModelTopLimitSelect({
           onChange={(e) => handleModelChange?.(e.target.value)}
           className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
             isFoxconn
-              ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-              : 'bg-zinc-950/70 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+              ? 'bg-slate-50 border-slate-300 text-slate-800'
+              : 'bg-zinc-950/70 border-zinc-700 text-zinc-100'
           }`}
         >
           <option value="" className="bg-white dark:bg-zinc-900 text-slate-800 dark:text-zinc-100 font-bold">
@@ -70,8 +70,8 @@ export default function ModelTopLimitSelect({
           onChange={(e) => handleTopLimitChange?.(Number(e.target.value))}
           className={`w-full px-3 py-2.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
             isFoxconn
-              ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-blue-500'
-              : 'bg-zinc-950/70 border-zinc-700 text-zinc-100 focus:border-[#76B900]'
+              ? 'bg-slate-50 border-slate-300 text-slate-800'
+              : 'bg-zinc-950/70 border-zinc-700 text-zinc-100'
           }`}
         >
           {limitOptions.map((opt) => (

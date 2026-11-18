@@ -4,7 +4,121 @@
     "headerBadge": "SHOPFLOOR CONTROL",
     "headerDesc": "Vận hành dây chuyền tự động, tra cứu lộ trình sản xuất (Routing) và thực hiện các thao tác can thiệp đặc biệt.",
     "breadcrumbConfig": "CONFIG",
-    "breadcrumbOperations": "AUTOLINE OPERATIONS"
+    "breadcrumbOperations": "AUTOLINE OPERATIONS",
+    "topBar": {
+      "methodLabel": "Phương thức:",
+      "modes": {
+        "manual": "Nhập thủ công",
+        "camera": "Camera",
+        "image": "Quét từ ảnh"
+      },
+      "searchPlaceholder": "Quét hoặc nhập SN, Carrier, Keypart,..…",
+      "clearTooltip": "Xóa tìm kiếm",
+      "searchBtn": "Tìm kiếm"
+    },
+    "routing": {
+      "title": "Lộ trình sản xuất",
+      "subtitle": "Danh sách các bước công đoạn và lịch sử di chuyển qua trạm",
+      "progressLabel": "Tiến độ hoàn thành",
+      "progressBadge": "{{completed}}/{{total}} bước ({{percent}}%)",
+      "colStep": "Step",
+      "colStation": "Công đoạn (Station / Group Name & Ngày giờ)",
+      "colStatus": "Trạng thái",
+      "selectedBadge": "Đang chọn",
+      "noTimestamp": "Chưa ghi nhận thời gian",
+      "statusPass": "PASS",
+      "statusFail": "FAIL",
+      "statusPending": "CHƯA CHẠY"
+    },
+    "currentStage": {
+      "title": "Công đoạn",
+      "stepLabel": "Bước:",
+      "stepValue": "Step {{number}}",
+      "stageNameLabel": "Tên công đoạn:",
+      "statusLabel": "Trạng thái:",
+      "statusPass": "✅ PASS",
+      "statusFail": "❌ FAIL",
+      "statusPending": "⏳ CHƯA CHẠY",
+      "noStepSelected": "Chưa chọn bước nào"
+    },
+    "productInfo": {
+      "title": "Thông tin sản phẩm",
+      "codeType": "Loại mã:",
+      "defaultCodeType": "Serial Number (SN)",
+      "serialNumber": "Serial number:",
+      "carrier": "Carrier (Jig):",
+      "product": "Sản phẩm:",
+      "category": "Loại:",
+      "line": "Line:"
+    },
+    "stageActions": {
+      "title": "Thao tác công đoạn",
+      "btnDetail": "Chi tiết công đoạn (Xem lịch sử & Lỗi)"
+    },
+    "specialManipulation": {
+      "title": "Thao tác đặc biệt",
+      "undo": {
+        "label": "Undo (Hoàn tác bước)",
+        "sub": "Lùi 1 bước"
+      },
+      "changeCarrier": {
+        "label": "Đổi Carrier (Jig)",
+        "sub": "Gán Jig mới"
+      },
+      "clearUndo": {
+        "label": "Xóa UNDO",
+        "sub": "Xóa vết can thiệp"
+      },
+      "resetCarrier": {
+        "label": "Reset Carrier (Jig)",
+        "sub": "Về mặc định"
+      }
+    },
+    "changeCarrierModal": {
+      "title": "ĐỔI CARRIER (JIG)",
+      "subtitle": "Gán sản phẩm sang khay mang hàng mới",
+      "currentCarrierLabel": "Khay mang hàng hiện tại:",
+      "newCarrierLabel": "Mã Carrier (Jig) mới",
+      "placeholder": "Nhập hoặc quét mã khay mới (ví dụ: CRR-B012)...",
+      "suggestionsTitle": "Gợi ý khay đang sẵn sàng:",
+      "btnCancel": "Hủy",
+      "btnConfirm": "Xác nhận đổi Jig"
+    },
+    "stageDetailModal": {
+      "title": "CHI TIẾT CÔNG ĐOẠN - STEP {{step}}",
+      "statusInspection": "Trạng thái kiểm định",
+      "statusPass": "✅ ĐẠT (PASS) - Hoàn thành",
+      "statusFail": "❌ LỖI (FAIL) - Bị chặn kiểm tra",
+      "statusPending": "⏳ CHƯA CHẠY (PENDING)",
+      "passTimestamp": "Ngày giờ qua step",
+      "operator": "Nhân viên vận hành",
+      "defaultOperator": "Hệ thống tự động hóa AutoLine",
+      "cycleTime": "Thời gian gia công (Cycle Time)",
+      "seconds": "{{count}} giây",
+      "defectInfo": "Thông tin lỗi chi tiết (Defect Info)",
+      "errorCode": "Mã lỗi (Error Code):",
+      "defectLocation": "Vị trí sai hỏng:",
+      "defaultLocation": "Chưa xác định tọa độ",
+      "errorDesc": "Mô tả nguyên nhân:",
+      "defaultErrorDesc": "Phát hiện sự cố đo kiểm không đạt tiêu chuẩn kỹ thuật.",
+      "productLinkTitle": "Thông tin liên kết sản phẩm",
+      "serialNumber": "Serial Number:",
+      "carrierJig": "Carrier Jig:",
+      "line": "Line:",
+      "btnClose": "Đóng"
+    },
+    "toast": {
+      "searchEmpty": "Vui lòng nhập hoặc quét mã SN, Carrier, Keypart để tìm kiếm!",
+      "searchFound": "Đã tìm thấy thông tin lộ trình cho: {{sn}}",
+      "searchSimulated": "Đang hiển thị lộ trình sản xuất cho mã: {{query}}",
+      "undoNoSteps": "Không thể Undo vì chưa có bước nào hoàn thành!",
+      "undoSuccess": "Đã Undo hoàn tác bước Step {{step}} thành công!",
+      "changeCarrierInvalid": "Vui lòng nhập mã Carrier/Jig mới hợp lệ!",
+      "changeCarrierSuccess": "Đã đổi khay mang hàng thành công sang Jig: {{jig}}!",
+      "clearUndoEmpty": "Không có lịch sử Undo nào cần xóa!",
+      "clearUndoSuccess": "Đã xóa {{count}} bản ghi lịch sử Undo và làm sạch vết can thiệp!",
+      "resetCarrierSuccess": "Đã Reset Carrier/Jig về trạng thái ban đầu!"
+    }
   },
   "control": {
     "headerTitle": "ĐIỀU KHIỂN CHUYỀN TỰ ĐỘNG (AUTOMATION LINE CONTROL)",

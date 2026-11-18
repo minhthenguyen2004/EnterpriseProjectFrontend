@@ -1,6 +1,9 @@
-import { VALUE_TYPES } from "../../formModalConstants"
+import { useTranslation } from 'react-i18next';
+import { VALUE_TYPES } from '../../constants/formModalConstants';
 
 function TextInput({ formUid, formErrors, keyForm, onFieldChange, isFoxconn }) {
+  const { t } = useTranslation('machine');
+
   return (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
         {/* Key Name */}
@@ -11,14 +14,14 @@ function TextInput({ formUid, formErrors, keyForm, onFieldChange, isFoxconn }) {
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Key Name <span className="text-rose-500 font-black">*</span>
+            {t('modals.form.validationKeys.lblKeyName')} <span className="text-rose-500 font-black">*</span>
           </label>
           <input
             id={`${formUid}-keyName`}
             type="text"
             value={keyForm.keyName}
             onChange={(e) => onFieldChange('keyName', e.target.value.toUpperCase())}
-            placeholder="VD: BARCODE_MAIN"
+            placeholder={t('modals.form.validationKeys.placeholderKeyName')}
             className={`w-full px-3 py-2 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
               formErrors.keyName
                 ? 'border-rose-400 bg-rose-50 text-rose-800'
@@ -40,14 +43,14 @@ function TextInput({ formUid, formErrors, keyForm, onFieldChange, isFoxconn }) {
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Display Name
+            {t('modals.form.validationKeys.lblDisplayName')}
           </label>
           <input
             id={`${formUid}-displayName`}
             type="text"
             value={keyForm.displayName}
             onChange={(e) => onFieldChange('displayName', e.target.value)}
-            placeholder="VD: Mã vạch bo mạch chính"
+            placeholder={t('modals.form.validationKeys.placeholderDisplayName')}
             className={`w-full px-3 py-2 rounded-xl text-xs font-medium border outline-none transition-all ${
               isFoxconn
                 ? 'border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100/80'
@@ -64,7 +67,7 @@ function TextInput({ formUid, formErrors, keyForm, onFieldChange, isFoxconn }) {
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Value Type (Kiểu dữ liệu)
+            {t('modals.form.validationKeys.lblValueType')}
           </label>
           <div className="relative">
             <select
@@ -77,13 +80,13 @@ function TextInput({ formUid, formErrors, keyForm, onFieldChange, isFoxconn }) {
                   : 'border-zinc-800 bg-zinc-900/90 text-zinc-100 hover:bg-zinc-900'
               }`}
             >
-              {VALUE_TYPES.map((t) => (
+              {VALUE_TYPES.map((typeItem) => (
                 <option
-                  key={t.value}
-                  value={t.value}
+                  key={typeItem.value}
+                  value={typeItem.value}
                   className={isFoxconn ? 'bg-white text-slate-900' : 'bg-zinc-900 text-zinc-100'}
                 >
-                  {t.label}
+                  {typeItem.labelKey ? t(typeItem.labelKey) : typeItem.label}
                 </option>
               ))}
             </select>
@@ -93,7 +96,7 @@ function TextInput({ formUid, formErrors, keyForm, onFieldChange, isFoxconn }) {
           </div>
         </div>
       </div>
-  )
+  );
 }
 
-export default TextInput
+export default TextInput;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function ChangeCarrierModal({
@@ -7,6 +8,7 @@ export default function ChangeCarrierModal({
   currentCarrier,
   onConfirmChange
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -42,10 +44,10 @@ export default function ChangeCarrierModal({
             </div>
             <div>
               <h3 className="text-sm font-black text-slate-800 dark:text-zinc-100 uppercase">
-                ĐỔI CARRIER (JIG)
+                {t('operations.changeCarrierModal.title')}
               </h3>
               <p className="text-xs text-slate-500 dark:text-zinc-400">
-                Gán sản phẩm sang khay mang hàng mới
+                {t('operations.changeCarrierModal.subtitle')}
               </p>
             </div>
           </div>
@@ -65,7 +67,7 @@ export default function ChangeCarrierModal({
         <form onSubmit={handleSubmit} className="p-5 space-y-4">
           <div>
             <label className="block text-xs font-bold mb-1 text-slate-500 dark:text-zinc-400">
-              Khay mang hàng hiện tại:
+              {t('operations.changeCarrierModal.currentCarrierLabel')}
             </label>
             <div className="p-2.5 rounded-xl bg-slate-100 dark:bg-zinc-950 font-mono font-bold text-xs text-slate-800 dark:text-zinc-200 border border-slate-200 dark:border-zinc-800">
               {currentCarrier}
@@ -74,14 +76,14 @@ export default function ChangeCarrierModal({
 
           <div>
             <label className="block text-xs font-bold mb-1.5 text-slate-700 dark:text-zinc-300">
-              Mã Carrier (Jig) mới <span className="text-red-500">*</span>
+              {t('operations.changeCarrierModal.newCarrierLabel')} <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               autoFocus
               value={newCarrierCode}
               onChange={(e) => setNewCarrierCode(e.target.value)}
-              placeholder="Nhập hoặc quét mã khay mới (ví dụ: CRR-B012)..."
+              placeholder={t('operations.changeCarrierModal.placeholder')}
               className={`w-full px-3.5 py-2.5 text-xs font-mono font-bold rounded-xl border transition-all outline-hidden ${
                 isFoxconn
                   ? 'bg-slate-50 border-slate-300 text-slate-800 focus:bg-white focus:border-[#002766]'
@@ -93,7 +95,7 @@ export default function ChangeCarrierModal({
           {/* Quick suggestions */}
           <div>
             <span className="text-[10px] font-bold text-slate-400 dark:text-zinc-500 block mb-1.5 uppercase">
-              Gợi ý khay đang sẵn sàng:
+              {t('operations.changeCarrierModal.suggestionsTitle')}
             </span>
             <div className="flex flex-wrap gap-1.5">
               {sampleJigs.map((jig) => (
@@ -124,7 +126,7 @@ export default function ChangeCarrierModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
               }`}
             >
-              Hủy
+              {t('operations.changeCarrierModal.btnCancel')}
             </button>
             <button
               type="submit"
@@ -137,7 +139,7 @@ export default function ChangeCarrierModal({
                   : 'opacity-40 cursor-not-allowed bg-slate-200 dark:bg-zinc-800 text-slate-400'
               }`}
             >
-              Xác nhận đổi Jig
+              {t('operations.changeCarrierModal.btnConfirm')}
             </button>
           </div>
         </form>

@@ -3,6 +3,7 @@
 export const FORM_TABS = [
   {
     id: 'machine-config',
+    labelKey: 'modals.form.tabs.machineConfig',
     label: 'Machine Config',
     icon: '⚙️',
     badge: 'Core',
@@ -10,6 +11,7 @@ export const FORM_TABS = [
   },
   {
     id: 'validation-keys',
+    labelKey: 'modals.form.tabs.validationKeys',
     label: 'Validation Keys',
     icon: '🔑',
     badge: 'Rules',
@@ -17,6 +19,7 @@ export const FORM_TABS = [
   },
   {
     id: 'routing-configs',
+    labelKey: 'modals.form.tabs.routingConfigs',
     label: 'Routing Configs',
     icon: '🔀',
     badge: 'Routing',
@@ -24,6 +27,7 @@ export const FORM_TABS = [
   },
   {
     id: 'uph-config',
+    labelKey: 'modals.form.tabs.uphConfig',
     label: 'UPH Config',
     icon: '⏱️',
     badge: 'Target',
@@ -31,6 +35,7 @@ export const FORM_TABS = [
   },
   {
     id: 'screw-config',
+    labelKey: 'modals.form.tabs.screwConfig',
     label: 'Screw Config',
     icon: '🔩',
     badge: 'Torque',
@@ -38,6 +43,7 @@ export const FORM_TABS = [
   },
   {
     id: 'pressfit-config',
+    labelKey: 'modals.form.tabs.pressfitConfig',
     label: 'Pressfit Config',
     icon: '🗜️',
     badge: 'Force',
@@ -45,6 +51,7 @@ export const FORM_TABS = [
   },
   {
     id: 'history-restore',
+    labelKey: 'modals.form.tabs.historyRestore',
     label: 'History & Restore',
     icon: '📜',
     badge: 'Audit',
@@ -63,40 +70,50 @@ export const SUGGESTED_STEPS = ['ST01 - Solder Paste Printing (SPP)', 'ST02 - So
 
 // Danh sách kiểu dữ liệu cho Validation Keys
 export const VALUE_TYPES = [
-  { value: 'string', label: 'string (Chuỗi ký tự)' },
-  { value: 'double', label: 'double (Số thực / Dấu phẩy động)' },
-  { value: 'boolean', label: 'boolean (Giá trị True / False)' },
-  { value: 'integer', label: 'integer (Số nguyên)' }
+  { value: 'string', labelKey: 'modals.form.validationKeys.types.string', label: 'string (Chuỗi ký tự)' },
+  { value: 'double', labelKey: 'modals.form.validationKeys.types.double', label: 'double (Số thực / Dấu phẩy động)' },
+  { value: 'boolean', labelKey: 'modals.form.validationKeys.types.boolean', label: 'boolean (Giá trị True / False)' },
+  { value: 'integer', labelKey: 'modals.form.validationKeys.types.integer', label: 'integer (Số nguyên)' }
 ];
 
 // Cấu hình cờ vận hành trạm máy (Tab 1: Machine Config)
 export const MACHINE_FLAGS_CONFIG = [
   {
     key: 'isAutoLine',
+    labelKey: 'modals.form.flags.isAutoLine.label',
+    descKey: 'modals.form.flags.isAutoLine.desc',
     label: 'Is Auto Line (Máy tự động hóa)',
     description: 'Đánh dấu máy thuộc dây chuyền tự động. Kích hoạt liên kết Group, Step & quy trình 3 pha.',
     tag: 'Auto Line'
   },
   {
     key: 'isSfcPreCheck',
+    labelKey: 'modals.form.flags.isSfcPreCheck.label',
+    descKey: 'modals.form.flags.isSfcPreCheck.desc',
     label: 'Is SFC PreCheck (Kiểm tra PreCheck với SFC)',
     description: 'Kích hoạt giao tiếp kiểm tra PreCheck với hệ thống SFC (MES) trước khi sản phẩm vào trạm.',
     tag: 'SFC Check'
   },
   {
     key: 'isSfcStation',
+    labelKey: 'modals.form.flags.isSfcStation.label',
+    descKey: 'modals.form.flags.isSfcStation.desc',
     label: 'Is SFC Station (Trạm gửi kết quả SFC)',
     description: 'Đánh dấu trạm gửi kết quả (Insert Result) lên hệ thống SFC (MES). Gom SFC KeyParts (IsSFC=1).',
     tag: 'Insert Result'
   },
   {
     key: 'sendSfcOnPassOnly',
+    labelKey: 'modals.form.flags.sendSfcOnPassOnly.label',
+    descKey: 'modals.form.flags.sendSfcOnPassOnly.desc',
     label: 'Send SFC On Pass Only (Chỉ gửi SFC khi PASS)',
     description: 'Chỉ gửi dữ liệu sang SFC khi kết quả Client là PASS. Kết quả khác chỉ lưu nội bộ AutoLine.',
     tag: 'Pass Filter'
   },
   {
     key: 'allowFailPassThrough',
+    labelKey: 'modals.form.flags.allowFailPassThrough.label',
+    descKey: 'modals.form.flags.allowFailPassThrough.desc',
     label: 'Allow Fail Pass-Through (Cho phép Fail qua trạm)',
     description: 'Khi kết quả đo đạc FAIL thì sản phẩm vẫn được đi tiếp mà không làm tắc nghẽn chuyền.',
     tag: 'Pass-Through'
@@ -145,8 +162,8 @@ export const DEFAULT_MACHINE_VALIDATION_KEYS = [
 
 // Cấu hình chế độ định tuyến (Tab 3: Routing Configs)
 export const ROUTING_MODES = [
-  { value: 0, label: 'Mode 0: Standard', description: 'Tiêu chuẩn - Kiểm tra định tuyến trước' },
-  { value: 1, label: 'Mode 1: Upload Data First', description: 'Đẩy dữ liệu lên trước khi chuyển bước' }
+  { value: 0, labelKey: 'modals.form.routingConfigs.modes.standard', label: 'Mode 0: Standard', description: 'Tiêu chuẩn - Kiểm tra định tuyến trước' },
+  { value: 1, labelKey: 'modals.form.routingConfigs.modes.uploadFirst', label: 'Mode 1: Upload Data First', description: 'Đẩy dữ liệu lên trước khi chuyển bước' }
 ];
 
 export const DEFAULT_STEP_ROUTING = {

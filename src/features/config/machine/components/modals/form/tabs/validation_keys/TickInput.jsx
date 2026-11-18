@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editingId }) {
+  const { t } = useTranslation('machine');
+
   return (
     <div
         className={`mt-4 pt-3 border-t flex flex-wrap items-center justify-between gap-3 ${
@@ -24,7 +28,7 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
                   : isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Required
+              {t('modals.form.validationKeys.tickRequired')}
             </span>
           </label>
 
@@ -45,7 +49,7 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
                   : isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Bypass
+              {t('modals.form.validationKeys.tickBypass')}
             </span>
           </label>
 
@@ -66,7 +70,7 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
                   : isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Verify
+              {t('modals.form.validationKeys.tickVerify')}
             </span>
           </label>
 
@@ -87,7 +91,7 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
                   : isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              SFC KeyPart
+              {t('modals.form.validationKeys.tickSfc')}
             </span>
           </label>
 
@@ -108,7 +112,7 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
                   : isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
-              Active
+              {t('modals.form.validationKeys.tickActive')}
             </span>
           </label>
         </div>
@@ -124,7 +128,7 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Cancel
+            {t('modals.form.validationKeys.btnCancel')}
           </button>
           <button
             type="button"
@@ -136,11 +140,11 @@ function TickInput({ keyForm, onFieldChange, isFoxconn, onCancel, onSave, editin
             }`}
           >
             <span>{editingId ? '💾' : '➕'}</span>
-            <span>{editingId ? 'Update Key' : 'Save'}</span>
+            <span>{editingId ? t('modals.form.validationKeys.btnUpdate') : t('modals.form.validationKeys.btnSave')}</span>
           </button>
         </div>
       </div>
-  )
+  );
 }
 
-export default TickInput
+export default TickInput;

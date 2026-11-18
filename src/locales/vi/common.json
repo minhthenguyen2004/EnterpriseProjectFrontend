@@ -73,6 +73,15 @@
     "nvidia": "NVIDIA AI Factory",
     "switchBrand": "Đổi giao diện"
   },
+  "pageHeader": {
+    "updated": "Cập nhật:",
+    "autoRefreshOn": "Auto ⟳",
+    "autoRefreshOff": "Auto Tắt",
+    "selectRefreshInterval": "Chọn chu kỳ làm mới",
+    "refreshTooltip": "Làm mới dữ liệu ngay lập tức",
+    "refresh": "Làm Mới",
+    "fullscreenTooltip": "Bật/Tắt Toàn Màn Hình"
+  },
   "toast": {
     "autoClose": "Tự động ẩn"
   }

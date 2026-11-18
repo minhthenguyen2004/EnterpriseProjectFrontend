@@ -1,14 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Khung hiển thị định nghĩa & ý nghĩa cấu hình định tuyến (Routing Config):
  * Hỗ trợ thu gọn/mở rộng (Collapsible) để nhường không gian tối đa cho Bảng dữ liệu.
- * 1. Twin Step (Trạm song song/định tuyến)
- * 2. Allow Carrier Swap (Chuyển đổi khay)
- * 3. Picker (Phân giải Carrier từ MainKey/SN)
- * 4. Sfc Trigger Step (Trì hoãn định tuyến SFC)
  */
 export default function RoutingExplanation({ isFoxconn = false }) {
+  const { t } = useTranslation('machine');
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
@@ -32,7 +30,7 @@ export default function RoutingExplanation({ isFoxconn = false }) {
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            Ý nghĩa cấu hình định tuyến (Routing Config)
+            {t('modals.form.routingConfigs.expTitle')}
           </h5>
           <span
             className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
@@ -41,12 +39,12 @@ export default function RoutingExplanation({ isFoxconn = false }) {
                 : 'bg-zinc-900 text-zinc-400 border-zinc-800'
             }`}
           >
-            4 quy tắc cốt lõi
+            {t('modals.form.routingConfigs.expBadge')}
           </span>
         </div>
 
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400 dark:text-zinc-500">
-          <span>{isExpanded ? 'Thu gọn' : 'Xem chi tiết'}</span>
+          <span>{isExpanded ? t('modals.form.validationKeys.collapse') : t('modals.form.validationKeys.expand')}</span>
           <span className="text-[10px]">{isExpanded ? '▲' : '▼'}</span>
         </div>
       </button>
@@ -71,10 +69,10 @@ export default function RoutingExplanation({ isFoxconn = false }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    Twin Step (Trạm song song):
+                    Twin Step:
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Cấu hình các trạm chạy song song. Khi sản phẩm đi qua trạm 10 hoặc 11, hệ thống lưu vết chính xác trạm đã gia công.
+                    {t('modals.form.routingConfigs.expTwinStep')}
                   </span>
                 </div>
               </div>
@@ -96,10 +94,10 @@ export default function RoutingExplanation({ isFoxconn = false }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    Allow Carrier Swap (Đổi khay):
+                    Allow Carrier Swap:
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Cho phép trạm thực hiện chuyển đổi khay (swap Carrier) theo MainKey/SN khi linh kiện qua trạm.
+                    {t('modals.form.routingConfigs.expAllowSwap')}
                   </span>
                 </div>
               </div>
@@ -121,10 +119,10 @@ export default function RoutingExplanation({ isFoxconn = false }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    Picker (Robot gắp phân giải SN):
+                    Picker (Resolve SN):
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Trạm robot gắp tự động phân giải và ghi nhận khay từ MainKey của sản phẩm.
+                    {t('modals.form.routingConfigs.expPicker')}
                   </span>
                 </div>
               </div>
@@ -146,10 +144,10 @@ export default function RoutingExplanation({ isFoxconn = false }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    Sfc Trigger Step (Trì hoãn SFC):
+                    Sfc Trigger Step:
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Trì hoãn gửi SFC cho đến khi trạm Trigger đạt PASS/GOOD, cho phép hoàn tác/UNDO trước khi chốt dữ liệu.
+                    {t('modals.form.routingConfigs.expSfcTrigger')}
                   </span>
                 </div>
               </div>

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 /**
  * Bảng danh sách cấu hình vị trí ép lực nhấn (Pressfit Positions Master Table)
  * Gồm các trường dữ liệu:
@@ -18,6 +20,8 @@ export default function PressfitPositionsTable({
   onDelete,
   onToggleActive
 }) {
+  const { t } = useTranslation('machine');
+
   // Format hiển thị 1 thông số dạng: "1500.00 ± 50.00 N"
   const formatSpec = (paramObj, defaultUnit) => {
     if (!paramObj || paramObj.standard === undefined || paramObj.standard === '') {
@@ -58,7 +62,7 @@ export default function PressfitPositionsTable({
               isFoxconn ? 'text-slate-800' : 'text-zinc-100'
             }`}
           >
-            Bảng Cấu Hình Vị Trí Ép (Pressfit Positions Table)
+            {t('modals.form.pressfitConfig.tableTitle')}
           </h4>
           <span
             className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
@@ -67,7 +71,7 @@ export default function PressfitPositionsTable({
                 : 'bg-zinc-800 text-[#76B900] border-[#76B900]/40 shadow-[0_0_8px_rgba(118,185,0,0.2)]'
             }`}
           >
-            {pressfitConfigs.length} vị trí
+            {t('modals.form.pressfitConfig.positionsCount', { count: pressfitConfigs.length })}
           </span>
         </div>
 
@@ -77,7 +81,7 @@ export default function PressfitPositionsTable({
               isFoxconn ? 'text-slate-500' : 'text-zinc-400'
             }`}
           >
-            Áp dụng cho trạm ép tự động AutoLine (ST05)
+            {t('modals.form.pressfitConfig.tableSubtitle')}
           </span>
           <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
         </div>
@@ -94,13 +98,13 @@ export default function PressfitPositionsTable({
                   : 'bg-zinc-950/95 text-zinc-300 border-zinc-800'
               }`}
             >
-              <th className="py-2.5 px-3 min-w-27.5">Position</th>
-              <th className="py-2.5 px-3 min-w-32.5">Force (Lực)</th>
-              <th className="py-2.5 px-3 min-w-30">Time (Thời gian)</th>
-              <th className="py-2.5 px-3 min-w-30">Distance (Hành trình)</th>
-              <th className="py-2.5 px-2.5 text-center min-w-16.25">Req</th>
-              <th className="py-2.5 px-3 text-center min-w-22.5">Active</th>
-              <th className="py-2.5 px-3 text-center min-w-26.25">Action</th>
+              <th className="py-2.5 px-3 min-w-27.5">{t('modals.form.pressfitConfig.colPosition')}</th>
+              <th className="py-2.5 px-3 min-w-32.5">{t('modals.form.pressfitConfig.colForce')}</th>
+              <th className="py-2.5 px-3 min-w-30">{t('modals.form.pressfitConfig.colTime')}</th>
+              <th className="py-2.5 px-3 min-w-30">{t('modals.form.pressfitConfig.colDistance')}</th>
+              <th className="py-2.5 px-2.5 text-center min-w-16.25">{t('modals.form.pressfitConfig.colRequired')}</th>
+              <th className="py-2.5 px-3 text-center min-w-22.5">{t('modals.form.pressfitConfig.colStatus')}</th>
+              <th className="py-2.5 px-3 text-center min-w-26.25">{t('modals.form.pressfitConfig.colAction')}</th>
             </tr>
           </thead>
 
@@ -117,7 +121,7 @@ export default function PressfitPositionsTable({
                   <div className="flex flex-col items-center justify-center gap-1.5 opacity-60">
                     <span className="text-2xl">🗜️</span>
                     <span className="text-xs font-sans">
-                      Chưa có cấu hình vị trí ép nào. Nhập thông số ở khung phía trên để thêm mới!
+                      {t('modals.form.pressfitConfig.emptyTable')}
                     </span>
                   </div>
                 </td>
@@ -172,14 +176,14 @@ export default function PressfitPositionsTable({
                     <td className="py-2 px-2.5 text-center">
                       {item.isRequired ? (
                         <span
-                          title="Vị trí ép bắt buộc (Required)"
+                          title={t('modals.form.pressfitConfig.reqTooltip')}
                           className={`inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold border ${
                             isFoxconn
                               ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                               : 'bg-emerald-950/60 text-emerald-300 border-emerald-800'
                           }`}
                         >
-                          ✓ Yes
+                          ✓ {t('modals.form.pressfitConfig.yes')}
                         </span>
                       ) : (
                         <span className="text-slate-300 dark:text-zinc-600 font-bold">-</span>
@@ -193,8 +197,8 @@ export default function PressfitPositionsTable({
                         onClick={() => onToggleActive && onToggleActive(item.id)}
                         title={
                           item.isActive
-                            ? 'Đang kiểm soát dung sai. Bấm để chuyển sang Bypass.'
-                            : 'Đang Bypass bỏ qua dung sai. Bấm để kích hoạt Active.'
+                            ? t('modals.form.pressfitConfig.toggleTooltipActive')
+                            : t('modals.form.pressfitConfig.toggleTooltipBypass')
                         }
                         className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider border cursor-pointer transition-all hover:scale-105 ${
                           item.isActive
@@ -211,7 +215,7 @@ export default function PressfitPositionsTable({
                             item.isActive ? 'bg-emerald-500' : 'bg-amber-500'
                           }`}
                         />
-                        <span>{item.isActive ? 'Active' : 'Bypass'}</span>
+                        <span>{item.isActive ? t('modals.form.pressfitConfig.active') : t('modals.form.pressfitConfig.bypass')}</span>
                       </button>
                     </td>
 
@@ -222,7 +226,7 @@ export default function PressfitPositionsTable({
                         <button
                           type="button"
                           onClick={() => onEdit && onEdit(item)}
-                          title="Chỉnh sửa vị trí ép này"
+                          title={t('modals.form.pressfitConfig.editTooltip')}
                           className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer flex items-center gap-1 ${
                             isSelected
                               ? 'bg-amber-500 text-white border-amber-600 shadow-sm'
@@ -232,14 +236,14 @@ export default function PressfitPositionsTable({
                           }`}
                         >
                           <span>✏️</span>
-                          <span className="hidden sm:inline">Sửa</span>
+                          <span className="hidden sm:inline">{t('modals.form.pressfitConfig.btnEdit')}</span>
                         </button>
 
                         {/* Nút Xóa */}
                         <button
                           type="button"
                           onClick={() => onDelete && onDelete(item)}
-                          title="Xóa cấu hình vị trí ép này"
+                          title={t('modals.form.pressfitConfig.deleteTooltip')}
                           className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer flex items-center gap-1 ${
                             isFoxconn
                               ? 'bg-white hover:bg-rose-50 text-rose-700 border-rose-200'
@@ -247,7 +251,7 @@ export default function PressfitPositionsTable({
                           }`}
                         >
                           <span>🗑️</span>
-                          <span className="hidden sm:inline">Xóa</span>
+                          <span className="hidden sm:inline">{t('modals.form.pressfitConfig.btnDelete')}</span>
                         </button>
                       </div>
                     </td>

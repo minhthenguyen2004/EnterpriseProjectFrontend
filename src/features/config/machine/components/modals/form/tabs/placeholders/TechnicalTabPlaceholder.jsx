@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import { FORM_TABS } from '../../constants/formModalConstants';
 
 export default function TechnicalTabPlaceholder({
   activeTab,
   isFoxconn
 }) {
+  const { t } = useTranslation('machine');
   const currentTab = FORM_TABS.find(t => t.id === activeTab) || FORM_TABS[0];
+  const tabLabel = currentTab.labelKey ? t(currentTab.labelKey) : currentTab.label;
 
   return (
     <div
@@ -34,7 +37,7 @@ export default function TechnicalTabPlaceholder({
           isFoxconn ? 'text-slate-900' : 'text-zinc-100'
         }`}
       >
-        Chưa Có Dữ Liệu Cho Phân Hệ &ldquo;{currentTab.label}&rdquo;
+        {t('modals.form.tabPlaceholder.title', { tab: tabLabel })}
       </h5>
 
       <p
@@ -42,8 +45,7 @@ export default function TechnicalTabPlaceholder({
           isFoxconn ? 'text-slate-600' : 'text-zinc-400'
         }`}
       >
-        Phần cấu hình chuyên sâu này đang ở chế độ giữ chỗ kỹ thuật (Ready for Module Integration).
-        Các thông số định danh ở cột 1/3 bên trái sẽ được tự động liên kết khi tính năng này được kích hoạt.
+        {t('modals.form.tabPlaceholder.desc')}
       </p>
 
       {/* Skeleton Grid Preview */}

@@ -6,41 +6,41 @@
 
 // Danh mục Khu vực / Xưởng sản xuất (Area)
 export const AREAS = [
-  { id: 'ALL', name: '-- Tất Cả Khu Vực (All Areas) --' },
-  { id: 'SMT', name: 'SMT Area (Xưởng Dán Bề Mặt)' },
-  { id: 'ASSEMBLY', name: 'Board Assembly (Lắp Ráp Bo Mạch)' },
-  { id: 'TESTING', name: 'ICT / FCT Testing (Khu Kiểm Thử)' },
-  { id: 'PRESSFIT', name: 'Pressfit Area (Ép Cơ Khí)' },
-  { id: 'PACKAGING', name: 'Packaging & Warehouse (Đóng Gói)' },
+  { id: 'ALL', nameKey: 'filter.allAreas', name: '-- Tất Cả Khu Vực (All Areas) --' },
+  { id: 'SMT', nameKey: 'filter.areaSmt', name: 'SMT Area (Xưởng Dán Bề Mặt)' },
+  { id: 'ASSEMBLY', nameKey: 'filter.areaAssembly', name: 'Board Assembly (Lắp Ráp Bo Mạch)' },
+  { id: 'TESTING', nameKey: 'filter.areaTesting', name: 'ICT / FCT Testing (Khu Kiểm Thử)' },
+  { id: 'PRESSFIT', nameKey: 'filter.areaPressfit', name: 'Pressfit Area (Ép Cơ Khí)' },
+  { id: 'PACKAGING', nameKey: 'filter.areaPackaging', name: 'Packaging & Warehouse (Đóng Gói)' },
 ];
 
 // Danh mục API Controller
 export const CONTROLLERS = [
-  { id: 'ALL', name: '-- Tất Cả Controller (All Controllers) --' },
-  { id: 'SfcSwitchController', name: 'SfcSwitchController (Cổng SFC Switch)' },
-  { id: 'SfcAdapterController', name: 'SfcAdapterController (Cổng SFC Adapter)' },
-  { id: 'AlabelProcessController', name: 'AlabelProcessController (Điều Phối ALABEL)' },
-  { id: 'CarrierTrackingController', name: 'CarrierTrackingController (Khay RFID)' },
-  { id: 'MachineConfigController', name: 'MachineConfigController (Cấu Hình Máy)' },
-  { id: 'AuthenticationController', name: 'AuthenticationController (Xác Thực / SSO)' },
+  { id: 'ALL', nameKey: 'filter.allControllers', name: '-- Tất Cả Controller (All Controllers) --' },
+  { id: 'SfcSwitchController', nameKey: 'filter.ctrlSfcSwitch', name: 'SfcSwitchController (Cổng SFC Switch)' },
+  { id: 'SfcAdapterController', nameKey: 'filter.ctrlSfcAdapter', name: 'SfcAdapterController (Cổng SFC Adapter)' },
+  { id: 'AlabelProcessController', nameKey: 'filter.ctrlAlabel', name: 'AlabelProcessController (Điều Phối ALABEL)' },
+  { id: 'CarrierTrackingController', nameKey: 'filter.ctrlCarrier', name: 'CarrierTrackingController (Khay RFID)' },
+  { id: 'MachineConfigController', nameKey: 'filter.ctrlMachine', name: 'MachineConfigController (Cấu Hình Máy)' },
+  { id: 'AuthenticationController', nameKey: 'filter.ctrlAuth', name: 'AuthenticationController (Xác Thực / SSO)' },
 ];
 
 // Danh mục Phương thức hành động (Action)
 export const ACTIONS = [
-  { id: 'ALL', name: '-- Tất Cả Action (All Actions) --' },
-  { id: 'InsertSerialNumber', name: 'InsertSerialNumber (Nạp Mã SN)' },
-  { id: 'CheckSerialNumber', name: 'CheckSerialNumber (Kiểm Tra SN)' },
-  { id: 'CheckKeyParts', name: 'CheckKeyParts (Thẩm Tra Linh Kiện)' },
-  { id: 'InsertTestResult', name: 'InsertTestResult (Ghi Nhận Kết Quả)' },
-  { id: 'TransferCarrier', name: 'TransferCarrier (Điều Chuyển Khay)' },
-  { id: 'UndoRouterStep', name: 'UndoRouterStep (Hoàn Tác Bước Quy Trình)' },
-  { id: 'ClearUndoRework', name: 'ClearUndoRework (Giải Cờ Undo/Rework)' },
-  { id: 'GetAccessToken', name: 'GetAccessToken (Cấp Quyền Truy Cập)' },
+  { id: 'ALL', nameKey: 'filter.allActions', name: '-- Tất Cả Action (All Actions) --' },
+  { id: 'InsertSerialNumber', nameKey: 'filter.actInsertSn', name: 'InsertSerialNumber (Nạp Mã SN)' },
+  { id: 'CheckSerialNumber', nameKey: 'filter.actCheckSn', name: 'CheckSerialNumber (Kiểm Tra SN)' },
+  { id: 'CheckKeyParts', nameKey: 'filter.actCheckKeyParts', name: 'CheckKeyParts (Thẩm Tra Linh Kiện)' },
+  { id: 'InsertTestResult', nameKey: 'filter.actInsertTestResult', name: 'InsertTestResult (Ghi Nhận Kết Quả)' },
+  { id: 'TransferCarrier', nameKey: 'filter.actTransferCarrier', name: 'TransferCarrier (Điều Chuyển Khay)' },
+  { id: 'UndoRouterStep', nameKey: 'filter.actUndoRouterStep', name: 'UndoRouterStep (Hoàn Tác Bước Quy Trình)' },
+  { id: 'ClearUndoRework', nameKey: 'filter.actClearUndoRework', name: 'ClearUndoRework (Giải Cờ Undo/Rework)' },
+  { id: 'GetAccessToken', nameKey: 'filter.actGetAccessToken', name: 'GetAccessToken (Cấp Quyền Truy Cập)' },
 ];
 
 // Danh sách IP Máy trạm / Gateway (Client IP)
 export const CLIENT_IPS = [
-  { id: 'ALL', name: '-- Tất Cả Client IP (All Client IPs) --' },
+  { id: 'ALL', nameKey: 'filter.allClientIps', name: '-- Tất Cả Client IP (All Client IPs) --' },
   { id: '192.168.10.45', name: '192.168.10.45 (ALABEL-GW-01)' },
   { id: '192.168.10.102', name: '192.168.10.102 (SFC-DISPATCH-01)' },
   { id: '192.168.10.103', name: '192.168.10.103 (TEST-STATION-03)' },
@@ -51,11 +51,11 @@ export const CLIENT_IPS = [
 
 // Tùy chọn giới hạn số bản ghi (Select Top)
 export const TOP_LIMIT_OPTIONS = [
-  { value: 50, label: 'Top 50 bản ghi' },
-  { value: 100, label: 'Top 100 bản ghi (Khuyến nghị)' },
-  { value: 200, label: 'Top 200 bản ghi' },
-  { value: 500, label: 'Top 500 bản ghi' },
-  { value: 1000, label: 'Top 1000 bản ghi' },
+  { value: 50, count: 50, labelKey: 'filter.topLimitOption', label: 'Top 50 bản ghi' },
+  { value: 100, count: 100, labelKey: 'filter.topLimitRecommended', label: 'Top 100 bản ghi (Khuyến nghị)' },
+  { value: 200, count: 200, labelKey: 'filter.topLimitOption', label: 'Top 200 bản ghi' },
+  { value: 500, count: 500, labelKey: 'filter.topLimitOption', label: 'Top 500 bản ghi' },
+  { value: 1000, count: 1000, labelKey: 'filter.topLimitOption', label: 'Top 1000 bản ghi' },
 ];
 
 // Cấu hình Badge phương thức HTTP

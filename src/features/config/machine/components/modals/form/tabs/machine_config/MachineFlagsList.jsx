@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { MACHINE_FLAGS_CONFIG } from '../../constants/formModalConstants';
 
 export default function MachineFlagsList({
@@ -5,6 +6,8 @@ export default function MachineFlagsList({
   onChange,
   isFoxconn
 }) {
+  const { t } = useTranslation('machine');
+
   return (
     <div className="space-y-2.5">
       <div className="flex items-center justify-between">
@@ -13,7 +16,7 @@ export default function MachineFlagsList({
             isFoxconn ? 'text-slate-700' : 'text-zinc-300'
           }`}
         >
-          ⚙️ Cờ Hoạt Động Trạm Máy (Machine Flags)
+          {t('modals.form.flags.title')}
         </span>
         <span
           className={`text-[10px] font-mono px-2 py-0.5 rounded-md border ${
@@ -22,13 +25,15 @@ export default function MachineFlagsList({
               : 'bg-zinc-800 text-zinc-400 border-zinc-700'
           }`}
         >
-          5 Trạng Thái Vận Hành
+          {t('modals.form.flags.badge')}
         </span>
       </div>
 
       <div className="grid grid-cols-1 gap-2.5">
         {MACHINE_FLAGS_CONFIG.map((flag) => {
           const isChecked = Boolean(formData[flag.key]);
+          const flagLabel = flag.labelKey ? t(flag.labelKey) : flag.label;
+          const flagDesc = flag.descKey ? t(flag.descKey) : flag.description;
 
           return (
             <label
@@ -63,7 +68,7 @@ export default function MachineFlagsList({
                         : isFoxconn ? 'text-slate-800' : 'text-zinc-200'
                     }`}
                   >
-                    {flag.label}
+                    {flagLabel}
                   </span>
                   <span
                     className={`text-[10px] font-mono font-bold uppercase px-1.5 py-0.2 rounded ${
@@ -76,7 +81,7 @@ export default function MachineFlagsList({
                         : 'bg-zinc-800 text-zinc-500'
                     }`}
                   >
-                    {isChecked ? 'Enabled' : 'Disabled'}
+                    {isChecked ? t('modals.form.flags.enabled') : t('modals.form.flags.disabled')}
                   </span>
                 </div>
                 <p
@@ -84,7 +89,7 @@ export default function MachineFlagsList({
                     isFoxconn ? 'text-slate-600' : 'text-zinc-400'
                   }`}
                 >
-                  {flag.description}
+                  {flagDesc}
                 </p>
               </div>
             </label>

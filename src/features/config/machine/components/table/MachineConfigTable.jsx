@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 import { MACHINE_TABLE_COLUMNS, ACTION_FILTER_OPTIONS } from '../../constants/machineConfigConstants';
 import MachineColumnFilterDropdown from './MachineColumnFilterDropdown';
@@ -22,6 +23,7 @@ export default function MachineConfigTable({
   onOpenEdit,
   onOpenDelete
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -49,7 +51,7 @@ export default function MachineConfigTable({
 
   const getActiveFilterLabel = () => {
     const opt = ACTION_FILTER_OPTIONS.find(o => o.value === actionFilter);
-    return opt ? opt.label : 'Tất cả';
+    return opt ? (opt.labelKey ? t(opt.labelKey) : opt.label) : t('table.actionFilter.all');
   };
 
   return (
@@ -82,7 +84,7 @@ export default function MachineConfigTable({
                         <button
                           type="button"
                           onClick={resetAllFilters}
-                          title="Đặt lại toàn bộ các bộ lọc trên mọi cột và ô tìm kiếm"
+                          title={t('table.resetFilterTitle')}
                           className={`px-2.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1 cursor-pointer active:scale-95 ${
                             activeFilterCount > 0
                               ? isFoxconn
@@ -96,7 +98,7 @@ export default function MachineConfigTable({
                           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                           </svg>
-                          <span>⟲ Reset</span>
+                          <span>{t('table.resetFilterBtn')}</span>
                           {activeFilterCount > 0 && (
                             <span className={`px-1 py-0.2 rounded-full text-[10px] font-black ${
                               isFoxconn ? 'bg-amber-600 text-white' : 'bg-amber-400 text-black'
@@ -111,15 +113,15 @@ export default function MachineConfigTable({
                           <button
                             type="button"
                             onClick={() => setIsActionFilterOpen(!isActionFilterOpen)}
-                            title="Lọc dòng theo trạng thái thao tác (Chi tiết / Sửa / Xóa)"
+                            title={t('table.actionFilterTitle')}
                             className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
                               isActionFiltered
                                 ? isFoxconn
-                                  ? 'bg-blue-100 text-blue-800 border-blue-400'
-                                  : 'bg-zinc-800 text-[#76B900] border-[#76B900]'
-                                : isFoxconn
-                                  ? 'hover:bg-slate-200 text-slate-600 border-slate-300'
-                                  : 'hover:bg-zinc-800 text-zinc-400 border-zinc-700'
+                                ? 'bg-blue-100 text-blue-800 border-blue-400'
+                                : 'bg-zinc-800 text-[#76B900] border-[#76B900]'
+                              : isFoxconn
+                                ? 'hover:bg-slate-200 text-slate-600 border-slate-300'
+                                : 'hover:bg-zinc-800 text-zinc-400 border-zinc-700'
                             }`}
                           >
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +137,7 @@ export default function MachineConfigTable({
                                 : 'bg-zinc-900 border-zinc-700 text-white shadow-2xl'
                             }`}>
                               <div className="px-2 py-1 text-[10px] font-bold uppercase text-slate-400 dark:text-zinc-500 border-b border-slate-100 dark:border-zinc-800 mb-1">
-                                Lọc Thao Tác Cột
+                                {t('table.actionFilterMenuHeader')}
                               </div>
                               {ACTION_FILTER_OPTIONS.map(opt => (
                                 <button
@@ -155,7 +157,7 @@ export default function MachineConfigTable({
                                         : 'hover:bg-zinc-800/60 text-zinc-300'
                                   }`}
                                 >
-                                  <span>{opt.label}</span>
+                                  <span>{opt.labelKey ? t(opt.labelKey) : opt.label}</span>
                                   {actionFilter === opt.value && <span>✓</span>}
                                 </button>
                               ))}
@@ -193,9 +195,9 @@ export default function MachineConfigTable({
                               ? 'hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 border border-transparent'
                               : 'hover:bg-zinc-800 text-zinc-300 hover:text-white border border-transparent'
                         }`}
-                        title={`Bấm để mở bộ lọc cột ${col.label}`}
+                        title={t('table.filterColTooltip', { col: col.labelKey ? t(col.labelKey) : col.label })}
                       >
-                        <span>{col.label}</span>
+                        <span>{col.labelKey ? t(col.labelKey) : col.label}</span>
 
                         {/* Active filter count badge */}
                         {isFiltered && (
@@ -266,10 +268,10 @@ export default function MachineConfigTable({
                       </svg>
                     </div>
                     <div className="text-base font-bold text-slate-700 dark:text-zinc-200">
-                      Không tìm thấy cấu hình máy nào phù hợp
+                      {t('table.emptyTitle')}
                     </div>
                     <p className="text-xs text-slate-400 dark:text-zinc-500 max-w-md">
-                      Thử xóa bớt bộ lọc hoặc nhấn nút Đặt lại bộ lọc bên dưới để tải lại toàn bộ danh mục máy.
+                      {t('table.emptyDesc')}
                     </p>
                     <button
                       type="button"
@@ -280,7 +282,7 @@ export default function MachineConfigTable({
                           : 'bg-[#76B900] text-black font-black hover:bg-[#86d400]'
                       }`}
                     >
-                      Đặt lại toàn bộ bộ lọc
+                      {t('table.btnResetAll')}
                     </button>
                   </div>
                 </td>

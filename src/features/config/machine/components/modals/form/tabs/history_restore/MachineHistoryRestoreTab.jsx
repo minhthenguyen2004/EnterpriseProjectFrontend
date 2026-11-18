@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import AuditLogsTable from './AuditLogsTable';
 import AuditLogDiffModal from './AuditLogDiffModal';
 import AuditLogsExplanation from './AuditLogsExplanation';
@@ -14,6 +15,8 @@ export default function MachineHistoryRestoreTab({
   onChange,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
+
   // Lấy danh sách audit logs từ formData hoặc fallback mặc định
   const auditLogs = Array.isArray(formData.auditLogs) && formData.auditLogs.length > 0
     ? formData.auditLogs
@@ -38,7 +41,7 @@ export default function MachineHistoryRestoreTab({
     setIsRefreshing(true);
     setTimeout(() => {
       setIsRefreshing(false);
-      showToast('Đã làm mới dữ liệu nhật ký kiểm toán từ server thành công!');
+      showToast(t('modals.form.historyRestore.toastRefresh'));
     }, 400);
   };
 
@@ -68,7 +71,11 @@ export default function MachineHistoryRestoreTab({
       operatorName: 'System Admin',
       action: 'ROLLBACK',
       targetTable: targetLog.targetTable,
-      description: `Hoàn tác cấu hình về phiên bản #${targetLog.id} (bởi ${targetLog.operatorId} - ${targetLog.operatorName})`,
+      description: t('modals.form.historyRestore.rollbackDescription', {
+        id: targetLog.id,
+        opId: targetLog.operatorId,
+        opName: targetLog.operatorName
+      }),
       diff: {
         before: targetLog.diff?.after || null,
         after: targetLog.diff?.before || null
@@ -97,7 +104,7 @@ export default function MachineHistoryRestoreTab({
     }
 
     setConfirmRollbackLog(null);
-    showToast(`Đã hoàn tác cấu hình về phiên bản #${targetLog.id} thành công!`);
+    showToast(t('modals.form.historyRestore.toastRollbackSuccess', { id: targetLog.id }));
   };
 
   // Lọc danh sách log theo searchQuery
@@ -192,28 +199,20 @@ export default function MachineHistoryRestoreTab({
               <span className="text-2xl">⚠️</span>
               <div>
                 <h4 className="text-sm font-black uppercase text-indigo-600 dark:text-indigo-400">
-                  Xác Nhận Hoàn Tác Cấu Hình (Rollback)
+                  {t('modals.form.historyRestore.confirmRollbackTitle')}
                 </h4>
                 <p className="text-xs text-slate-500 dark:text-zinc-400">
-                  Phiên bản log: #{confirmRollbackLog.id}
+                  {t('modals.form.historyRestore.confirmRollbackVersion', { id: confirmRollbackLog.id })}
                 </p>
               </div>
             </div>
 
             <p className="text-xs leading-relaxed mb-3 text-slate-600 dark:text-zinc-300">
-              Bạn có chắc chắn muốn hoàn tác cấu hình phân hệ{' '}
-              <strong className="text-slate-900 dark:text-zinc-100 font-mono">
-                {confirmRollbackLog.targetTable}
-              </strong>{' '}
-              về phiên bản tại thời điểm{' '}
-              <strong className="text-slate-900 dark:text-zinc-100 font-mono">
-                {confirmRollbackLog.timestamp}
-              </strong>{' '}
-              do{' '}
-              <strong className="text-indigo-600 dark:text-indigo-400">
-                {confirmRollbackLog.operatorId} - {confirmRollbackLog.operatorName}
-              </strong>{' '}
-              thực hiện không?
+              {t('modals.form.historyRestore.confirmRollbackMsg', {
+                target: confirmRollbackLog.targetTable,
+                time: confirmRollbackLog.timestamp,
+                operator: `${confirmRollbackLog.operatorId} - ${confirmRollbackLog.operatorName}`
+              })}
             </p>
 
             <div className="p-2.5 rounded-xl border mb-4 text-xs italic bg-slate-50 dark:bg-zinc-900 border-inherit">
@@ -230,7 +229,7 @@ export default function MachineHistoryRestoreTab({
                     : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
                 }`}
               >
-                Hủy Bỏ
+                {t('modals.form.historyRestore.btnCancel')}
               </button>
 
               <button
@@ -243,7 +242,7 @@ export default function MachineHistoryRestoreTab({
                 }`}
               >
                 <span>⏪</span>
-                <span>Xác Nhận Hoàn Tác</span>
+                <span>{t('modals.form.historyRestore.btnConfirmRollback')}</span>
               </button>
             </div>
           </div>

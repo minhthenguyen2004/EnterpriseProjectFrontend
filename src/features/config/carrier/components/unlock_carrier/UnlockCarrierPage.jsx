@@ -163,7 +163,7 @@ export default function UnlockCarrierPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
             </svg>
             <span className="uppercase tracking-wider">
-              XÁC NHẬN MỞ KHÓA & LƯU THÔNG TIN (CONFIRM & SAVE)
+              {t('unlock.btnConfirmUnlock')}
             </span>
           </button>
 

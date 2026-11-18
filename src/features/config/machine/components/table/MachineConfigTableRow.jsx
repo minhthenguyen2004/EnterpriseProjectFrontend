@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineConfigTableRow({
@@ -6,6 +7,7 @@ export default function MachineConfigTableRow({
   onOpenEdit,
   onOpenDelete
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -125,7 +127,7 @@ export default function MachineConfigTableRow({
           </span>
           {!machine.isActive && (
             <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-500 font-bold uppercase">
-              Standby
+              {t('modals.detail.statusStandby')}
             </span>
           )}
         </div>
@@ -156,7 +158,7 @@ export default function MachineConfigTableRow({
           <button
             type="button"
             onClick={() => onOpenDetail(machine)}
-            title="Xem chi tiết máy"
+            title={t('table.actions.detailTooltip')}
             className={`p-1.5 rounded-lg transition-all cursor-pointer ${
               isFoxconn
                 ? 'text-blue-600 hover:bg-blue-100 hover:text-blue-800'
@@ -173,7 +175,7 @@ export default function MachineConfigTableRow({
           <button
             type="button"
             onClick={() => onOpenEdit(machine)}
-            title="Chỉnh sửa cấu hình"
+            title={t('table.actions.editTooltip')}
             className={`p-1.5 rounded-lg transition-all cursor-pointer ${
               isFoxconn
                 ? 'text-amber-600 hover:bg-amber-100 hover:text-amber-800'
@@ -189,7 +191,7 @@ export default function MachineConfigTableRow({
           <button
             type="button"
             onClick={() => onOpenDelete(machine)}
-            title="Xóa máy khỏi cấu hình"
+            title={t('table.actions.deleteTooltip')}
             className={`p-1.5 rounded-lg transition-all cursor-pointer ${
               isFoxconn
                 ? 'text-rose-600 hover:bg-rose-100 hover:text-rose-800'

@@ -1,4 +1,8 @@
+import { useTranslation } from 'react-i18next';
+
 export default function MachineFlagsExplanation({ isFoxconn }) {
+  const { t } = useTranslation('machine');
+
   return (
     <div
       className={`p-4 rounded-2xl border transition-all ${
@@ -14,7 +18,7 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
             isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
           }`}
         >
-          Ý nghĩa &amp; logic vận hành các cờ cấu hình Trạm Máy (Machine Flags):
+          {t('modals.form.flags.explanation.title')}
         </h5>
       </div>
 
@@ -33,14 +37,9 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
           </span>
           <span>
             <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-              Is Auto Line (Máy tự động hóa):
+              {t('modals.form.flags.isAutoLine.label')}:
             </strong>{' '}
-            Đánh dấu máy thuộc dây chuyền tự động. Kích hoạt liên kết Group, Step và quản lý quy
-            trình kiểm tra 3 pha nội bộ (
-            <code className={isFoxconn ? 'font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800' : 'font-mono px-1 rounded bg-zinc-800 dark:bg-slate-200'}>
-              PreCheck → Link → Undo
-            </code>
-            ).
+            {t('modals.form.flags.explanation.item1')}
           </span>
         </li>
         <li className="flex items-start gap-2">
@@ -53,9 +52,9 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
           </span>
           <span>
             <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-              Is SFC PreCheck (Kiểm tra PreCheck với SFC):
+              {t('modals.form.flags.isSfcPreCheck.label')}:
             </strong>{' '}
-            Kích hoạt giao tiếp kiểm tra PreCheck với hệ thống SFC (MES) trước khi sản phẩm vào trạm.
+            {t('modals.form.flags.explanation.item2')}
           </span>
         </li>
         <li className="flex items-start gap-2">
@@ -68,17 +67,9 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
           </span>
           <span>
             <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-              Is SFC Station (Trạm gửi kết quả SFC):
+              {t('modals.form.flags.isSfcStation.label')}:
             </strong>{' '}
-            Đánh dấu trạm gửi kết quả (
-            <code className={isFoxconn ? 'font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800' : 'font-mono px-1 rounded bg-zinc-800 dark:bg-slate-200'}>
-              Insert Result
-            </code>
-            ) lên hệ thống SFC (MES). Tự động gom các dữ liệu SFC KeyPart (cờ{' '}
-            <code className={isFoxconn ? 'font-mono px-1 rounded bg-slate-200 dark:bg-zinc-800' : 'font-mono px-1 rounded bg-zinc-800 dark:bg-slate-200'}>
-              IsSFC = 1
-            </code>
-            ) để đẩy sang SFC.
+            {t('modals.form.flags.explanation.item3')}
           </span>
         </li>
         <li className="flex items-start gap-2">
@@ -91,10 +82,9 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
           </span>
           <span>
             <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-              Send SFC On Pass Only (Chỉ gửi SFC khi PASS):
+              {t('modals.form.flags.sendSfcOnPassOnly.label')}:
             </strong>{' '}
-            Chỉ giao tiếp/gửi dữ liệu sang SFC khi kết quả Client là PASS. Các kết quả khác chỉ lưu
-            nội bộ AutoLine.
+            {t('modals.form.flags.explanation.item4')}
           </span>
         </li>
         <li className="flex items-start gap-2">
@@ -107,9 +97,9 @@ export default function MachineFlagsExplanation({ isFoxconn }) {
           </span>
           <span>
             <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-              Allow Fail Pass-Through (Cho phép Fail qua trạm):
+              {t('modals.form.flags.allowFailPassThrough.label')}:
             </strong>{' '}
-            Khi kết quả FAIL thì sản phẩm vẫn được đi tiếp mà không tắc chuyền.
+            {t('modals.form.flags.explanation.item5')}
           </span>
         </li>
       </ol>

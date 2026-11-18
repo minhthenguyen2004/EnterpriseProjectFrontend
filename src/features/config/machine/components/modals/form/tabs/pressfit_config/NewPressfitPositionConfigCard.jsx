@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import { PRESSFIT_UNITS } from '../../constants/formModalConstants';
 
 /**
@@ -20,6 +21,7 @@ export default function NewPressfitPositionConfigCard({
   onCancel,
   onSave
 }) {
+  const { t } = useTranslation('machine');
   const formUid = useId();
 
   // Helper render 1 khung nhỏ xếp theo hàng ngang (Force, Time, Distance)
@@ -65,7 +67,7 @@ export default function NewPressfitPositionConfigCard({
                 isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Standard <span className="text-rose-500">*</span>
+              {t('modals.form.pressfitConfig.lblStandard')} <span className="text-rose-500">*</span>
             </label>
             <input
               id={`${formUid}-${paramKey}-std`}
@@ -95,7 +97,7 @@ export default function NewPressfitPositionConfigCard({
                 isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Limit (±) <span className="text-rose-500">*</span>
+              {t('modals.form.pressfitConfig.lblLimit')} <span className="text-rose-500">*</span>
             </label>
             <input
               id={`${formUid}-${paramKey}-lim`}
@@ -125,7 +127,7 @@ export default function NewPressfitPositionConfigCard({
                 isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Unit
+              {t('modals.form.pressfitConfig.lblUnit')}
             </label>
             <div className="relative">
               <select
@@ -175,11 +177,11 @@ export default function NewPressfitPositionConfigCard({
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            {editingId ? 'Cập Nhật Vị Trí Ép Lực Nhấn' : 'New Pressfit Position Config (Thêm Vị Trí Ép Mới)'}
+            {editingId ? t('modals.form.pressfitConfig.cardTitleEdit') : t('modals.form.pressfitConfig.cardTitleAdd')}
           </h4>
           {editingId && (
             <span className="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-bold">
-              Đang Sửa
+              {t('modals.form.pressfitConfig.editingBadge')}
             </span>
           )}
         </div>
@@ -189,7 +191,7 @@ export default function NewPressfitPositionConfigCard({
             isFoxconn ? 'text-slate-500' : 'text-zinc-400'
           }`}
         >
-          Chuẩn thẩm định AutoLine Pressfit [Std ± Limit]
+          {t('modals.form.pressfitConfig.auditStandard')}
         </span>
       </div>
 
@@ -207,14 +209,14 @@ export default function NewPressfitPositionConfigCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Position / Vị trí ép <span className="text-rose-500 font-black">*</span>
+            {t('modals.form.pressfitConfig.lblPosition')} <span className="text-rose-500 font-black">*</span>
           </label>
           <input
             id={`${formUid}-pressfit-position`}
             type="text"
             value={pressfitForm.position || ''}
             onChange={(e) => onFieldChange('position', e.target.value.toUpperCase())}
-            placeholder="VD: PRESS-POS-01 hoặc POS_01"
+            placeholder={t('modals.form.pressfitConfig.placeholderPosition')}
             className={`w-full px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
               formErrors.position
                 ? 'border-rose-400 bg-rose-50 text-rose-800 dark:bg-rose-950/50 dark:text-rose-200'
@@ -251,7 +253,7 @@ export default function NewPressfitPositionConfigCard({
                   : 'text-zinc-400'
               }`}
             >
-              Required Position
+              {t('modals.form.pressfitConfig.tickRequired')}
             </span>
           </label>
 
@@ -272,7 +274,7 @@ export default function NewPressfitPositionConfigCard({
                   : 'text-amber-600 dark:text-amber-400'
               }`}
             >
-              {pressfitForm.isActive ? 'Active Tolerance Check' : 'Active (Bypass)'}
+              {pressfitForm.isActive ? t('modals.form.pressfitConfig.tickActive') : t('modals.form.pressfitConfig.tickActiveBypass')}
             </span>
           </label>
         </div>
@@ -281,11 +283,11 @@ export default function NewPressfitPositionConfigCard({
       {/* DÒNG THỨ 2: 3 KHUNG NHỎ XẾP THEO HÀNG NGANG (Force, Time, Distance) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-3">
         {/* Khung 1: Force (Lực nhấn) */}
-        {renderParamBox('force', 'Force (Lực nhấn)', '💪', PRESSFIT_UNITS.force)}
+        {renderParamBox('force', t('modals.form.pressfitConfig.paramForce'), '💪', PRESSFIT_UNITS.force)}
         {/* Khung 2: Time (Thời gian giữ) */}
-        {renderParamBox('time', 'Time (Thời gian giữ)', '⏱️', PRESSFIT_UNITS.time)}
+        {renderParamBox('time', t('modals.form.pressfitConfig.paramTime'), '⏱️', PRESSFIT_UNITS.time)}
         {/* Khung 3: Distance (Hành trình) */}
-        {renderParamBox('distance', 'Distance (Hành trình)', '📏', PRESSFIT_UNITS.distance)}
+        {renderParamBox('distance', t('modals.form.pressfitConfig.paramDistance'), '📏', PRESSFIT_UNITS.distance)}
       </div>
 
       {/* BÊN DƯỚI: Nút Save Pressfit Config (+ Nút Hủy nếu đang sửa) */}
@@ -304,7 +306,7 @@ export default function NewPressfitPositionConfigCard({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            ✕ Hủy Thao Tác
+            {t('modals.form.pressfitConfig.btnCancel')}
           </button>
         )}
 
@@ -318,7 +320,7 @@ export default function NewPressfitPositionConfigCard({
           }`}
         >
           <span>{editingId ? '💾' : '➕'}</span>
-          <span>{editingId ? 'Update Pressfit Config' : 'Save Pressfit Config'}</span>
+          <span>{editingId ? t('modals.form.pressfitConfig.btnUpdate') : t('modals.form.pressfitConfig.btnSave')}</span>
         </button>
       </div>
     </div>

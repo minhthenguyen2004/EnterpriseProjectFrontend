@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Khung cấu hình UPH & TAKT TIME CONFIGURATION (Card 1 của Tab 4)
@@ -13,6 +14,7 @@ export default function UphTaktTimeCard({
   onSave,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
   const [formState, setFormState] = useState({
     targetUph: uphConfig.targetUph ?? 120,
     targetCycleTime: uphConfig.targetCycleTime ?? 30.0,
@@ -114,13 +116,13 @@ export default function UphTaktTimeCard({
     const tolNum = parseFloat(formState.warningTolerance);
 
     if (isNaN(uphNum) || uphNum <= 0) {
-      errs.targetUph = 'Target UPH phải là số nguyên dương > 0';
+      errs.targetUph = t('modals.form.uphConfig.errUphPositive');
     }
     if (isNaN(ctNum) || ctNum <= 0) {
-      errs.targetCycleTime = 'Target Cycle Time phải là số dương > 0';
+      errs.targetCycleTime = t('modals.form.uphConfig.errCyclePositive');
     }
     if (isNaN(tolNum) || tolNum < 0 || tolNum > 100) {
-      errs.warningTolerance = 'Dung sai cảnh báo từ 0% đến 100%';
+      errs.warningTolerance = t('modals.form.uphConfig.errToleranceRange');
     }
 
     if (Object.keys(errs).length > 0) {
@@ -157,7 +159,7 @@ export default function UphTaktTimeCard({
               isFoxconn ? 'text-slate-900' : 'text-zinc-100'
             }`}
           >
-            UPH & TAKT TIME CONFIGURATION
+            {t('modals.form.uphConfig.title')}
           </h3>
         </div>
         <div
@@ -167,7 +169,7 @@ export default function UphTaktTimeCard({
               : 'bg-zinc-900 text-[#76B900] border-[#76B900]/40'
           }`}
         >
-          Auto Formula: <span className="font-bold">Takt Time = 3600 / Target UPH</span>
+          {t('modals.form.uphConfig.autoFormula')}
         </div>
       </div>
 
@@ -181,7 +183,7 @@ export default function UphTaktTimeCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Target UPH (p/h) <span className="text-rose-500 font-black">*</span>
+            {t('modals.form.uphConfig.lblTargetUph')} <span className="text-rose-500 font-black">*</span>
           </label>
           <div className="relative">
             <input
@@ -189,7 +191,7 @@ export default function UphTaktTimeCard({
               type="number"
               min="1"
               step="1"
-              placeholder="VD: 120"
+              placeholder={t('modals.form.uphConfig.placeholderUph')}
               value={formState.targetUph}
               onChange={handleUphChange}
               className={`w-full px-3.5 py-2.5 text-sm font-bold rounded-xl border transition-all outline-none ${
@@ -205,7 +207,7 @@ export default function UphTaktTimeCard({
                 isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
-              p/h
+              {t('modals.form.uphConfig.unitUph')}
             </span>
           </div>
           <p
@@ -217,7 +219,7 @@ export default function UphTaktTimeCard({
                 : 'text-zinc-400'
             }`}
           >
-            {errors.targetUph || 'Sản lượng mục tiêu trên 1 giờ (cái/giờ)'}
+            {errors.targetUph || t('modals.form.uphConfig.descUph')}
           </p>
         </div>
 
@@ -229,7 +231,7 @@ export default function UphTaktTimeCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Target Cycle Time (sec)
+            {t('modals.form.uphConfig.lblTargetCycle')}
           </label>
           <div className="relative">
             <input
@@ -237,7 +239,7 @@ export default function UphTaktTimeCard({
               type="number"
               min="0.01"
               step="0.01"
-              placeholder="VD: 30.00"
+              placeholder={t('modals.form.uphConfig.placeholderCycle')}
               value={formState.targetCycleTime}
               onChange={handleCycleTimeChange}
               className={`w-full px-3.5 py-2.5 text-sm font-bold rounded-xl border transition-all outline-none ${
@@ -253,7 +255,7 @@ export default function UphTaktTimeCard({
                 isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
-              sec
+              {t('modals.form.uphConfig.unitCycle')}
             </span>
           </div>
           <p
@@ -265,7 +267,7 @@ export default function UphTaktTimeCard({
                 : 'text-zinc-400'
             }`}
           >
-            {errors.targetCycleTime || 'Tự động tính: 3600 / Target UPH'}
+            {errors.targetCycleTime || t('modals.form.uphConfig.descCycle')}
           </p>
         </div>
 
@@ -277,7 +279,7 @@ export default function UphTaktTimeCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Warning Tolerance (%)
+            {t('modals.form.uphConfig.lblWarningTolerance')}
           </label>
           <div className="relative">
             <input
@@ -286,7 +288,7 @@ export default function UphTaktTimeCard({
               min="0"
               max="100"
               step="0.5"
-              placeholder="VD: 5.0"
+              placeholder={t('modals.form.uphConfig.placeholderTolerance')}
               value={formState.warningTolerance}
               onChange={handleToleranceChange}
               className={`w-full px-3.5 py-2.5 text-sm font-bold rounded-xl border transition-all outline-none ${
@@ -302,7 +304,7 @@ export default function UphTaktTimeCard({
                 isFoxconn ? 'text-slate-400' : 'text-zinc-500'
               }`}
             >
-              %
+              {t('modals.form.uphConfig.unitPercent')}
             </span>
           </div>
           <p
@@ -314,7 +316,7 @@ export default function UphTaktTimeCard({
                 : 'text-zinc-400'
             }`}
           >
-            {errors.warningTolerance || 'Dung sai cảnh báo dao động OEE'}
+            {errors.warningTolerance || t('modals.form.uphConfig.descTolerance')}
           </p>
         </div>
       </div>
@@ -344,9 +346,9 @@ export default function UphTaktTimeCard({
             }`}
           />
           <span className="font-semibold text-[11px] opacity-80">
-            {isEnabled ? '[ (●) Enabled ]' : '[ (○) Disabled ]'}
+            {isEnabled ? t('modals.form.uphConfig.statusEnabled') : t('modals.form.uphConfig.statusDisabled')}
           </span>
-          <span>Enable UPH Monitoring</span>
+          <span>{t('modals.form.uphConfig.toggleMonitoring')}</span>
         </button>
 
         {/* Nút Save UPH Config ở bên phải */}
@@ -360,7 +362,7 @@ export default function UphTaktTimeCard({
           }`}
         >
           <span>💾</span>
-          <span>Save UPH Config</span>
+          <span>{t('modals.form.uphConfig.btnSave')}</span>
         </button>
       </div>
     </div>

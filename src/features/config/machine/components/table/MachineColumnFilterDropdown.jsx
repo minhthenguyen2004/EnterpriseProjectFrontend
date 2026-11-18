@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineColumnFilterDropdown({
@@ -11,8 +12,10 @@ export default function MachineColumnFilterDropdown({
   onSort,
   onClose
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
+  const colLabel = column.labelKey ? t(column.labelKey) : column.label;
 
   // Local state for checkboxes in popover
   const [tempSelected, setTempSelected] = useState(selectedValues || []);
@@ -97,7 +100,7 @@ export default function MachineColumnFilterDropdown({
       <div className="flex items-center justify-between pb-2 mb-2.5 border-b border-slate-100 dark:border-zinc-800">
         <div className="flex items-center gap-1.5">
           <span className={`text-xs font-black uppercase tracking-wider ${ isFoxconn ? "text-black" : "text-white"}`}>
-            Lọc: {column.label}
+            {t('columnFilter.title', { col: colLabel })}
           </span>
           {tempSelected.length > 0 && (
             <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-full ${
@@ -166,7 +169,7 @@ export default function MachineColumnFilterDropdown({
           type="text"
           value={internalSearch}
           onChange={(e) => setInternalSearch(e.target.value)}
-          placeholder={`Tìm giá trị trong ${column.label}...`}
+          placeholder={t('columnFilter.searchPlaceholder', { col: colLabel })}
           className={`w-full pl-7 pr-6 py-1.5 rounded-lg text-xs outline-none border transition-all ${
             isFoxconn
               ? 'bg-slate-50 border-slate-200 text-slate-800'
@@ -194,14 +197,14 @@ export default function MachineColumnFilterDropdown({
           onClick={handleSelectAll}
           className={`hover:underline cursor-pointer ${isFoxconn ? 'text-blue-600' : 'text-[#76B900]'}`}
         >
-          Chọn tất cả ({uniqueValues.length})
+          {t('columnFilter.selectAll', { count: uniqueValues.length })}
         </button>
         <button
           type="button"
           onClick={handleClearAll}
           className="text-slate-400 hover:text-rose-500 dark:text-zinc-500 hover:underline cursor-pointer"
         >
-          Bỏ chọn
+          {t('columnFilter.deselectAll')}
         </button>
       </div>
 
@@ -209,7 +212,7 @@ export default function MachineColumnFilterDropdown({
       <div className="max-h-48 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
         {displayedValues.length === 0 ? (
           <div className="text-center py-4 text-xs text-slate-400 dark:text-zinc-500">
-            Không tìm thấy giá trị
+            {t('columnFilter.empty')}
           </div>
         ) : (
           displayedValues.map(item => {
@@ -256,7 +259,7 @@ export default function MachineColumnFilterDropdown({
           onClick={handleResetThisColumn}
           className="text-[11px] font-bold text-slate-500 hover:text-rose-600 dark:text-zinc-400 dark:hover:text-rose-400 cursor-pointer transition-colors"
         >
-          Xóa lọc cột
+          {t('columnFilter.clearFilter')}
         </button>
 
         <button
@@ -268,7 +271,7 @@ export default function MachineColumnFilterDropdown({
               : 'bg-[#76B900] hover:bg-[#86d400] text-black font-black'
           }`}
         >
-          Áp dụng ({tempSelected.length})
+          {t('columnFilter.apply', { count: tempSelected.length })}
         </button>
       </div>
     </div>

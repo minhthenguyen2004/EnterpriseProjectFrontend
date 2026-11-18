@@ -1,14 +1,16 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function UnlockCarrierTabsNav({ activeTab, onTabChange }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
   const tabs = [
     {
       id: 'single',
-      label: 'Một khay',
-      enLabel: 'Single Carrier',
+      label: t('unlock.tabs.single'),
+      enLabel: t('unlock.tabs.singleSub'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -19,12 +21,12 @@ export default function UnlockCarrierTabsNav({ activeTab, onTabChange }) {
           />
         </svg>
       ),
-      badge: 'Phổ biến'
+      badge: t('unlock.tabs.singleBadge')
     },
     {
       id: 'line',
-      label: 'Toàn line',
-      enLabel: 'Whole Line',
+      label: t('unlock.tabs.line'),
+      enLabel: t('unlock.tabs.lineSub'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -35,12 +37,12 @@ export default function UnlockCarrierTabsNav({ activeTab, onTabChange }) {
           />
         </svg>
       ),
-      badge: 'Theo chuyền'
+      badge: t('unlock.tabs.lineBadge')
     },
     {
       id: 'batch',
-      label: 'Nhiều khay',
-      enLabel: 'Multiple Carriers',
+      label: t('unlock.tabs.batch'),
+      enLabel: t('unlock.tabs.batchSub'),
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -51,7 +53,7 @@ export default function UnlockCarrierTabsNav({ activeTab, onTabChange }) {
           />
         </svg>
       ),
-      badge: 'Theo lô'
+      badge: t('unlock.tabs.batchBadge')
     }
   ];
 
@@ -114,4 +116,3 @@ export default function UnlockCarrierTabsNav({ activeTab, onTabChange }) {
     </div>
   );
 }
-

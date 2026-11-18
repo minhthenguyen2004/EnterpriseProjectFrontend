@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import UphTaktTimeCard from './UphTaktTimeCard';
 import UphExplanation from './UphExplanation';
 import { DEFAULT_UPH_CONFIG } from '../../constants/formModalConstants';
@@ -16,6 +17,7 @@ export default function MachineUphConfigTab({
   onChange,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
   const [feedbackToast, setFeedbackToast] = useState(null);
 
   // Tổng hợp dữ liệu UPH từ formData hoặc fallback mặc định
@@ -47,9 +49,15 @@ export default function MachineUphConfigTab({
       onChange('enableUphMonitoring', newUphConfig.enableUphMonitoring);
     }
 
-    const monitoringStatus = newUphConfig.enableUphMonitoring ? 'BẬT' : 'TẮT';
+    const monitoringStatus = newUphConfig.enableUphMonitoring
+      ? t('modals.form.uphConfig.statusOn')
+      : t('modals.form.uphConfig.statusOff');
     showToast(
-      `Đã lưu cấu hình UPH & Takt Time: ${newUphConfig.targetUph} p/h (${newUphConfig.targetCycleTime}s/cái) - Giám sát: ${monitoringStatus}!`,
+      t('modals.form.uphConfig.toastSave', {
+        uph: newUphConfig.targetUph,
+        cycle: newUphConfig.targetCycleTime,
+        status: monitoringStatus
+      }),
       'success'
     );
   };

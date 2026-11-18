@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 /**
  * Modal đối chiếu chi tiết Trước vs Sau (Audit Log Diff Viewer Modal)
  * Hiển thị rõ ràng các trường dữ liệu thay đổi giữa 2 phiên bản: Before (Trước) vs After (Sau).
@@ -9,6 +11,7 @@ export default function AuditLogDiffModal({
   onClose,
   onRollback
 }) {
+  const { t } = useTranslation('machine');
   if (!isOpen || !logItem) return null;
 
   const diffData = logItem.diff || {};
@@ -22,7 +25,11 @@ export default function AuditLogDiffModal({
 
   const formatValue = (val) => {
     if (val === undefined || val === null) {
-      return <span className="text-slate-400 dark:text-zinc-600 italic">null (Không có)</span>;
+      return (
+        <span className="text-slate-400 dark:text-zinc-600 italic">
+          {t('modals.form.historyRestore.diffModal.nullVal')}
+        </span>
+      );
     }
     if (typeof val === 'object') {
       return <pre className="font-mono text-[11px] whitespace-pre-wrap">{JSON.stringify(val, null, 2)}</pre>;
@@ -61,14 +68,17 @@ export default function AuditLogDiffModal({
                     isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
                   }`}
                 >
-                  Đối Chiếu Thay Đổi Phiên Bản (Diff Viewer)
+                  {t('modals.form.historyRestore.diffModal.title')}
                 </h3>
                 <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-blue-100 text-blue-800 dark:bg-zinc-800 dark:text-zinc-200">
-                  #{logItem.id}
+                  {t('modals.form.historyRestore.diffModal.logId', { id: logItem.id })}
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-zinc-400 mt-0.5">
-                Bảng: <span className="font-mono font-bold text-slate-700 dark:text-zinc-200">{logItem.targetTable}</span> | Thao tác: <span className="font-bold">{logItem.action}</span>
+                <span className="font-mono font-bold text-slate-700 dark:text-zinc-200">
+                  {t('modals.form.historyRestore.diffModal.target', { target: logItem.targetTable })}
+                </span>{' '}
+                | <span className="font-bold">{t('modals.form.historyRestore.diffModal.action', { action: logItem.action })}</span>
               </p>
             </div>
           </div>
@@ -89,12 +99,16 @@ export default function AuditLogDiffModal({
           }`}
         >
           <div className="flex items-center gap-2">
-            <span className="text-slate-400 dark:text-zinc-500">Thời gian:</span>
+            <span className="text-slate-400 dark:text-zinc-500">
+              {t('modals.form.historyRestore.diffModal.time', { time: '' }).split(':')[0]}:
+            </span>
             <span className="font-mono font-bold">{logItem.timestamp}</span>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-slate-400 dark:text-zinc-500">Người thực hiện:</span>
+            <span className="text-slate-400 dark:text-zinc-500">
+              {t('modals.form.historyRestore.diffModal.operator', { operator: '' }).split(':')[0]}:
+            </span>
             <span
               className={`font-bold px-2 py-0.5 rounded ${
                 isFoxconn ? 'bg-white text-blue-900 border border-blue-200' : 'bg-zinc-800 text-[#76B900]'
@@ -107,7 +121,9 @@ export default function AuditLogDiffModal({
 
         {/* Description box */}
         <div className="px-5 py-2.5 border-b border-inherit bg-slate-50/30 dark:bg-zinc-900/20 text-xs">
-          <p className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 mb-0.5">Mô tả biến động:</p>
+          <p className="text-[11px] font-bold text-slate-500 dark:text-zinc-400 mb-0.5">
+            {t('modals.form.historyRestore.diffModal.descLabel')}
+          </p>
           <p className="text-slate-700 dark:text-zinc-200 italic">{logItem.description}</p>
         </div>
 
@@ -115,7 +131,7 @@ export default function AuditLogDiffModal({
         <div className="flex-1 overflow-y-auto custom-scrollbar p-5">
           {allKeys.length === 0 ? (
             <div className="py-8 text-center text-xs opacity-60">
-              Không có trường thông số chi tiết nào được ghi nhận trong bản ghi này.
+              {t('modals.form.historyRestore.diffModal.noDiff')}
             </div>
           ) : (
             <div className="border rounded-xl overflow-hidden border-inherit">
@@ -126,12 +142,12 @@ export default function AuditLogDiffModal({
                     : 'bg-zinc-900 text-zinc-300 border-zinc-800'
                 }`}
               >
-                <div className="col-span-4">Trường Thông Số (Field)</div>
+                <div className="col-span-4">{t('modals.form.historyRestore.diffModal.colField')}</div>
                 <div className="col-span-4 text-rose-600 dark:text-rose-400 flex items-center gap-1">
-                  <span>◀ Trước (Before)</span>
+                  <span>{t('modals.form.historyRestore.diffModal.colBefore')}</span>
                 </div>
                 <div className="col-span-4 text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                  <span>Sau (After) ▶</span>
+                  <span>{t('modals.form.historyRestore.diffModal.colAfter')}</span>
                 </div>
               </div>
 
@@ -190,7 +206,7 @@ export default function AuditLogDiffModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('modals.form.historyRestore.diffModal.btnClose')}
           </button>
 
           <button
@@ -206,7 +222,7 @@ export default function AuditLogDiffModal({
             }`}
           >
             <span>⏪</span>
-            <span>Hoàn Tác Về Phiên Bản Này (Rollback)</span>
+            <span>{t('modals.form.historyRestore.diffModal.btnRollbackThis')}</span>
           </button>
         </div>
       </div>

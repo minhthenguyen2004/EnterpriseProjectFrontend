@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import StepRoutingConfigCard from './StepRoutingConfigCard';
 import TwinStepInputCard from './TwinStepInputCard';
 import RoutingConfigsTable from './RoutingConfigsTable';
@@ -14,6 +15,7 @@ export default function MachineRoutingConfigsTab({
   onChange,
   isFoxconn = false
 }) {
+  const { t } = useTranslation('machine');
   // Trích xuất thông tin cơ bản từ 1/3 cột trái
   const defaultProduct = formData.productName || 'NVIDIA HGX B200';
   const defaultLine = formData.line || formData.lineName || 'Line 01 - High-Speed SMT';
@@ -67,7 +69,7 @@ export default function MachineRoutingConfigsTab({
   const handleSaveStepConfig = () => {
     const errors = {};
     if (!stepRoutingState.mainKey?.trim()) {
-      errors.mainKey = 'Main Key không được để trống';
+      errors.mainKey = t('modals.form.routingConfigs.errMainKeyRequired');
     }
 
     if (Object.keys(errors).length > 0) {
@@ -84,7 +86,7 @@ export default function MachineRoutingConfigsTab({
       onChange('stepRouting', updatedStepRouting);
     }
     showToast(
-      `Đã lưu cấu hình công đoạn: Main Key "${updatedStepRouting.mainKey}", Mode ${updatedStepRouting.mode}!`,
+      t('modals.form.routingConfigs.toastSaveStep', { key: updatedStepRouting.mainKey, mode: updatedStepRouting.mode }),
       'success'
     );
   };
@@ -107,15 +109,17 @@ export default function MachineRoutingConfigsTab({
     const errors = {};
     const parsedNumber = Number(twinStepForm.twinStep);
 
-    if (!twinStepForm.twinStep || isNaN(parsedNumber) || parsedNumber <= 0) {
-      errors.twinStep = 'Twin Step phải là một số nguyên dương hợp lệ (vd: 10, 11)';
+    if (!twinStepForm.twinStep) {
+      errors.twinStep = t('modals.form.routingConfigs.errTwinRequired');
+    } else if (isNaN(parsedNumber) || parsedNumber <= 0) {
+      errors.twinStep = t('modals.form.routingConfigs.errTwinNumber');
     } else {
       // Kiểm tra trùng lặp
       const isDuplicate = routingConfigs.some(
         item => item.id !== editingId && Number(item.twinStep) === parsedNumber
       );
       if (isDuplicate) {
-        errors.twinStep = `Trạm song song "${parsedNumber}" đã tồn tại trong danh sách`;
+        errors.twinStep = t('modals.form.routingConfigs.errTwinDuplicate', { step: parsedNumber });
       }
     }
 
@@ -138,7 +142,7 @@ export default function MachineRoutingConfigsTab({
             }
           : item
       );
-      showToast(`Đã cập nhật trạm song song "${parsedNumber}" thành công!`, 'success');
+      showToast(t('modals.form.routingConfigs.toastUpdateTwin', { step: parsedNumber }), 'success');
     } else {
       // Thêm mới
       const newItem = {
@@ -153,7 +157,7 @@ export default function MachineRoutingConfigsTab({
         isActive: true
       };
       updatedConfigs = [...routingConfigs, newItem];
-      showToast(`Đã thêm trạm song song "${parsedNumber}" vào danh sách!`, 'success');
+      showToast(t('modals.form.routingConfigs.toastAddTwin', { step: parsedNumber }), 'success');
     }
 
     if (onChange) {
@@ -174,7 +178,7 @@ export default function MachineRoutingConfigsTab({
   };
 
   const handleDeleteTwinStep = (item) => {
-    if (window.confirm(`Bạn có chắc chắn muốn xóa cấu hình trạm song song "${item.twinStep}" không?`)) {
+    if (window.confirm(t('modals.form.routingConfigs.confirmDeleteTwin', { step: item.twinStep }))) {
       const updatedConfigs = routingConfigs.filter(r => r.id !== item.id);
       if (onChange) {
         onChange('routingConfigs', updatedConfigs);
@@ -182,7 +186,7 @@ export default function MachineRoutingConfigsTab({
       if (editingId === item.id) {
         handleCancelTwinStep();
       }
-      showToast(`Đã xóa cấu hình trạm song song "${item.twinStep}"!`, 'info');
+      showToast(t('modals.form.routingConfigs.toastDeleteTwin', { step: item.twinStep }), 'info');
     }
   };
 

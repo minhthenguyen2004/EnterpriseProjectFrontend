@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import CurrentMOGroup from './CurrentMOGroup';
 import ProductInfo from './ProductInfo';
@@ -12,6 +13,7 @@ export default function StageDetailsSidebar({
   onClearUndo,
   onResetCarrier
 }) {
+  const { t } = useTranslation('autoline');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -39,8 +41,8 @@ export default function StageDetailsSidebar({
       >
         <div className="flex items-center gap-2 mb-3">
           <span className="text-base">⚙️</span>
-          <h4 className={`text-xs font-black uppercase tracking-wider ${ isFoxconn ? "text-black" : "text-white"}`}>
-            Thao tác công đoạn
+          <h4 className={`text-xs font-black uppercase tracking-wider ${isFoxconn ? 'text-black' : 'text-white'}`}>
+            {t('operations.stageActions.title')}
           </h4>
         </div>
 
@@ -57,7 +59,7 @@ export default function StageDetailsSidebar({
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>Chi tiết công đoạn (Xem lịch sử & Lỗi)</span>
+          <span>{t('operations.stageActions.btnDetail')}</span>
         </button>
       </div>
 
@@ -72,4 +74,3 @@ export default function StageDetailsSidebar({
     </div>
   );
 }
-

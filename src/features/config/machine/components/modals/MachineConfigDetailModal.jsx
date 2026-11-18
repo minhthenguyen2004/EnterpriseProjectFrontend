@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineConfigDetailModal({
@@ -6,16 +7,18 @@ export default function MachineConfigDetailModal({
   onClose,
   onSwitchToEdit
 }) {
+  const { t, i18n } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
   if (!isOpen || !machine) return null;
 
+  const locale = i18n.language === 'zh' ? 'zh-CN' : i18n.language === 'en' ? 'en-US' : 'vi-VN';
   const formatDate = (isoStr) => {
     if (!isoStr) return 'N/A';
     try {
       const d = new Date(isoStr);
-      return d.toLocaleString('vi-VN', {
+      return d.toLocaleString(locale, {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
@@ -46,10 +49,10 @@ export default function MachineConfigDetailModal({
         }`}>
           <div>
             <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-zinc-500 mb-0.5">
-              <span>MACHINE TELEMETRY & CONFIG</span>
+              <span>{t('modals.detail.tagCategory')}</span>
               <span>•</span>
               <span className={isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}>
-                ID #{machine.id}
+                {t('modals.detail.tagId', { id: machine.id })}
               </span>
             </div>
             <div className="flex items-center gap-3">
@@ -61,7 +64,7 @@ export default function MachineConfigDetailModal({
                     : 'bg-emerald-950/60 text-emerald-400 border-emerald-700'
                   : 'bg-amber-50 text-amber-700 border-amber-300'
               }`}>
-                {machine.isActive ? '● Đang Hoạt Động (Online)' : '○ Chờ Bảo Trì (Standby)'}
+                {machine.isActive ? t('modals.detail.statusOnline') : t('modals.detail.statusStandby')}
               </span>
             </div>
           </div>
@@ -86,21 +89,21 @@ export default function MachineConfigDetailModal({
             <div className="flex items-center gap-2 mb-3">
               <div className={`w-2 h-2 rounded-full ${isFoxconn ? 'bg-blue-600' : 'bg-[#76B900]'}`} />
               <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                1. Định Danh & Kết Nối Mạng Trạm Máy
+                {t('modals.detail.secNetwork')}
               </h4>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Mã trạm (Code):</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblStationCode')}</span>
                 <span className="font-mono font-bold text-slate-800 dark:text-zinc-200">{machine.stationCode || 'N/A'}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Địa chỉ IP:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblIp')}</span>
                 <span className={`font-mono font-black ${isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}`}>{machine.stationIp}</span>
               </div>
               <div className="sm:col-span-2">
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Host Name:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblHost')}</span>
                 <span className="font-mono text-slate-700 dark:text-zinc-300 truncate block" title={machine.hostName}>{machine.hostName}</span>
               </div>
             </div>
@@ -113,33 +116,33 @@ export default function MachineConfigDetailModal({
             <div className="flex items-center gap-2 mb-3">
               <div className={`w-2 h-2 rounded-full ${isFoxconn ? 'bg-blue-600' : 'bg-[#76B900]'}`} />
               <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                2. Vị Trí Xưởng & Chuyền Sản Xuất
+                {t('modals.detail.secLocation')}
               </h4>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Khách hàng:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblCustomer')}</span>
                 <span className="font-bold text-slate-800 dark:text-zinc-200">{machine.customer}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Tầng xưởng:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblFloor')}</span>
                 <span className="font-bold text-slate-800 dark:text-zinc-200">{machine.floor}</span>
               </div>
               <div className="sm:col-span-2">
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Nhà máy:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblFactory')}</span>
                 <span className="font-semibold text-slate-800 dark:text-zinc-200">{machine.factory}</span>
               </div>
               <div className="sm:col-span-2">
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Chuyền sản xuất:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblLine')}</span>
                 <span className="font-bold text-slate-800 dark:text-zinc-200">{machine.lineName}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Thứ tự trạm:</span>
-                <span className="font-mono font-bold text-slate-800 dark:text-zinc-200">Trạm #{machine.sequenceOrder}</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblSequence')}</span>
+                <span className="font-mono font-bold text-slate-800 dark:text-zinc-200">{t('modals.detail.valSequence', { order: machine.sequenceOrder })}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Nhóm máy:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblGroup')}</span>
                 <span className="font-semibold text-slate-800 dark:text-zinc-200">{machine.groupName}</span>
               </div>
             </div>
@@ -152,37 +155,37 @@ export default function MachineConfigDetailModal({
             <div className="flex items-center gap-2 mb-3">
               <div className={`w-2 h-2 rounded-full ${isFoxconn ? 'bg-blue-600' : 'bg-[#76B900]'}`} />
               <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                3. Công Đoạn & Tham Số Vận Hành
+                {t('modals.detail.secOperation')}
               </h4>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Tên sản phẩm:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblProduct')}</span>
                 <span className="font-bold text-slate-800 dark:text-zinc-200">{machine.productName}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Loại sản phẩm:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblProductType')}</span>
                 <span className="text-slate-700 dark:text-zinc-300">{machine.productType}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Khóa trạm / Key:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblKeys')}</span>
                 <span className="font-mono font-bold text-amber-600 dark:text-amber-400">{machine.keys}</span>
               </div>
               <div className="sm:col-span-3">
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Công đoạn (Step):</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblStep')}</span>
                 <span className="font-bold text-slate-800 dark:text-zinc-100">{machine.step}</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Mục tiêu UPH:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblTargetUph')}</span>
                 <span className="font-mono font-black text-sm text-slate-800 dark:text-zinc-100">{machine.targetUph} pcs/h</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Mục tiêu Cycle Time:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblTargetCycle')}</span>
                 <span className="font-mono font-black text-sm text-slate-800 dark:text-zinc-100">{machine.targetCycleTime}s</span>
               </div>
               <div>
-                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">Mục tiêu UPD:</span>
+                <span className="text-slate-400 dark:text-zinc-500 block text-[11px]">{t('modals.detail.lblTargetUpd')}</span>
                 <span className="font-mono font-black text-sm text-slate-800 dark:text-zinc-100">{machine.targetUpd || machine.targetUph * 20} pcs/day</span>
               </div>
             </div>
@@ -195,21 +198,21 @@ export default function MachineConfigDetailModal({
             <div className="flex items-center gap-2 mb-2">
               <div className={`w-2 h-2 rounded-full ${isFoxconn ? 'bg-blue-600' : 'bg-[#76B900]'}`} />
               <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-zinc-400">
-                4. Ghi Chú Kỹ Thuật & Nhật Ký Hệ Thống
+                {t('modals.detail.secNotes')}
               </h4>
             </div>
 
             <p className="text-xs text-slate-600 dark:text-zinc-300 italic mb-3">
-              {machine.description || 'Chưa có mô tả kỹ thuật nào được thêm cho trạm máy này.'}
+              {machine.description || t('modals.detail.noDescription')}
             </p>
 
             <div className="grid grid-cols-2 gap-3 text-[11px] pt-2 border-t border-slate-200/60 dark:border-zinc-800 text-slate-400 dark:text-zinc-500">
               <div>
-                <span>Khởi tạo lúc: </span>
+                <span>{t('modals.detail.lblCreatedAt')}</span>
                 <span className="font-mono font-medium text-slate-600 dark:text-zinc-400">{formatDate(machine.createdAt)}</span>
               </div>
               <div>
-                <span>Cập nhật gần nhất: </span>
+                <span>{t('modals.detail.lblUpdatedAt')}</span>
                 <span className="font-mono font-medium text-slate-600 dark:text-zinc-400">{formatDate(machine.updatedAt)}</span>
               </div>
             </div>
@@ -227,7 +230,7 @@ export default function MachineConfigDetailModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            Đóng
+            {t('modals.detail.btnClose')}
           </button>
 
           <button
@@ -245,7 +248,7 @@ export default function MachineConfigDetailModal({
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
             </svg>
-            <span>Chuyển sang Chỉnh Sửa</span>
+            <span>{t('modals.detail.btnSwitchEdit')}</span>
           </button>
         </div>
       </div>

@@ -4,7 +4,121 @@
     "headerBadge": "SHOPFLOOR CONTROL",
     "headerDesc": "Automated production line operations, routing step inspection, and special manual intervention controls.",
     "breadcrumbConfig": "CONFIG",
-    "breadcrumbOperations": "AUTOLINE OPERATIONS"
+    "breadcrumbOperations": "AUTOLINE OPERATIONS",
+    "topBar": {
+      "methodLabel": "Method:",
+      "modes": {
+        "manual": "Manual Input",
+        "camera": "Camera",
+        "image": "Scan Image"
+      },
+      "searchPlaceholder": "Scan or enter SN, Carrier, Keypart...",
+      "clearTooltip": "Clear search",
+      "searchBtn": "Search"
+    },
+    "routing": {
+      "title": "Production Routing",
+      "subtitle": "List of station steps and routing transfer history",
+      "progressLabel": "Completion Progress",
+      "progressBadge": "{{completed}}/{{total}} steps ({{percent}}%)",
+      "colStep": "Step",
+      "colStation": "Station / Group Name & Timestamp",
+      "colStatus": "Status",
+      "selectedBadge": "Selected",
+      "noTimestamp": "No timestamp recorded",
+      "statusPass": "PASS",
+      "statusFail": "FAIL",
+      "statusPending": "PENDING"
+    },
+    "currentStage": {
+      "title": "Operation Stage",
+      "stepLabel": "Step:",
+      "stepValue": "Step {{number}}",
+      "stageNameLabel": "Stage Name:",
+      "statusLabel": "Status:",
+      "statusPass": "✅ PASS",
+      "statusFail": "❌ FAIL",
+      "statusPending": "⏳ PENDING",
+      "noStepSelected": "No step selected"
+    },
+    "productInfo": {
+      "title": "Product Information",
+      "codeType": "Code Type:",
+      "defaultCodeType": "Serial Number (SN)",
+      "serialNumber": "Serial number:",
+      "carrier": "Carrier (Jig):",
+      "product": "Product:",
+      "category": "Category:",
+      "line": "Line:"
+    },
+    "stageActions": {
+      "title": "Stage Actions",
+      "btnDetail": "Stage Details (History & Defect Logs)"
+    },
+    "specialManipulation": {
+      "title": "Special Manipulations",
+      "undo": {
+        "label": "Undo (Rollback Step)",
+        "sub": "Back 1 step"
+      },
+      "changeCarrier": {
+        "label": "Change Carrier (Jig)",
+        "sub": "Assign new Jig"
+      },
+      "clearUndo": {
+        "label": "Clear UNDO",
+        "sub": "Clear intervention trace"
+      },
+      "resetCarrier": {
+        "label": "Reset Carrier (Jig)",
+        "sub": "Restore default"
+      }
+    },
+    "changeCarrierModal": {
+      "title": "CHANGE CARRIER (JIG)",
+      "subtitle": "Transfer product to a new pallet/carrier",
+      "currentCarrierLabel": "Current Carrier:",
+      "newCarrierLabel": "New Carrier (Jig) Code",
+      "placeholder": "Enter or scan new carrier code (e.g. CRR-B012)...",
+      "suggestionsTitle": "Ready carriers suggestion:",
+      "btnCancel": "Cancel",
+      "btnConfirm": "Confirm Change Jig"
+    },
+    "stageDetailModal": {
+      "title": "STAGE DETAILS - STEP {{step}}",
+      "statusInspection": "Inspection Status",
+      "statusPass": "✅ PASS - Completed",
+      "statusFail": "❌ FAIL - Intercepted & Blocked",
+      "statusPending": "⏳ PENDING - Not Run",
+      "passTimestamp": "Step Passed Timestamp",
+      "operator": "Operator / Inspector",
+      "defaultOperator": "AutoLine Automated System",
+      "cycleTime": "Cycle Time",
+      "seconds": "{{count}} seconds",
+      "defectInfo": "Defect Information",
+      "errorCode": "Error Code:",
+      "defectLocation": "Defect Location:",
+      "defaultLocation": "Unspecified coordinates",
+      "errorDesc": "Root Cause Description:",
+      "defaultErrorDesc": "Automated inspection test failed standard technical tolerance.",
+      "productLinkTitle": "Product Link Information",
+      "serialNumber": "Serial Number:",
+      "carrierJig": "Carrier Jig:",
+      "line": "Line:",
+      "btnClose": "Close"
+    },
+    "toast": {
+      "searchEmpty": "Please enter or scan SN, Carrier, or Keypart to search!",
+      "searchFound": "Found routing data for: {{sn}}",
+      "searchSimulated": "Displaying production routing for code: {{query}}",
+      "undoNoSteps": "Cannot Undo because no steps have been completed yet!",
+      "undoSuccess": "Successfully rolled back Step {{step}}!",
+      "changeCarrierInvalid": "Please enter a valid new Carrier/Jig code!",
+      "changeCarrierSuccess": "Successfully changed carrier pallet to Jig: {{jig}}!",
+      "clearUndoEmpty": "No Undo history records to clear!",
+      "clearUndoSuccess": "Cleared {{count}} Undo history records and removed intervention trace!",
+      "resetCarrierSuccess": "Reset Carrier/Jig to initial default state!"
+    }
   },
   "control": {
     "headerTitle": "AUTOMATION LINE CONTROL",

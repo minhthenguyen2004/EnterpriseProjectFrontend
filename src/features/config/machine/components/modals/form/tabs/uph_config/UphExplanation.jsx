@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 /**
  * Khung giải nghĩa & cơ chế giám sát UPH & Takt Time (Card 2 của Tab 4)
  * Giải thích chi tiết 3 nguyên lý:
@@ -11,6 +13,7 @@ export default function UphExplanation({
   targetCycleTime = 30.0,
   warningTolerance = 5.0
 }) {
+  const { t } = useTranslation('machine');
   const numUph = parseFloat(targetUph) || 120;
   const numTol = parseFloat(warningTolerance) || 5.0;
   const minUph = Math.round(numUph * (1 - numTol / 100));
@@ -32,7 +35,7 @@ export default function UphExplanation({
             isFoxconn ? 'text-slate-800' : 'text-zinc-200'
           }`}
         >
-          Ý nghĩa & cơ chế giám sát UPH & Takt Time:
+          {t('modals.form.uphConfig.expTitle')}
         </h4>
       </div>
 
@@ -51,10 +54,10 @@ export default function UphExplanation({
           </span>
           <div>
             <strong className={isFoxconn ? 'text-slate-900 font-bold' : 'text-zinc-100 font-bold'}>
-              Target UPH (Sản lượng mục tiêu/giờ):
+              {t('modals.form.uphConfig.expTargetUphTitle')}
             </strong>{' '}
             <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-              Số lượng sản phẩm yêu cầu chuyền/trạm đạt được trong 1 giờ (Units Per Hour).
+              {t('modals.form.uphConfig.expTargetUphDesc')}
             </span>
           </div>
         </div>
@@ -72,20 +75,10 @@ export default function UphExplanation({
           </span>
           <div>
             <strong className={isFoxconn ? 'text-slate-900 font-bold' : 'text-zinc-100 font-bold'}>
-              Target Cycle Time (Takt Time nhịp chuyền):
+              {t('modals.form.uphConfig.expTargetCycleTitle')}
             </strong>{' '}
             <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-              Thời gian chu kỳ mục tiêu trên mỗi sản phẩm (giây). Tự động tính toán theo công thức{' '}
-              <code
-                className={`px-1.5 py-0.5 rounded font-mono font-bold text-[11px] ${
-                  isFoxconn
-                    ? 'bg-blue-50 text-blue-700 border border-blue-200'
-                    : 'bg-zinc-900 text-[#76B900] border border-zinc-700'
-                }`}
-              >
-                3600 / Target UPH
-              </code>
-              .
+              {t('modals.form.uphConfig.expTargetCycleDesc')}
             </span>
           </div>
         </div>
@@ -103,10 +96,10 @@ export default function UphExplanation({
           </span>
           <div>
             <strong className={isFoxconn ? 'text-slate-900 font-bold' : 'text-zinc-100 font-bold'}>
-              Warning Tolerance (% Dung sai cảnh báo):
+              {t('modals.form.uphConfig.expToleranceTitle')}
             </strong>{' '}
             <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-              Ngưỡng % dung sai dao động cho phép trước khi kích hoạt cảnh báo suy giảm hiệu suất chuyền trên Dashboard OEE.
+              {t('modals.form.uphConfig.expToleranceDesc', { tol: numTol, min: minUph, max: maxUph })}
             </span>
           </div>
         </div>
@@ -119,7 +112,7 @@ export default function UphExplanation({
         }`}
       >
         <div className="flex items-center gap-2">
-          <span className="font-semibold">Dải kiểm soát OEE:</span>
+          <span className="font-semibold">{t('modals.form.uphConfig.oeeRange')}</span>
           <span
             className={`px-2 py-0.5 rounded-md font-mono font-bold ${
               isFoxconn
@@ -136,10 +129,16 @@ export default function UphExplanation({
 
         <div className="flex items-center gap-3 font-mono">
           <span>
-            Nhịp chuẩn: <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-200'}>{targetCycleTime}s/cái</strong>
+            {t('modals.form.uphConfig.standardTakt')}{' '}
+            <strong className={isFoxconn ? 'text-slate-800' : 'text-zinc-200'}>
+              {t('modals.form.uphConfig.unitPiecesPerSec', { sec: targetCycleTime })}
+            </strong>
           </span>
           <span>
-            Định mức: <strong className={isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}>{targetUph} cái/h</strong>
+            {t('modals.form.uphConfig.targetYield')}{' '}
+            <strong className={isFoxconn ? 'text-blue-700' : 'text-[#76B900]'}>
+              {t('modals.form.uphConfig.unitPiecesPerHour', { uph: targetUph })}
+            </strong>
           </span>
         </div>
       </div>

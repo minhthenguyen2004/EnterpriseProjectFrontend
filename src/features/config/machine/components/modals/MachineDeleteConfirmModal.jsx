@@ -1,3 +1,4 @@
+import { useTranslation, Trans } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function MachineDeleteConfirmModal({
@@ -6,6 +7,7 @@ export default function MachineDeleteConfirmModal({
   onClose,
   onConfirmDelete
 }) {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -30,20 +32,26 @@ export default function MachineDeleteConfirmModal({
           </div>
 
           <h3 className="text-lg font-black tracking-tight mb-2">
-            Xác nhận xóa cấu hình trạm máy?
+            {t('modals.delete.title')}
           </h3>
 
           <p className="text-xs text-slate-500 dark:text-zinc-400 leading-relaxed mb-4">
-            Bạn có chắc chắn muốn xóa cấu hình máy{' '}
-            <strong className="text-rose-600 dark:text-rose-400 font-bold">{machine.machineName}</strong>{' '}
-            (IP: <code className="font-mono font-bold text-slate-800 dark:text-zinc-200">{machine.stationIp}</code>)
-            khỏi chuyền <strong className="text-slate-800 dark:text-zinc-200 font-bold">{machine.lineName}</strong> không?
+            <Trans
+              i18nKey="modals.delete.message"
+              ns="machine"
+              values={{ name: machine.machineName, ip: machine.stationIp, line: machine.lineName }}
+              components={{
+                bold: <strong className="text-rose-600 dark:text-rose-400 font-bold" />,
+                codeTag: <code className="font-mono font-bold text-slate-800 dark:text-zinc-200" />,
+                lineTag: <strong className="text-slate-800 dark:text-zinc-200 font-bold" />
+              }}
+            />
           </p>
 
           <div className={`p-3 rounded-xl border text-[11px] mb-6 ${
             isFoxconn ? 'bg-amber-50/80 border-amber-200 text-amber-900' : 'bg-amber-950/40 border-amber-800/60 text-amber-300'
           }`}>
-            <span className="font-bold">⚠️ Lưu ý an toàn:</span> Thao tác này sẽ xóa vĩnh viễn cấu hình trạm máy khỏi danh mục quản lý và có thể ảnh hưởng đến lịch giám sát thời gian thực. Thao tác không thể hoàn tác.
+            <span className="font-bold">{t('modals.delete.warningNote')}</span> {t('modals.delete.warning')}
           </div>
 
           {/* Action Buttons */}
@@ -57,7 +65,7 @@ export default function MachineDeleteConfirmModal({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
               }`}
             >
-              Hủy Bỏ
+              {t('modals.delete.btnCancel')}
             </button>
 
             <button
@@ -65,7 +73,7 @@ export default function MachineDeleteConfirmModal({
               onClick={onConfirmDelete}
               className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white transition-all shadow-md shadow-rose-600/30 cursor-pointer active:scale-95"
             >
-              Xác Nhận Xóa Vĩnh Viễn
+              {t('modals.delete.btnConfirm')}
             </button>
           </div>
         </div>

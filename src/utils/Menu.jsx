@@ -91,7 +91,7 @@ export const menuGroups = [
         ),
       },
       {
-        name: { vi: 'GIẢI KHÓA KHAY', en: 'UNLOCK CARRIER', zh: '解除运营商锁定' },
+        name: { vi: 'GIẢI KHÓA KHAY', en: 'UNLOCK CARRIER', zh: '解锁载具' },
         path: '/config/unlock-carrier',
         icon: (
           <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

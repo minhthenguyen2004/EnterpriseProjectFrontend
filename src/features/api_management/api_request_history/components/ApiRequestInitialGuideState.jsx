@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 
 /**
@@ -6,6 +7,7 @@ import useTheme from '../../../../hooks/useTheme';
  * Hiển thị trước khi người dùng thực hiện bấm nút "Query Data".
  */
 export default function ApiRequestInitialGuideState({ onExecuteQuery }) {
+  const { t } = useTranslation('api');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -42,19 +44,14 @@ export default function ApiRequestInitialGuideState({ onExecuteQuery }) {
               isFoxconn ? 'text-slate-800' : 'text-zinc-100'
             }`}
           >
-            Chưa Thực Hiện Truy Vấn Dữ Liệu API
+            {t('guide.title')}
           </h3>
           <p
             className={`text-xs leading-relaxed ${
               isFoxconn ? 'text-slate-500' : 'text-zinc-400'
             }`}
           >
-            Bảng nhật ký yêu cầu API được thiết lập chế độ tải có điều kiện nhằm tối ưu hóa hiệu năng hệ thống.
-            Vui lòng cấu hình các tiêu chí lọc ở khung phía trên và nhấn nút{' '}
-            <strong className={isFoxconn ? 'text-blue-600' : 'text-[#76B900]'}>
-              Query Data
-            </strong>{' '}
-            để tải danh sách bản tin.
+            {t('guide.desc')}
           </p>
         </div>
 
@@ -69,10 +66,10 @@ export default function ApiRequestInitialGuideState({ onExecuteQuery }) {
           >
             <div className="font-bold mb-1 flex items-center gap-1.5">
               <span>📅</span>
-              <span>1. Thời Gian & Vùng</span>
+              <span>{t('guide.step1Title')}</span>
             </div>
             <p className={`text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-              Chọn mốc Date & Time và Area khu vực xưởng (SMT, Assembly, Testing...).
+              {t('guide.step1Desc')}
             </p>
           </div>
 
@@ -85,10 +82,10 @@ export default function ApiRequestInitialGuideState({ onExecuteQuery }) {
           >
             <div className="font-bold mb-1 flex items-center gap-1.5">
               <span>🎮</span>
-              <span>2. Controller & Action</span>
+              <span>{t('guide.step2Title')}</span>
             </div>
             <p className={`text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-              Lọc theo API Controller (SfcSwitch, SfcAdapter, Alabel) và mã Action nghiệp vụ.
+              {t('guide.step2Desc')}
             </p>
           </div>
 
@@ -101,10 +98,10 @@ export default function ApiRequestInitialGuideState({ onExecuteQuery }) {
           >
             <div className="font-bold mb-1 flex items-center gap-1.5">
               <span>⚡</span>
-              <span>3. Bấm Query Data</span>
+              <span>{t('guide.step3Title')}</span>
             </div>
             <p className={`text-[11px] ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-              Bấm nút xanh góc phải để hiển thị bảng 8 cột đối soát chi tiết Request & Response.
+              {t('guide.step3Desc')}
             </p>
           </div>
         </div>
@@ -123,7 +120,7 @@ export default function ApiRequestInitialGuideState({ onExecuteQuery }) {
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
-            <span>Thực Thi Truy Vấn Ngay (Mặc Định)</span>
+            <span>{t('guide.btnExecuteNow')}</span>
           </button>
         </div>
       </div>

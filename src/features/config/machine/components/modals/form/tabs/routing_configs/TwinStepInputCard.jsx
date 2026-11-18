@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Khung thiết lập trạm song song (Add Twin Step Config Workspace):
@@ -14,6 +15,7 @@ export default function TwinStepInputCard({
   onCancel,
   onSave
 }) {
+  const { t } = useTranslation('machine');
   const formUid = useId();
 
   return (
@@ -33,11 +35,11 @@ export default function TwinStepInputCard({
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            {editingId ? 'Chỉnh Sửa Trạm Song Song (Edit Twin Step)' : 'Thêm Trạm Song Song (Add Twin Step Config)'}
+            {editingId ? t('modals.form.routingConfigs.twinCardTitleEdit') : t('modals.form.routingConfigs.twinCardTitleAdd')}
           </span>
           {editingId && (
             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-bold">
-              Đang Sửa
+              {t('modals.form.validationKeys.editingBadge')}
             </span>
           )}
         </div>
@@ -46,7 +48,7 @@ export default function TwinStepInputCard({
             isFoxconn ? 'text-slate-500' : 'text-zinc-400'
           }`}
         >
-          Trạm song song &amp; quy tắc hoán đổi khay
+          {t('modals.form.routingConfigs.twinCardSub')}
         </span>
       </div>
 
@@ -60,7 +62,7 @@ export default function TwinStepInputCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Twin Step (Trạm) <span className="text-rose-500 font-black">*</span>
+            {t('modals.form.routingConfigs.lblTwinStep')} <span className="text-rose-500 font-black">*</span>
           </label>
           <input
             id={`${formUid}-twinStep`}
@@ -69,7 +71,7 @@ export default function TwinStepInputCard({
             step="1"
             value={twinStepForm.twinStep}
             onChange={(e) => onFieldChange('twinStep', e.target.value)}
-            placeholder="VD: 11"
+            placeholder={t('modals.form.routingConfigs.placeholderTwinStep')}
             className={`w-full px-3 py-1.5 rounded-xl text-xs font-mono font-bold tracking-wider border outline-none transition-all ${
               errors.twinStep
                 ? 'border-rose-400 bg-rose-50 text-rose-800'
@@ -105,7 +107,7 @@ export default function TwinStepInputCard({
               onChange={(e) => onFieldChange('allowCarrierSwap', e.target.checked)}
               className="w-3.5 h-3.5 rounded text-blue-600 accent-blue-600 dark:accent-[#76B900] cursor-pointer"
             />
-            <span>Allow Swap</span>
+            <span>{t('modals.form.routingConfigs.tickAllowSwap')}</span>
           </label>
 
           {/* Ô tick Picker (Resolve SN) */}
@@ -128,7 +130,7 @@ export default function TwinStepInputCard({
               onChange={(e) => onFieldChange('isPicker', e.target.checked)}
               className="w-3.5 h-3.5 rounded text-purple-600 accent-purple-600 dark:accent-[#76B900] cursor-pointer"
             />
-            <span>Picker (Resolve SN)</span>
+            <span>{t('modals.form.routingConfigs.tickPicker')}</span>
           </label>
         </div>
 
@@ -144,7 +146,7 @@ export default function TwinStepInputCard({
                   : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300'
               }`}
             >
-              ✕ Hủy
+              {t('modals.form.routingConfigs.btnCancel')}
             </button>
           )}
 
@@ -158,7 +160,7 @@ export default function TwinStepInputCard({
             }`}
           >
             <span>💾</span>
-            <span>{editingId ? 'Cập Nhật' : 'Lưu Twin Step'}</span>
+            <span>{editingId ? t('modals.form.routingConfigs.btnUpdateTwin') : t('modals.form.routingConfigs.btnSaveTwin')}</span>
           </button>
         </div>
       </div>

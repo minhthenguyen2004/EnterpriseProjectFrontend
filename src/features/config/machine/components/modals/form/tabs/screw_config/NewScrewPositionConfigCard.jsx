@@ -1,4 +1,5 @@
 import { useId } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SCREW_UNITS } from '../../constants/formModalConstants';
 
 /**
@@ -19,6 +20,7 @@ export default function NewScrewPositionConfigCard({
   onCancel,
   onSave
 }) {
+  const { t } = useTranslation('machine');
   const formUid = useId();
 
   // Helper render 1 khung thông số nhỏ (Standard, Limit, Unit)
@@ -64,7 +66,7 @@ export default function NewScrewPositionConfigCard({
                 isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Standard <span className="text-rose-500">*</span>
+              {t('modals.form.screwConfig.lblStandard')} <span className="text-rose-500">*</span>
             </label>
             <input
               id={`${formUid}-${paramKey}-std`}
@@ -94,7 +96,7 @@ export default function NewScrewPositionConfigCard({
                 isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Limit (±) <span className="text-rose-500">*</span>
+              {t('modals.form.screwConfig.lblLimit')} <span className="text-rose-500">*</span>
             </label>
             <input
               id={`${formUid}-${paramKey}-lim`}
@@ -124,7 +126,7 @@ export default function NewScrewPositionConfigCard({
                 isFoxconn ? 'text-slate-600' : 'text-zinc-400'
               }`}
             >
-              Unit
+              {t('modals.form.screwConfig.lblUnit')}
             </label>
             <div className="relative">
               <select
@@ -174,11 +176,11 @@ export default function NewScrewPositionConfigCard({
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            {editingId ? 'Cập Nhật Vị Trí Vít' : 'New Screw Position Config (Thêm Vị Trí Ốc Mới)'}
+            {editingId ? t('modals.form.screwConfig.cardTitleEdit') : t('modals.form.screwConfig.cardTitleAdd')}
           </span>
           {editingId && (
             <span className="text-[10px] px-2 py-0.5 rounded bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 font-bold">
-              Đang Sửa
+              {t('modals.form.screwConfig.editingBadge')}
             </span>
           )}
         </div>
@@ -188,7 +190,7 @@ export default function NewScrewPositionConfigCard({
             isFoxconn ? 'text-slate-500' : 'text-zinc-400'
           }`}
         >
-          Chuẩn thẩm định AutoLine [Std ± Limit]
+          {t('modals.form.screwConfig.auditStandard')}
         </span>
       </div>
 
@@ -206,14 +208,14 @@ export default function NewScrewPositionConfigCard({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Position / Vị trí ốc <span className="text-rose-500 font-black">*</span>
+            {t('modals.form.screwConfig.lblPosition')} <span className="text-rose-500 font-black">*</span>
           </label>
           <input
             id={`${formUid}-position`}
             type="text"
             value={screwForm.position || ''}
             onChange={(e) => onFieldChange('position', e.target.value.toUpperCase())}
-            placeholder="VD: SCR-POS-01 hoặc 1"
+            placeholder={t('modals.form.screwConfig.placeholderPosition')}
             className={`w-full px-3 py-1.5 rounded-xl text-xs font-bold tracking-wider border outline-none transition-all ${
               formErrors.position
                 ? 'border-rose-400 bg-rose-50 text-rose-800 dark:bg-rose-950/50 dark:text-rose-200'
@@ -250,7 +252,7 @@ export default function NewScrewPositionConfigCard({
                   : 'text-zinc-400'
               }`}
             >
-              Required Position
+              {t('modals.form.screwConfig.tickRequired')}
             </span>
           </label>
 
@@ -271,7 +273,7 @@ export default function NewScrewPositionConfigCard({
                   : 'text-amber-600 dark:text-amber-400'
               }`}
             >
-              {screwForm.isActive ? 'Active Tolerance Check' : 'Active (Bypass)'}
+              {screwForm.isActive ? t('modals.form.screwConfig.tickActive') : t('modals.form.screwConfig.tickActiveBypass')}
             </span>
           </label>
         </div>
@@ -280,13 +282,13 @@ export default function NewScrewPositionConfigCard({
       {/* 4 KHUNG NHỎ THÔNG SỐ (Lưới responsive: 4 cột trên xl, 2 cột trên sm/md) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2.5 mb-3">
         {/* Khung 1: Torque */}
-        {renderParamBox('torque', 'Torque (Lực)', '🔩', SCREW_UNITS.torque)}
+        {renderParamBox('torque', t('modals.form.screwConfig.paramTorque'), '🔩', SCREW_UNITS.torque)}
         {/* Khung 2: Angle */}
-        {renderParamBox('angle', 'Angle (Góc)', '🔄', SCREW_UNITS.angle)}
+        {renderParamBox('angle', t('modals.form.screwConfig.paramAngle'), '🔄', SCREW_UNITS.angle)}
         {/* Khung 3: Volume */}
-        {renderParamBox('volume', 'Volume (Thể tích)', '🧪', SCREW_UNITS.volume)}
+        {renderParamBox('volume', t('modals.form.screwConfig.paramVolume'), '🧪', SCREW_UNITS.volume)}
         {/* Khung 4: Height */}
-        {renderParamBox('height', 'Height (Chiều cao)', '📏', SCREW_UNITS.height)}
+        {renderParamBox('height', t('modals.form.screwConfig.paramHeight'), '📏', SCREW_UNITS.height)}
       </div>
 
       {/* BÊN DƯỚI: Nút Save Screw Config (+ Nút Hủy nếu đang sửa) */}
@@ -305,7 +307,7 @@ export default function NewScrewPositionConfigCard({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
             }`}
           >
-            ✕ Hủy Thao Tác
+            {t('modals.form.screwConfig.btnCancel')}
           </button>
         )}
 
@@ -319,7 +321,7 @@ export default function NewScrewPositionConfigCard({
           }`}
         >
           <span>{editingId ? '💾' : '➕'}</span>
-          <span>{editingId ? 'Update Screw Config' : 'Save Screw Config'}</span>
+          <span>{editingId ? t('modals.form.screwConfig.btnUpdate') : t('modals.form.screwConfig.btnSave')}</span>
         </button>
       </div>
     </div>

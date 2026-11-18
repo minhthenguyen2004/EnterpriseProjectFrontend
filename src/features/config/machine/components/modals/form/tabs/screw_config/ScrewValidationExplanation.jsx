@@ -1,43 +1,41 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Khung giải nghĩa trực quan: Cơ chế thẩm định tiêu chuẩn & dung sai dữ liệu Vít (AutoLine Screw Validation)
  * Hỗ trợ thu gọn/mở rộng (Collapsible) để nhường không gian tối đa cho bảng vị trí vít.
  */
 export default function ScrewValidationExplanation({ isFoxconn = false }) {
+  const { t } = useTranslation('machine');
   const [isExpanded, setIsExpanded] = useState(true);
 
   const rules = [
     {
       num: '1',
-      title: 'Thẩm định độc lập 4 cặp tiêu chuẩn:',
-      detail:
-        'Hệ thống đối soát trực tiếp 4 cặp thông số kỹ thuật (Torque, Angle, Volume, Height) theo dải [Standard ± Limit]. Nếu bất kỳ thông số nào vi phạm → Hệ thống cưỡng bức lỗi 426 (SCREW FAIL).',
-      badge: 'Lỗi 426 (SCREW FAIL)',
+      title: t('modals.form.screwConfig.rule1Title'),
+      detail: t('modals.form.screwConfig.rule1Desc'),
+      badge: t('modals.form.screwConfig.rule1Badge'),
       badgeColor: 'rose'
     },
     {
       num: '2',
-      title: 'Chặn thiếu vị trí ốc bắt buộc:',
-      detail:
-        'Nếu vị trí có Required = Yes mà máy không gửi vị trí này lên → Tự động gán mã lỗi MISSING_SCREW_POSITION và FAIL giao dịch.',
-      badge: 'MISSING_SCREW_POSITION',
+      title: t('modals.form.screwConfig.rule2Title'),
+      detail: t('modals.form.screwConfig.rule2Desc'),
+      badge: t('modals.form.screwConfig.rule2Badge'),
       badgeColor: 'amber'
     },
     {
       num: '3',
-      title: 'Tự động nạp vị trí mới (Auto-seeding):',
-      detail:
-        'Khi máy bắt vít gửi vị trí ốc mới lần đầu, hệ thống tự động ghi nhận với giá trị 0 (chưa kiểm soát dung sai) để không làm dừng chuyền.',
-      badge: 'Auto-seeding (Std=0)',
+      title: t('modals.form.screwConfig.rule3Title'),
+      detail: t('modals.form.screwConfig.rule3Desc'),
+      badge: t('modals.form.screwConfig.rule3Badge'),
       badgeColor: 'blue'
     },
     {
       num: '4',
-      title: 'Chốt an toàn (Active):',
-      detail:
-        'Có thể tạm tắt Active = Bypass khi bảo trì hoặc chạy thử để bỏ qua kiểm tra dung sai vị trí đó mà không cần xóa cấu hình.',
-      badge: 'Active = Bypass',
+      title: t('modals.form.screwConfig.rule4Title'),
+      detail: t('modals.form.screwConfig.rule4Desc'),
+      badge: t('modals.form.screwConfig.rule4Badge'),
       badgeColor: 'emerald'
     }
   ];
@@ -63,7 +61,7 @@ export default function ScrewValidationExplanation({ isFoxconn = false }) {
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            Cơ chế thẩm định tiêu chuẩn & dung sai dữ liệu Vít (AutoLine Screw Validation)
+            {t('modals.form.screwConfig.expTitle')}
           </h5>
           <span
             className={`text-[10px] font-bold px-2 py-0.5 rounded border ${
@@ -72,12 +70,12 @@ export default function ScrewValidationExplanation({ isFoxconn = false }) {
                 : 'bg-zinc-900 text-zinc-400 border-zinc-800'
             }`}
           >
-            4 cơ chế cốt lõi
+            {t('modals.form.screwConfig.expBadge')}
           </span>
         </div>
 
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400 dark:text-zinc-500">
-          <span>{isExpanded ? 'Thu gọn' : 'Xem chi tiết'}</span>
+          <span>{isExpanded ? t('modals.form.screwConfig.collapse') : t('modals.form.screwConfig.expand')}</span>
           <span className="text-[10px]">{isExpanded ? '▲' : '▼'}</span>
         </div>
       </button>

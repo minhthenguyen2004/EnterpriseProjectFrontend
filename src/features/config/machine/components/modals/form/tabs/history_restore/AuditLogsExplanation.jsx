@@ -1,43 +1,41 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Khung giải nghĩa trực quan: Quy chuẩn kiểm toán & Cơ chế hoàn tác cấu hình (Audit & Rollback Governance)
  * Hỗ trợ thu gọn/mở rộng (Collapsible) để nhường diện tích hiển thị tối đa cho Bảng Audit Logs.
  */
 export default function AuditLogsExplanation({ isFoxconn = false }) {
+  const { t } = useTranslation('machine');
   const [isExpanded, setIsExpanded] = useState(true);
 
   const rules = [
     {
       num: '1',
-      title: 'Ghi nhận thời gian thực (Immutable Audit Trail):',
-      detail:
-        'Mọi tác vụ Thêm, Sửa, Xóa hoặc thay đổi dung sai đều được ghi vết bất biến, bắt buộc kèm thông tin định danh Operator (mã nhân viên + họ tên).',
-      badge: 'Operator Identity',
+      title: t('modals.form.historyRestore.rule1Title'),
+      detail: t('modals.form.historyRestore.rule1Desc'),
+      badge: t('modals.form.historyRestore.rule1Badge'),
       badgeColor: 'blue'
     },
     {
       num: '2',
-      title: 'Đối soát Diff trực quan:',
-      detail:
-        'Tính năng Diff giúp kỹ sư xem rõ từng trường dữ liệu trước và sau thay đổi, ngăn chặn sai lệch thông số kỹ thuật trước khi đưa vào sản xuất.',
-      badge: 'Visual Diff Before/After',
+      title: t('modals.form.historyRestore.rule2Title'),
+      detail: t('modals.form.historyRestore.rule2Desc'),
+      badge: t('modals.form.historyRestore.rule2Badge'),
       badgeColor: 'amber'
     },
     {
       num: '3',
-      title: 'Hoàn tác an toàn (Safe Rollback):',
-      detail:
-        'Khi xảy ra sự cố trên chuyền do cài đặt sai, thao tác Rollback khôi phục tức thì cấu hình ổn định trước đó và tự động sinh 1 bản ghi audit log mới cho hành động hoàn tác.',
-      badge: 'Safe Rollback',
+      title: t('modals.form.historyRestore.rule3Title'),
+      detail: t('modals.form.historyRestore.rule3Desc'),
+      badge: t('modals.form.historyRestore.rule3Badge'),
       badgeColor: 'indigo'
     },
     {
       num: '4',
-      title: 'Nút Refresh thời gian thực:',
-      detail:
-        'Nút Refresh trên cùng của bảng cho phép kỹ sư cập nhật danh sách log tức thì để theo dõi các thao tác vừa diễn ra từ các trạm máy khác hoặc các ca trực trước.',
-      badge: 'Real-time Sync',
+      title: t('modals.form.historyRestore.rule4Title'),
+      detail: t('modals.form.historyRestore.rule4Desc'),
+      badge: t('modals.form.historyRestore.rule4Badge'),
       badgeColor: 'emerald'
     }
   ];
@@ -63,7 +61,7 @@ export default function AuditLogsExplanation({ isFoxconn = false }) {
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            Quy chuẩn kiểm toán & Cơ chế hoàn tác cấu hình (Audit & Rollback Governance)
+            {t('modals.form.historyRestore.expTitle')}
           </h5>
           <span
             className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
@@ -72,12 +70,12 @@ export default function AuditLogsExplanation({ isFoxconn = false }) {
                 : 'bg-zinc-900 text-zinc-400 border-zinc-800'
             }`}
           >
-            4 nguyên tắc kiểm toán
+            {t('modals.form.historyRestore.expBadge')}
           </span>
         </div>
 
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400 dark:text-zinc-500">
-          <span>{isExpanded ? 'Thu gọn' : 'Xem chi tiết'}</span>
+          <span>{isExpanded ? t('modals.form.historyRestore.collapse') : t('modals.form.historyRestore.expand')}</span>
           <span className="text-[10px]">{isExpanded ? '▲' : '▼'}</span>
         </div>
       </button>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import {
   METHOD_BADGE_CONFIG,
@@ -25,6 +26,7 @@ export default function ApiRequestLogsTable({
   onOpenJsonModal,
   statsSummary,
 }) {
+  const { t } = useTranslation('api');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [copiedUrlId, setCopiedUrlId] = useState(null);
@@ -60,7 +62,7 @@ export default function ApiRequestLogsTable({
       >
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 text-xs font-bold">
-            <span>📋 Kết Quả Truy Vấn</span>
+            <span>📋 {t('table.title')}</span>
           </div>
         </div>
       </div>
@@ -76,14 +78,14 @@ export default function ApiRequestLogsTable({
                   : 'bg-zinc-950 text-zinc-300 border-zinc-800'
               }`}
             >
-              <th className="py-2.5 px-3 whitespace-nowrap">Client IP</th>
-              <th className="py-2.5 px-3 whitespace-nowrap text-center">Method</th>
-              <th className="py-2.5 px-3 min-w-45">Url</th>
-              <th className="py-2.5 px-3 whitespace-nowrap text-center">Status Code</th>
-              <th className="py-2.5 px-3 whitespace-nowrap">Request Time</th>
-              <th className="py-2.5 px-3 whitespace-nowrap text-right">Processing Time</th>
-              <th className="py-2.5 px-3 min-w-70">Request Body</th>
-              <th className="py-2.5 px-3 min-w-70">esponse Body</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('table.colClientIp')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap text-center">{t('table.colMethod')}</th>
+              <th className="py-2.5 px-3 min-w-45">{t('table.colUrl')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap text-center">{t('table.colStatusCode')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap">{t('table.colRequestTime')}</th>
+              <th className="py-2.5 px-3 whitespace-nowrap text-right">{t('table.colProcessingTime')}</th>
+              <th className="py-2.5 px-3 min-w-70">{t('table.colRequestBody')}</th>
+              <th className="py-2.5 px-3 min-w-70">{t('table.colResponseBody')}</th>
             </tr>
           </thead>
           <tbody
@@ -102,10 +104,10 @@ export default function ApiRequestLogsTable({
                   <div className="flex flex-col items-center justify-center gap-2">
                     <span className="text-3xl">🔍</span>
                     <span className="text-xs font-bold">
-                      Không tìm thấy bản ghi yêu cầu API nào phù hợp với bộ lọc hiện tại.
+                      {t('table.noDataTitle')}
                     </span>
                     <span className="text-[11px] opacity-75">
-                      Vui lòng thử nới rộng khoảng thời gian hoặc chọn "Tất Cả Controller / Action".
+                      {t('table.noDataDesc')}
                     </span>
                   </div>
                 </td>
@@ -180,7 +182,7 @@ export default function ApiRequestLogsTable({
                               ? 'hover:bg-slate-200 text-slate-600'
                               : 'hover:bg-zinc-700 text-zinc-300'
                           }`}
-                          title="Sao chép URL"
+                          title={t('table.copyUrlTooltip')}
                         >
                           {copiedUrlId === row.id ? '✓' : '📋'}
                         </button>
@@ -239,7 +241,7 @@ export default function ApiRequestLogsTable({
                                 ? 'bg-white hover:bg-slate-100 text-slate-700 border-slate-300'
                                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
                             }`}
-                            title="Sao chép JSON"
+                            title={t('table.copyJsonTooltip')}
                           >
                             {copiedCellKey === `req-${row.id}` ? '✓' : '📋'}
                           </button>
@@ -272,7 +274,7 @@ export default function ApiRequestLogsTable({
                                 ? 'bg-white hover:bg-slate-100 text-slate-700 border-slate-300'
                                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
                             }`}
-                            title="Sao chép JSON"
+                            title={t('table.copyJsonTooltip')}
                           >
                             {copiedCellKey === `res-${row.id}` ? '✓' : '📋'}
                           </button>

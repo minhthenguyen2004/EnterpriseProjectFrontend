@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../../hooks/useTheme';
 
 export default function WholeLineScannerTab({
@@ -15,6 +16,7 @@ export default function WholeLineScannerTab({
   onToggleCode,
   onToggleSelectAll
 }) {
+  const { t } = useTranslation('carrier');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -41,10 +43,10 @@ export default function WholeLineScannerTab({
         </div>
         <div>
           <h4 className="text-xs font-black uppercase tracking-wider text-amber-800 dark:text-amber-300">
-            CẢNH BÁO QUAN TRỌNG
+            {t('unlock.wholeLine.warningTitle')}
           </h4>
           <p className="text-xs font-bold mt-0.5 leading-relaxed">
-            Chế độ này sẽ mở khóa Tất Cả các khay khớp với điều kiện bên dưới. Hãy cẩn trọng.
+            {t('unlock.wholeLine.warningDesc')}
           </p>
         </div>
       </div>
@@ -52,14 +54,14 @@ export default function WholeLineScannerTab({
       {/* 2. BỘ 3 MỤC DROPDOWN MENU: Tên sản phẩm, Loại sản phẩm và Tên line */}
       <div className="p-4 rounded-xl bg-slate-50/80 dark:bg-zinc-950/60 border border-slate-200 dark:border-zinc-800 mb-4.5">
         <span className="text-[11px] font-bold text-black dark:text-zinc-400 uppercase tracking-wider block mb-2.5">
-          Điều kiện lọc mở khóa hàng loạt:
+          {t('unlock.wholeLine.filterSectionTitle')}
         </span>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Dropdown 1: Tên sản phẩm */}
           <div>
             <label className="block text-xs font-bold mb-1.5 text-black dark:text-zinc-300">
-              Tên sản phẩm
+              {t('unlock.wholeLine.productNameLabel')}
             </label>
             <div className="relative">
               <select
@@ -71,7 +73,7 @@ export default function WholeLineScannerTab({
                     : 'bg-zinc-900 border-zinc-700 text-zinc-100 focus:ring-2 focus:ring-[#76B900]/15'
                 }`}
               >
-                <option value="all">Tất cả sản phẩm</option>
+                <option value="all">{t('unlock.wholeLine.allProducts')}</option>
                 {productNameOptions.map((prod) => (
                   <option key={prod} value={prod}>
                     {prod}
@@ -89,7 +91,7 @@ export default function WholeLineScannerTab({
           {/* Dropdown 2: Loại sản phẩm */}
           <div>
             <label className="block text-xs font-bold mb-1.5 text-black dark:text-zinc-300">
-              Loại sản phẩm
+              {t('unlock.wholeLine.productTypeLabel')}
             </label>
             <div className="relative">
               <select
@@ -101,7 +103,7 @@ export default function WholeLineScannerTab({
                     : 'bg-zinc-900 border-zinc-700 text-zinc-100 focus:ring-2 focus:ring-[#76B900]/15'
                 }`}
               >
-                <option value="all">Tất cả loại sản phẩm</option>
+                <option value="all">{t('unlock.wholeLine.allProductTypes')}</option>
                 {productTypeOptions.map((type) => (
                   <option key={type} value={type}>
                     {type}
@@ -119,7 +121,7 @@ export default function WholeLineScannerTab({
           {/* Dropdown 3: Tên line */}
           <div>
             <label className="block text-xs font-bold mb-1.5 text-black dark:text-zinc-300">
-              Tên line
+              {t('unlock.wholeLine.lineNameLabel')}
             </label>
             <div className="relative">
               <select
@@ -131,7 +133,7 @@ export default function WholeLineScannerTab({
                     : 'bg-zinc-900 border-zinc-700 text-zinc-100 focus:ring-2 focus:ring-[#76B900]/15'
                 }`}
               >
-                <option value="all">Tất cả line sản xuất</option>
+                <option value="all">{t('unlock.wholeLine.allLines')}</option>
                 {lineNameOptions.map((line) => (
                   <option key={line} value={line}>
                     {line}
@@ -152,7 +154,7 @@ export default function WholeLineScannerTab({
       <div className="flex items-center justify-between mb-3 text-xs">
         <div className="flex items-center gap-2">
           <span className={`font-semibold ${isFoxconn ? 'text-slate-600' : 'text-zinc-400'}`}>
-            Khay bị khóa khớp 3 điều kiện:
+            {t('unlock.wholeLine.matchedCountLabel')}
           </span>
           <span className="font-mono font-bold text-red-500 text-sm">{lineCarriers.length}</span>
         </div>
@@ -167,7 +169,7 @@ export default function WholeLineScannerTab({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border-zinc-700'
             }`}
           >
-            {isAllSelected ? 'Bỏ chọn tất cả' : 'Chọn tất cả khay'} ({selectedCodes.length}/{lineCarriers.length})
+            {isAllSelected ? t('unlock.wholeLine.deselectAll') : t('unlock.wholeLine.selectAll')} ({selectedCodes.length}/{lineCarriers.length})
           </button>
         )}
       </div>
@@ -196,17 +198,17 @@ export default function WholeLineScannerTab({
                     type="checkbox"
                     checked={isSelected}
                     onChange={() => onToggleCode(c.carrierCode)}
-                    className={`w-4 h-4 rounded-sm cursor-pointer ${isSelected ? 'text-primary' : 'text-primary'}`}
+                    className="w-4 h-4 rounded-sm cursor-pointer text-primary"
                   />
                   <div>
-                    <span className={`font-black text-xs ${ isFoxconn ? 'text-black' : 'text-white'}`}>
+                    <span className={`font-black text-xs ${isFoxconn ? 'text-black' : 'text-white'}`}>
                       {c.carrierCode}
                     </span>
                     <span className="text-[11px] text-slate-500 dark:text-zinc-400 ml-2">
                       {c.lineName} • {c.productName} • {c.carrierType}
                     </span>
                     <p className="text-[10px] text-slate-400 dark:text-zinc-500 mt-0.5 truncate max-w-md">
-                      Trạm: {c.stationName || 'N/A'} • {c.lockReason}
+                      {t('unlock.wholeLine.stationPrefix')} {c.stationName || 'N/A'} • {c.lockReason}
                     </p>
                   </div>
                 </div>
@@ -216,7 +218,7 @@ export default function WholeLineScannerTab({
                     {c.currentCycles} / {c.maxCycles} ({c.usagePercentage}%)
                   </span>
                   <span className="block text-[10px] text-slate-400 dark:text-zinc-500">
-                    Dung sai: {c.coplanarityDeviation}mm
+                    {t('unlock.wholeLine.toleranceLabel')} {c.coplanarityDeviation}mm
                   </span>
                 </div>
               </div>
@@ -225,7 +227,7 @@ export default function WholeLineScannerTab({
         </div>
       ) : (
         <div className="py-8 text-center text-xs text-slate-500 dark:text-zinc-400 border border-dashed border-slate-200 dark:border-zinc-800 rounded-xl">
-          🎉 Không tìm thấy khay nào bị khóa khớp với 3 điều kiện lọc đã chọn.
+          {t('unlock.wholeLine.noCarriersMatched')}
         </div>
       )}
     </div>

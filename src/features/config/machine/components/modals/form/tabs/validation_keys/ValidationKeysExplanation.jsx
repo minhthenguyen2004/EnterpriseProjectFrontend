@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Khung giải nghĩa logic cờ Keypart (Validation Keys Explanation):
  * Hỗ trợ thu gọn/mở rộng (Collapsible) để nhường không gian tối đa cho Bảng dữ liệu.
  */
 export default function ValidationKeysExplanation({ isFoxconn }) {
+  const { t } = useTranslation('machine');
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
@@ -28,7 +30,7 @@ export default function ValidationKeysExplanation({ isFoxconn }) {
               isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
             }`}
           >
-            Ý nghĩa &amp; logic triển khai của các cờ cấu hình cấp Keypart
+            {t('modals.form.validationKeys.expTitle')}
           </h5>
           <span
             className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
@@ -37,12 +39,12 @@ export default function ValidationKeysExplanation({ isFoxconn }) {
                 : 'bg-zinc-900 text-zinc-400 border-zinc-800'
             }`}
           >
-            4 cờ cốt lõi
+            {t('modals.form.validationKeys.expBadge')}
           </span>
         </div>
 
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-400 dark:text-zinc-500">
-          <span>{isExpanded ? 'Thu gọn' : 'Xem chi tiết'}</span>
+          <span>{isExpanded ? t('modals.form.validationKeys.collapse') : t('modals.form.validationKeys.expand')}</span>
           <span className="text-[10px]">{isExpanded ? '▲' : '▼'}</span>
         </div>
       </button>
@@ -67,10 +69,10 @@ export default function ValidationKeysExplanation({ isFoxconn }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    IsRequire (Bắt buộc):
+                    IsRequire ({t('modals.form.validationKeys.tickRequired')}):
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Key phải quét và gửi lên, không được trống hay N/A. Luôn kiểm tra tính đầy đủ, bất kể cờ IsBypass bằng 0 hay 1.
+                    {t('modals.form.validationKeys.expIsRequire')}
                   </span>
                 </div>
               </div>
@@ -92,10 +94,10 @@ export default function ValidationKeysExplanation({ isFoxconn }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    IsBypass (Bỏ qua logic):
+                    IsBypass ({t('modals.form.validationKeys.tickBypass')}):
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Bỏ qua kiểm tra trùng lặp (Check 2) và đối chiếu trạm trước (Check 3). Nếu IsBypass = 1 và IsRequire = 1, vẫn phải truyền giá trị lên.
+                    {t('modals.form.validationKeys.expIsBypass')}
                   </span>
                 </div>
               </div>
@@ -117,10 +119,10 @@ export default function ValidationKeysExplanation({ isFoxconn }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    IsVerify (So khớp trạm trước):
+                    IsVerify ({t('modals.form.validationKeys.tickVerify')}):
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Bắt buộc trùng giá trị đã quét ở trạm trước đó trong cùng chu kỳ sản phẩm.
+                    {t('modals.form.validationKeys.expIsVerify')}
                   </span>
                 </div>
               </div>
@@ -142,10 +144,10 @@ export default function ValidationKeysExplanation({ isFoxconn }) {
                 </span>
                 <div>
                   <strong className={isFoxconn ? 'text-slate-900' : 'text-white'}>
-                    Is SFC KeyPart (Khóa SFC):
+                    Is SFC KeyPart ({t('modals.form.validationKeys.tickSfc')}):
                   </strong>{' '}
                   <span className={isFoxconn ? 'text-slate-600' : 'text-zinc-300'}>
-                    Đánh dấu key thuộc danh sách khóa SFC. Hệ thống tự động tổng hợp để đối chiếu sang SFC Station.
+                    {t('modals.form.validationKeys.expIsSfc')}
                   </span>
                 </div>
               </div>

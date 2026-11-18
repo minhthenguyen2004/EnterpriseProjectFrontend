@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 /**
  * Bảng nhật ký kiểm toán cấu hình máy (Audit Logs Master Table)
  * Các trường dữ liệu:
@@ -20,6 +22,8 @@ export default function AuditLogsTable({
   onViewDiff,
   onRollback
 }) {
+  const { t } = useTranslation('machine');
+
   // Helper render badge Action với màu sắc trực quan
   const renderActionBadge = (action) => {
     const act = (action || '').toUpperCase();
@@ -93,7 +97,7 @@ export default function AuditLogsTable({
               isFoxconn ? 'text-slate-800' : 'text-zinc-100'
             }`}
           >
-            Nhật Ký Kiểm Toán Cấu Hình (Audit Logs Table)
+            {t('modals.form.historyRestore.tableTitle')}
           </h4>
           <span
             className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
@@ -102,7 +106,7 @@ export default function AuditLogsTable({
                 : 'bg-zinc-800 text-[#76B900] border-[#76B900]/40 shadow-[0_0_8px_rgba(118,185,0,0.2)]'
             }`}
           >
-            {logs.length} bản ghi
+            {t('modals.form.historyRestore.logsCount', { count: logs.length })}
           </span>
         </div>
 
@@ -114,7 +118,7 @@ export default function AuditLogsTable({
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-              placeholder="🔍 Lọc mã NV, tên, bảng, thao tác..."
+              placeholder={t('modals.form.historyRestore.searchPlaceholder')}
               className={`w-full pl-2.5 pr-6 py-1.5 rounded-xl text-xs border outline-none transition-all ${
                 isFoxconn
                   ? 'bg-white border-slate-300 text-slate-800'
@@ -137,7 +141,7 @@ export default function AuditLogsTable({
             type="button"
             onClick={onRefresh}
             disabled={isRefreshing}
-            title="Làm mới danh sách nhật ký kiểm toán từ server"
+            title={t('modals.form.historyRestore.btnRefreshTitle')}
             className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95 disabled:opacity-50 ${
               isFoxconn
                 ? 'bg-white hover:bg-slate-50 text-[#002766] border-slate-300'
@@ -145,7 +149,7 @@ export default function AuditLogsTable({
             }`}
           >
             <span className={`text-sm ${isRefreshing ? 'animate-spin' : ''}`}>⟲</span>
-            <span className="font-bold">Refresh</span>
+            <span className="font-bold">{t('modals.form.historyRestore.btnRefresh')}</span>
           </button>
         </div>
       </div>
@@ -161,12 +165,12 @@ export default function AuditLogsTable({
                   : 'bg-zinc-950/95 text-zinc-300 border-zinc-800'
               }`}
             >
-              <th className="py-2.5 px-3 min-w-16.25">ID</th>
-              <th className="py-2.5 px-3 min-w-52.5">Time / Operator</th>
-              <th className="py-2.5 px-3 text-center min-w-22.5">Action</th>
-              <th className="py-2.5 px-3 min-w-32.5">Target Table</th>
-              <th className="py-2.5 px-3 min-w-60">Description</th>
-              <th className="py-2.5 px-3 text-center min-w-35">Actions</th>
+              <th className="py-2.5 px-3 min-w-16.25">{t('modals.form.historyRestore.colId')}</th>
+              <th className="py-2.5 px-3 min-w-52.5">{t('modals.form.historyRestore.colTime')}</th>
+              <th className="py-2.5 px-3 text-center min-w-22.5">{t('modals.form.historyRestore.colAction')}</th>
+              <th className="py-2.5 px-3 min-w-32.5">{t('modals.form.historyRestore.colTarget')}</th>
+              <th className="py-2.5 px-3 min-w-60">{t('modals.form.historyRestore.colDesc')}</th>
+              <th className="py-2.5 px-3 text-center min-w-35">{t('modals.form.historyRestore.colTools')}</th>
             </tr>
           </thead>
 
@@ -184,8 +188,8 @@ export default function AuditLogsTable({
                     <span className="text-2xl">📜</span>
                     <span className="text-xs font-sans">
                       {searchQuery
-                        ? `Không tìm thấy nhật ký kiểm toán phù hợp với từ khóa "${searchQuery}"`
-                        : 'Chưa có bản ghi nhật ký kiểm toán nào được ghi nhận.'}
+                        ? t('modals.form.historyRestore.emptySearch', { query: searchQuery })
+                        : t('modals.form.historyRestore.emptyTable')}
                     </span>
                   </div>
                 </td>
@@ -251,7 +255,7 @@ export default function AuditLogsTable({
                       <button
                         type="button"
                         onClick={() => onViewDiff && onViewDiff(item)}
-                        title="Xem đối chiếu chi tiết Trước vs Sau (Diff Before/After)"
+                        title={t('modals.form.historyRestore.btnViewDiffTitle')}
                         className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer flex items-center gap-1 shadow-2xs ${
                           isFoxconn
                             ? 'bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200'
@@ -259,14 +263,14 @@ export default function AuditLogsTable({
                         }`}
                       >
                         <span>🔍</span>
-                        <span>Diff</span>
+                        <span>{t('modals.form.historyRestore.btnViewDiff')}</span>
                       </button>
 
                       {/* NÚT ROLLBACK (Hoàn tác phiên bản) */}
                       <button
                         type="button"
                         onClick={() => onRollback && onRollback(item)}
-                        title="Hoàn tác cấu hình về phiên bản này (Rollback)"
+                        title={t('modals.form.historyRestore.btnRollbackTitle')}
                         className={`px-2 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer flex items-center gap-1 shadow-2xs ${
                           isFoxconn
                             ? 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-indigo-200'
@@ -274,7 +278,7 @@ export default function AuditLogsTable({
                         }`}
                       >
                         <span>⏪</span>
-                        <span>Rollback</span>
+                        <span>{t('modals.form.historyRestore.btnRollback')}</span>
                       </button>
                     </div>
                   </td>

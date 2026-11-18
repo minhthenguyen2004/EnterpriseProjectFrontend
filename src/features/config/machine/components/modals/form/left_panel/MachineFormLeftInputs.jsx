@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import {
   SUGGESTED_CUSTOMERS,
   SUGGESTED_FACTORIES,
@@ -18,8 +19,9 @@ export default function MachineFormLeftInputs({
   onSubmit,
   isFoxconn
 }) {
+  const { t } = useTranslation('machine');
   const isEdit = mode === 'edit';
-  const displaySubmitText = submitButtonText || (isEdit ? 'Update Machine' : 'Create Machine');
+  const displaySubmitText = submitButtonText || (isEdit ? t('modals.form.btnUpdate') : t('modals.form.btnCreate'));
 
   // Helper render text input field with optional datalist
   const renderTextInput = ({
@@ -94,20 +96,20 @@ export default function MachineFormLeftInputs({
           <span className={`text-xs font-black uppercase tracking-wider ${
             isFoxconn ? 'text-[#002766]' : 'text-[#76B900]'
           }`}>
-            Thông Tin Cơ Bản Trạm Máy
+            {t('modals.form.basicInfoTitle')}
           </span>
           <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
             isFoxconn ? 'bg-slate-100 text-slate-600' : 'bg-zinc-800 text-zinc-400'
           }`}>
-            12 Fields
+            {t('modals.form.fieldCount')}
           </span>
         </div>
 
         {/* 1. Customer */}
         {renderTextInput({
           name: 'customer',
-          label: 'Customer (Khách hàng)',
-          placeholder: 'VD: NVIDIA, Foxconn, Apple...',
+          label: t('modals.form.fields.customer'),
+          placeholder: t('modals.form.fields.customerPlaceholder'),
           value: formData.customer,
           listId: 'customer-suggestions',
           suggestions: SUGGESTED_CUSTOMERS
@@ -116,8 +118,8 @@ export default function MachineFormLeftInputs({
         {/* 2. Factory */}
         {renderTextInput({
           name: 'factory',
-          label: 'Factory (Nhà máy)',
-          placeholder: 'VD: Nhà máy F01 - Bắc Ninh...',
+          label: t('modals.form.fields.factory'),
+          placeholder: t('modals.form.fields.factoryPlaceholder'),
           value: formData.factory,
           listId: 'factory-suggestions',
           suggestions: SUGGESTED_FACTORIES
@@ -126,8 +128,8 @@ export default function MachineFormLeftInputs({
         {/* 3. Floor */}
         {renderTextInput({
           name: 'floor',
-          label: 'Floor (Tầng xưởng)',
-          placeholder: 'VD: 1F, 2F, 3F...',
+          label: t('modals.form.fields.floor'),
+          placeholder: t('modals.form.fields.floorPlaceholder'),
           value: formData.floor,
           listId: 'floor-suggestions',
           suggestions: SUGGESTED_FLOORS
@@ -136,16 +138,16 @@ export default function MachineFormLeftInputs({
         {/* 4. Line */}
         {renderTextInput({
           name: 'line',
-          label: 'Line (Chuyền sản xuất)',
-          placeholder: 'VD: Line 01 - High-Speed SMT...',
+          label: t('modals.form.fields.line'),
+          placeholder: t('modals.form.fields.linePlaceholder'),
           value: formData.line || formData.lineName
         })}
 
         {/* 5. Product Name */}
         {renderTextInput({
           name: 'productName',
-          label: 'Product Name (Tên sản phẩm)',
-          placeholder: 'VD: NVIDIA HGX B200...',
+          label: t('modals.form.fields.productName'),
+          placeholder: t('modals.form.fields.productNamePlaceholder'),
           value: formData.productName,
           listId: 'prodname-suggestions',
           suggestions: SUGGESTED_PRODUCT_NAMES
@@ -154,8 +156,8 @@ export default function MachineFormLeftInputs({
         {/* 6. Product Type */}
         {renderTextInput({
           name: 'productType',
-          label: 'Product Type (Loại sản phẩm)',
-          placeholder: 'VD: AI GPU Accelerator Board...',
+          label: t('modals.form.fields.productType'),
+          placeholder: t('modals.form.fields.productTypePlaceholder'),
           value: formData.productType,
           listId: 'prodtype-suggestions',
           suggestions: SUGGESTED_PRODUCT_TYPES
@@ -164,8 +166,8 @@ export default function MachineFormLeftInputs({
         {/* 7. Group Name */}
         {renderTextInput({
           name: 'groupName',
-          label: 'Group Name (Nhóm máy)',
-          placeholder: 'VD: SMT Surface Mount Group A...',
+          label: t('modals.form.fields.groupName'),
+          placeholder: t('modals.form.fields.groupNamePlaceholder'),
           value: formData.groupName,
           listId: 'group-suggestions',
           suggestions: SUGGESTED_GROUPS
@@ -174,8 +176,8 @@ export default function MachineFormLeftInputs({
         {/* 8. Machine Name (*) */}
         {renderTextInput({
           name: 'machineName',
-          label: 'Machine Name (Tên máy)',
-          placeholder: 'Nhập tên định danh máy (* Bắt buộc)...',
+          label: t('modals.form.fields.machineName'),
+          placeholder: t('modals.form.fields.machineNamePlaceholder'),
           value: formData.machineName,
           isRequired: true
         })}
@@ -183,8 +185,8 @@ export default function MachineFormLeftInputs({
         {/* 9. IP Address (*) */}
         {renderTextInput({
           name: 'stationIp',
-          label: 'IP Address (Địa chỉ IP trạm)',
-          placeholder: '192.168.10.xxx (* Bắt buộc IPv4)...',
+          label: t('modals.form.fields.stationIp'),
+          placeholder: t('modals.form.fields.stationIpPlaceholder'),
           value: formData.stationIp,
           isRequired: true,
           isMono: true
@@ -193,8 +195,8 @@ export default function MachineFormLeftInputs({
         {/* 10. Host Name (*) */}
         {renderTextInput({
           name: 'hostName',
-          label: 'Host Name (Tên Host mạng)',
-          placeholder: 'smt-mnt-01.fii.foxconn.com (* Bắt buộc)...',
+          label: t('modals.form.fields.hostName'),
+          placeholder: t('modals.form.fields.hostNamePlaceholder'),
           value: formData.hostName,
           isRequired: true,
           isMono: true
@@ -203,8 +205,8 @@ export default function MachineFormLeftInputs({
         {/* 11. Step */}
         {renderTextInput({
           name: 'step',
-          label: 'Step (Công đoạn sản xuất)',
-          placeholder: 'Nhập mã/tên bước (vd: ST01 - Pick & Place...)',
+          label: t('modals.form.fields.step'),
+          placeholder: t('modals.form.fields.stepPlaceholder'),
           value: formData.step,
           listId: 'step-suggestions',
           suggestions: SUGGESTED_STEPS
@@ -218,7 +220,7 @@ export default function MachineFormLeftInputs({
               isFoxconn ? 'text-slate-700' : 'text-zinc-300'
             }`}
           >
-            Description (Mô tả trạm máy)
+            {t('modals.form.fields.description')}
           </label>
           <textarea
             id="left-input-description"
@@ -226,7 +228,7 @@ export default function MachineFormLeftInputs({
             name="description"
             value={formData.description || ''}
             onChange={(e) => onChange('description', e.target.value)}
-            placeholder="Ghi chú chi tiết về trạm máy, chức năng hoạt động hoặc lưu ý bảo trì..."
+            placeholder={t('modals.form.fields.descriptionPlaceholder')}
             className={`w-full px-3 py-2 rounded-xl text-xs transition-all outline-none border resize-none ${
               isFoxconn
                 ? 'border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100/80'
@@ -249,7 +251,7 @@ export default function MachineFormLeftInputs({
               : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border-zinc-700'
           }`}
         >
-          Hủy Bỏ
+          {t('modals.form.btnCancel')}
         </button>
 
         <button

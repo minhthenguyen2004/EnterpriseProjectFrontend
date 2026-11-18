@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import {
   METHOD_BADGE_CONFIG,
@@ -17,6 +18,7 @@ export default function ApiRequestJsonModal({
   log,
   type = 'request', // 'request' | 'response'
 }) {
+  const { t } = useTranslation('api');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
   const [copied, setCopied] = useState(false);
@@ -24,7 +26,7 @@ export default function ApiRequestJsonModal({
   if (!isOpen || !log) return null;
 
   const isRequest = type === 'request';
-  const title = isRequest ? 'Chi Tiết Request Body (Payload Gửi Lên)' : 'Chi Tiết Response Body (Phản Hồi Máy Chủ)';
+  const title = isRequest ? t('modal.titleRequest') : t('modal.titleResponse');
   const jsonContent = isRequest ? log.requestBody : log.responseBody;
 
   const methodBadge = METHOD_BADGE_CONFIG[log.method] || {
@@ -94,7 +96,7 @@ export default function ApiRequestJsonModal({
                 </span>
               </div>
               <p className={`text-xs mt-0.5 ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-                Client: <strong className="font-mono">{log.clientIp}</strong> | URL:{' '}
+                {t('modal.clientLabel')}: <strong className="font-mono">{log.clientIp}</strong> | {t('modal.urlLabel')}:{' '}
                 <strong className="font-mono text-blue-600 dark:text-blue-400">{log.url}</strong>
               </p>
             </div>
@@ -111,7 +113,7 @@ export default function ApiRequestJsonModal({
               }`}
             >
               <span>{copied ? '✓' : '📋'}</span>
-              <span>{copied ? 'Đã Chép' : 'Sao Chép JSON'}</span>
+              <span>{copied ? t('modal.copiedBtn') : t('modal.copyBtn')}</span>
             </button>
 
             <button
@@ -140,13 +142,13 @@ export default function ApiRequestJsonModal({
           >
             <div>
               <span className={`block text-[10px] uppercase font-bold ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-                Request Time
+                {t('modal.requestTimeLabel')}
               </span>
               <span className="font-mono font-semibold text-[11px]">{log.requestTime}</span>
             </div>
             <div>
               <span className={`block text-[10px] uppercase font-bold ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-                Processing Time
+                {t('modal.processingTimeLabel')}
               </span>
               <span className={`font-mono font-bold text-[11px] ${
                 log.processingTimeMs < 50
@@ -160,13 +162,13 @@ export default function ApiRequestJsonModal({
             </div>
             <div>
               <span className={`block text-[10px] uppercase font-bold ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-                Controller
+                {t('modal.controllerLabel')}
               </span>
               <span className="font-semibold truncate block text-[11px]">{log.controller}</span>
             </div>
             <div>
               <span className={`block text-[10px] uppercase font-bold ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-                Action
+                {t('modal.actionLabel')}
               </span>
               <span className="font-semibold truncate block text-[11px]">{log.action}</span>
             </div>
@@ -190,7 +192,7 @@ export default function ApiRequestJsonModal({
           }`}
         >
           <span className={`text-[11px] font-mono ${isFoxconn ? 'text-slate-500' : 'text-zinc-400'}`}>
-            Định dạng: JSON Pretty Print (IDE Syntax Highlighting)
+            {t('modal.formatNote')}
           </span>
 
           <button
@@ -202,7 +204,7 @@ export default function ApiRequestJsonModal({
                 : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-100'
             }`}
           >
-            Đóng Cửa Sổ
+            {t('modal.btnClose')}
           </button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../hooks/useTheme';
 import useMachineConfigData from './hooks/useMachineConfigData';
 import MachineConfigHeaderBar from './components/header/MachineConfigHeaderBar';
@@ -10,6 +11,7 @@ import MachineDeleteConfirmModal from './components/modals/MachineDeleteConfirmM
 import MachineExcelImportModal from './components/modals/MachineExcelImportModal';
 
 export default function MachineConfigPage() {
+  const { t } = useTranslation('machine');
   const { brand } = useTheme();
   const isFoxconn = brand === 'foxconn';
 
@@ -137,10 +139,10 @@ export default function MachineConfigPage() {
         mode={formModalMode}
         title={
           formModalMode === 'create'
-            ? 'TẠO MỚI CẤU HÌNH TRẠM MÁY (CREATE MACHINE CONFIGURATION)'
-            : `CHỈNH SỬA CẤU HÌNH MÁY: ${formInitialData?.machineName || ''}`
+            ? t('modals.form.createTitle')
+            : t('modals.form.editTitle', { name: formInitialData?.machineName || '' })
         }
-        submitButtonText={formModalMode === 'create' ? 'Create Machine' : 'Update Machine'}
+        submitButtonText={formModalMode === 'create' ? t('modals.form.btnCreate') : t('modals.form.btnUpdate')}
         initialData={formInitialData}
         onClose={() => setIsFormModalOpen(false)}
         onSubmit={formModalMode === 'create' ? handleCreateMachine : handleUpdateMachine}
